@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title>PRYME SPACE</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link href="#" rel="icon">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<script type="text/javascript" src="{{ URL::asset('public') }}/assets/Admin/js/jquery-2.js"></script>
+<script type="text/javascript" src="{{ URL::asset('public') }}/assets/Admin/js/bootstrap.js"></script>
+<script type="text/javascript" src="{{ URL::asset('public') }}/assets/Admin/js/highcharts.js"></script> 
+<script type="text/javascript" src="{{ URL::asset('public') }}/assets/Admin/js/exporting.js"></script>
+<link href="{{ URL::asset('public') }}/assets/Admin/css/opencart.css" type="text/css" rel="stylesheet">
+<link href="{{ URL::asset('public') }}/assets/Admin/css/font-awesome.css" type="text/css" rel="stylesheet">
+<link href="{{ URL::asset('public') }}/assets/Admin/css/summernote.css" rel="stylesheet">
+<script type="text/javascript" src="{{ URL::asset('public') }}/assets/Adminassets/js/summernote.js"></script>
+<script src="{{ URL::asset('public') }}/assets/Admin/js/moment.js" type="text/javascript"></script>
+<script src="{{ URL::asset('public') }}/assets/Admin/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
+<link href="{{ URL::asset('public') }}/assets/Admin/css/bootstrap-datetimepicker.css"  rel="stylesheet">
+
+<!--datatable css and js -->
+<script src="{{ URL::asset('public') }}/assets/Admin/js/datatable/jquery.dataTables.min.js" type="text/javascript"></script>
+<script src="{{ URL::asset('public') }}/assets/Admin/js/datatable/dataTables.buttons.min.js" type="text/javascript"></script>
+<script src="{{ URL::asset('public') }}/assets/Admin/js/datatable/buttons.flash.min.js " type="text/javascript"></script>
+<script src="{{ URL::asset('public') }}/assets/Admin/js/datatable/jszip.min.js " type="text/javascript"></script>
+<script src="{{ URL::asset('public') }}/assets/Admin/js/datatable/pdfmake.min.js " type="text/javascript"></script>
+<script src="{{ URL::asset('public') }}/assets/Admin/js/datatable/vfs_fonts.js " type="text/javascript"></script>
+<script src="{{ URL::asset('public') }}/assets/Admin/js/datatable/buttons.html5.min.js " type="text/javascript"></script>
+<script src="{{ URL::asset('public') }}/assets/Admin/js/datatable/buttons.print.min.js " type="text/javascript"></script>
+
+<link href="{{ URL::asset('public') }}/assets/Admin/css/datatable/jquery.dataTables.min.css"  rel="stylesheet">
+<link href="{{ URL::asset('public') }}/assets/Admin/css/datatable/buttons.dataTables.min.css"  rel="stylesheet">
+<!---->
+
+<script src="{{ URL::asset('public') }}/assets/Admin/js/my-script.js " type="text/javascript"></script>
+
+<script>
+var baseurl = '<?php echo url('/'); ?>'; 
+var Admin_module='Masteradmin';
+
+function DeleteRecord(id,table,tbid)
+{
+        if(confirm('Are you sure you want to delete this record?')){
+        var url = baseurl+'/admin/DeteteRecord';
+        alert(url);
+        $.ajax({
+        method: 'POST',
+        url: url,
+        data: {'id':id,'table':table,'dbid':tbid,'_token':"{{ csrf_token() }}"}
+        })
+        .done(function( msg ) {
+        alert('Record Deleted Successfully.');
+        //location.reload();
+        var oTable = $('#example').dataTable();
+        oTable.fnDraw();
+        });
+        }else{
+        return false;
+        }
+}
+</script>
+
+
+<link type="text/css" href="{{ URL::asset('public') }}/assets/Admin/css/stylesheet.css" rel="stylesheet" media="screen">
+<script src="{{ URL::asset('public') }}/assets/Admin/js/common.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="container">
+<header id="header" class="navbar navbar-static-top">
+  <div class="navbar-header">
+   <div class="logopanel">
+    <h1 class="logotitle"><a href="#" class="">Pryme Space</a></h1>
+   </div> 
+     <a type="button" id="button-menu" class="pull-left"></a>
+    
+   </div>
+
+  <div class="headerright">
+  <ul class="nav pull-right navadjust">
+    <li class="dropdown liadjust">
+
+<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="label label-danger pull-left">15</span> <i class="fa fa-bell fa-lg"></i></a>
+      <ul class="dropdown-menu dropdown-menu-right alerts-dropdown">
+        <li class="dropdown-header">Exam</li>
+        <li><a href="#" style="display: block; overflow: auto;"><span class="label label-warning pull-right">1</span>Processing</a></li>
+        <li><a href="#"><span class="label label-success pull-right">4</span>Completed</a></li>
+        
+      </ul>
+    </li>    
+    <li><a href="{{ URL::asset('public') }}/"><span class="hidden-xs hidden-sm hidden-md">Logout</span> <i class="fa fa-sign-out fa-lg"></i></a></li>
+  </ul>
+</div> 
+  
+</header>
+<nav id="column-left" class="active"><div id="profile">
+  <div><a class="dropdown-toggle" data-toggle="dropdown">
+<i class="fa fa-user" style="font-size:40px;float:left;"></i> <img src="#" alt="John Doe" title="admin" class="img-circle"></a></div>
+  <div>
+    <small>Administrator</small></div>
+</div>
+<ul id="menu">
+
+<li id="dashboard" class="active"><a href="#"><i class="fa fa-dashboard fa-fw"></i> <span>Dashboard</span></a></li>
+
+<li id="sale"><a class="parent"><i class="fa fa-shopping-cart fa-fw"></i> <span>Master</span></a>
+  <ul class="collapse">
+    <li><a href="{{ URL::asset('admin/carTypeExecute') }}/">Cart Type</a></li>
+  </ul>
+</li>
+
+<li id="wallet" style="display: none;"><a class="parent"><i class="fa fa-money fa-fw"></i> <span>Wallet</span></a>
+  <ul class="collapse">
+    <li><a href="#">Sales List</a></li>
+    <li><a href="#">Withdraw Requests</a></li>                    
+  </ul>
+</li>
+
+</ul>
+
+</nav>
