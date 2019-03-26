@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class MasterRequest extends FormRequest
+class BookingDurtionTypeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,14 +24,14 @@ class MasterRequest extends FormRequest
     public function rules()
     {
         return [
-            'car_type' => 'required'
+            'booking_duration_type' => 'required'
         ];
     }
 
     public function messages()
     {
         return [
-            'car_type.required' => 'Car type field is required'
+            'booking_duration_type.required' => 'Booking duration type field is required'
         ];
     }
 }

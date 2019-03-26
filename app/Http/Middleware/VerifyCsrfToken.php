@@ -12,7 +12,13 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
+         'admin/getAmenityCategories',
+         'admin/getAmenities',
          'admin/getCarType',
+         'admin/getLocationTypes',
+         'admin/getParkingTypes',
+         'admin/getBookingDurationTypes',
+         'admin/getUserandHost'
     ];
 
    // public function handle($request, Closure $next)

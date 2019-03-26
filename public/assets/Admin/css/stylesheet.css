@@ -308,7 +308,8 @@ span.hidden-xs, span.hidden-sm, span.hidden-md, span.hidden-lg {
 	color: #333;
 }
 #menu li li.active > a:last-child {
-	color: #333;
+	color: #FFF;
+	background: #e40046;
 }
 #menu li li.active a:last-child:before {
 	margin-left: 20px;
@@ -956,4 +957,21 @@ a:hover{
 }
 .login button.btn.btn-primary{
 	margin: 20px 0px;
+}
+
+.buttonswitch
+{
+border-top-left-radius: 15px;
+border-bottom-left-radius: 15px;
+border-top-right-radius: 15px;
+border-bottom-right-radius: 15px; 
+padding: 6px 12px;
+font-size: 12px;
+margin-top: 5px;
+margin-bottom: 5px;
+background: #F0F0F0;
+}
+.btn-default.btn-on.active{background-color: #5BB75B;
+}
+.btn-default.btn-off.active{background-color: #DA4F49; 
 }

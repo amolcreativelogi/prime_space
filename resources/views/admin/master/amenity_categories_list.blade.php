@@ -4,9 +4,9 @@
 
     <div class="page-header">
     <div class="container-fluid">
-     <div class="pull-right"><a href="<?php echo url('admin/addCarType'); ?>" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Add New"><i class="fa fa-plus"></i></a>
+     <div class="pull-right"><a href="<?php echo url('admin/addAmenityCategories'); ?>" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Add New"><i class="fa fa-plus"></i></a>
       </div>
-      <h3>Car Type</h3>
+      <h3>Amenity Categories</h3>
     </div>
   </div>
 
@@ -15,14 +15,14 @@
 
  <div class="panel-heading">
         <h3 class="panel-title"><i class="fa fa-bar-chart"></i>
-         Car type list</h3>
+         Amenity Categories list</h3>
       </div>
     <div class="panel-body">       
    <div class="table-responsive">
           <table id="example" class="table table-striped">
             <thead>
               <tr>
-              <td>Car Type</td>
+              <td>Category Name</td>
               <td>Status</td>
               <td>Action</td>
               </tr>
@@ -47,7 +47,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-getdatatableRecord('#example','<?php echo url('admin/getCarType'); ?>');
+getdatatableRecord('#example','<?php echo url('admin/getAmenityCategories'); ?>');
 });
 </script> 
 @stop
