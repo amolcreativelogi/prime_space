@@ -12,8 +12,18 @@
 */
 session_start();
 Route::get('/', function () {
-    return view('welcome');
+    return view('front/pages/home');
 });
+
+//frontend route
+Route::get('/login','Front\HomeController@Login');
+Route::get('/sign_up','Front\HomeController@Signup');
+Route::get('/forgot_password','Front\HomeController@Forgot_password');
+Route::get('/all_property','Front\HomeController@Allproperty');
+
+
+
+//admin route
 
 
 
@@ -119,4 +129,5 @@ Route::post('/admin/getUserandHost','Admin\UsersController@getUserandHost');
 Route::get('/admin/viewUsersProfile','Admin\UsersController@viewUsersProfile');
 Route::get('/admin/viewUsersProfile/{id?}','Admin\UsersController@viewUsersProfile');
 
+Route::get('/admin/mail','Admin\UsersController@mail');
 

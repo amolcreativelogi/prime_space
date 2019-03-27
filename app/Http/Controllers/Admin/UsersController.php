@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Mail\SendMailable;
+
 use DB;
 
 class UsersController extends Controller
@@ -14,6 +16,14 @@ class UsersController extends Controller
     {
     	return view('admin.users.list_user_and_host');
     }
+
+
+ //    public function mail()
+	// {
+	//    $name = 'Krunal';
+	//    \Mail::to('amolkharate.wwg@gmail.com.com')->send(new SendMailable($name));
+	//    return 'Email was sent';
+	// }
 
     public function getUserandHost()
     {
