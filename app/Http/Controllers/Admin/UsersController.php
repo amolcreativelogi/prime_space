@@ -14,7 +14,7 @@ class UsersController extends Controller
 {
     public function Host_Users()
     {
-    	return view('admin.users.list_user_and_host');
+    	return view('admin.master.Host_Users');
     }
 
 
