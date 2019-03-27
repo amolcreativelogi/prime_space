@@ -46,6 +46,19 @@
                     <span class="admin-student"><?php echo ($user_profile->status == 1) ? 'Active' : 'Inactive'; ?></span>
                   </li>
 
+                  <?php if($user_profile->default_user_type != 3) { ?>
+                  <li class="admin-last-subtotal">
+                  <span class="admin-subtotal">User :</span>
+                  <span class="admin-student"> <div class="btn-group" id="status" data-toggle="buttons">
+                  <label class="btn btn-default btn-on btn-xs active buttonswitch">
+                  <input type="radio" value="1" name="multifeatured_module[module_id][status]" checked="checked">Active</label>
+                  <label class="btn btn-default btn-off btn-xs buttonswitch">
+                  <input type="radio" value="0" name="multifeatured_module[module_id][status]">Inactive</label>
+                  </div></span>
+                  </li>
+                  <?php } ?>
+
+                  <?php if($user_profile->default_user_type != 4) { ?>
                   <li class="admin-last-subtotal">
                   <span class="admin-subtotal">Host :</span>
                   <span class="admin-student"> <div class="btn-group" id="status" data-toggle="buttons">
@@ -55,17 +68,8 @@
                   <input type="radio" value="0" name="multifeatured_module[module_id][status]">Inactive</label>
                   </div></span>
                   </li>
+                  <?php } ?>
 
-                   <li class="admin-last-subtotal">
-                  <span class="admin-subtotal">User :</span>
-                  <span class="admin-student"> <div class="btn-group" id="status" data-toggle="buttons">
-                  <label class="btn btn-default btn-on btn-xs active buttonswitch">
-                  <input type="radio" value="1" name="multifeatured_module[module_id][status]" checked="checked">Active</label>
-                  <label class="btn btn-default btn-off btn-xs buttonswitch">
-                  <input type="radio" value="0" name="multifeatured_module[module_id][status]">Inactive</label>
-                  </div></span>
-                  </li>
-                  
                 </ul>
               </div>
             </div>

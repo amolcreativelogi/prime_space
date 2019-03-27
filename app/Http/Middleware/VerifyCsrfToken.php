@@ -18,27 +18,25 @@ class VerifyCsrfToken extends Middleware
          'admin/getLocationTypes',
          'admin/getParkingTypes',
          'admin/getBookingDurationTypes',
-<<<<<<< HEAD
-         'admin/getUserandHost'
-=======
+         'admin/getUserandHost',  
          'admin/getDocumentTypes',
          'admin/getUnitTypes',
          'admin/getCancellationTypes',
          'admin/getCancellationPolicies',
-          'admin/getLandTypes'
->>>>>>> master_priyanka
+          'admin/getLandTypes',
+          'admin/Host_Users'
     ];
 
-   // public function handle($request, Closure $next)
-   //  {
-   //      $regex = '#' . implode('|', $this->except_urls) . '#';
+     // public function handle($request, Closure $next)
+     //  {
+     //      $regex = '#' . implode('|', $this->except_urls) . '#';
 
-   //      if ($this->isReading($request) || $this->tokensMatch($request) || preg_match($regex, $request->path()))
-   //      {
-   //          return $this->addCookieToResponse($request, $next($request));
-   //      }
+     //      if ($this->isReading($request) || $this->tokensMatch($request) || preg_match($regex, $request->path()))
+     //      {
+     //          return $this->addCookieToResponse($request, $next($request));
+     //      }
 
-   //      throw new TokenMismatchException;
-   //  }
+     //      throw new TokenMismatchException;
+     //  }
 
 }
