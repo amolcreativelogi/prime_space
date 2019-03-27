@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LocationTypeRequest extends FormRequest
+class DocumentTypeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,7 @@ class LocationTypeRequest extends FormRequest
     {
         return [
             'module_manage_id'=>'required',
-            'location_type' => 'required'
+            'document_type' => 'required'
         ];
     }
 
@@ -33,7 +33,7 @@ class LocationTypeRequest extends FormRequest
     {
         return [
             'module_manage_id.required' => 'Module Category field is required',
-            'location_type.required' => 'Location type field is required'
+            'document_type.required' => 'Document type field is required'
         ];
     }
 }

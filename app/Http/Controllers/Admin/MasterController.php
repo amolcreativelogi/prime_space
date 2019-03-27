@@ -14,6 +14,13 @@ use App\Http\Requests\AmenitiesRequest;
 use App\Http\Requests\LocationTypeRequest;
 use App\Http\Requests\ParkingTypeRequest;
 use App\Http\Requests\BookingDurtionTypeRequest;
+use App\Http\Requests\DocumentTypeRequest;
+use App\Http\Requests\UnitTypeRequest;
+use App\Http\Requests\CancellationTypeRequest;
+use App\Http\Requests\CancellationPoliciesRequest;
+use App\Http\Requests\LandTypeRequest;
+
+
 
 use DB;
 
@@ -49,22 +56,28 @@ class MasterController extends Controller
 					    	}
 			    	}  else {
  
-			    		return redirect()->back()->withWarning('car type already saved');
+			    		return redirect()->back()->withWarning('Car type already exists');
 			    	}
 		    } else {
-		    		//Update new record
-		    		$data = array(
-			    					'car_type'=>$request->input('car_type'),
-			    					'status'=>$request->input('status'),
-			    					'created_by'=>'1',
-			    					'modified_by'=>'1'
-			    				 );
-					$result  = DB::table('prk_car_type')->where('car_type_id', $request->input('id'))->update($data);
-			    	if($result)
-			    	{
-			    		return redirect()->back()->withSuccess('Record has been updated successfully');
-			    	} else {
-			    		return redirect('admin/carTypeExecute');
+		    		$duplicateEntry = DB::table('prk_car_type')->where('car_type', '=', $request->input('car_type'))->where('is_deleted', '=', 0)->where('car_type_id', '!=', $request->input('id'))->count();
+				    if($duplicateEntry == 0) {
+			    		//Update new record
+			    		$data = array(
+				    					'car_type'=>$request->input('car_type'),
+				    					'status'=>$request->input('status'),
+				    					'created_by'=>'1',
+				    					'modified_by'=>'1'
+				    				 );
+						$result  = DB::table('prk_car_type')->where('car_type_id', $request->input('id'))->update($data);
+				    	if($result)
+				    	{
+				    		return redirect()->back()->withSuccess('Record has been updated successfully');
+				    	} else {
+				    		return redirect('admin/carTypeExecute');
+				    	}
+				    }  else {
+ 
+			    		return redirect()->back()->withWarning('Car type already exists');
 			    	}
 		    }
     }
@@ -338,6 +351,7 @@ class MasterController extends Controller
 
 	public function saveAmenity(AmenitiesRequest $request)
     {	
+ 
 		 $image = $request->file('amenity_image');
 		 if($image)
 		 {
@@ -375,22 +389,30 @@ class MasterController extends Controller
 				}
 					    	
 		 } else {
+		 	//check duplicate entry
+    		$duplicateEntry = DB::table('tbl_mstr_amenities')->where('amenity_name', '=', $request->input('amenity_name'))->where('module_manage_id', '=', $request->input('module_manage_id'))->where('amenity_id', '!=', $request->input('id'))->where('is_deleted', '=', 0)->count();
+
+			   if($duplicateEntry == 0) {
 				    		//Update new record
-    		$data = array(
-	    					'amenity_name'=>$request->input('amenity_name'),
-			    			'amenity_image'=>$image,
-			    			'module_manage_id'=>$request->input('module_manage_id'),
-	    					'status'=>$request->input('status'),
-	    					'created_by'=>'1',
-	    					'modified_by'=>'1'
-	    				 );
-			$result  = DB::table('tbl_mstr_amenities')->where('amenity_id', $request->input('id'))->update($data);
-	    	if($result)
-	    	{
-	    		return redirect()->back()->withSuccess('Record has been updated successfully');
-	    	} else {
-	    		return redirect('admin/amenitiesExecute');
-	    	}
+		    		$data = array(
+			    					'amenity_name'=>$request->input('amenity_name'),
+					    			'amenity_image'=>$image,
+					    			'module_manage_id'=>$request->input('module_manage_id'),
+			    					'status'=>$request->input('status'),
+			    					'created_by'=>'1',
+			    					'modified_by'=>'1'
+			    				 );
+					$result  = DB::table('tbl_mstr_amenities')->where('amenity_id', $request->input('id'))->update($data);
+			    	if($result)
+			    	{
+			    		return redirect()->back()->withSuccess('Record has been updated successfully');
+			    	} else {
+			    		return redirect('admin/amenitiesExecute');
+			    	}
+			    }  else {
+
+			    	return redirect()->back()->withWarning('Amenity already exists');
+				}
 		}
 
 		   
@@ -515,8 +537,8 @@ class MasterController extends Controller
 		 if(!$request->input('id')) {
 
 		    //Add new record
-
-		    $duplicateEntry = DB::table('tbl_mstr_location_type')->where('location_type', '=', $request->input('location_type'))->where('is_deleted', '=', 0)->count();
+		 	//check duplicate entry
+		    $duplicateEntry = DB::table('tbl_mstr_location_type')->where('location_type', '=', $request->input('location_type'))->where('module_manage_id', '=', $request->input('module_manage_id'))->where('is_deleted', '=', 0)->count();
 				if($duplicateEntry == 0) {
 			    	$data = array(
 		    					'location_type'=>$request->input('location_type'),
@@ -532,25 +554,33 @@ class MasterController extends Controller
 			    	}
 			    }  else {
 
-			    		return redirect()->back()->withWarning('Location type already saved');
+			    		return redirect()->back()->withWarning('Location type already exists');
 				}
 					    	
 		    } else {
-		    		//Update new record
-	    		$data = array(
-	    					'location_type'=>$request->input('location_type'),
-	    					'module_manage_id'=>$request->input('module_manage_id'),
-	    					'status'=>$request->input('status'),
-	    					'created_by'=>'1',
-	    					'modified_by'=>'1'
-		    				 );
-				$result  = DB::table('tbl_mstr_location_type')->where('location_type_id', $request->input('id'))->update($data);
-		    	if($result)
-		    	{
-		    		return redirect()->back()->withSuccess('Record has been updated successfully');
-		    	} else {
-		    		return redirect('admin/locationTypeExecute');
-		    	}
+
+		    	//check duplicate entry
+		    	$duplicateEntry = DB::table('tbl_mstr_location_type')->where('location_type', '=', $request->input('location_type'))->where('module_manage_id', '=', $request->input('module_manage_id'))->where('location_type_id', '!=', $request->input('id'))->where('is_deleted', '=', 0)->count();
+				if($duplicateEntry == 0) {
+			    		//Update new record
+		    		$data = array(
+		    					'location_type'=>$request->input('location_type'),
+		    					'module_manage_id'=>$request->input('module_manage_id'),
+		    					'status'=>$request->input('status'),
+		    					'created_by'=>'1',
+		    					'modified_by'=>'1'
+			    				 );
+					$result  = DB::table('tbl_mstr_location_type')->where('location_type_id', $request->input('id'))->update($data);
+			    	if($result)
+			    	{
+			    		return redirect()->back()->withSuccess('Record has been updated successfully');
+			    	} else {
+			    		return redirect('admin/locationTypeExecute');
+			    	}
+			     }  else {
+
+			    		return redirect()->back()->withWarning('Location type already exists');
+				}
 		    }
 
 		   
@@ -680,24 +710,32 @@ class MasterController extends Controller
 			    	}
 			    }  else {
 
-			    		return redirect()->back()->withWarning('Parking type already saved');
+			    		return redirect()->back()->withWarning('Parking type already exists');
 				}
 					    	
 		    } else {
+
+		    	 $duplicateEntry = DB::table('prk_parking_type')->where('parking_type', '=', $request->input('parking_type'))->where('parking_type_id', '!=', $request->input('id'))->where('is_deleted', '=', 0)->count();
+		    	
+				    if($duplicateEntry == 0) {
 		    		//Update new record
-	    		$data = array(
-		    					'parking_type'=>$request->input('parking_type'),
-		    					'status'=>$request->input('status'),
-		    					'created_by'=>'1',
-		    					'modified_by'=>'1'
-		    				 );
-				$result  = DB::table('prk_parking_type')->where('parking_type_id', $request->input('id'))->update($data);
-		    	if($result)
-		    	{
-		    		return redirect()->back()->withSuccess('Record has been updated successfully');
-		    	} else {
-		    		return redirect('admin/parkingTypeExecute');
-		    	}
+			    		$data = array(
+				    					'parking_type'=>$request->input('parking_type'),
+				    					'status'=>$request->input('status'),
+				    					'created_by'=>'1',
+				    					'modified_by'=>'1'
+				    				 );
+						$result  = DB::table('prk_parking_type')->where('parking_type_id', $request->input('id'))->update($data);
+				    	if($result)
+				    	{
+				    		return redirect()->back()->withSuccess('Record has been updated successfully');
+				    	} else {
+				    		return redirect('admin/parkingTypeExecute');
+				    	}
+				    }  else {
+
+			    		return redirect()->back()->withWarning('Parking type already exists');
+					}
 		    }
 
 		   
@@ -814,8 +852,8 @@ class MasterController extends Controller
 		 if(!$request->input('id')) {
 
 		    //Add new record
-
-		    $duplicateEntry = DB::table('tbl_mstr_booking_duration_type')->where('duration_type', '=', $request->input('booking_duration_type'))->where('is_deleted', '=', 0)->count();
+		 	//check duplicate entries
+		    $duplicateEntry = DB::table('tbl_mstr_booking_duration_type')->where('duration_type', '=', $request->input('booking_duration_type'))->where('module_manage_id', '=', $request->input('module_manage_id'))->where('is_deleted', '=', 0)->count();
 				if($duplicateEntry == 0) {
 			    	$data = array(
 			    					'duration_type'=>$request->input('booking_duration_type'),
@@ -836,20 +874,31 @@ class MasterController extends Controller
 					    	
 		    } else {
 		    		//Update new record
-	    		$data = array(
-		    					'duration_type'=>$request->input('booking_duration_type'),
-		    					'module_manage_id'=>$request->input('module_manage_id'),
-		    					'status'=>$request->input('status'),
-		    					'created_by'=>'1',
-		    					'modified_by'=>'1'
-		    				 );
-				$result  = DB::table('tbl_mstr_booking_duration_type')->where('duration_type_id', $request->input('id'))->update($data);
-		    	if($result)
-		    	{
-		    		return redirect()->back()->withSuccess('Record has been updated successfully');
-		    	} else {
-		    		return redirect('admin/bookingDurationTypeExecute');
-		    	}
+		    	//check duplicate entries
+		    	$duplicateEntry = DB::table('tbl_mstr_booking_duration_type')
+		    	->where('duration_type', '=', $request->input('booking_duration_type'))
+		    	->where('module_manage_id', '=', $request->input('module_manage_id'))
+		    	->where('duration_type_id', '!=', $request->input('id'))
+		    	->where('is_deleted', '=', 0)->count();
+				if($duplicateEntry == 0) {
+		    		$data = array(
+			    					'duration_type'=>$request->input('booking_duration_type'),
+			    					'module_manage_id'=>$request->input('module_manage_id'),
+			    					'status'=>$request->input('status'),
+			    					'created_by'=>'1',
+			    					'modified_by'=>'1'
+			    				 );
+					$result  = DB::table('tbl_mstr_booking_duration_type')->where('duration_type_id', $request->input('id'))->update($data);
+			    	if($result)
+			    	{
+			    		return redirect()->back()->withSuccess('Record has been updated successfully');
+			    	} else {
+			    		return redirect('admin/bookingDurationTypeExecute');
+			    	}
+			     }  else {
+
+			    		return redirect()->back()->withWarning('Booking duration type already exists');
+				}
 		    }
     }
 
@@ -912,6 +961,739 @@ class MasterController extends Controller
 	    );
 	    echo json_encode($output);
     }
+
+
+     /*-----------------------------------
+   		DOCUMENT TYPE FUNCTIONS
+	-----------------------------------*/
+
+	/**
+	author:Priyanka
+	function: documentTypeExecute() 
+	It loads listing of document type
+	type:public
+	return:Html
+	**/
+
+	 public function documentTypeExecute()
+    {
+    	return view('admin.master.document_type_list');
+    }
+
+
+    /** author:Priyanka
+	function: addDocumentType() 
+	It loads add and edit document type form
+	type:public
+	return:Html
+	**/
+    public function addDocumentType($document_type_id = NULL)
+    {
+    	$getModuleCategories = DB::table('tbl_module_manage')
+    	->select('module_manage_id','status','module_manage_name')
+    	->where([['is_deleted', '=', 0],
+    			['status', '=', 1]])->get();
+
+    	$getDocumentType = DB::table('tbl_mstr_document_type')->where('document_type_id', '=', $document_type_id)->first();
+    	return view('admin.master.new_document_type')->with('editDocumentType', $getDocumentType)->with('getModuleCategories', $getModuleCategories);
+    }
+
+     /**
+	author:Priyanka
+	function: saveDocumentType() 
+	This function submits and save location details.
+	type:public
+	return:text
+	**/
+
+	public function saveDocumentType(DocumentTypeRequest $request)
+    {	
+    	
+		 if(!$request->input('id')) {
+
+		    //Add new record
+
+		 	//check duplicate records
+		    $duplicateEntry = DB::table('tbl_mstr_document_type')->where('document_type', '=', $request->input('document_type'))->where('module_manage_id', '=', $request->input('module_manage_id'))->where('is_deleted', '=', 0)->count();
+				if($duplicateEntry == 0) {
+			    	$data = array(
+		    					'document_type'=>$request->input('document_type'),
+		    					'module_manage_id'=>$request->input('module_manage_id'),
+		    					'status'=>$request->input('status'),
+		    					'created_by'=>'1',
+		    					'modified_by'=>'1'
+			    				 );
+			    	$result  = DB::table('tbl_mstr_document_type')->insert($data);
+			    	if($result)
+			    	{
+			    		return redirect()->back()->withSuccess('Record has been saved successfully');
+			    	}
+			    }  else {
+
+			    		return redirect()->back()->withWarning('Document type already exists');
+				}
+					    	
+		    } else {
+		    		//Update new record
+
+		    	//check duplicate records
+		    	$duplicateEntry = DB::table('tbl_mstr_document_type')
+		    	->where('document_type', '=', $request->input('document_type'))
+		    	->where('module_manage_id', '=', $request->input('module_manage_id'))
+		    	->where('document_type_id', '!=', $request->input('id'))
+		    	->where('is_deleted', '=', 0)->count();
+				if($duplicateEntry == 0) {
+		    		$data = array(
+		    					'document_type'=>$request->input('document_type'),
+		    					'module_manage_id'=>$request->input('module_manage_id'),
+		    					'status'=>$request->input('status'),
+		    					'created_by'=>'1',
+		    					'modified_by'=>'1'
+			    				 );
+					$result  = DB::table('tbl_mstr_document_type')->where('document_type_id', $request->input('id'))->update($data);
+			    	if($result)
+			    	{
+			    		return redirect()->back()->withSuccess('Record has been updated successfully');
+			    	} else {
+			    		return redirect('admin/documentTypeExecute');
+			    	}
+			    }  else {
+
+			    		return redirect()->back()->withWarning('Document type already exists');
+				}
+		    }
+
+		   
+    }
+
+    /**
+	author:Priyanka
+	function: getDocumentTypes() 
+	This function list and return the json of location types .
+	type:public
+	return:json array
+	**/
+
+
+     public function getDocumentTypes()
+    {	
+    	$sort = array('module_manage_name','document_type','tbl_mstr_document_type.status');
+		$myll = $_POST['start'];
+		$offset = $_POST['length'];
+		if(isset($_POST['order'][0])){
+		$orrd = $_POST['order'][0];
+		$title=$orrd['column'];
+		$order=$orrd['dir'];
+		}
+
+		
+
+		$getDocumentTypeTotalRecord = DB::table('tbl_mstr_document_type')->select('document_type','status','document_type_id')->where('is_deleted', '=', 0)->get()->count();
+
+		$query = DB::table('tbl_mstr_document_type')->select('document_type','tbl_mstr_document_type.status','document_type_id','module_manage_name')->leftJoin('tbl_module_manage', 'tbl_module_manage.module_manage_id', '=', 'tbl_mstr_document_type.module_manage_id')->where('tbl_mstr_document_type.is_deleted', '=', 0);
+		if($_POST['search']['value']) {
+	    $query->where('document_type', 'like', '%' .  $_POST['search']['value'] . '%');
+	    $query->orWhere('module_manage_name', 'like', '%' .  $_POST['search']['value'] . '%');
+		}
+
+		if($offset!= -1) {
+		    $query->skip($myll)->take($offset);
+		}
+		if(isset($order)){
+      	  	$query->orderBy($sort[$title], $order);
+        }
+        else{
+       		$query->orderBy('document_type_id','desc');
+        }
+		$getDocumentType = $query->get();
+	    $data = array();
+	    $data = array();
+	    $no = $_POST['start'];
+	   
+	    $sr = 1;
+	    foreach ($getDocumentType as $documentType) {
+	      	  $no++;
+	          $row = array();
+	          //$row[] = $sr++;
+	          $row[] = $documentType->module_manage_name;
+	          $row[] = $documentType->document_type;
+	          $row[] = ($documentType->status == 1) ? 'Active' : 'Inactive';
+	           $row[] ='<a href="'.url('admin/addDocumentType/'.$documentType->document_type_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$documentType->document_type_id.','."'tbl_mstr_document_type'".','."'document_type_id'".');"><i class="fa fa-trash-o"></i></button>';
+	          $data[] = $row;
+	        }
+	      $output = array(
+	                      "draw" => $_POST['draw'],
+	                      "recordsTotal" => $getDocumentTypeTotalRecord,
+	                      "recordsFiltered" => $getDocumentTypeTotalRecord,
+	                      "data" => $data,
+	    );
+	    echo json_encode($output);
+
+    }
+
+
+    /*-----------------------------------
+   		UNIT TYPE FUNCTIONS
+	-----------------------------------*/
+
+	/**
+	author:Priyanka
+	function: unitTypeExecute() 
+	It loads listing of unit type
+	type:public
+	return:Html
+	**/
+
+	 public function unitTypeExecute()
+    {
+    	return view('admin.master.unit_type_list');
+    }
+
+
+    /** author:Priyanka
+	function: addUnitType() 
+	It loads add and edit unit type form
+	type:public
+	return:Html
+	**/
+    public function addUnitType($unit_type_id = NULL)
+    {
+    	$getModuleCategories = DB::table('tbl_module_manage')
+    	->select('module_manage_id','status','module_manage_name')
+    	->where([['is_deleted', '=', 0],
+    			['status', '=', 1]])->get();
+
+    	$getUnitType = DB::table('tbl_mstr_unit_type')->where('unit_type_id', '=', $unit_type_id)->first();
+    	return view('admin.master.new_unit_type')->with('editUnitType', $getUnitType)->with('getModuleCategories', $getModuleCategories);
+    }
+
+     /**
+	author:Priyanka
+	function: saveUnitType() 
+	This function submits and save unit details.
+	type:public
+	return:text
+	**/
+
+	public function saveUnitType(UnitTypeRequest $request)
+    {	
+    	
+		 if(!$request->input('id')) {
+
+		    //Add new record
+		 	//check duplicate records
+		    $duplicateEntry = DB::table('tbl_mstr_unit_type')->where('unit_type', '=', $request->input('unit_type'))->where('module_manage_id', '=', $request->input('module_manage_id'))->where('is_deleted', '=', 0)->count();
+				if($duplicateEntry == 0) {
+			    	$data = array(
+		    					'unit_type'=>$request->input('unit_type'),
+		    					'module_manage_id'=>$request->input('module_manage_id'),
+		    					'status'=>$request->input('status'),
+		    					'created_by'=>'1',
+		    					'modified_by'=>'1'
+			    				 );
+			    	$result  = DB::table('tbl_mstr_unit_type')->insert($data);
+			    	if($result)
+			    	{
+			    		return redirect()->back()->withSuccess('Record has been saved successfully');
+			    	}
+			    }  else {
+
+			    		return redirect()->back()->withWarning('Unit type already exists');
+				}
+					    	
+		    } else {
+		    		//Update new record
+		    	//check duplicate records
+		    	$duplicateEntry = DB::table('tbl_mstr_unit_type')
+		    	->where('unit_type', '=', $request->input('unit_type'))
+		    	->where('module_manage_id', '=', $request->input('module_manage_id'))
+		    	->where('unit_type_id', '!=', $request->input('id'))
+		    	->where('is_deleted', '=', 0)->count();
+				if($duplicateEntry == 0) {
+		    		$data = array(
+		    					'unit_type'=>$request->input('unit_type'),
+		    					'module_manage_id'=>$request->input('module_manage_id'),
+		    					'status'=>$request->input('status'),
+		    					'created_by'=>'1',
+		    					'modified_by'=>'1'
+			    				 );
+					$result  = DB::table('tbl_mstr_unit_type')->where('unit_type_id', $request->input('id'))->update($data);
+			    	if($result)
+			    	{
+			    		return redirect()->back()->withSuccess('Record has been updated successfully');
+			    	} else {
+			    		return redirect('admin/unitTypeExecute');
+			    	}
+			    }  else {
+
+			    		return redirect()->back()->withWarning('Unit type already exists');
+				}
+
+		    }
+
+		   
+    }
+
+    /**
+	author:Priyanka
+	function: getUnitTypes() 
+	This function list and return the json of unit types .
+	type:public
+	return:json array
+	**/
+
+
+     public function getUnitTypes()
+    {	
+    	$sort = array('module_manage_name','unit_type','tbl_mstr_unit_type.status');
+		$myll = $_POST['start'];
+		$offset = $_POST['length'];
+		if(isset($_POST['order'][0])){
+		$orrd = $_POST['order'][0];
+		$title=$orrd['column'];
+		$order=$orrd['dir'];
+		}
+
+		$getUnitTypeTotalRecord = DB::table('tbl_mstr_unit_type')->select('unit_type','status','unit_type_id')->where('is_deleted', '=', 0)->get()->count();
+
+		$query = DB::table('tbl_mstr_unit_type')->select('unit_type','tbl_mstr_unit_type.status','unit_type_id','module_manage_name')->leftJoin('tbl_module_manage', 'tbl_module_manage.module_manage_id', '=', 'tbl_mstr_unit_type.module_manage_id')->where('tbl_mstr_unit_type.is_deleted', '=', 0);
+		if($_POST['search']['value']) {
+	    $query->where('unit_type', 'like', '%' .  $_POST['search']['value'] . '%');
+	    $query->orWhere('module_manage_name', 'like', '%' .  $_POST['search']['value'] . '%');
+		}
+
+		if($offset!= -1) {
+		    $query->skip($myll)->take($offset);
+		}
+		if(isset($order)){
+      	  	$query->orderBy($sort[$title], $order);
+        }
+        else{
+       		$query->orderBy('unit_type_id','desc');
+        }
+		$getUnitType = $query->get();
+	    $data = array();
+	    $data = array();
+	    $no = $_POST['start'];
+	   
+	    $sr = 1;
+	    foreach ($getUnitType as $unitType) {
+	      	  $no++;
+	          $row = array();
+	          //$row[] = $sr++;
+	          $row[] = $unitType->module_manage_name;
+	          $row[] = $unitType->unit_type;
+	          $row[] = ($unitType->status == 1) ? 'Active' : 'Inactive';
+	           $row[] ='<a href="'.url('admin/addUnitType/'.$unitType->unit_type_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$unitType->unit_type_id.','."'tbl_mstr_unit_type'".','."'unit_type_id'".');"><i class="fa fa-trash-o"></i></button>';
+	          $data[] = $row;
+	        }
+	      $output = array(
+	                      "draw" => $_POST['draw'],
+	                      "recordsTotal" => $getUnitTypeTotalRecord,
+	                      "recordsFiltered" => $getUnitTypeTotalRecord,
+	                      "data" => $data,
+	    );
+	    echo json_encode($output);
+
+    }
+
+    /*-----------------------------------
+   		CANCELLATION TYPE FUNCTIONS
+	-----------------------------------*/
+
+	/**
+	author:Priyanka
+	function: cancellationTypeExecute() 
+	It loads listing of cancellation type
+	type:public
+	return:Html
+	**/
+
+	 public function cancellationTypeExecute()
+    {
+    	return view('admin.master.cancellation_type_list');
+    }
+
+
+    /** author:Priyanka
+	function: addCancellationType() 
+	It loads add and edit cancellation type form
+	type:public
+	return:Html
+	**/
+    public function addCancellationType($cancellation_type_id = NULL)
+    {
+    	/*$getModuleCategories = DB::table('tbl_module_manage')
+    	->select('module_manage_id','status','module_manage_name')
+    	->where([['is_deleted', '=', 0],
+    			['status', '=', 1]])->get();*/
+
+    	$getCancellationType = DB::table('tbl_mstr_cancellation_type')->where('cancellation_type_id', '=', $cancellation_type_id)->first();
+    	//return view('admin.master.new_cancellation_type')->with('editCancellationType', $getCancellationType)->with('getModuleCategories', $getModuleCategories);
+    	return view('admin.master.new_cancellation_type')->with('editCancellationType', $getCancellationType);
+    }
+
+     /**
+	author:Priyanka
+	function: saveCancellationType() 
+	This function submits and save canellation details.
+	type:public
+	return:text
+	**/
+
+	public function saveCancellationType(cancellationTypeRequest $request)
+    {	
+    	
+		 if(!$request->input('id')) {
+
+		    //Add new record
+		 	//check duplicate entries
+		    $duplicateEntry = DB::table('tbl_mstr_cancellation_type')->where('cancellation_type', '=', $request->input('cancellation_type'))//->where('module_manage_id', '=', $request->input('module_manage_id'))
+		    ->where('is_deleted', '=', 0)->count();
+				if($duplicateEntry == 0) {
+			    	$data = array(
+		    					'cancellation_type'=>$request->input('cancellation_type'),
+		    					'module_manage_id'=>$request->input('module_manage_id'),
+		    					'status'=>$request->input('status'),
+		    					'created_by'=>'1',
+		    					'modified_by'=>'1'
+			    				 );
+			    	$result  = DB::table('tbl_mstr_cancellation_type')->insert($data);
+			    	if($result)
+			    	{
+			    		return redirect()->back()->withSuccess('Record has been saved successfully');
+			    	}
+			    }  else {
+
+			    		return redirect()->back()->withWarning('Cancellation type already exists');
+				}
+					    	
+		    } else {
+		    		//Update new record
+			    $duplicateEntry = DB::table('tbl_mstr_cancellation_type')
+			    ->where('cancellation_type', '=', $request->input('cancellation_type'))//->where('module_manage_id', '=', $request->input('module_manage_id'))
+			    ->where('cancellation_type_id', '!=', $request->input('id'))
+			    ->where('is_deleted', '=', 0)->count();
+				if($duplicateEntry == 0) {
+		    		$data = array(
+		    					'cancellation_type'=>$request->input('cancellation_type'),
+		    					'module_manage_id'=>$request->input('module_manage_id'),
+		    					'status'=>$request->input('status'),
+		    					'created_by'=>'1',
+		    					'modified_by'=>'1'
+			    				 );
+					$result  = DB::table('tbl_mstr_cancellation_type')->where('cancellation_type_id', $request->input('id'))->update($data);
+			    	if($result)
+			    	{
+			    		return redirect()->back()->withSuccess('Record has been updated successfully');
+			    	} else {
+			    		return redirect('admin/cancellationTypeExecute');
+			    	}
+			     }  else {
+
+			    		return redirect()->back()->withWarning('Cancellation type already exists');
+				}
+		    }
+
+		   
+    }
+
+    /**
+	author:Priyanka
+	function: getCancellationTypes() 
+	This function list and return the json of cancellation types .
+	type:public
+	return:json array
+	**/
+
+
+     public function getCancellationTypes_withmodule()
+    {	
+    	//$sort = array('module_manage_name','cancellation_type','tbl_mstr_unit_type.status');
+    	$sort = array('cancellation_type','status');
+		$myll = $_POST['start'];
+		$offset = $_POST['length'];
+		if(isset($_POST['order'][0])){
+		$orrd = $_POST['order'][0];
+		$title=$orrd['column'];
+		$order=$orrd['dir'];
+		}
+
+		$getCancellationTypeTotalRecord = DB::table('tbl_mstr_cancellation_type')->select('cancellation_type','status','cancellation_type_id')->where('is_deleted', '=', 0)->get()->count();
+
+		$query = DB::table('tbl_mstr_cancellation_type')->select('cancellation_type','tbl_mstr_cancellation_type.status','cancellation_type_id','module_manage_name')->leftJoin('tbl_module_manage', 'tbl_module_manage.module_manage_id', '=', 'tbl_mstr_cancellation_type.module_manage_id')->where('tbl_mstr_cancellation_type.is_deleted', '=', 0);
+		if($_POST['search']['value']) {
+	    $query->where('unit_type', 'like', '%' .  $_POST['search']['value'] . '%');
+	    $query->orWhere('module_manage_name', 'like', '%' .  $_POST['search']['value'] . '%');
+		}
+
+		if($offset!= -1) {
+		    $query->skip($myll)->take($offset);
+		}
+		if(isset($order)){
+      	  	$query->orderBy($sort[$title], $order);
+        }
+        else{
+       		$query->orderBy('cancellation_type_id','desc');
+        }
+		$getCancellationType = $query->get();
+	    $data = array();
+	    $data = array();
+	    $no = $_POST['start'];
+	   
+	    $sr = 1;
+	    foreach ($getCancellationType as $cancellationType) {
+	      	  $no++;
+	          $row = array();
+	          //$row[] = $sr++;
+	          //$row[] = $cancellationType->module_manage_name;
+	          $row[] = $cancellationType->cancellation_type;
+	          $row[] = ($cancellationType->status == 1) ? 'Active' : 'Inactive';
+	           $row[] ='<a href="'.url('admin/addCancellationType/'.$cancellationType->cancellation_type_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$cancellationType->cancellation_type_id.','."'tbl_mstr_cancellation_type'".','."'cancellation_type_id'".');"><i class="fa fa-trash-o"></i></button>';
+	          $data[] = $row;
+	        }
+	      $output = array(
+	                      "draw" => $_POST['draw'],
+	                      "recordsTotal" => $getCancellationTypeTotalRecord,
+	                      "recordsFiltered" => $getCancellationTypeTotalRecord,
+	                      "data" => $data,
+	    );
+	    echo json_encode($output);
+
+    }
+
+
+     public function getCancellationTypes()
+    {	
+    	$sort = array('cancellation_type','status');
+		$myll = $_POST['start'];
+		$offset = $_POST['length'];
+		if(isset($_POST['order'][0])){
+		$orrd = $_POST['order'][0];
+		$title=$orrd['column'];
+		$order=$orrd['dir'];
+		}
+
+		$getCancellationTypeTotalRecord = DB::table('tbl_mstr_cancellation_type')->select('cancellation_type','status','cancellation_type_id')->where('is_deleted', '=', 0)->get()->count();
+
+		$query = DB::table('tbl_mstr_cancellation_type')->select('cancellation_type','status','cancellation_type_id')->where('is_deleted', '=', 0);
+		if($_POST['search']['value']) {
+	    $query->where('cancellation_type', 'like', '%' .  $_POST['search']['value'] . '%');
+		}
+
+		if($offset!= -1) {
+		    $query->skip($myll)->take($offset);
+		}
+		if(isset($order)){
+      	  	$query->orderBy($sort[$title], $order);
+        }
+        else{
+       		$query->orderBy('cancellation_type_id','desc');
+        }
+		$getCancellationType = $query->get();
+	    $data = array();
+	    $data = array();
+	    $no = $_POST['start'];
+	   
+	    $sr = 1;
+	    foreach ($getCancellationType as $cancellationType) {
+	      	  $no++;
+	          $row = array();
+	          //$row[] = $sr++;
+	          $row[] = $cancellationType->cancellation_type;
+	          $row[] = ($cancellationType->status == 1) ? 'Active' : 'Inactive';
+	           $row[] ='<a href="'.url('admin/addCancellationType/'.$cancellationType->cancellation_type_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$cancellationType->cancellation_type_id.','."'tbl_mstr_cancellation_type'".','."'cancellation_type_id'".');"><i class="fa fa-trash-o"></i></button>';
+	          $data[] = $row;
+	        }
+	      $output = array(
+	                      "draw" => $_POST['draw'],
+	                      "recordsTotal" => $getCancellationTypeTotalRecord,
+	                      "recordsFiltered" => $getCancellationTypeTotalRecord,
+	                      "data" => $data,
+	    );
+	    echo json_encode($output);
+    }
+
+
+     /*-----------------------------------
+   		CANCELLATION POLICIES FUNCTIONS
+	-----------------------------------*/
+
+	/**
+	author:Priyanka
+	function: cancellationPoliciesExecute() 
+	It loads listing of cancellation policies
+	type:public
+	return:Html
+	**/
+
+	 public function cancellationPoliciesExecute()
+    {
+    	return view('admin.master.cancellation_policies_list');
+    }
+
+
+    /** author:Priyanka
+	function: addUnitType() 
+	It loads add and edit cancellation policies form
+	type:public
+	return:Html
+	**/
+    public function addCancellationPolicies($cancellation_policy_id = NULL)
+    {
+    	$getModuleCategories = DB::table('tbl_module_manage')
+    	->select('module_manage_id','status','module_manage_name')
+    	->where([['is_deleted', '=', 0],
+    			['status', '=', 1]])->get();
+
+    	$getCancellationTypes = DB::table('tbl_mstr_cancellation_type')
+    	->select('cancellation_type_id','status','cancellation_type')
+    	->where([['is_deleted', '=', 0],
+    			['status', '=', 1]])->get();
+
+    	$getCancellationPolicies = DB::table('tbl_mstr_cancellation_policies')->where('cancellation_policy_id', '=', $cancellation_policy_id)->first();
+    	return view('admin.master.new_cancellation_policies')->with('editCancellationPolicies', $getCancellationPolicies)->with('getModuleCategories', $getModuleCategories)->with('getCancellationTypes', $getCancellationTypes);
+    }
+
+     /**
+	author:Priyanka
+	function: saveUnitType() 
+	This function submits and save cancellation policies details.
+	type:public
+	return:text
+	**/
+
+	public function saveCancellationPolicies(CancellationPoliciesRequest $request)
+    {	
+    	
+		 if(!$request->input('id')) {
+		    //Add new record
+		    $duplicateEntry = DB::table('tbl_mstr_cancellation_policies')->where('cancellation_policy_text', '=', $request->input('cancellation_policy_text'))->where('module_manage_id', '=', $request->input('module_manage_id'))
+		    ->where('cancellation_type_id', '=', $request->input('cancellation_type_id'))->where('is_deleted', '=', 0)->count();
+				if($duplicateEntry == 0) {
+			    	$data = array(
+		    					'cancellation_policy_text'=>$request->input('cancellation_policy_text'),
+		    					'cancellation_percentage'=>$request->input('cancellation_percentage'),
+		    					'cancellation_type_id'=>$request->input('cancellation_type_id'),
+		    					'module_manage_id'=>$request->input('module_manage_id'),
+		    					'status'=>$request->input('status'),
+		    					'created_by'=>'1',
+		    					'modified_by'=>'1'
+			    				 );
+			    	$result  = DB::table('tbl_mstr_cancellation_policies')->insert($data);
+			    	if($result)
+			    	{
+			    		return redirect()->back()->withSuccess('Record has been saved successfully');
+			    	}
+			    }  else {
+
+			    		return redirect()->back()->withWarning('Cancellation Policy already saved');
+				}
+					    	
+		    } else {
+		    		//Update new record
+		    	$duplicateEntry = DB::table('tbl_mstr_cancellation_policies')->where('cancellation_policy_text', '=', $request->input('cancellation_policy_text'))
+		    	 ->where('module_manage_id', '=', $request->input('module_manage_id'))
+		   		 ->where('cancellation_type_id', '=', $request->input('cancellation_type_id'))
+		   		 ->where('is_deleted', '=', 0)
+		   		 ->where('cancellation_policy_id', '!=', $request->input('id'))
+		   		 ->count();
+				if($duplicateEntry == 0) {
+			    		$data = array(
+			    					'cancellation_policy_text'=> $request->input(
+			    					'cancellation_policy_text'),
+			    					'cancellation_percentage'=>$request->input('cancellation_percentage'),
+			    					'cancellation_type_id'=>$request->input('cancellation_type_id'),
+			    					'module_manage_id'=>$request->input('module_manage_id'),
+			    					'status'=>$request->input('status'),
+			    					'created_by'=>'1',
+			    					'modified_by'=>'1'
+				    				 );
+						$result  = DB::table('tbl_mstr_cancellation_policies')->where('cancellation_policy_id', $request->input('id'))->update($data);
+				    	if($result)
+				    	{
+				    		return redirect()->back()->withSuccess('Record has been updated successfully');
+				    	} else {
+				    		return redirect('admin/cancellationPoliciesExecute');
+				    	}
+
+		    	}  else {
+
+			    		return redirect()->back()->withWarning('Cancellation Policy already saved');
+				}
+		    }
+
+		   
+    }
+
+    /**
+	author:Priyanka
+	function: getUnitTypes() 
+	This function list and return the json of cancellation policies .
+	type:public
+	return:json array
+	**/
+
+
+     public function getCancellationPolicies()
+    {	
+    	$sort = array('module_manage_name','cancellation_type','cancellation_policy_text','tbl_mstr_cancellation_policies.status');
+		$myll = $_POST['start'];
+		$offset = $_POST['length'];
+		if(isset($_POST['order'][0])){
+		$orrd = $_POST['order'][0];
+		$title=$orrd['column'];
+		$order=$orrd['dir'];
+		}
+
+		$getCancellationPoliciesTotalRecord = DB::table('tbl_mstr_cancellation_policies')->select('cancellation_policy_text','status','cancellation_policy_id')->where('is_deleted', '=', 0)->get()->count();
+
+		$query = DB::table('tbl_mstr_cancellation_policies')->select('cancellation_policy_text','cancellation_percentage','tbl_mstr_cancellation_policies.status','cancellation_policy_id','cancellation_type','module_manage_name')->leftJoin('tbl_module_manage', 'tbl_module_manage.module_manage_id', '=', 'tbl_mstr_cancellation_policies.module_manage_id')->leftJoin('tbl_mstr_cancellation_type', 'tbl_mstr_cancellation_type.cancellation_type_id', '=', 'tbl_mstr_cancellation_policies.cancellation_type_id')->where('tbl_mstr_cancellation_policies.is_deleted', '=', 0);
+		if($_POST['search']['value']) {
+	    $query->where('cancellation_policy_text', 'like', '%' .  $_POST['search']['value'] . '%');
+	    $query->orWhere('module_manage_name', 'like', '%' .  $_POST['search']['value'] . '%');
+	    $query->orWhere('cancellation_type', 'like', '%' .  $_POST['search']['value'] . '%');
+		}
+
+		if($offset!= -1) {
+		    $query->skip($myll)->take($offset);
+		}
+		if(isset($order)){
+      	  	$query->orderBy($sort[$title], $order);
+        }
+        else{
+       		$query->orderBy('cancellation_policy_id','desc');
+        }
+		$getCancellationPolicies = $query->get();
+	    $data = array();
+	    $data = array();
+	    $no = $_POST['start'];
+	   
+	    $sr = 1;
+	    foreach ($getCancellationPolicies as $cancellationPolicies) {
+	      	  $no++;
+	          $row = array();
+	          //$row[] = $sr++;
+	          $row[] = $cancellationPolicies->module_manage_name;
+	          $row[] = $cancellationPolicies->cancellation_type;
+	          $row[] = $cancellationPolicies->cancellation_policy_text;
+	          $row[] = (empty($cancellationPolicies->cancellation_percentage))?'0':$cancellationPolicies->cancellation_percentage.'%';
+	          $row[] = ($cancellationPolicies->status == 1) ? 'Active' : 'Inactive';
+	           $row[] ='<a href="'.url('admin/addCancellationPolicies/'.$cancellationPolicies->cancellation_policy_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$cancellationPolicies->cancellation_policy_id.','."'tbl_mstr_cancellation_policies'".','."'cancellation_policy_id'".');"><i class="fa fa-trash-o"></i></button>';
+	          $data[] = $row;
+	        }
+	      $output = array(
+	                      "draw" => $_POST['draw'],
+	                      "recordsTotal" => $getCancellationPoliciesTotalRecord,
+	                      "recordsFiltered" => $getCancellationPoliciesTotalRecord,
+	                      "data" => $data,
+	    );
+	    echo json_encode($output);
+
+    }
+
+
+
 
 
 

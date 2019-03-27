@@ -18,7 +18,15 @@ class VerifyCsrfToken extends Middleware
          'admin/getLocationTypes',
          'admin/getParkingTypes',
          'admin/getBookingDurationTypes',
+<<<<<<< HEAD
          'admin/getUserandHost'
+=======
+         'admin/getDocumentTypes',
+         'admin/getUnitTypes',
+         'admin/getCancellationTypes',
+         'admin/getCancellationPolicies',
+          'admin/getLandTypes'
+>>>>>>> master_priyanka
     ];
 
    // public function handle($request, Closure $next)

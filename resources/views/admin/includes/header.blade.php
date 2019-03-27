@@ -112,6 +112,10 @@ function DeleteRecord(id,table,tbid)
     <li><a href="{{ URL::asset('admin/amenitiesExecute') }}/">Amenities</a></li>
     <li><a href="{{ URL::asset('admin/locationTypeExecute') }}/">Location Type</a></li>
     <li><a href="{{ URL::asset('admin/bookingDurationTypeExecute') }}/">Booking Duration Type</a></li>
+    <li><a href="{{ URL::asset('admin/documentTypeExecute') }}/">Document Type</a></li>
+    <li><a href="{{ URL::asset('admin/unitTypeExecute') }}/">Unit Type</a></li>
+    <li><a href="{{ URL::asset('admin/cancellationTypeExecute') }}/">Cancellation Type</a></li>
+    <li><a href="{{ URL::asset('admin/cancellationPoliciesExecute') }}/">Cancellation Policies </a></li>
   </ul>
 </li>
 
@@ -124,6 +128,7 @@ function DeleteRecord(id,table,tbid)
 
 <li><a class="parent"><i class="fa fa-shopping-cart fa-fw"></i> <span>Land</span></a>
   <ul class="collapse">
+     <li><a href="{{ URL::asset('admin/landTypeExecute') }}/">Land Type</a></li>
     <!-- <li><a href="{{ URL::asset('admin/amenityCategoriesExecute') }}/">Amenity Categories</a></li> -->
   </ul>
 </li>
