@@ -61,6 +61,8 @@
 <script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/common.js"></script>
 
+<script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/my-script.js"></script>
+
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('public') }}/assets/front-design/css/owl.carousel.min.css">
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('public') }}/assets/front-design/css/owl.theme.default.min.css">
 
