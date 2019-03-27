@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class MasterRequest extends FormRequest
+class CancellationPoliciesRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,14 +24,18 @@ class MasterRequest extends FormRequest
     public function rules()
     {
         return [
-            'car_type' => 'required'
+            'module_manage_id'=>'required',
+            'cancellation_type_id'=>'required',
+            'cancellation_policy_text' => 'required'
         ];
     }
 
     public function messages()
     {
         return [
-            'car_type.required' => 'Car type field is required'
+            'module_manage_id.required' => 'Module Category field is required',
+            'cancellation_type_id.required' => 'Cancellation Type field is required',
+            'cancellation_policy_text.required' => 'Cancellation Policy field is required'
         ];
     }
 }

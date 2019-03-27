@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class MasterRequest extends FormRequest
+class DocumentTypeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,14 +24,16 @@ class MasterRequest extends FormRequest
     public function rules()
     {
         return [
-            'car_type' => 'required'
+            'module_manage_id'=>'required',
+            'document_type' => 'required'
         ];
     }
 
     public function messages()
     {
         return [
-            'car_type.required' => 'Car type field is required'
+            'module_manage_id.required' => 'Module Category field is required',
+            'document_type.required' => 'Document type field is required'
         ];
     }
 }

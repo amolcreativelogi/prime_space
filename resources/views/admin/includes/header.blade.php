@@ -38,6 +38,10 @@
 var baseurl = '<?php echo url('/'); ?>'; 
 var Admin_module='Masteradmin';
 
+<?php if(isset($_SESSION['is_admin_login']) == false) { ?>
+window.location.href =  '<?php echo url('/admin'); ?>';
+<?php } ?>
+
 function DeleteRecord(id,table,tbid)
 {
         if(confirm('Are you sure you want to delete this record?')){
@@ -87,7 +91,7 @@ function DeleteRecord(id,table,tbid)
         
       </ul>
     </li>    
-    <li><a href="{{ URL::asset('public') }}/"><span class="hidden-xs hidden-sm hidden-md">Logout</span> <i class="fa fa-sign-out fa-lg"></i></a></li>
+    <li><a href="{{ URL::asset('admin/adminLogout') }}/"><span class="hidden-xs hidden-sm hidden-md">Logout</span> <i class="fa fa-sign-out fa-lg"></i></a></li>
   </ul>
 </div> 
   
@@ -100,11 +104,40 @@ function DeleteRecord(id,table,tbid)
 </div>
 <ul id="menu">
 
-<li id="dashboard" class="active"><a href="#"><i class="fa fa-dashboard fa-fw"></i> <span>Dashboard</span></a></li>
+<li id="dashboard" class="active"><a href="{{ URL::asset('admin/dashboard') }}"><i class="fa fa-dashboard fa-fw"></i> <span>Dashboard</span></a></li>
 
 <li id="sale"><a class="parent"><i class="fa fa-shopping-cart fa-fw"></i> <span>Master</span></a>
   <ul class="collapse">
-    <li><a href="{{ URL::asset('admin/carTypeExecute') }}/">Cart Type</a></li>
+    <!-- <li><a href="{{ URL::asset('admin/amenityCategoriesExecute') }}/">Amenity Categories</a></li> -->
+    <li><a href="{{ URL::asset('admin/amenitiesExecute') }}/">Amenities</a></li>
+    <li><a href="{{ URL::asset('admin/locationTypeExecute') }}/">Location Type</a></li>
+    <li><a href="{{ URL::asset('admin/bookingDurationTypeExecute') }}/">Booking Duration Type</a></li>
+    <li><a href="{{ URL::asset('admin/documentTypeExecute') }}/">Document Type</a></li>
+    <li><a href="{{ URL::asset('admin/unitTypeExecute') }}/">Unit Type</a></li>
+    <li><a href="{{ URL::asset('admin/cancellationTypeExecute') }}/">Cancellation Type</a></li>
+    <li><a href="{{ URL::asset('admin/cancellationPoliciesExecute') }}/">Cancellation Policies </a></li>
+  </ul>
+</li>
+
+<li><a class="parent"><i class="fa fa-shopping-cart fa-fw"></i> <span>Parking</span></a>
+  <ul class="collapse">
+   <li><a href="{{ URL::asset('admin/carTypeExecute') }}/">Car Type</a></li>
+   <li><a href="{{ URL::asset('admin/parkingTypeExecute') }}/">Parking Type</a></li>
+  </ul>
+</li>
+
+<li><a class="parent"><i class="fa fa-shopping-cart fa-fw"></i> <span>Land</span></a>
+  <ul class="collapse">
+     <li><a href="{{ URL::asset('admin/landTypeExecute') }}/">Land Type</a></li>
+    <!-- <li><a href="{{ URL::asset('admin/amenityCategoriesExecute') }}/">Amenity Categories</a></li> -->
+  </ul>
+</li>
+
+<li><a class="parent"><i class="fa fa-shopping-cart fa-fw"></i> <span>Users</span></a>
+  <ul class="collapse">
+    <li><a href="#">All Users & Host</a></li>
+    <li><a href="#">All Users</a></li>
+    <li><a href="#">All Host</a></li>
   </ul>
 </li>
 

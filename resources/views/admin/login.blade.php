@@ -2,7 +2,7 @@
 <html dir="ltr" lang="en"><head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta charset="UTF-8">
-<title>Online Exam</title>
+<title>PRYME SPACE</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="#" rel="icon">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
@@ -47,26 +47,33 @@ var Admin_module='Masteradmin';
             <h1 class="panel-title"><i class="fa fa-lock"></i> Please enter your login details.</h1>
           </div>
           <div class="panel-body">
-              <form action="#" id="loginform">
-	       	  
-	       	  <div class="alert alert-danger loginerror" style="display: none;"><i class="fa fa-exclamation-circle"></i> No match for Username and/or Password. <button type="button" class="close" data-dismiss="alert">×</button>
+
+
+
+           <form action="<?php echo url('admin/checkLogin'); ?>" id="loginform" method="post">
+	       	   
+	       	  <div class="alert alert-danger loginerror" style="display: none;"><i class="fa fa-exclamation-circle"></i> wrong credential.<button type="button" class="close" data-dismiss="alert">×</button>
 	        	</div>
 
+            <?php if($errors->first('email')) { ?>
+                 <div class="text-danger"><?php echo $errors->first('email'); ?></div>
+                <?php } ?>
               <div class="form-group">
-                <label for="input-username">Username</label>
+                <label for="input-username">Email</label>
                 <div class="input-group"><span class="input-group-addon"><i class="fa fa-user"></i></span>
-                 <input type="email"  class="form-control" name="username" required="" id="username" placeholder="Enter email" value="test@gmail.com">
+                 <input type="email"  class="form-control" name="email" required="" id="username" placeholder="Enter email" value="">
                 </div>
               </div>
+              {!! csrf_field() !!}
               <div class="form-group">
                 <label for="input-password">Password</label>
                 <div class="input-group"><span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                  <input type="password" class="form-control" name="password" required="" id="password" placeholder="Enter pwd" value="12345">
+                  <input type="password" class="form-control" name="password" required="" id="password" placeholder="Enter Password" value="">
                 </div>
                </div>
               <div class="text-right">
                 <button type="submit" class="col-lg-12 btn btn-primary"><i class="fa fa-key"></i> Login</button>
-              </div>
+              </div> 
              </form>
           </div>
         </div>
@@ -98,7 +105,7 @@ $(document).ready(function() {
       }
     if(error==0) {
        $.ajax({
-        url: '<?php echo url('/admin/LoginController'); ?>',
+        url: '<?php echo url('/admin/checkLogin'); ?>',
         type: 'POST',
         data: new FormData(this),
         dataType: 'json',
@@ -107,10 +114,10 @@ $(document).ready(function() {
         success:function(data){
             if(data['code']==200){
               //alert(data['code']);
-              $('#loginform').trigger("reset");
+              //$('#loginform').trigger("reset");
               $('.target2').fadeIn();
               setTimeout(function(){
-            window.location.href =baseurl+Admin_module+'/Dashboard/';
+            window.location.href = '<?php echo url('admin/dashboard'); ?>';
               }, 400);
             }
             if(data['code']==100){
