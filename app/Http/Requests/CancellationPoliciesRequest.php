@@ -28,6 +28,8 @@ class CancellationPoliciesRequest extends FormRequest
             'cancellation_type_id'=>'required',
             'cancellation_policy_text' => 'required',
             'cancellation_percentage' => 'numeric'
+            //,
+            //'cancellation_percentage' => 'required|numeric|between:0,99.99'
         ];
     }
 
