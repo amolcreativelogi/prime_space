@@ -46,7 +46,7 @@ function DeleteRecord(id,table,tbid)
 {
         if(confirm('Are you sure you want to delete this record?')){
         var url = baseurl+'/admin/DeteteRecord';
-        alert(url);
+        //alert(url);
         $.ajax({
         method: 'POST',
         url: url,

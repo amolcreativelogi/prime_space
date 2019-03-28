@@ -4,7 +4,7 @@
   <div class="page-header">
     <div class="container-fluid">
       <div class="pull-right">
-        <a href="<?php echo url('admin/amenityCategoriesExecute'); ?>" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="Cancel"><i class="fa fa-reply"></i></a></div>
+        <a href="<?php echo url('admin/amenityCategoriesExecute'); ?>" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="Back"><i class="fa fa-reply"></i></a></div>
       <h1> Amenity Category</h1>
     </div>
   </div>
@@ -34,7 +34,7 @@
             <div class="col-sm-10">
                <select name="status" id="status" class="form-control">
                 <option value="1" <?php echo  ($editAmenityCategory && $editAmenityCategory->status == 1) ? 'selected' : ''; ?>>Active</option>
-                <option value="0" <?php echo  ($editAmenityCategory && $editAmenityCategory->status == 0) ? 'selected' : ''; ?>>In Active</option>
+                <option value="0" <?php echo  ($editAmenityCategory && $editAmenityCategory->status == 0) ? 'selected' : ''; ?>>Inactive</option>
                </select>
              </div>
            </div>

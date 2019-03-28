@@ -4,7 +4,7 @@
   <div class="page-header">
     <div class="container-fluid">
       <div class="pull-right">
-        <a href="<?php echo url('admin/documentTypeExecute'); ?>" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="Cancel"><i class="fa fa-reply"></i></a></div>
+        <a href="<?php echo url('admin/documentTypeExecute'); ?>" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="Back"><i class="fa fa-reply"></i></a></div>
       <h1> Document Type</h1>
     </div>
   </div>
@@ -15,6 +15,15 @@
       </div>
       <div class="panel-body">
         <form action="<?php echo url('admin/saveDocumentType'); ?>" method="post" enctype="multipart/form-data" id="form-user" class="form-horizontal">
+
+           @if(session('success') || session('warning'))
+            <div class="form-group">
+            <div class="col-sm-offset-0 col-sm-12">
+            <div class="alert alert-<?php echo (session('success')) ? 'success': 'danger'; ?>" style="display: block;"><?php echo (session('success')) ? session('success') : session('warning'); ?><button type="button" class="close" data-dismiss="alert">×</button>
+            </div>
+            </div>
+            </div>
+          @endif
 
           <div class="form-group required">
               <label class="col-sm-2 control-label" for="input-username">Module Categories</label>
@@ -34,7 +43,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-username"> Document Type</label>
             <div class="col-sm-10">
-              <input type="text" name="document_type" value="<?php echo ($editDocumentType && $editDocumentType->document_type) ? $editDocumentType->document_type : ''; ?>" placeholder="Location Type" id="document_type" class="form-control">
+              <input type="text" name="document_type" value="<?php echo ($editDocumentType && $editDocumentType->document_type) ? $editDocumentType->document_type : ''; ?>" placeholder="Document Type" id="document_type" class="form-control">
 
               <input type="hidden" name="id" value="<?php echo  ($editDocumentType && $editDocumentType->document_type_id) ? $editDocumentType->document_type_id : ''; ?>" id="document_type_id" class="form-control">
 
@@ -50,19 +59,11 @@
             <div class="col-sm-10">
                <select name="status" id="status" class="form-control">
                 <option value="1" <?php echo  ($editDocumentType && $editDocumentType->status == 1) ? 'selected' : ''; ?>>Active</option>
-                <option value="0" <?php echo  ($editDocumentType && $editDocumentType->status == 0) ? 'selected' : ''; ?>>In Active</option>
+                <option value="0" <?php echo  ($editDocumentType && $editDocumentType->status == 0) ? 'selected' : ''; ?>>Inactive</option>
                </select>
              </div>
            </div>
 
-            @if(session('success') || session('warning'))
-            <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-            <div class="alert alert-<?php echo (session('success')) ? 'success': 'danger'; ?>" style="display: block;"><?php echo (session('success')) ? session('success') : session('warning'); ?><button type="button" class="close" data-dismiss="alert">×</button>
-            </div>
-            </div>
-            </div>
-            @endif
 
             <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
