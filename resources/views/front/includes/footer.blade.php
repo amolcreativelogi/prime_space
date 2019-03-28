@@ -56,6 +56,7 @@
 
 
 <script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/jquery-1.11.3.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 <script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/owl.carousel.min.js"></script>
 <script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/popper.min.js"></script>
 <script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/bootstrap.min.js"></script>

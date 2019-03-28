@@ -10,6 +10,15 @@
 <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700" rel="stylesheet"> 
 </head>
 <body class="<?php echo   (URL::to('/') == Request::url()) ? 'home' : ''; ?>">
+
+<!-- <div class="loader" style="display:none;">
+<div class="loader-inner">
+  <div class="loader-img">
+    <div class="mdl-spinner mdl-js-spinner is-active"></div>
+    <img src="{{ URL::asset('public') }}/assets/front-design/images/loaderilk.gif" title="" alt=""></div><div class="loader-text">Please wait...</div>
+</div>
+ -->
+
 <header class="site-header">
   <div class="container">
     <div class="row">

@@ -136,8 +136,8 @@ function DeleteRecord(id,table,tbid)
 <li><a class="parent"><i class="fa fa-shopping-cart fa-fw"></i> <span>Users</span></a>
   <ul class="collapse">
     <li><a href="{{ URL::asset('admin/Host_Users') }}/">All Users & Host</a></li>
-    <li><a href="{{ URL::asset('admin/carTypeExecute') }}/">All Users</a></li>
-    <li><a href="{{ URL::asset('admin/carTypeExecute') }}/">All Host</a></li>
+    <li><a href="#">All Users</a></li>
+    <li><a href="#">All Host</a></li>
   </ul>
 </li>
 

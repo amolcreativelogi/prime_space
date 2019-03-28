@@ -104,9 +104,13 @@ function lkForms(ID){
 		},
 		success: function (data) {
 			if(data.status == false){
+				$('.msg-gloabal').removeClass('alert alert-success');
+				$('.msg-gloabal').addClass('alert alert-danger');
 				$('.msg-gloabal').html(data.response.msg);
 				//loaderOut({status:0,msg:data.response.msg,url:data.url});
 			}else{
+				$('.msg-gloabal').removeClass('alert alert-danger');
+				$('.msg-gloabal').addClass('alert alert-success');
 				$('.msg-gloabal').html(data.response.msg);
 				$('#'+ID)[0].reset();
 				//loaderOut({status:1,msg:data.response.msg,url:data.url});
@@ -119,66 +123,60 @@ function lkForms(ID){
 //----------------- Validation of registration form ----------------//
 $(function(){
 	//Registration Form
-	 $('#registration_user').validate({
+	 $('#form-signup').validate({
 		rules: {
-				first_name: {
+				firstname: {
 				   required : true,
 		    	   minlength   : 3,
 				},
-				last_name: {
-					required: true,
-					minlength: 3,
+				lastname: {
+				   required : true,
+		    	   minlength   : 3,
 				},
-				email_address: {
-					required: true,
-					email: true
+				email_id: {
+				   required: true,
+				   email: true
 				},
-				standard_class_id: {
-					required: true,
-				},
-				user_password: {
+				password: {
 					required: true,
 					minlength: 5,
 				},
-				user_cpassword: {
+				confirmpassword: {
 					required: true,
-					equalTo: "#user_password"
-				},
-				school_collage: {
-					required: true,
-				},
+					equalTo: "#password"
+				}
 			},
 		messages: {
-				 first_name:{
+				 firstname:{
 					required :"First Name field is required",
 				 }, 
-				 last_name:{
+				 lastname:{
 					required :"Last Name field is required",
 				 },
-				 email_address:{
+				 email_id:{
 					required :"Email Address field is required",
 				 },
-				 standard_class_id:{
-					required :"Standard/Class field is required",
-				 },
-				 user_password:{
+				 password:{
 					required :"Password field is required",
 				 },
-				  user_cpassword:{
+				 confirmpassword:{
 					required :"Confirm Password field is required",
-					equalTo :"Password and confirmation password do not match",
-				 },
-				 school_collage:{
-					required :"School/College field is required",
-				 },
+					equalTo : "confirmation password do not match",
+				 }
 			},
 		submitHandler: function(form) {
-			if($('#tearm_conditions').is(":checked")){
-				$('#tearm').html(''); 
-				lkForms('registration_student');
-				$(window).scrollTop(0);
+
+			if ($("input[name='user_type_id']:checked").length == 0){
+			    // Do your stuff here
+			    $('#user_type_id-error').show().html('Select any one account type'); 
+			    return false;
+			}
+
+			if($('#privacy_policy_check').is(":checked")){
+				lkForms('form-signup');
+				//$(window).scrollTop(0);
 			}else{
-				$('#tearm').show().html('Terms and Conditions field is required'); 
+				$('#tearm').show().html('Terms of Service field is required'); 
 			}
 			//form.submit();
 		  }
@@ -226,6 +224,9 @@ $(function(){
 					minlength: 8,
 					maxlength: 10
 				},
+				user_type_id: {
+					required: true
+				}
 			},
 		messages: {
 				 first_name:{
@@ -252,12 +253,15 @@ $(function(){
 				 },
 				 your_phone:{
 					required :"Your Phone field is required",
-				 }
+				 },
+				 user_type_id: {
+					required :"Account type field is required",
+				 } 
 			},
 		submitHandler: function(form) {
 			if($('#tearm_conditions').is(":checked")){
-				$('#tearm').html(''); 
-				lkForms('registration_teacher');
+				//$('#tearm').html(''); 
+				lkForms('form-signup');
 				$(window).scrollTop(0);
 			}else{
 				$('#tearm').show().html('Terms and Conditions field is required');
