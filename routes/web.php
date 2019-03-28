@@ -207,3 +207,8 @@ Route::post('/admin/getLandTypes','Admin\LandController@getLandTypes');
 
 Route::get('/admin/mail','Admin\UsersController@mail');
 
+
+//Front end user side
+
+Route::post('/userRegistration','Front\UserController@userRegistration');
+
