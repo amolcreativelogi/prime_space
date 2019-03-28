@@ -7,6 +7,10 @@
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('public') }}/assets/front-design/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('public') }}/assets/front-design/css/animate.css">
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('public') }}/assets/front-design/css/font-awesome.min.css">
+
+<link href="{{ URL::asset('public') }}/assets/front-design/css/component.css" rel="stylesheet" id="abootstrap-css">
+
+
 <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700" rel="stylesheet"> 
 </head>
 <body class="<?php echo   (URL::to('/') == Request::url()) ? 'home' : ''; ?>">

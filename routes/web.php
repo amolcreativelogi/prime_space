@@ -20,6 +20,7 @@ Route::get('/login','Front\HomeController@Login');
 Route::get('/sign_up','Front\HomeController@Signup');
 Route::get('/forgot_password','Front\HomeController@Forgot_password');
 Route::get('/all_property','Front\HomeController@Allproperty');
+Route::get('/addproperty','Front\PropertyController@addProperty');
 
 
 
