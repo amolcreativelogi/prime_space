@@ -22,3 +22,11 @@ function getdatatableRecord(Id,Url)
                 ],
         });
 }
+
+$(document).ready(function() {
+$('#button-filter-clear').click(function(){
+    var oTable = $('#example').DataTable(); 
+    oTable.search('clear').draw();
+    $('#example_filter input').val('');
+});
+});

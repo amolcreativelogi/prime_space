@@ -440,7 +440,8 @@ class MasterController extends Controller
 		$getAmenitiesTotalRecord = DB::table('tbl_mstr_amenities')->select('amenity_name','status','amenity_id')->where('is_deleted', '=', 0)->get()->count();
 
 		$query = DB::table('tbl_mstr_amenities')->select('amenity_name','tbl_mstr_amenities.status','amenity_id','module_manage_name','amenity_image')->leftJoin('tbl_module_manage', 'tbl_module_manage.module_manage_id', '=', 'tbl_mstr_amenities.module_manage_id')->where('tbl_mstr_amenities.is_deleted', '=', 0);
-		if($_POST['search']['value']) {
+
+		if($_POST['search']['value'] && $_POST['search']['value'] != 'clear') {
 	    $query->where('amenity_name', 'like', '%' .  $_POST['search']['value'] . '%');
 	    $query->orWhere('module_manage_name', 'like', '%' .  $_POST['search']['value'] . '%');
 		}
