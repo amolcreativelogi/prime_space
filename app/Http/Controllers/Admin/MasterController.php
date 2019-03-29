@@ -364,36 +364,61 @@ class MasterController extends Controller
 		 }
 		
 		 if(!$request->input('id')) {
+			   	$module_categories = $request->input('module_manage_id');
+			   	
+			   	$data =[];
+			   	foreach($module_categories as $module_category){
+				   		//Add new record
+				   	if(!empty($module_category)){
+				   		//check duplicate entry
+	    				$duplicateEntry = DB::table('tbl_mstr_amenities')->where('amenity_name', '=', $request->input('amenity_name'))->where('module_manage_id', '=', $module_category)->where('is_deleted', '=', 0)->count();
+	    				
+				   		if($duplicateEntry == 0) {
+					    	$data[] = array(
+					    					'amenity_name'=>$request->input('amenity_name'),
+					    					'amenity_image'=>$image,
+					    					'module_manage_id'=>$module_category,
+					    					'status'=>$request->input('status'),
+					    					'created_by'=>'1',
+					    					'modified_by'=>'1'
+					    				 );
+					    }else{
+				    		$module_cat_id[] = $module_category;
+				    	}
 
-		 	//check duplicate entry
-    		$duplicateEntry = DB::table('tbl_mstr_amenities')->where('amenity_name', '=', $request->input('amenity_name'))->where('module_manage_id', '=', $request->input('module_manage_id'))->where('is_deleted', '=', 0)->count();
+				    }
 
-			   if($duplicateEntry == 0) {
-		   			//Add new record
-			    	$data = array(
-			    					'amenity_name'=>$request->input('amenity_name'),
-			    					'amenity_image'=>$image,
-			    					'module_manage_id'=>$request->input('module_manage_id'),
-			    					'status'=>$request->input('status'),
-			    					'created_by'=>'1',
-			    					'modified_by'=>'1'
-			    				 );
-			    	$result  = DB::table('tbl_mstr_amenities')->insert($data);
-			    	if($result)
-			    	{
-			    		return redirect()->back()->withSuccess('Record has been saved successfully');
-			    	}
-			    }  else {
+				    
 
-			    	return redirect()->back()->withWarning('Amenity already saved');
+			   	}
+			   	/*echo '<pre>';
+			   	print_r($data);
+			   	echo '</pre>';
+			   	die;*/
+			   	if(!empty($data)){
+			   		$result  = DB::table('tbl_mstr_amenities')->insert($data);
+			   	}
+	   			
+		    	if(isset($result))
+		    	{
+		    		return redirect()->back()->withSuccess('Record has been saved successfully');
+		    	}
+			    else {
+
+			    	return redirect()->back()->withWarning('Amenity already exists');
 				}
 					    	
 		 } else {
+		 	/*$module_categories = $request->input('module_manage_id');
+		 	$impld_module_category = implode(',', $module_categories);
+		 	$module_categories = explode(',', $impld_module_category);
+		 	$module_manage_id = $module_categories[0];*/
+		 	//die;
 		 	//check duplicate entry
     		$duplicateEntry = DB::table('tbl_mstr_amenities')->where('amenity_name', '=', $request->input('amenity_name'))->where('module_manage_id', '=', $request->input('module_manage_id'))->where('amenity_id', '!=', $request->input('id'))->where('is_deleted', '=', 0)->count();
 
 			   if($duplicateEntry == 0) {
-				    		//Update new record
+				    //Update new record
 		    		$data = array(
 			    					'amenity_name'=>$request->input('amenity_name'),
 					    			'amenity_image'=>$image,
@@ -463,10 +488,10 @@ class MasterController extends Controller
 	    $sr = 1;
 	    foreach ($getAmenities as $amenities) {
 
-	    	 if (file_exists(public_path() . '/images/amenity/' . $amenities->amenity_image. '')) {
-		        $image = '<img src="'.url('/public/images/amenity/'.$amenities->amenity_image.'').'" width="50">';
+	    	 if (isset($amenities->amenity_image) && file_exists(public_path() . '/images/amenity/' . $amenities->amenity_image. '')) {
+		        $image = '<a target="_blank" href="'.url('/public/images/amenity/'.$amenities->amenity_image.'').'"><img src="'.url('/public/images/amenity/'.$amenities->amenity_image.'').'" width="50"></a>';
 		    } else {
-		        $image =  '';
+		        $image =  'No Image';
 		    }  
 
 	      	  $no++;

@@ -26,7 +26,11 @@
         	<div class="form-group required">
 	            <label class="col-sm-2 control-label" for="input-username">Module Categories</label>
 	            <div class="col-sm-10">
-	               <select name="module_manage_id" id="module_manage_id" class="form-control">
+                @if(isset($editAmenity) && !empty($editAmenity))
+                  <select name="module_manage_id" id="module_manage_id" class="form-control">
+                @else
+	               <select name="module_manage_id[]" id="module_manage_id" class="form-control" multiple="multiple">
+                @endIf
 	               	<option value="">Select</option>
 
 	        <?php foreach($getModuleCategories as $category){ ?>
@@ -56,12 +60,21 @@
 
 
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-username">Amenitie Image</label>
+            <label class="col-sm-2 control-label" for="input-username">Amenity Image</label>
             <div class="col-sm-10">
                <input type="file" name="amenity_image" id="id_amenity_image">
                <input type="hidden" name="edit_amenity_image" id="id_edit_amenity_image" value="<?php echo  ($editAmenity && $editAmenity->amenity_image) ? $editAmenity->amenity_image : ''; ?>">
              </div>
+              
            </div>
+           <?php if(isset($editAmenity->amenity_image) && !empty($editAmenity->amenity_image)){ ?>
+           <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-username">Amenity Image</label>
+              <div class="col-sm-10">
+              <?php echo '<a target="_blank" href="'.url('/public/images/amenity/'.$editAmenity->amenity_image.'').'"><img src="'.url('/public/images/amenity/'.$editAmenity->amenity_image.'').'" width="50"></a>'; ?>
+             </div>
+           </div>
+         <?php }?>
 
            <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-username"> Status</label>
