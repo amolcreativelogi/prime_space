@@ -4,7 +4,7 @@
   <div class="page-header">
     <div class="container-fluid">
       <div class="pull-right">
-        <a href="<?php echo url('admin/amenitiesExecute'); ?>" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="Cancel"><i class="fa fa-reply"></i></a></div>
+        <a href="<?php echo url('admin/amenitiesExecute'); ?>" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="Back"><i class="fa fa-reply"></i></a></div>
       <h1> Amenities</h1>
     </div>
   </div>
@@ -15,10 +15,22 @@
       </div>
       <div class="panel-body">
         <form action="<?php echo url('admin/saveAmenity'); ?>" method="post" enctype="multipart/form-data" id="form-user" class="form-horizontal">
+          @if(session('success') || session('warning'))
+            <div class="form-group">
+            <div class="col-sm-offset-0 col-sm-12">
+            <div class="alert alert-<?php echo (session('success')) ? 'success': 'danger'; ?>" style="display: block;"><?php echo (session('success')) ? session('success') : session('warning'); ?><button type="button" class="close" data-dismiss="alert">×</button>
+            </div>
+            </div>
+            </div>
+          @endif
         	<div class="form-group required">
 	            <label class="col-sm-2 control-label" for="input-username">Module Categories</label>
 	            <div class="col-sm-10">
-	               <select name="module_manage_id" id="module_manage_id" class="form-control">
+                @if(isset($editAmenity) && !empty($editAmenity))
+                  <select name="module_manage_id" id="module_manage_id" class="form-control">
+                @else
+	               <select name="module_manage_id[]" id="module_manage_id" class="form-control" multiple="multiple">
+                @endIf
 	               	<option value="">Select</option>
 
 	        <?php foreach($getModuleCategories as $category){ ?>
@@ -48,31 +60,33 @@
 
 
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-username">Amenitie Image</label>
+            <label class="col-sm-2 control-label" for="input-username">Amenity Image</label>
             <div class="col-sm-10">
                <input type="file" name="amenity_image" id="id_amenity_image">
                <input type="hidden" name="edit_amenity_image" id="id_edit_amenity_image" value="<?php echo  ($editAmenity && $editAmenity->amenity_image) ? $editAmenity->amenity_image : ''; ?>">
              </div>
+              
            </div>
+           <?php if(isset($editAmenity->amenity_image) && !empty($editAmenity->amenity_image)){ ?>
+           <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-username">Amenity Image</label>
+              <div class="col-sm-10">
+              <?php echo '<a target="_blank" href="'.url('/public/images/amenity/'.$editAmenity->amenity_image.'').'"><img src="'.url('/public/images/amenity/'.$editAmenity->amenity_image.'').'" width="50"></a>'; ?>
+             </div>
+           </div>
+         <?php }?>
 
            <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-username"> Status</label>
             <div class="col-sm-10">
                <select name="status" id="status" class="form-control">
                 <option value="1" <?php echo  ($editAmenity && $editAmenity->status == 1) ? 'selected' : ''; ?>>Active</option>
-                <option value="0" <?php echo  ($editAmenity && $editAmenity->status == 0) ? 'selected' : ''; ?>>In Active</option>
+                <option value="0" <?php echo  ($editAmenity && $editAmenity->status == 0) ? 'selected' : ''; ?>>Inactive</option>
                </select>
              </div>
            </div>
 
-            @if(session('success') || session('warning'))
-            <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-            <div class="alert alert-<?php echo (session('success')) ? 'success': 'danger'; ?>" style="display: block;"><?php echo (session('success')) ? session('success') : session('warning'); ?><button type="button" class="close" data-dismiss="alert">×</button>
-            </div>
-            </div>
-            </div>
-            @endif
+            
 
             <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">

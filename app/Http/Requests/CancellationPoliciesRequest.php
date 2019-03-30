@@ -26,7 +26,10 @@ class CancellationPoliciesRequest extends FormRequest
         return [
             'module_manage_id'=>'required',
             'cancellation_type_id'=>'required',
-            'cancellation_policy_text' => 'required'
+            'cancellation_policy_text' => 'required',
+            'cancellation_percentage' => 'numeric'
+            //,
+            //'cancellation_percentage' => 'required|numeric|between:0,99.99'
         ];
     }
 
@@ -35,7 +38,8 @@ class CancellationPoliciesRequest extends FormRequest
         return [
             'module_manage_id.required' => 'Module Category field is required',
             'cancellation_type_id.required' => 'Cancellation Type field is required',
-            'cancellation_policy_text.required' => 'Cancellation Policy field is required'
+            'cancellation_policy_text.required' => 'Cancellation Policy field is required',
+            'cancellation_percentage' => 'Cancellation Policy value should be in decimal'
         ];
     }
 }

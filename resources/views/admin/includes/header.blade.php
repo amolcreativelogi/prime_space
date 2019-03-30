@@ -13,7 +13,7 @@
 <link href="{{ URL::asset('public') }}/assets/Admin/css/opencart.css" type="text/css" rel="stylesheet">
 <link href="{{ URL::asset('public') }}/assets/Admin/css/font-awesome.css" type="text/css" rel="stylesheet">
 <link href="{{ URL::asset('public') }}/assets/Admin/css/summernote.css" rel="stylesheet">
-<script type="text/javascript" src="{{ URL::asset('public') }}/assets/Adminassets/js/summernote.js"></script>
+<!-- <script type="text/javascript" src="{{ URL::asset('public') }}/assets/Adminassets/js/summernote.js"></script> -->
 <script src="{{ URL::asset('public') }}/assets/Admin/js/moment.js" type="text/javascript"></script>
 <script src="{{ URL::asset('public') }}/assets/Admin/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
 <link href="{{ URL::asset('public') }}/assets/Admin/css/bootstrap-datetimepicker.css"  rel="stylesheet">
@@ -33,6 +33,8 @@
 <!---->
 
 <script src="{{ URL::asset('public') }}/assets/Admin/js/my-script.js " type="text/javascript"></script>
+<!--CUSTOM FRONTENT JS -->
+<script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/custom-file-input.js"></script>
 
 <script>
 var baseurl = '<?php echo url('/'); ?>'; 
@@ -46,7 +48,7 @@ function DeleteRecord(id,table,tbid)
 {
         if(confirm('Are you sure you want to delete this record?')){
         var url = baseurl+'/admin/DeteteRecord';
-        alert(url);
+        //alert(url);
         $.ajax({
         method: 'POST',
         url: url,

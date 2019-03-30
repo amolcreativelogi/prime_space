@@ -4,7 +4,7 @@
   <div class="page-header">
     <div class="container-fluid">
       <div class="pull-right">
-        <a href="<?php echo url('admin/cancellationPoliciesExecute'); ?>" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="Cancel"><i class="fa fa-reply"></i></a></div>
+        <a href="<?php echo url('admin/cancellationPoliciesExecute'); ?>" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="Back"><i class="fa fa-reply"></i></a></div>
       <h1> Cancellation Policies</h1>
     </div>
   </div>
@@ -15,6 +15,15 @@
       </div>
       <div class="panel-body">
         <form action="<?php echo url('admin/saveCancellationPolicies'); ?>" method="post" enctype="multipart/form-data" id="form-user" class="form-horizontal">
+
+           @if(session('success') || session('warning'))
+            <div class="form-group">
+            <div class="col-sm-offset-0 col-sm-12">
+            <div class="alert alert-<?php echo (session('success')) ? 'success': 'danger'; ?>" style="display: block;"><?php echo (session('success')) ? session('success') : session('warning'); ?><button type="button" class="close" data-dismiss="alert">×</button>
+            </div>
+            </div>
+            </div>
+          @endif
 
           <div class="form-group required">
               <label class="col-sm-2 control-label" for="input-username">Module Categories</label>
@@ -39,13 +48,13 @@
                   <option value="<?php echo $cancellationType->cancellation_type_id ?>" <?php echo  ($editCancellationPolicies && $editCancellationPolicies->cancellation_type_id == $cancellationType->cancellation_type_id) ? 'selected' : ''; ?>><?php echo $cancellationType->cancellation_type ?></option>
                   <?php } ?>
                  </select>
-                  <?php if($errors->first('cancellation_type')) { ?>
-                  <div class="text-danger"><?php echo $errors->first('cancellation_type'); ?></div>
+                  <?php if($errors->first('cancellation_type_id')) { ?>
+                  <div class="text-danger"><?php echo $errors->first('cancellation_type_id'); ?></div>
                   <?php } ?>
              </div>
           </div>
 
-          <div class="form-group">
+          <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-username"> Cancellation Policy</label>
             <div class="col-sm-10">
               <input type="text" name="cancellation_policy_text" value="<?php echo ($editCancellationPolicies && $editCancellationPolicies->cancellation_policy_text) ? $editCancellationPolicies->cancellation_policy_text: ''; ?>" placeholder="Cancellation Policy" id="cancellation_policy_text_id" class="form-control">
@@ -59,14 +68,14 @@
              
              {!! csrf_field() !!}
           </div>
-          <div class="form-group required">
+          <div class="form-group">
            <label class="col-sm-2 control-label" for="input-username"> Cancellation Percentage</label>
             <div class="col-sm-10">
              <input type="text" name="cancellation_percentage" value="<?php echo ($editCancellationPolicies && $editCancellationPolicies->cancellation_percentage) ? $editCancellationPolicies->cancellation_percentage: ''; ?>" placeholder="Cancellation Percentage" id="cancellation_percent_id" class="form-control">
 
              
-                 <?php if($errors->first('cancellation_percent')) { ?>
-                 <div class="text-danger"><?php echo $errors->first('cancellation_percent'); ?></div>
+                 <?php if($errors->first('cancellation_percentage')) { ?>
+                 <div class="text-danger"><?php echo $errors->first('cancellation_percentage'); ?></div>
                 <?php } ?>
              </div>
              
@@ -80,19 +89,10 @@
             <div class="col-sm-10">
                <select name="status" id="status" class="form-control">
                 <option value="1" <?php echo  ($editCancellationPolicies && $editCancellationPolicies->status == 1) ? 'selected' : ''; ?>>Active</option>
-                <option value="0" <?php echo  ($editCancellationPolicies && $editCancellationPolicies->status == 0) ? 'selected' : ''; ?>>In Active</option>
+                <option value="0" <?php echo  ($editCancellationPolicies && $editCancellationPolicies->status == 0) ? 'selected' : ''; ?>>Inactive</option>
                </select>
              </div>
            </div>
-
-            @if(session('success') || session('warning'))
-            <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-            <div class="alert alert-<?php echo (session('success')) ? 'success': 'danger'; ?>" style="display: block;"><?php echo (session('success')) ? session('success') : session('warning'); ?><button type="button" class="close" data-dismiss="alert">×</button>
-            </div>
-            </div>
-            </div>
-            @endif
 
             <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
