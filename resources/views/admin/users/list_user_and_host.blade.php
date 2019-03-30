@@ -4,6 +4,10 @@
 
     <div class="page-header">
     <div class="container-fluid">
+     
+      <div class="pull-right">
+      <button type="button" id="button-filter-clear" class="btn btn-success pull-right">Clear</button>
+      </div>
     
       <h3>Host & Users</h3>
     </div>
