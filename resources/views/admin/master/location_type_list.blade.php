@@ -6,6 +6,9 @@
     <div class="container-fluid">
      <div class="pull-right"><a href="<?php echo url('admin/addLocationType'); ?>" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Add New"><i class="fa fa-plus"></i></a>
       </div>
+      <div class="pull-right">
+      <button type="button" id="button-filter-clear" class="btn btn-success pull-right">Clear</button>
+      </div>
       <h3>Location Type</h3>
     </div>
   </div>
