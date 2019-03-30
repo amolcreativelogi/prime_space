@@ -41,7 +41,7 @@ Route::post('/admin/saveCarType','Admin\MasterController@saveCarType');
 Route::post('/admin/getCarType','Admin\MasterController@getCarType');
 Route::post('/admin/DeteteRecord','Admin\MasterController@DeteteRecord');
 
-
+ 
 
 /**** Priyanka : ROUTES ****/
 
@@ -212,4 +212,8 @@ Route::get('/admin/mail','Admin\UsersController@mail');
 //Front end user side
 
 Route::post('/userRegistration','Front\UserController@userRegistration');
+Route::post('/userLogin','Front\UserController@userLogin');
+Route::post('/resetPassword','Front\UserController@resetPassword');
 
+Route::get('/user/host','Front\HostController@hostDashboard');
+Route::get('/user/customer','Front\CustomerController@customerDashboard');

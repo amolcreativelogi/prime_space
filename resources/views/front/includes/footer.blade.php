@@ -1,4 +1,186 @@
 
+
+
+<!-- singupModal start -->
+<div class="modal fade formModal" id="singupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Sign up</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="site-signup site-form">
+                      <form id="form-signup" url="{{ URL::asset('userRegistration') }}" method="post" novalidate="novalidate">
+                      <input type="hidden" name="_csrf-frontend" value="">
+                       {!! csrf_field() !!}
+                      <div class="form-group field-signupform-email required">
+                          <input type="text" id="email_id" class="form-control" name="email_id" aria-required="true" placeholder="Email Address">
+                      </div>
+                      <div class="form-group field-signupform-first_name required has-error">
+                          <input type="text" id="firstname" class="form-control" name="firstname" autofocus="" aria-required="true" aria-invalid="true" placeholder="First Name">
+                      </div>
+                      <div class="form-group field-signupform-last_name required">
+                          <input type="text" id="lastname" class="form-control" name="lastname" autofocus="" aria-required="true" placeholder="Last Name">
+                      </div>
+                      <div class="form-group field-signupform-password required">
+                          <input type="password" id="password" class="form-control" name="password" aria-required="true" placeholder="Create a password">
+                      </div>
+                      <div class="form-group birthdategroup">
+                         <label>Birthday</label>
+                         <p>To sign up, you must be 18 or older. People won’t see your birthday</p>
+                         <div class="birthdaygroup">
+                          <select class="month" name="dob_month">
+                            <?php for ($m=1; $m<=12; $m++) {
+                            $month = date('F', mktime(0,0,0,$m, 1, date('Y'))); ?>
+                            <option value="<?php echo $m; ?>"><?php echo $month; ?></option>
+                            <?php } ?>
+                          </select>
+                          <select class="day" name="dob_day">
+                            <?php for ($d=1; $d<=31; $d++) { ?>
+                            <option value="<?php echo $d; ?>"><?php echo $d; ?></option>
+                            <?php } ?>
+                          </select>
+                          <select class="year" name="dob_year">
+                           <?php 
+                           $year = date('Y')-18;
+                           $validyear = date('Y')-118;
+                           for ($y=$year; $y>=$validyear; $y--) { ?>
+                           <option value="<?php echo $y; ?>"><?php echo $y; ?></option>
+                           <?php } ?>
+                          </select>
+                         </div>
+                      </div>
+
+                      <div class="form-group acctype-group">
+                          <label class="control-label" for="signupform-confirm_password">account type</label>
+                          <ul>
+                            <li>
+                              <input type="radio" name="user_type_id" id="host" value="2">
+                              <label for="host">Host</label>
+                            </li>
+                            <li>
+                              <input type="radio" name="user_type_id" id="user" value="3">
+                              <label for="user">User</label>
+                            </li>
+                          </ul>
+                          <div id="user_type_id-error" class="error" for="email_address"></div>
+                      </div>
+
+                    <div class="row">
+                        <div class="col-sm-1">
+                            <input type="checkbox" id="privacy_policy_check"> <span class="checkmark"></span>
+                        </div>
+                        <div class="col-sm-11">
+                            <label for="">
+                                By continuing you are confirming that you have read and agree to the <a href="#">Terms of Service</a> &amp; <a href="#">Privacy Policy</a>.
+                            </label>
+                        </div>
+                    </div>
+                    <div class="msg-gloabal"></div>
+                    <div class="form-group">
+                        <button type="submit" class="bluebtn" name="signup-button">Sign up</button>                    
+                    </div>
+
+                    <div class="form-group password-reset text-center">
+                        Already have a Prymespace account? <a href="#" data-toggle="modal" data-target="#loginModal" class="loginModal popuplink">Log in</a>.
+                    </div>
+                    </form>                
+      </div>  
+      </div>
+    </div>
+  </div>
+</div>
+<!-- singupModal end -->
+
+<!-- loginModal start -->
+<div class="modal fade formModal" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Log in to continue</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="site-signup site-form">
+                   <form id="form-login" url="{{ URL::asset('userLogin') }}" method="post" novalidate="novalidate">
+                             {!! csrf_field() !!}
+                            <input type="hidden" name="_csrf-frontend" value="">
+                            <div class="form-group field-loginform-email required has-error">
+                                <input type="text" id="email_id_login" class="form-control" name="email_id" autofocus="" aria-required="true" aria-invalid="true" placeholder="Email Address">
+                            </div>
+                            <div class="form-group field-loginform-password required has-error">
+                                <input type="password" id="password_login" class="form-control" name="password" aria-required="true" aria-invalid="true" placeholder="Password">
+                            </div>
+                            <div class="form-group field-loginform-rememberme">
+                              <div class="checkbox">
+                                  <label for="loginform-rememberme">
+                                  <input type="hidden" name="LoginForm[rememberMe]" value="0"><input type="checkbox" id="loginform-rememberme" name="rememberme" value="1" checked="">
+                                  Remember Me
+                                  </label>
+                              </div>
+                            </div>
+                             <div class="msg-gloabal"></div>
+                            <div class="form-group text-center">
+                                <button type="submit" class="bluebtn" name="login-button">Login</button>
+                            </div>
+
+                            <div class="form-group text-center">
+                              <ul class="social-login">
+                                <li><a class="google auth-link" href="#" title="Google"><i class="fa fa-google-plus" aria-hidden="true"></i>Google+</a></li>
+                                <li><a class="facebook auth-link" href="#" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i>Facebook</a></li>
+                              </ul>
+                            </div>
+
+                            <a href="#" data-toggle="modal" data-target="#resetpassModal" class="forgotlink">Forgot password?</a>
+
+                            <div class="form-group password-reset text-center" >
+                                Don’t have a Prymespace account? <a href="#" data-toggle="modal" data-target="#singupModal" class="singupModal popuplink">Sign up</a>.
+                            </div>
+
+                        </form>              
+      </div>  
+      </div>
+    </div>
+  </div>
+</div>
+<!-- loginModal end -->
+
+<!-- resetpassModal start -->
+<div class="modal fade formModal" id="resetpassModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Reset password request</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+    <div class="site-signup site-form">
+     <form id="form-password" url="{{ URL::asset('resetPassword') }}" method="post" novalidate="novalidate">
+         {!! csrf_field() !!}
+        <div class="form-group field-passwordresetrequestform-email">
+          <input type="text" id="forgot_password_email" class="form-control" name="email_id" autofocus="" aria-required="true" aria-invalid="true" placeholder="Email Address">
+        </div>
+        <div class="msg-gloabal"></div>
+        <div class="form-group">
+          <button type="submit" class="bluebtn" name="forgot-button">Send</button>                         
+        </div>
+      </form>             
+    </div>  
+      </div>
+    </div>
+  </div>
+</div>
+<!-- loginModal end -->
+
+
+
 <footer class="site-footer">
   <div class="container">
     <div class="foot-top">
@@ -54,14 +236,18 @@
 </footer>
 
 
-
 <script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/jquery.easing.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+
 <script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/custom-file-input.js"></script>
 <script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/owl.carousel.min.js"></script>
 <script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/popper.min.js"></script>
 <script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/common.js"></script>
+
+<script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/my-script.js"></script>
+
 
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('public') }}/assets/front-design/css/owl.carousel.min.css">
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('public') }}/assets/front-design/css/owl.theme.default.min.css">
