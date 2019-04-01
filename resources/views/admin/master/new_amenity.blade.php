@@ -34,7 +34,7 @@
                 <input type="checkbox" name="module_manage_id[]" id="module_manage_id[]"
                 value="<?php echo $category->module_manage_id ?>" 
                 <?php echo  ($module_manage_ids && in_array($category->module_manage_id, $module_manage_ids)) ? 'checked' : ''; ?> 
-                class=""><?php echo $category->module_manage_name ?>
+                class="">&nbsp;&nbsp;&nbsp;<?php echo $category->module_manage_name ?>
                 <?php } ?>
 
               
