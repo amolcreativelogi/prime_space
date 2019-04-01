@@ -32,6 +32,9 @@ $('#whatabout').owlCarousel({
     loop:true,
     margin:0,
     nav:true,
+    autoplay:true,
+    autoplayTimeout:3000,
+    autoplayHoverPause:true,
     responsive:{
         0:{
             items:1
@@ -61,6 +64,23 @@ $('#book-space').owlCarousel({
         }
     }
 })
+
+
+$('#property-slider').owlCarousel({
+    center: true,
+    items:1,
+     merge:true,
+    loop:true,
+    margin:8,
+    nav:true,
+    dots:false,
+    responsive:{
+        600:{
+            items:2
+        }
+    }
+});
+
 
 $('#testimonial').owlCarousel({
     loop:true,
@@ -214,6 +234,40 @@ function calculateGrandTotal() {
     });
     $("#second-grandtotal").text(grandTotal.toFixed(3));
 }
+
+
+//Show Hide Div on property select 
+$(function() {
+    $('#select-property-type').change(function(){
+        $('.step-show').hide();
+        $('#' + $(this).val()).show();
+    });
+});
+
+
+
+// Show Hide Location Type Div
+
+$(".type").on('change',function(e){
+    localStorage.setItem("type", e.target.value);
+});
+
+
+$(".type").on('click',function(){
+    var type1 = localStorage.getItem("type");
+    var div = $('#property-land');
+    if(type1 == 'property-land'){
+ $('#locationtype').hide();
+
+}else if(type1 == 'parking-spaces'){
+        //alert('ww');
+     $('#locationtype').show();
+}
+})
+
+
+
+
 
 
 

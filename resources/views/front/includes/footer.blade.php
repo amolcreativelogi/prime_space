@@ -46,7 +46,7 @@
                           <select class="year" name="dob_year">
                            <?php 
                            $year = date('Y')-18;
-                           $validyear = date('Y')-118;
+                           $validyear = date('Y')-100;
                            for ($y=$year; $y>=$validyear; $y--) { ?>
                            <option value="<?php echo $y; ?>"><?php echo $y; ?></option>
                            <?php } ?>

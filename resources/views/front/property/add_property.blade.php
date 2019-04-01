@@ -1,6 +1,8 @@
 @extends('front/layouts.default')
 @section('content')
 
+
+
 <!-- searchModal start -->
 <div class="modal fade formModal" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -154,6 +156,7 @@
                               <ul class="social-login">
                                 <li><a class="google auth-link" href="#" title="Google"><i class="fa fa-google-plus" aria-hidden="true"></i>Google+</a></li>
                                 <li><a class="facebook auth-link" href="#" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i>Facebook</a></li>
+                                <li><a class="linkedin auth-link" href="#" title="Linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i>Linkedin</a></li>
                               </ul>
                             </div>
 
@@ -220,10 +223,10 @@
 <fieldset>
 <h2 class="fs-title">Prpoerty Information</h2>
 <input type="text" name="" placeholder="Property Name " />
-<select>
-  <option>Property Type</option>
-  <option>Property Type</option>
-  <option>Property Type</option>
+<select id="select-property-type"  class="type">
+  <option value="property-type">Property Type</option>
+  <option value="parking-spaces">Parking Spaces</option>
+  <option value="property-land">Land</option>
 </select>
 <input type="text" name="" placeholder="Location" />
 <input type="text" name="" placeholder="Enter Property Zip Code" />
@@ -247,8 +250,8 @@
 </fieldset>
 
 <fieldset>
-<h2 class="fs-title">Cars and Pricing</h2>
-<div class="form-field">
+<div class="form-field step-show" id="parking-spaces"  style="display:none;">
+  <h2 class="fs-title">Cars and Pricing</h2>
   <label>Enter Property Floors Parking spots</label>
   <table id="myTable" class=" table order-list1">
     <tbody>
@@ -283,8 +286,7 @@
         </tr>
     </tfoot>
 </table>
-</div>
-<div class="form-field">
+
   <label>Select Booking Duration Type and Enter Property Rent</label>
   <table id="myTable" class=" table order-list">
     <tbody>
@@ -308,7 +310,7 @@
                 <input type="text" name="" placeholder="Daily Price">
             </td>
             <td class="col-sm-3">
-                <input type="text" name="" placeholder="Monthly  Price">
+                <input type="text" name="" placeholder="Monthly Price">
             </td>
             <td class="col-sm-2"><a class="deleteRow"></a>
 
@@ -326,14 +328,75 @@
     </tfoot>
 </table>
 </div>
+<div class="form-field step-show" id="property-land"  style="display:none;">
+  <h2 class="fs-title">Property size </h2>
+  <label style="float: none;width: 100%;text-align: left;font-weight: 600;">Units</label>
+  <ul class="custom-radio">
+  <li>
+    <input type="radio" name="units" id="sqft">
+    <label for="sqft">Sqft  </label>
+  </li>
+  <li>
+    <input type="radio" name="units" id="sq-Meter">
+    <label for="sq-Meter">Sq Meter </label>
+  </li>
+  <li>
+    <input type="radio" name="units" id="acres">
+    <label for="acres">Acres </label>
+  </li>
+</ul>
+
+<input type="text" name="" placeholder="Sqft / Sq Meter / Acres">
+<hr>
+
+<h2 class="fs-title">Tour Availability </h2>
+  <ul class="custom-radio" style="text-align: left;">
+  <li>
+    <input type="radio" name="tour_availability_yes" id="tour_availability_no">
+    <label for="sqft">Yes  </label>
+  </li>
+  <li>
+    <input type="radio" name="tour_availability_no" id="tour_availability_yes">
+    <label for="sq-Meter">No </label>
+  </li>
+</ul>
+
+
+<h2 class="fs-title">Land Use for</h2>
+  <ul class="custom-checkbox">
+    <li>
+      <input type="checkbox" name="landuse" id="industrial">
+      <label for="industrial">Industrial </label>
+    </li>
+    <li>
+      <input type="checkbox" name="landuse" id="agriculture">
+      <label for="agriculture">Agriculture </label>
+    </li>
+    <li>
+      <input type="checkbox" name="landuse" id="residential">
+      <label for="residential">Residential </label>
+    </li>
+    <li>
+      <input type="checkbox" name="aminities" id="commercial">
+      <label for="commercial">Commercial (Retail, Restaurant) </label>
+    </li>
+    <li>
+      <input type="checkbox" name="aminities" id="all-type">
+      <label for="all-type">For All Type</label>
+    </li>
+  </ul>
+
+
+
+</div>
 
 <input type="button" name="previous" class="previous action-button" value="Previous" />
-<input type="button" name="next" class="next action-button" value="Next" />
+<input type="button" name="next" class="next action-button type" value="Next" />
 </fieldset>
 
 <fieldset>
 <h2 class="fs-title">Amenities and Other</h2>
-<ul class="aminities-list">
+<ul class="aminities-list custom-checkbox">
   <li>
     <input type="checkbox" name="aminities" id="Security">
     <label for="Security">Security</label>
@@ -364,13 +427,31 @@
   </li>
   <li>
     <input type="checkbox" name="aminities" id="wheelchair1">
-    <label for="wheelchair1">Wheelchair Accessible </label>
+    <label for="wheelchair1">Wheelchair Accessible</label>
   </li>
   <li>
     <input type="checkbox" name="aminities" id="washing1">
-    <label for="washing1">Washing center</label>
+    <label for="washing1">Washing Center</label>
   </li>
 </ul>
+<hr>
+<div id="locationtype">
+<h2 class="fs-title">Location Type</h2>
+<ul class="custom-radio">
+  <li>
+    <input type="radio" name="location" id="covered">
+    <label for="covered">Covered </label>
+  </li>
+  <li>
+    <input type="radio" name="location" id="uncovered">
+    <label for="uncovered">Uncovered</label>
+  </li>
+  <li>
+    <input type="radio" name="location" id="both">
+    <label for="both">Both</label>
+  </li>
+</ul>
+</div>
 <input type="button" name="previous" class="previous action-button" value="Previous" />
 <input type="button" name="next" class="next action-button" value="Next" />
 </fieldset>
