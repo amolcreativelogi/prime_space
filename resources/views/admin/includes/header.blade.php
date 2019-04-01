@@ -48,11 +48,32 @@ function DeleteRecord(id,table,tbid)
 {
         if(confirm('Are you sure you want to delete this record?')){
         var url = baseurl+'/admin/DeteteRecord';
-        //alert(url);
+        //alert(isDeleteChild);
         $.ajax({
         method: 'POST',
         url: url,
         data: {'id':id,'table':table,'dbid':tbid,'_token':"{{ csrf_token() }}"}
+        })
+        .done(function( msg ) {
+        alert('Record Deleted Successfully.');
+        //location.reload();
+        var oTable = $('#example').dataTable();
+        oTable.fnDraw();
+        });
+        }else{
+        return false;
+        }
+}
+
+function DeleteRecordWithChild(id,parentTable,tbid,isDeleteChild,childTable)
+{
+        if(confirm('Are you sure you want to delete this record?')){
+        var url = baseurl+'/admin/DeleteRecordWithChild';
+       // alert(isDeleteChild);
+        $.ajax({
+        method: 'POST',
+        url: url,
+        data: {'id':id,'parentTable':parentTable,'dbid':tbid,'isDeleteChild':isDeleteChild,'childTable':childTable,'_token':"{{ csrf_token() }}"}
         })
         .done(function( msg ) {
         alert('Record Deleted Successfully.');

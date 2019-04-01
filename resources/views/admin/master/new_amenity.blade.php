@@ -1,5 +1,6 @@
 @extends('admin/layouts.default')
 @section('content')
+<?php //echo '<pre>'; print_r($editAmenity); echo '</pre>';die;?>
 <div id="content">
   <div class="page-header">
     <div class="container-fluid">
@@ -26,19 +27,27 @@
         	<div class="form-group required">
 	            <label class="col-sm-2 control-label" for="input-username">Module Categories</label>
 	            <div class="col-sm-10">
-                @if(isset($editAmenity) && !empty($editAmenity))
-                  <select name="module_manage_id" id="module_manage_id" class="form-control">
-                @else
-	               <select name="module_manage_id[]" id="module_manage_id" class="form-control" multiple="multiple">
-                @endIf
-	               	<option value="">Select</option>
 
-	        <?php foreach($getModuleCategories as $category){ ?>
+               
+                <?php foreach($getModuleCategories as $category){  ?>
 
-					<option value="<?php echo $category->module_manage_id ?>" <?php echo  ($editAmenity && $editAmenity->module_manage_id == $category->module_manage_id) ? 'selected' : ''; ?>><?php echo $category->module_manage_name ?></option>
+                <input type="checkbox" name="module_manage_id[]" id="module_manage_id[]"
+                value="<?php echo $category->module_manage_id ?>" 
+                <?php echo  ($module_manage_ids && in_array($category->module_manage_id, $module_manage_ids)) ? 'checked' : ''; ?> 
+                class=""><?php echo $category->module_manage_name ?>
+                <?php } ?>
+
+              
+	               <!-- <select name="module_manage_id[]" id="module_manage_id[]" class="form-control" multiple="multiple">
+	               	<option  disabled selected value>Select</option>
+
+	             <?php foreach($getModuleCategories as $category){  ?>
+           
+    					<option value="<?php echo $category->module_manage_id ?>" <?php echo  ($module_manage_ids && in_array($category->module_manage_id, $module_manage_ids)) ? 'selected' : ''; ?>><?php echo $category->module_manage_name ?></option> 
 
 	               	<?php } ?>
-	               </select>
+	               </select> -->
+             
 	                <?php if($errors->first('module_manage_id')) { ?>
                  	<div class="text-danger"><?php echo $errors->first('module_manage_id'); ?></div>
                 	<?php } ?>

@@ -457,7 +457,7 @@ input[type="radio"], input[type="checkbox"] {
 .radio, .checkbox {
 	min-height: 18px;
 }
-input[type="radio"], .radio input[type="radio"], .radio-inline input[type="radio"], input[type="checkbox"], .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"] {
+/*input[type="radio"], .radio input[type="radio"], .radio-inline input[type="radio"], input[type="checkbox"], .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"] {
 	position: relative;
 	width: 13px;
 	width: 16px \0;
@@ -468,7 +468,7 @@ input[type="radio"], .radio input[type="radio"], .radio-inline input[type="radio
 	border: 1px solid #dcdcdc;
 	border: 1px solid transparent \0;
 	border-radius: 1px;
-}
+}*/
 input[type="radio"]:focus, .radio input[type="radio"]:focus, .radio-inline input[type="radio"]:focus, input[type="checkbox"]:focus, .checkbox input[type="checkbox"]:focus, .checkbox-inline input[type="checkbox"]:focus {
 	border-color: #4d90fe;
 	outline: 0;

@@ -135,7 +135,9 @@ class MasterController extends Controller
     }
 
     
-
+/*-----------------------------------
+   DELETE FUNCTIONS
+-----------------------------------*/
 
     function DeteteRecord()
 	{
@@ -143,6 +145,25 @@ class MasterController extends Controller
 	  	$deleteRecord  = DB::table($_POST['table'])->where($_POST['dbid'], $_POST['id'])->update($data);
 	    if($deleteRecord)
 	    {
+	        echo '{"code":"200"}';
+	    }
+	    else
+	    {
+	        echo '{"code":"100"}';
+	    }
+	}
+
+
+	 function DeleteRecordWithChild()
+	{
+	  	$data = array('is_deleted'=>1);
+	  	$isDeleteChild = $_POST['isDeleteChild'];
+	  	$deleteRecord  = DB::table($_POST['parentTable'])->where($_POST['dbid'], $_POST['id'])->update($data);
+
+	    if($deleteRecord)
+	    {
+	    	$deleteDeleteChild  = DB::table($_POST['childTable'])->where($_POST['dbid'], $_POST['id'])->update($data);
+
 	        echo '{"code":"200"}';
 	    }
 	    else
@@ -333,11 +354,38 @@ class MasterController extends Controller
     	->select('module_manage_id','status','module_manage_name')
     	->where([['is_deleted', '=', 0],
     			['status', '=', 1]])->get();
-    	$getAmenity = DB::table('tbl_mstr_amenities')
-    	->where('amenity_id', '=', $amenity_id)->first();
+
+    	$getAmenity = [];
+    	$module_manage_ids = [];
+
+    	if(!is_null($amenity_id)){
+    	$getAmenity = DB::table('tbl_mstr_amenities')->select('tbl_mstr_amenities.amenity_name',
+			'tbl_mstr_amenities.status','tbl_mstr_amenities.amenity_image',
+			'tbl_mstr_amenities.amenity_id',
+			DB::raw("(GROUP_CONCAT(tbl_module_manage.module_manage_id)) as `module_ids`"),
+			
+			DB::raw("(GROUP_CONCAT(module_manage_name)) as `modules`")
+		)
+		 ->leftJoin('tbl_mstr_amenities_with_category', 'tbl_mstr_amenities_with_category.amenity_id', '=', 'tbl_mstr_amenities.amenity_id')
+		 ->leftJoin('tbl_module_manage', 'tbl_module_manage.module_manage_id', '=', 'tbl_mstr_amenities_with_category.module_manage_id')->where('tbl_mstr_amenities.is_deleted', '=', 0)
+		 ->groupBy('tbl_mstr_amenities.amenity_id','tbl_mstr_amenities.amenity_name','tbl_mstr_amenities.status','tbl_mstr_amenities.amenity_image')
+		 ->where('tbl_mstr_amenities.amenity_id', '=', $amenity_id)->first();
+
+		//format module ids from string to array
+		 
+		 if(!empty($getAmenity->module_ids)){
+			 $module_manage_ids = explode(',', $getAmenity->module_ids);
+		  }
+
+		 }
+
+    	/*$getAmenity = DB::table('tbl_mstr_amenities')
+    	->where('amenity_id', '=', $amenity_id)->first();*/
     	return view('admin.master.new_amenity')
-    	->with(array('editAmenity' => $getAmenity,
-    	'getModuleCategories'=>$getModuleCategories));
+    	->with(array(
+    	'editAmenity' => $getAmenity,
+    	'getModuleCategories'=>$getModuleCategories,
+    	'module_manage_ids'=>$module_manage_ids));
     } 
 
 
@@ -351,7 +399,8 @@ class MasterController extends Controller
 
 	public function saveAmenity(AmenitiesRequest $request)
     {	
- 
+ 		
+ 		//store amenity image
 		 $image = $request->file('amenity_image');
 		 if($image)
 		 {
@@ -362,82 +411,123 @@ class MasterController extends Controller
 		 } else {
 			$image = $request->input('edit_amenity_image');
 		 }
+
+		 //get categories id
+		 $module_categories = $request->input('module_manage_id');
 		
-		 if(!$request->input('id')) {
-			   	$module_categories = $request->input('module_manage_id');
-			   	
-			   	$data =[];
-			   	foreach($module_categories as $module_category){
-				   		//Add new record
-				   	if(!empty($module_category)){
-				   		//check duplicate entry
-	    				$duplicateEntry = DB::table('tbl_mstr_amenities')->where('amenity_name', '=', $request->input('amenity_name'))->where('module_manage_id', '=', $module_category)->where('is_deleted', '=', 0)->count();
-	    				
-				   		if($duplicateEntry == 0) {
-					    	$data[] = array(
-					    					'amenity_name'=>$request->input('amenity_name'),
-					    					'amenity_image'=>$image,
-					    					'module_manage_id'=>$module_category,
-					    					'status'=>$request->input('status'),
-					    					'created_by'=>'1',
-					    					'modified_by'=>'1'
-					    				 );
-					    }else{
-				    		$module_cat_id[] = $module_category;
-				    	}
+		if(!$request->input('id')) {
 
-				    }
+		 	//check duplicate entries for amenity
+			$duplicateEntry = DB::table('tbl_mstr_amenities')->where('amenity_name', '=', $request->input('amenity_name'))->where('is_deleted', '=', 0)->count();
 
-				    
-
-			   	}
-			   	/*echo '<pre>';
-			   	print_r($data);
-			   	echo '</pre>';
-			   	die;*/
-			   	if(!empty($data)){
-			   		$result  = DB::table('tbl_mstr_amenities')->insert($data);
-			   	}
-	   			
-		    	if(isset($result))
-		    	{
-		    		return redirect()->back()->withSuccess('Record has been saved successfully');
-		    	}
-			    else {
+			if($duplicateEntry != 0) {
 
 			    	return redirect()->back()->withWarning('Amenity already exists');
-				}
-					    	
-		 } else {
-		 	/*$module_categories = $request->input('module_manage_id');
-		 	$impld_module_category = implode(',', $module_categories);
-		 	$module_categories = explode(',', $impld_module_category);
-		 	$module_manage_id = $module_categories[0];*/
-		 	//die;
-		 	//check duplicate entry
-    		$duplicateEntry = DB::table('tbl_mstr_amenities')->where('amenity_name', '=', $request->input('amenity_name'))->where('module_manage_id', '=', $request->input('module_manage_id'))->where('amenity_id', '!=', $request->input('id'))->where('is_deleted', '=', 0)->count();
 
-			   if($duplicateEntry == 0) {
-				    //Update new record
-		    		$data = array(
-			    					'amenity_name'=>$request->input('amenity_name'),
-					    			'amenity_image'=>$image,
-					    			'module_manage_id'=>$request->input('module_manage_id'),
-			    					'status'=>$request->input('status'),
-			    					'created_by'=>'1',
-			    					'modified_by'=>'1'
-			    				 );
-					$result  = DB::table('tbl_mstr_amenities')->where('amenity_id', $request->input('id'))->update($data);
-			    	if($result)
+			}else{    
+				//Store ameniy details
+				$amenity_details= array(
+    					'amenity_name'=>$request->input('amenity_name'),
+    					'amenity_image'=>$image,
+    					'status'=>$request->input('status'),
+    					'created_by'=>'1',
+    					'modified_by'=>'1'
+    				 );
+
+
+				$amenity_id  = DB::table('tbl_mstr_amenities')->insertGetId($amenity_details);
+				    //$amenity_id = $saveAmenity->insertGetId();
+				   	
+				 $data =[];
+				   	foreach($module_categories as $module_category){
+					   		//Add new record
+					   	if(!empty($module_category)){
+					   		
+						    	$data[] = array(
+						    					'amenity_id'=>$amenity_id,
+						    					'module_manage_id'=>$module_category,
+						    					'status'=>$request->input('status'),
+						    					'created_by'=>'1',
+						    					'modified_by'=>'1'
+						    				 );
+
+					    }
+
+				   	}
+				   
+				   	if(!empty($data)){
+				   		$result  = DB::table('tbl_mstr_amenities_with_category')->insert($data);
+				   	}
+		   			
+			    	if(isset($result))
 			    	{
-			    		return redirect()->back()->withSuccess('Record has been updated successfully');
-			    	} else {
-			    		return redirect('admin/amenitiesExecute');
+			    		return redirect()->back()->withSuccess('Record has been saved successfully');
 			    	}
-			    }  else {
+				    
+			}
 
-			    	return redirect()->back()->withWarning('Amenity already exists');
+					    	
+		} else { //EDIT FUNCTIONALITY
+		 	
+		 	//check duplicate entries for amenity
+			$duplicateEntry = DB::table('tbl_mstr_amenities')->where('amenity_name', '=', $request->input('amenity_name'))->where('amenity_id', '!=', $request->input('id'))->where('is_deleted', '=', 0)->count();
+
+			if($duplicateEntry == 0) {
+
+				//Store ameniy details
+				$amenity_details= array(
+    					'amenity_name'=>$request->input('amenity_name'),
+    					'amenity_image'=>$image,
+    					'status'=>$request->input('status'),
+    					'created_by'=>'1',
+    					'modified_by'=>'1'
+    				 );
+
+				$result  = DB::table('tbl_mstr_amenities')->where('amenity_id', $request->input('id'))->update($amenity_details);
+
+				//delete old entries 
+				$isDeletedAmenityCat = DB::table('tbl_mstr_amenities_with_category')->where('amenity_id', $request->input('id'))
+				//->whereIn('module_manage_id', $module_categories)
+				->delete();
+
+				$data =[];
+
+				//if deleted old records then save new
+				if($isDeletedAmenityCat){
+					
+				   	foreach($module_categories as $module_category){
+					   		//Add new record
+					   	if(!empty($module_category)){
+						    	$data[] = array(
+				    					'amenity_id'=>$request->input('id'),
+				    					'module_manage_id'=>$module_category,
+				    					'status'=>$request->input('status'),
+				    					'created_by'=>'1',
+				    					'modified_by'=>'1'
+				    				 );
+
+					    }
+					    
+
+				   	}
+
+				   	if(!empty($data)){
+				   		$insertAmenityCat  = DB::table('tbl_mstr_amenities_with_category')->insert($data);
+				   	}
+		   			
+			    	if(isset($insertAmenityCat))
+			    	{
+			    		return redirect()->back()->withSuccess('Record has been saved successfully');
+			    	}
+				    
 				}
+
+			} else {
+
+				return redirect()->back()->withWarning('Amenity already exists');
+			}
+
+    		
 		}
 
 		   
@@ -461,10 +551,21 @@ class MasterController extends Controller
 		$title=$orrd['column'];
 		$order=$orrd['dir'];
 		}
- 
-		$getAmenitiesTotalRecord = DB::table('tbl_mstr_amenities')->select('amenity_name','status','amenity_id')->where('is_deleted', '=', 0)->get()->count();
+ 		
+ 		//get total amenties
+		$getAmenitiesTotalRecord = DB::table('tbl_mstr_amenities')->select('tbl_mstr_amenities.amenity_name','tbl_mstr_amenities.status','tbl_mstr_amenities.amenity_id')->where('is_deleted', '=', 0)->get()->count();
 
-		$query = DB::table('tbl_mstr_amenities')->select('amenity_name','tbl_mstr_amenities.status','amenity_id','module_manage_name','amenity_image')->leftJoin('tbl_module_manage', 'tbl_module_manage.module_manage_id', '=', 'tbl_mstr_amenities.module_manage_id')->where('tbl_mstr_amenities.is_deleted', '=', 0);
+		//get amenities with its modules
+		$query = DB::table('tbl_mstr_amenities')->select('tbl_mstr_amenities.amenity_name',
+			'tbl_mstr_amenities.status','tbl_mstr_amenities.amenity_image',
+			'tbl_mstr_amenities.amenity_id',
+			DB::raw("(GROUP_CONCAT(tbl_module_manage.module_manage_id)) as `module_ids`"),
+			
+			DB::raw("(GROUP_CONCAT(module_manage_name)) as `modules`")
+		)
+		 ->leftJoin('tbl_mstr_amenities_with_category', 'tbl_mstr_amenities_with_category.amenity_id', '=', 'tbl_mstr_amenities.amenity_id')
+		 ->leftJoin('tbl_module_manage', 'tbl_module_manage.module_manage_id', '=', 'tbl_mstr_amenities_with_category.module_manage_id')->where('tbl_mstr_amenities.is_deleted', '=', 0)
+		 ->groupBy('tbl_mstr_amenities.amenity_id','tbl_mstr_amenities.amenity_name','tbl_mstr_amenities.status','tbl_mstr_amenities.amenity_image');
 
 		if($_POST['search']['value'] && $_POST['search']['value'] != 'clear') {
 	    $query->where('amenity_name', 'like', '%' .  $_POST['search']['value'] . '%');
@@ -497,11 +598,11 @@ class MasterController extends Controller
 	      	  $no++;
 	          $row = array();
 	          //$row[] = $sr++;
-	          $row[] = $amenities->module_manage_name;
+	          $row[] = $amenities->modules;
 	          $row[] = $amenities->amenity_name;
 	          $row[] = $image;
 	          $row[] = ($amenities->status == 1) ? 'Active' : 'Inactive';
-	           $row[] ='<a href="'.url('admin/addAmenity/'.$amenities->amenity_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$amenities->amenity_id.','."'tbl_mstr_amenities'".','."'amenity_id'".');"><i class="fa fa-trash-o"></i></button>';
+	           $row[] ='<a href="'.url('admin/addAmenity/'.$amenities->amenity_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete" onclick="DeleteRecordWithChild('.$amenities->amenity_id.','."'tbl_mstr_amenities'".','."'amenity_id'".','."'1'".','."'tbl_mstr_amenities_with_category'".');"><i class="fa fa-trash-o"></i></button>';
 	          $data[] = $row;
 	        }
 	      $output = array(
