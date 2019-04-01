@@ -109,11 +109,15 @@ function lkForms(ID){
 				$('.msg-gloabal').html(data.response.msg);
 				//loaderOut({status:0,msg:data.response.msg,url:data.url});
 			}else{
+
 				$('.msg-gloabal').removeClass('alert alert-danger');
 				$('.msg-gloabal').addClass('alert alert-success');
 				$('.msg-gloabal').html(data.response.msg);
 				$('#'+ID)[0].reset();
-				//loaderOut({status:1,msg:data.response.msg,url:data.url});
+				if(data.url != '')
+				{
+					window.location = data.url;
+				}
 			}
 			
 		}
@@ -140,10 +144,6 @@ $(function(){
 				password: {
 					required: true,
 					minlength: 5,
-				},
-				confirmpassword: {
-					required: true,
-					equalTo: "#password"
 				}
 			},
 		messages: {
@@ -158,10 +158,6 @@ $(function(){
 				 },
 				 password:{
 					required :"Password field is required",
-				 },
-				 confirmpassword:{
-					required :"Confirm Password field is required",
-					equalTo : "confirmation password do not match",
 				 }
 			},
 		submitHandler: function(form) {
@@ -182,6 +178,59 @@ $(function(){
 		  }
 	 });
 });
+
+
+//----------------- Validation of registration form ----------------//
+$(function(){
+	//Registration Form
+	 $('#form-login').validate({
+		rules: {
+				email_id: {
+				   required: true,
+				   email: true
+				},
+				password: {
+					required: true,
+					minlength: 5,
+				}
+			},
+		messages: {
+				 email_id:{
+					required :"Email Address field is required",
+				 },
+				 password:{
+					required :"Password field is required",
+				 }
+			},
+		submitHandler: function(form) {
+			lkForms('form-login');
+			//form.submit();
+		  }
+	 });
+});
+
+//----------------- Validation of forgot password form ----------------//
+$(function(){
+	//Registration Form
+	 $('#form-password').validate({
+		rules: {
+				email_id: {
+				   required: true,
+				   email: true
+				}
+			},
+		messages: {
+				 email_id:{
+					required :"Email Address field is required",
+				 }
+			},
+		submitHandler: function(form) {
+			lkForms('form-login');
+			//form.submit();
+		  }
+	 });
+});
+
 
 $(function(){
 	//Registration Form

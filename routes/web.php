@@ -47,6 +47,7 @@ Route::post('/admin/DeleteRecordWithChild','Admin\MasterController@DeleteRecordW
 
 
 
+
 /**** Priyanka : ROUTES ****/
 
 
@@ -216,4 +217,8 @@ Route::get('/admin/mail','Admin\UsersController@mail');
 //Front end user side
 
 Route::post('/userRegistration','Front\UserController@userRegistration');
+Route::post('/userLogin','Front\UserController@userLogin');
+Route::post('/resetPassword','Front\UserController@resetPassword');
 
+Route::get('/user/host','Front\HostController@hostDashboard');
+Route::get('/user/customer','Front\CustomerController@customerDashboard');
