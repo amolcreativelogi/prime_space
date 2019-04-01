@@ -2,7 +2,7 @@
 @section('content')
 <div id="content">
 
-    <div class="page-header">
+  <div class="page-header">
     <div class="container-fluid">
      <div class="pull-right"><a href="<?php echo url('admin/addLandType'); ?>" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Add New"><i class="fa fa-plus"></i></a>
       </div>

@@ -27,7 +27,6 @@ Route::get('/addproperty','Front\PropertyController@addProperty');
 //admin route
 
 
-
 Route::view('admin', 'admin/login');
 Route::post('/admin/checkLogin','Admin\MainController@checkLogin');
 
@@ -39,9 +38,15 @@ Route::get('/admin/carTypeExecute','Admin\MasterController@carTypeExecute');
 Route::get('/admin/addCarType/{id?}','Admin\MasterController@addCarType');
 Route::post('/admin/saveCarType','Admin\MasterController@saveCarType');
 Route::post('/admin/getCarType','Admin\MasterController@getCarType');
+
+/*DELETE RECORDS*/
+
 Route::post('/admin/DeteteRecord','Admin\MasterController@DeteteRecord');
 
- 
+Route::post('/admin/DeleteRecordWithChild','Admin\MasterController@DeleteRecordWithChild');
+
+
+
 
 /**** Priyanka : ROUTES ****/
 
