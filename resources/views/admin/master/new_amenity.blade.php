@@ -68,11 +68,15 @@
           </div>
 
 
-          <div class="form-group">
+          <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-username">Amenity Image</label>
             <div class="col-sm-10">
                <input type="file" name="amenity_image" id="id_amenity_image">
                <input type="hidden" name="edit_amenity_image" id="id_edit_amenity_image" value="<?php echo  ($editAmenity && $editAmenity->amenity_image) ? $editAmenity->amenity_image : ''; ?>">
+
+               <?php if($errors->first('amenity_image')) { ?>
+                 <div class="text-danger"><?php echo $errors->first('amenity_image'); ?></div>
+                <?php } ?>
              </div>
               
            </div>

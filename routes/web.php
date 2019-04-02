@@ -205,17 +205,13 @@ Route::post('/admin/saveLandType','Admin\LandController@saveLandType');
 //Route to get land  type list
 Route::post('/admin/getLandTypes','Admin\LandController@getLandTypes');
 
-//Route for users dashbaord
-//Route::get('/admin/Host_Users','Admin\UsersController@Host_Users');
-
-
-
 
 Route::get('/admin/mail','Admin\UsersController@mail');
 
 
-//Front end user side
+/*FRONTEND USER ROUTES*/
 
+//
 Route::post('/userRegistration','Front\UserController@userRegistration');
 Route::post('/userLogin','Front\UserController@userLogin');
 Route::post('/resetPassword','Front\UserController@resetPassword');
@@ -223,5 +219,12 @@ Route::post('/resetPassword','Front\UserController@resetPassword');
 Route::get('/user/host','Front\HostController@hostDashboard');
 Route::get('/user/customer','Front\CustomerController@customerDashboard');
 
+//Route to 
+Route::get('/frontend/getPropertyMasters','Front\PropertyController@getPropertyMasters');
+//Route to 
+Route::get('/front/saveProperty','Front\PropertyController@saveProperty');
 
-Route::get('/emailSend','Front\UserController@emailSend');
+
+
+//Route::post('/frontend/getPropertyMasters','Front\PropertyController@getPropertyMasters');
+

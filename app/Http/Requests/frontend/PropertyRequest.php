@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\frotend;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AmenitiesRequest extends FormRequest
+class PropertyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class AmenitiesRequest extends FormRequest
     public function rules()
     {
         return [
-            'module_manage_id' => 'required',
-            'amenity_name' => 'required'
+            'module_manage_id' => 'required'
+          
             
             
         ];
@@ -34,8 +34,8 @@ class AmenitiesRequest extends FormRequest
     public function messages()
     {
         return [
-            'module_manage_id.required' => 'Module category field is required',
-            'amenity_name.required' => 'Amenity name field is required'
+            'module_manage_id.required' => 'Module category field is required'
+            
             
         ];
     }
