@@ -320,3 +320,45 @@ $(function(){
 		  }
 	 });
 });
+
+//----------------- Validation of add property form ----------------//
+$(function(){
+	//Registration Form
+	 $('#msform').validate({
+		rules: {
+
+				property_name: {
+					required: true
+				},
+				select-property-type: {
+				   required: true
+				},
+				location: {
+					required: true
+				},
+				zip_code: {
+					required: true,
+					minlength: 5,
+				},
+				property_description: {
+					required: true
+				},
+				property-images: {
+					required: true
+				}
+
+			},
+		messages: {
+				 property_name:{
+					required :"Email Address field is required",
+				 },
+				 location:{
+					required :"Password field is required",
+				 }
+			},
+		submitHandler: function(form) {
+			lkForms('form-login');
+			//form.submit();
+		  }
+	 });
+});

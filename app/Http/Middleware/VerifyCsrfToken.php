@@ -23,8 +23,9 @@ class VerifyCsrfToken extends Middleware
          'admin/getUnitTypes',
          'admin/getCancellationTypes',
          'admin/getCancellationPolicies',
-          'admin/getLandTypes',
-          'admin/Host_Users'
+         'admin/getLandTypes',
+         'admin/Host_Users',
+         'frontend/getPropertyMasters'
     ];
 
      // public function handle($request, Closure $next)

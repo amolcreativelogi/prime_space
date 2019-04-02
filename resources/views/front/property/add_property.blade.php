@@ -1,8 +1,6 @@
 @extends('front/layouts.default')
 @section('content')
 
-
-
 <!-- searchModal start -->
 <div class="modal fade formModal" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -208,7 +206,10 @@
     <div class="container">
           <h2>add property</h2>
 <!-- multistep form -->
-<form id="msform">
+<form action="<?php echo url('front/saveProperty'); ?>" method="post" enctype="multipart/form-data" id="msform" class="">
+
+   {!! csrf_field() !!} 
+<!-- <form id="msform" > -->
 <!-- progressbar -->
 <ul id="progressbar">
 <li class="active"></li>
@@ -221,22 +222,28 @@
 
 <!-- fieldsets -->
 <fieldset>
-<h2 class="fs-title">Prpoerty Information</h2>
-<input type="text" name="" placeholder="Property Name " />
-<select id="select-property-type"  class="type">
-  <option value="property-type">Property Type</option>
-  <option value="parking-spaces">Parking Spaces</option>
-  <option value="property-land">Land</option>
+<h2 class="fs-title">Property Information</h2>
+<input type="text" name="property_name" id="property_name" placeholder="Property Name " />
+<select id="select-property-type" name="module_manage_id" class="type" onchange="getProprtyMasters(this.value)">
+   <option value="">Select Property</option>
+  <?php foreach($getModuleCategories as $category){ ?>
+      <option value="<?php echo $category->module_manage_id ?>"><?php echo $category->module_manage_name ?></option>
+      <?php } ?>
+     </select>
+      <?php if($errors->first('module_manage_id')) { ?>
+      <div class="text-danger"><?php echo $errors->first('module_manage_id'); ?></div>
+  <?php } ?>
 </select>
-<input type="text" name="" placeholder="Location" />
-<input type="text" name="" placeholder="Enter Property Zip Code" />
-<textarea placeholder="Property description" cols="6"></textarea>
+<input type="hidden" name="module_manage" value="3" id="module_manage" class="form-control">
+<input type="text" name="location" id="location" placeholder="Location" />
+<input type="text" name="zip_code" id="zip_code" placeholder="Enter Property Zip Code" />
+<textarea placeholder="Property description" name="property_description" id="property_description" cols="6"></textarea>
 <!-- <input type="file" name="" placeholder="Property Images " /> -->
 <div class="box">
   <input type="file" name="property-images" id="property-images" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple style="display: none;" />
   <label for="property-images"><span></span> <strong>Choose Property Images</strong></label>
 </div>
-<input type="button" name="next" class="next action-button" value="Next" />
+<input type="button" name="next" id="step1" class="next action-button" value="Next" />
 </fieldset>
 
 <fieldset>
@@ -246,11 +253,11 @@
   <label for="property-map"><span></span> <strong>Choose Property Floor Map</strong></label>
 </div>
 <input type="button" name="previous" class="previous action-button" value="Previous" />
-<input type="button" name="next" class="next action-button" value="Next" />
+<input type="button" name="next" id="step2" class="next action-button" value="Next" />
 </fieldset>
 
 <fieldset>
-<div class="form-field step-show" id="parking-spaces"  style="display:none;">
+<div class="form-field step-show" id="2"  style="display:none;">
   <h2 class="fs-title">Cars and Pricing</h2>
   <label>Enter Property Floors Parking spots</label>
   <table id="myTable" class=" table order-list1">
@@ -328,7 +335,7 @@
     </tfoot>
 </table>
 </div>
-<div class="form-field step-show" id="property-land"  style="display:none;">
+<div class="form-field step-show" id="3"  style="display:none;">
   <h2 class="fs-title">Property size </h2>
   <label style="float: none;width: 100%;text-align: left;font-weight: 600;">Units</label>
   <ul class="custom-radio">
@@ -391,7 +398,7 @@
 </div>
 
 <input type="button" name="previous" class="previous action-button" value="Previous" />
-<input type="button" name="next" class="next action-button type" value="Next" />
+<input type="button" name="next" id="step3" class="next action-button type" value="Next" />
 </fieldset>
 
 <fieldset>
@@ -437,23 +444,23 @@
 <hr>
 <div id="locationtype">
 <h2 class="fs-title">Location Type</h2>
-<ul class="custom-radio">
-  <li>
-    <input type="radio" name="location" id="covered">
-    <label for="covered">Covered </label>
-  </li>
-  <li>
-    <input type="radio" name="location" id="uncovered">
-    <label for="uncovered">Uncovered</label>
-  </li>
-  <li>
-    <input type="radio" name="location" id="both">
-    <label for="both">Both</label>
-  </li>
+<ul class="custom-radio" id="locationtypes">
+    <li>
+      <input type="radio" name="location" id="covered">
+      <label for="covered">Covered </label>
+    </li>
+    <li>
+      <input type="radio" name="location" id="uncovered">
+      <label for="uncovered">Uncovered</label>
+    </li>
+    <li>
+      <input type="radio" name="location" id="both">
+      <label for="both">Both</label>
+    </li>
 </ul>
 </div>
 <input type="button" name="previous" class="previous action-button" value="Previous" />
-<input type="button" name="next" class="next action-button" value="Next" />
+<input type="button" name="next" id="step4" class="next action-button" value="Next" />
 </fieldset>
 
 <fieldset>
@@ -489,5 +496,32 @@
 
 
 
+<script type="text/javascript">
+  var baseurl = '<?php echo url('/'); ?>';
+ /* $("#select-property-type").change(function() {
+  alert('hi');
+        var end = this.value;
+        var firstDropVal = $('#pick').val();
+    });
+*/
+function getProprtyMasters(module_manage_id)
+{
+        alert(module_manage_id);  
+        var url = baseurl+'/frontend/getPropertyMasters';
+        //alert(url);
+        $.ajax({
+        method: 'POST',
+        url: url,
+        data: {'module_manage_id':module_manage_id,'_token':"{{ csrf_token() }}"}
+        })
+        .done(function(response) {
+          alert('hi');
+        });
+       
+}
+  function test(){
+    alert('hi');
+  }
+</script>
 
 
