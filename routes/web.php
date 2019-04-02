@@ -222,3 +222,6 @@ Route::post('/resetPassword','Front\UserController@resetPassword');
 
 Route::get('/user/host','Front\HostController@hostDashboard');
 Route::get('/user/customer','Front\CustomerController@customerDashboard');
+
+
+Route::get('/emailSend','Front\UserController@emailSend');

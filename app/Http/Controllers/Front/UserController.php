@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\URL;
 use DB;
 
+use Mail; 
+
 class UserController extends Controller
 {
     public function userRegistration(Request $request)
@@ -77,6 +79,7 @@ class UserController extends Controller
 
 	public function userLogin(Request $request)
 	{
+
 		$getuserLogin = DB::table('prk_user_registrations')->select('user_id','user_type_id','default_user_type','status')->where('email_id', '=', $request->input('email_id'))->where('password', '=', md5($request->input('password')))->first();
 		$array = array();
     	if($getuserLogin)
@@ -125,6 +128,16 @@ class UserController extends Controller
 						  'response' =>  array('msg' =>'Invalid email id.'),'url' => '');	
 		}
 		echo json_encode($data);
+		exit;
+	}
+
+	public function emailSend()
+	{	
+		$data = array('name'=>'amol kharate','body'=>'Test Email');
+		echo  \Mail::send('emails.mail', $data, function ($m){
+            $m->from('info@prymestory.com', 'Pryme Story');
+            $m->to('amolkharate.wwg@gmail.com', 'Amol')->subject('you have successfully registered with prymestory.com');
+        });
 		exit;
 	}
 }

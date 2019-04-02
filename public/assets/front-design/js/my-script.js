@@ -225,7 +225,7 @@ $(function(){
 				 }
 			},
 		submitHandler: function(form) {
-			lkForms('form-login');
+			lkForms('form-password');
 			//form.submit();
 		  }
 	 });
