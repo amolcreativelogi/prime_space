@@ -264,17 +264,72 @@ var left, opacity, scale; //fieldset properties which we will animate
 var animating; //flag to prevent quick multi-click glitches
 
 $(".next").click(function(){
+
+  var form = $("#msform");
+    form.validate({
+      rules: {
+        'data[property_name]': {
+          required: true,
+        },
+        'module_manage_id': {
+          required: true,
+        },
+        'data[location]': {
+          required: true,
+        },
+        'data[zip_code]': {
+          required: true,
+        },
+        'data[property_description]': {
+          required: true,
+        },
+        'property_size': {
+          required: true,
+        }
+
+        
+      },
+      messages: {
+        'data[property_description]': {
+          required: "Property name is required",
+        },
+        'module_manage_id': {
+          required: "Property type is required",
+        },
+        'data[location]': {
+          required: "Location name is required",
+        },
+        'data[zip_code]': {
+          required: "Zip code is required",
+        },
+        'data[property_description]': {
+          required: "Property description is required",
+        },
+        'property_size': {
+          required: "Property Size is required",
+        }
+      }
+    });
+
   if(animating) return false;
   animating = true;
+
+  if (form.valid() == true){
+      current_fs = $(this).parent();
+      next_fs = $(this).parent().next();
+      next_fs.show(); 
+      current_fs.hide();
+      animating = false;
+  }
+
   
-  current_fs = $(this).parent();
-  next_fs = $(this).parent().next();
+  
   
   //activate next step on progressbar using the index of next_fs
   $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
   
   //show the next fieldset
-  next_fs.show(); 
+  //next_fs.show(); 
   //hide the current fieldset with style
   current_fs.animate({opacity: 0}, {
     step: function(now, mx) {

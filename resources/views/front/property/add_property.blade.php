@@ -368,7 +368,7 @@
     </li>
   </ul>
 
-  <input type="text" name="" placeholder="Sqft / Sq Meter / Acres">
+  <input type="text" name="property_size" placeholder="Sqft / Sq Meter / Acres">
   <hr>
 
   <h2 class="fs-title">Tour Availability </h2>
@@ -480,7 +480,7 @@
   <h3 class="fs-subtitle">Thank you for adding Parking. Please wait for Admin approval.</h3>
 
   <input type="button" name="previous" class="previous action-button" value="Previous" />
-  <input type="submit" name="submit" class="submit action-button" value="Submit" />
+  <input type="submit" name="submit" class="submita action-button" value="Submit" />
   </fieldset>
 
   </form>
@@ -491,10 +491,9 @@
 
 
   <link href="{{ URL::asset('public') }}/assets/front-design/css/component.css" rel="stylesheet">
-  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<!--   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
+  <!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script> -->
  @stop
-
 
 
 

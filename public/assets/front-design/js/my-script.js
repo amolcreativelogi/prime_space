@@ -321,6 +321,27 @@ $(function(){
 	 });
 });
 
+
+
+
+// $("#step1").click(function(){
+// 	alert();
+// var form = $("#msform");
+// form.validate({
+// 	rules: {
+// 		property_name: {
+// 			required: true,
+// 			minlength: 6,
+// 		}
+// 	},
+// 	messages: {
+// 		property_name: {
+// 			required: "Username required",
+// 		}
+// 	}
+// });
+// });
+
 //----------------- Validation of add property form ----------------//
 /*$(function(){
 	//Registration Form
