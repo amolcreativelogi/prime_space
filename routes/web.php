@@ -220,9 +220,9 @@ Route::get('/user/host','Front\HostController@hostDashboard');
 Route::get('/user/customer','Front\CustomerController@customerDashboard');
 
 //Route to 
-Route::get('/frontend/getPropertyMasters','Front\PropertyController@getPropertyMasters');
+Route::post('/frontend/getPropertyMasters','Front\PropertyController@getPropertyMasters');
 //Route to 
-Route::get('/front/saveProperty','Front\PropertyController@saveProperty');
+Route::post('/frontend/saveProperty','Front\PropertyController@saveProperty');
 
 
 

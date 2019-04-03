@@ -322,7 +322,7 @@ $(function(){
 });
 
 //----------------- Validation of add property form ----------------//
-$(function(){
+/*$(function(){
 	//Registration Form
 	 $('#msform').validate({
 		rules: {
@@ -361,4 +361,4 @@ $(function(){
 			//form.submit();
 		  }
 	 });
-});
+});*/
