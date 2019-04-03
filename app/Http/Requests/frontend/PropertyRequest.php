@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\frotend;
+namespace App\Http\Requests\Frontend;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,8 +24,8 @@ class PropertyRequest extends FormRequest
     public function rules()
     {
         return [
-            'module_manage_id' => 'required'
-          
+            'module_manage_id' => 'required',
+            'data[location]' => 'required'
             
             
         ];
@@ -35,8 +35,7 @@ class PropertyRequest extends FormRequest
     {
         return [
             'module_manage_id.required' => 'Module category field is required'
-            
-            
+            'data[location].required' => 'location field is required'
         ];
     }
 }
