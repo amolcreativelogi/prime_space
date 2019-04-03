@@ -150,8 +150,10 @@ class PropertyController extends Controller
     	
     }
     
-    public function saveProperty(PropertyRequest $request)
+    public function saveProperty(Request $request)
     {
+        print_r($_POST);
+        exit;
     	//print_r($request);
     	//die('in');
     	$getModuleCategories = DB::table('tbl_module_manage')
