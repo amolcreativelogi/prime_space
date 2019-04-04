@@ -23,7 +23,7 @@
 <header class="site-header">
     <div class="row">
       <div class="col-lg-3 col-md-4 col-sm-12 logodiv">
-        <a href="index.html" class="logo"><img src="{{ URL::asset('public') }}/assets/front-design/images/psw-logo.png" alt=""></a>
+        <a href="{{ URL::asset('/') }}" class="logo"><img src="{{ URL::asset('public') }}/assets/front-design/images/psw-logo.png" alt=""></a>
       </div>
       <div class="col-lg-9 col-md-8 col-sm-12 menudiv">
         <a href="#" data-toggle="modal" class="searchModal popuplink" data-target="#searchModal"><i class="fa fa-search" aria-hidden="true"></i> Search</a>

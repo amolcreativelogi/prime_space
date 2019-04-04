@@ -1,4 +1,31 @@
-
+ <!-- searchModal start -->
+  <div class="modal fade formModal" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Find a space</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="site-signup site-form">
+        <form>
+          <select>
+            <option>Choose a category</option>
+            <option>Choose a category</option>
+            <option>Choose a category</option>
+          </select>
+          <input type="text" name="" placeholder="Location" class="location">
+          <input type="text" name="" placeholder="Dates" class="dates">
+          <input type="button" name=""  value="Search">
+        </form>              
+      </div>  
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- searchModal end -->
 
 
 <!-- singupModal start -->
@@ -254,6 +281,39 @@
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('public') }}/assets/front-design/css/owl.carousel.min.css">
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('public') }}/assets/front-design/css/owl.theme.default.min.css">
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.js"></script>
+
+
+
+<script type="text/javascript">
+jQuery.datetimepicker.setLocale('en');
+
+jQuery('#from').datetimepicker({
+ timepicker:false,
+ format:'m.d.Y'
+});
+jQuery('#to').datetimepicker({
+ timepicker:false,
+ format:'m.d.Y'
+});
+jQuery('#from_date').datetimepicker({
+ timepicker:false,
+ format:'m.d.Y'
+});
+jQuery('#to_date').datetimepicker({
+ timepicker:false,
+ format:'m.d.Y'
+});
+$('#from_time').datetimepicker({
+  datepicker:false,
+  format:'H:i'
+});
+$('#to_time').datetimepicker({
+  datepicker:false,
+  format:'H:i'
+});
+</script>
 
 <script>
 $(function() {
@@ -311,15 +371,15 @@ $(".next").click(function(){
       }
     });
 
-  if(animating) return false;
-  animating = true;
+  // if(animating) return false;
+  // animating = true;
 
   if (form.valid() == true){
       current_fs = $(this).parent();
       next_fs = $(this).parent().next();
       next_fs.show(); 
       current_fs.hide();
-      animating = false;
+     // animating = false;
   }
 
   
