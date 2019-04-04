@@ -228,3 +228,10 @@ Route::post('/frontend/saveProperty','Front\PropertyController@saveProperty');
 
 //Route::post('/frontend/getPropertyMasters','Front\PropertyController@getPropertyMasters');
 
+
+
+//Search Query
+Route::get('/searchproperty','Front\PropertyController@SeachProperty');
+
+ 
+
