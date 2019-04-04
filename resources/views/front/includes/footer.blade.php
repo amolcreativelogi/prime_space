@@ -414,8 +414,8 @@ $(".next").click(function(){
 });
 
 $(".previous").click(function(){
-  if(animating) return false;
-  animating = true;
+  //if(animating) return false;
+  //animating = true;
   
   current_fs = $(this).parent();
   previous_fs = $(this).parent().prev();

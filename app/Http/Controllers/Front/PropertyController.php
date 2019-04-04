@@ -152,16 +152,126 @@ class PropertyController extends Controller
     
     public function saveProperty(Request $request)
     {
-        print_r($_POST);
+        echo '<pre>';
+        print_r($_POST,0);
+
+        if(!$request->input('id')) {
+
+        	$tbl_prefix="";
+        	switch ($request->input('module_manage_id')) {
+        		case '2':
+        			$tbl_prefix="prk_";
+        			# code...
+        			break;
+        		case '3':
+        			$tbl_prefix="lnd_";
+        			# code...
+        			break;
+        		default:
+        			$tbl_prefix="lnd_";
+        			# code...
+        			break;
+        	};
+        	
+        	//echo $request['data']['property_name'];die('in');
+        	
+        	$propBasicDetails = array(
+        				'module_manage_id'=>$request['module_manage_id'],
+        				'user_id'=>2,//$request->input('property_name'),
+    					'name'=>$request['data']['property_name'],
+    					'location'=>$request['data']['location'],
+    					'latitude'=>10.000,
+    					'longitude'=>9.000,//$request->input('longitude'),
+    					'zip_code'=>$request['data']['zip_code'],
+    					'description'=>$request['data']['property_description'],
+    					'location_type_id'=>$request['data']['location_type'],
+    					'status'=>1,
+    					'created_by'=>'1',
+    					'modified_by'=>'1',
+    					'is_deleted'=>'0',
+    					 
+    				 );
+
+        	$propertyId  = DB::table($tbl_prefix.'add_property')->insertGetId($propBasicDetails);
+
+        	//insert parking flloors
+
+        	if(isset($request['data']['parking']['floors']) && !empty($request['data']['parking']['floors']))
+        	{
+        		$propFloorDetails[]=[];
+        		
+        		//Get parking floor names
+        		foreach ($request['data']['parking']['floors']['floor_name'] as $key=>$floors_names) {
+        			$propFloorDetails[$key]['floor_name']	=$floors_names;
+        			
+        		}
+        		//get floor parking type names
+        		foreach ($request['data']['parking']['floors']['parking_type'] as $key=>$parking_type) {
+        			$propFloorDetails[$key]['parking_type']	=$parking_type;
+        			
+        		}
+        		//get total spots for each floor
+        		foreach ($request['data']['parking']['floors']['total_parking_spots'] as $key=>$total_parking_spots) {
+        			$propFloorDetails[$key]['total_parking_spots']	=$total_parking_spots;
+        			
+        		}
+
+        		//get floor details array
+        		if(!empty($propFloorDetails)){
+        			$insertPropFloorDetails =[];
+        			foreach ($propFloorDetails as $floors) {
+        					$insertPropFloorDetails[]=array(
+        						'floor_name'=>($floors['floor_name'])?$floors['floor_name']:'',
+        						'parking_type_id'=>1,//$floors['parking_type'],
+        						'total_parking_spots'=>($floors['total_parking_spots'])?$floors['total_parking_spots']:0,
+        						'property_id'=>$propertyId,
+        						'status'=>1,
+		    					'created_by'=>'1',
+		    					'modified_by'=>'1',
+		    					'is_deleted'=>'0'
+	    					 
+        					);
+        			}
+        		}
+
+				$insertPropFloorData  = DB::table($tbl_prefix.'add_property_floors')->insert($insertPropFloorDetails);
+
+
+
+				
+        		
+        	}
+
+        	//save amenities
+        	if(isset($request['data']['amenities']) & !empty($request['data']['amenities'])){
+
+        			$inserAmenitiesArr=[];
+        			foreach ($request['data']['amenities'] as $value) {
+        				# code...
+        				$inserAmenitiesArr[]=array(
+        					'amenity_id'=>$value,
+        					'property_id'=>$propertyId,
+        					'status'=>1,
+		    				'created_by'=>'1',
+		    				'modified_by'=>'1',
+		    				'is_deleted'=>'0'
+        				);
+        				
+
+        			}
+        			$insertPropFloorData  = DB::table($tbl_prefix.'add_property_amenities')->insert($inserAmenitiesArr);
+
+        			//print_r($propFloorDetails);die('in');
+        			
+        	}
+
+        	exit;
+					    	
+	    } else {
+
+	    }
+
         exit;
-    	//print_r($request);
-    	//die('in');
-    	$getModuleCategories = DB::table('tbl_module_manage')
-    	->select('module_manage_id','status','module_manage_name')
-    	->where([['is_deleted', '=', 0],
-    			['status', '=', 1]])->get();
-    	return redirect()->back()->withSuccess('Record has been updated successfully');
-    	//return view('front.property.add_property')->with('getModuleCategories', $getModuleCategories);
     	
     }
    
