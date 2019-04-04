@@ -39,14 +39,25 @@ class UserController extends Controller
 	    					'user_type_id'=>$request->input('user_type_id'),
 	    					'dob'=>$dob,
 	    					'default_user_type'=>$request->input('user_type_id'),
+	    					'status'=>($request->input('user_type_id') == 2) ? 0 : 1,
 	    					'registration_type'=>1,
 	    					'created_by'=>1,
 	    					'modified_by'=>1,
 	    					 );
 			    $result  = DB::table('prk_user_registrations')->insert($data);
 				if($result){
-					$data = array('status' => true,
+
+					if($request->input('user_type_id') == 2)
+					{
+							$data = array('status' => true,
+							'response' => array('msg' =>'Thank you for applying for host to our site. We will review your details and send you an email letting you know whether your application has been successful or not.'),'url' => '');
+				
+					}
+					else
+					{
+						$data = array('status' => true,
 								  'response' => array('msg' =>'Registered Successfully.'),'url' => '');
+					}
 				}
 			}
 			
