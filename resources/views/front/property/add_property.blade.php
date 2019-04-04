@@ -249,7 +249,7 @@
   <fieldset>
   <h2 class="fs-title">Property Floor Map</h2>
   <div class="box">
-    <input type="file" name="data[parking][property-map]" id="property-map" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple style="display: none;" />
+    <input type="file" name="data[property-map]" id="property-map" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple style="display: none;" />
     <label for="property-map"><span></span> <strong>Choose Property Floor Map</strong></label>
   </div>
   <input type="button" name="previous" class="previous action-button" value="Previous" />
@@ -264,10 +264,10 @@
       <tbody>
           <tr>
               <td class="col-sm-4">
-                  <input type="text" name="data[parking][parking_type]" placeholder="Enter floor name">
+                  <input type="text" name="data[parking][floors][floor_name][0]" placeholder="Enter floor name">
               </td>
               <td class="col-sm-4">
-                 <select name="data[parking][parking_type]">
+                 <select name="data[parking][floors][parking_type][0]">
                    <option>Parking Type</option>
                   @if(!empty($getParkingType))
                     @foreach($getParkingType as $parkingType)
@@ -278,7 +278,7 @@
               </td>
                  
               <td class="col-sm-3">
-                  <input type="text" name="" placeholder="Total Parking spots ">
+                  <input type="text" name="data[parking][floors][total_parking_spots][0]" placeholder="Total Parking spots ">
               </td>
               <td class="col-sm-2"><a class="deleteRow"></a>
 
@@ -301,7 +301,7 @@
       <tbody>
           <tr>
               <td class="col-sm-3">
-                <select name="data[parking][car_type]">
+                <select name="data[booking_rent][car_type][0]">
                    <option>Car Type</option>
                   @if(!empty($getCarType))
                     @foreach($getCarType as $carType)
@@ -353,9 +353,9 @@
   <div class="form-field step-show" id="3"  style="display:none;">
     <h2 class="fs-title">Property size </h2>
     <label style="float: none;width: 100%;text-align: left;font-weight: 600;">Units</label>
-    <ul class="custom-radio">
-    <li>
-      <input type="radio" name="units" id="sqft">
+    <ul class="custom-radio" id="property_size_units">
+    <!-- <li>
+      <input type="radio" name="data[land][property_size][units]" id="sqft">
       <label for="sqft">Sqft  </label>
     </li>
     <li>
@@ -365,10 +365,10 @@
     <li>
       <input type="radio" name="units" id="acres">
       <label for="acres">Acres </label>
-    </li>
+    </li> -->
   </ul>
 
-  <input type="text" name="property_size" placeholder="Sqft / Sq Meter / Acres">
+  <input type="text" name="data[land][property_size][size]" placeholder="Sqft / Sq Meter / Acres">
   <hr>
 
   <h2 class="fs-title">Tour Availability </h2>
@@ -531,8 +531,8 @@
 
                     masters['duration_price_input'] += 
                    '<td class="col-sm-3">'+
-                            '<input type="text" name="'+ v.duration_type +'_'+ v.duration_type_id
-                            +'"placeholder="'+ v.duration_type +'Price">'+
+                            '<input type="text" name="data[booking_rent][duration_type][0]['+v.duration_type+']"'
+                            +'"placeholder="'+v.duration_type+' Price">'+
                    '</td>';
                 });
                 masters['duration_price_input'] += '</tr>';
@@ -547,7 +547,7 @@
 
                     masters['location_type_input'] += 
                             '<input type="radio" name="data[location_type]" id="'+v.location_type+'" value="'+v.location_type_id+'">'+
-                            '<label for="covered">'+v.location_type+'</label>';
+                            '<label for="'+v.location_type+'">'+v.location_type+'</label>';
                    
                 });
                 masters['location_type_input'] += '</li>';
@@ -563,7 +563,7 @@
 
                     masters['amenities_input'] += 
                             '<input type="checkbox" name="data[amenities][]" id="'+v.amenity_name+'" value="'+v.amenity_id+'">'+
-                            '<label for="covered">'+v.amenity_name+'</label>';
+                            '<label for="'+v.amenity_name+'">'+v.amenity_name+'</label>';
                    
                 });
                 masters['amenities_input'] += '</li>';
@@ -571,8 +571,23 @@
                 $('#amenities_list').html(masters['amenities_input']);
                 //alert(masters['amenities_input']);
               }
+              //if booking duration type array is not blank for selected module
+              if(getUnitTypes.length !== 0){
+                masters['prop_size_unit_input'] ='<li>';
+                $.each(getUnitTypes, function(i, v) {
 
-
+                    masters['amenities_input'] += 
+                            '<input type="checkbox" name="data[land][property_size][units]" id="'+v.unit_type+'" value="'+v.unit_type_id+'">'+
+                            '<label for="'+v.unit_type+'">'+v.unit_type+'</label>';
+                   
+                });
+                masters['prop_size_unit_input'] += '</li>';
+               
+                $('#property_size_units').html(masters['prop_size_unit_input']);
+                //alert(masters['amenities_input']);
+              }
+              
+             
               
           });
          

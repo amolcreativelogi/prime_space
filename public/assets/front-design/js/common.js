@@ -150,15 +150,16 @@ $('.forgotlink').click(function(){
 
 // Add row for Parking Sopts in Add Property
 $(document).ready(function () {
-    var counter = 0;
+    var counter = 1;
 
     $("#addrow").on("click", function () {
+        alert('hi');
         var newRow = $("<tr>");
         var cols = "";
 
-        cols += '<td><input type="text" class="form-control" placeholder="Enter floor name" name="name' + counter + '"/></td>';
-        cols += '<td><select><option>Parking Type </option><option>Self </option><option>Valet </option><option>Reserved </option><option>Handicap </option></select></td>';
-        cols += '<td><input type="text" class="form-control" placeholder="Total Parking spots " name="phone' + counter + '"/></td>';
+        cols += '<td><input type="text" class="form-control" placeholder="Enter floor name" name="data[parking][floors][floor_name][' + counter + ']"/></td>';
+        cols += '<td><select name="data[parking][floors][parking_type][' + counter + ']"><option>Parking Type </option><option>Self </option><option>Valet </option><option>Reserved </option><option>Handicap </option></select></td>';
+        cols += '<td><input type="text" class="form-control" placeholder="Total Parking spots " name="data[parking][floors][total_parking_spots][' + counter + ']"/></td>';
         cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
         newRow.append(cols);
         $("table.order-list1").append(newRow);
@@ -193,16 +194,16 @@ function calculateGrandTotal() {
 
 // Add row for Car Parking Price in Add Property
 $(document).ready(function () {
-    var counter = 0;
+    var counter = 1;
 
     $("#second-addrow").on("click", function () {
         var newRow = $("<tr>");
         var cols = "";
 
-        cols += '<td><select><option>Car Type</option><option>Hatchback</option><option>Sedan</option><option>MPV</option><option>SUV </option><option>Crossover </option><option>Coupe</option><option>Convertibl </option></select></td>';
-        cols += '<td><input type="text" class="form-control" placeholder="Hourly Price" name="mail' + counter + '"/></td>';
-        cols += '<td><input type="text" class="form-control" placeholder="Daily Price" name="phone' + counter + '"/></td>';
-        cols += '<td><input type="text" class="form-control" placeholder="Monthly  Price" name="phone' + counter + '"/></td>';
+        cols += '<td><select name="data[booking_rent][car_type][' + counter + ']"><option>Car Type</option><option>Hatchback</option><option>Sedan</option><option>MPV</option><option>SUV </option><option>Crossover </option><option>Coupe</option><option>Convertibl </option></select></td>';
+        cols += '<td><input type="text" class="form-control" placeholder="Hourly Price" name="data[booking_rent][duration_type][' + counter + '][Hourly]"/></td>';
+        cols += '<td><input type="text" class="form-control" placeholder="Daily Price" name="data[booking_rent][duration_type][' + counter + '][Daily]"/></td>';
+        cols += '<td><input type="text" class="form-control" placeholder="Monthly  Price" name="data[booking_rent][duration_type][' + counter + '][Monthly]"/></td>';
 
         cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
         newRow.append(cols);
