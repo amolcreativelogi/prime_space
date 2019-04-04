@@ -1,34 +1,7 @@
   @extends('front/layouts.default')
   @section('content')
 
-  <!-- searchModal start -->
-  <div class="modal fade formModal" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Find a space</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="site-signup site-form">
-        <form>
-          <select>
-            <option>Choose a category</option>
-            <option>Choose a category</option>
-            <option>Choose a category</option>
-          </select>
-          <input type="text" name="" placeholder="Location" class="location">
-          <input type="text" name="" placeholder="Dates" class="dates">
-          <input type="button" name=""  value="Search">
-        </form>              
-      </div>  
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- searchModal end -->
+ 
 
 
   <!-- singupModal start -->

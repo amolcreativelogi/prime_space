@@ -563,3 +563,99 @@ text-transform: uppercase;color: #303030;}
 
 }
 
+
+
+
+
+
+ /* Globel Loader for wating CSS */
+  .loader{
+    display: none;
+    z-index: 100000;
+    background: #0006;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    width: 100%;
+      
+  }
+  .loader .loader-inner{
+    display: none;
+    width: 15%;
+    background: #fff;
+    padding: 8px 10px;
+    position: relative;
+    text-align: center;
+    border:1px solid #ccc;
+    border-radius: 5px;
+    -webkit-box-shadow: -7px 6px 7px -3px rgba(0,0,0,0.75);
+    -moz-box-shadow: -7px 6px 7px -3px rgba(0,0,0,0.75);
+    box-shadow: -7px 6px 7px -3px rgba(0,0,0,0.75);
+  }
+  .loader .loader-inner .loader-img{
+    width: 35%;
+    float: left;
+  }
+  .loader .loader-inner .loader-img img{
+      height: 40px;
+  }
+  .loader .loader-inner .loader-text{
+    width: 65%;
+    float: left;
+    text-align: left;
+    line-height: 40px;
+    /*line-height: 30px;*/
+    padding-left: 0px;
+    box-sizing: border-box;
+    color: #2c2c2c;
+    font-weight: 600;
+    font-size:16px;
+  }
+  /* Globel Message CSS */
+  .globel-msg{
+    display: none;
+    /*border:1px solid #ccc;*/
+    /*border-radius:1px;*/
+    padding: 12px 10px;
+    /*-webkit-box-shadow: 0px 6px 4px -3px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 6px 4px -3px rgba(0,0,0,0.75);
+    box-shadow: 0px 6px 4px -3px rgba(0,0,0,0.75);*/
+    position: fixed;
+    top: 0px;right:0px;
+    margin: auto;
+    line-height: 20px;
+    width: 100%;
+    /*border-radius:4px;*/
+    text-align:center;
+    /*background:#000;*/
+    z-index:10000000;
+
+  }
+  .g-success{
+    background: #2F9C46;
+    border:1px solid #2F9C46;
+    color: #FFF;
+    font-weight:600;
+  }
+  .g-success i,.g-error i{
+    font-size: 1.5em;
+    line-height: 20px;
+    /*-webkit-text-stroke: 4px #a22511;*/
+    margin-right: 10px;
+    float: left;
+  }
+  .g-error{
+    background: #F75656;
+    border: 1px solid #F75656;
+    color: #FFF;
+    font-weight:600;
+  }
+
