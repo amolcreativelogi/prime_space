@@ -213,8 +213,8 @@
   <textarea placeholder="Property description" name="data[property_description]" id="property_description" cols="6"></textarea>
   <!-- <input type="file" name="" placeholder="Property Images " /> -->
   <div class="box">
-    <input type="file" name="data[property-images]" id="property-images" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple style="display: none;" />
-    <label for="property-images"><span></span> <strong>Choose Property Images</strong></label>
+    <input type="file" name="property_images[]]" id="property_images" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple style="display: none;" />
+    <label for="property_images"><span></span> <strong>Choose Property Images</strong></label>
   </div>
   <input type="button" name="next" id="step1" class="next action-button" value="Next" />
   </fieldset>
@@ -222,7 +222,7 @@
   <fieldset>
   <h2 class="fs-title">Property Floor Map</h2>
   <div class="box">
-    <input type="file" name="data[property-map]" id="property-map" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple style="display: none;" />
+    <input type="file" name="data[parking][property-map]" id="property-map" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple style="display: none;" />
     <label for="property-map"><span></span> <strong>Choose Property Floor Map</strong></label>
   </div>
   <input type="button" name="previous" class="previous action-button" value="Previous" />
@@ -237,10 +237,10 @@
       <tbody>
           <tr>
               <td class="col-sm-4">
-                  <input type="text" name="data[parking][floors][floor_name][0]" placeholder="Enter floor name">
+                  <input type="text" name="data[parking][floor_name][]" placeholder="Enter floor name">
               </td>
               <td class="col-sm-4">
-                 <select name="data[parking][floors][parking_type][0]">
+                 <select name="data[parking][parking_type_id][]">
                    <option>Parking Type</option>
                   @if(!empty($getParkingType))
                     @foreach($getParkingType as $parkingType)
@@ -251,7 +251,7 @@
               </td>
                  
               <td class="col-sm-3">
-                  <input type="text" name="data[parking][floors][total_parking_spots][0]" placeholder="Total Parking spots ">
+                  <input type="text" name="data[parking][total_parking_spots][]" placeholder="Total Parking spots ">
               </td>
               <td class="col-sm-2"><a class="deleteRow"></a>
 
@@ -274,7 +274,7 @@
       <tbody>
           <tr>
               <td class="col-sm-3">
-                <select name="data[booking_rent][car_type][0]">
+                <select name="data[parking][car_type_id][]">
                    <option>Car Type</option>
                   @if(!empty($getCarType))
                     @foreach($getCarType as $carType)
@@ -326,9 +326,9 @@
   <div class="form-field step-show" id="3"  style="display:none;">
     <h2 class="fs-title">Property size </h2>
     <label style="float: none;width: 100%;text-align: left;font-weight: 600;">Units</label>
-    <ul class="custom-radio" id="property_size_units">
-    <!-- <li>
-      <input type="radio" name="data[land][property_size][units]" id="sqft">
+    <ul class="custom-radio">
+    <li>
+      <input type="radio" name="units" id="sqft">
       <label for="sqft">Sqft  </label>
     </li>
     <li>
@@ -338,10 +338,10 @@
     <li>
       <input type="radio" name="units" id="acres">
       <label for="acres">Acres </label>
-    </li> -->
+    </li>
   </ul>
 
-  <input type="text" name="data[land][property_size][size]" placeholder="Sqft / Sq Meter / Acres">
+  <input type="text" name="property_size" placeholder="Sqft / Sq Meter / Acres">
   <hr>
 
   <h2 class="fs-title">Tour Availability </h2>
@@ -464,9 +464,11 @@
 
 
   <link href="{{ URL::asset('public') }}/assets/front-design/css/component.css" rel="stylesheet">
-<!--   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
-  <!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script> -->
- @stop
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> 
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+
+
 
 
 
@@ -489,7 +491,7 @@
           data: {'module_manage_id':module_manage_id,'_token':"{{ csrf_token() }}"}
           })
           .done(function(response) {
-            alert(response);
+            //alert(response);
             var json = $.parseJSON(response); 
             var getBookingDurationType=json.getBookingDurationType;
             var getLocationTypes=json.getLocationTypes;
@@ -499,14 +501,13 @@
             var masters=[];
               //if booking duration type array is not blank for selected module
               if(getBookingDurationType.length !== 0){
-                masters['duration_price_input'] ='<tr>';
+                masters['duration_price_input'] ='<tr class="duration_price_input">';
                 $.each(getBookingDurationType, function(i, v) {
 
                     masters['duration_price_input'] += 
                    '<td class="col-sm-3">'+
-                            '<input type="text" name="data[booking_rent][duration_type][0]['+v.duration_type+']"'
-                            +'"placeholder="'+v.duration_type+' Price">'+
-                   '</td>';
+                            '<input type="hidden" name="data[parking][duration_type_id]['+ v.duration_type_id +'][]" value="'+ v.duration_type_id +'"><input type="text" name="data[parking][rent_amount]['+ v.duration_type_id +'][]" placeholder="'+ v.duration_type +'Price">'+
+                   '</td>'; 
                 });
                 masters['duration_price_input'] += '</tr>';
                
@@ -533,7 +534,6 @@
               if(getAmenities.length !== 0){
                 masters['amenities_input'] ='<li>';
                 $.each(getAmenities, function(i, v) {
-
                     masters['amenities_input'] += 
                             '<input type="checkbox" name="data[amenities][]" id="'+v.amenity_name+'" value="'+v.amenity_id+'">'+
                             '<label for="'+v.amenity_name+'">'+v.amenity_name+'</label>';
@@ -544,32 +544,84 @@
                 $('#amenities_list').html(masters['amenities_input']);
                 //alert(masters['amenities_input']);
               }
-              //if booking duration type array is not blank for selected module
-              if(getUnitTypes.length !== 0){
-                masters['prop_size_unit_input'] ='<li>';
-                $.each(getUnitTypes, function(i, v) {
 
-                    masters['amenities_input'] += 
-                            '<input type="checkbox" name="data[land][property_size][units]" id="'+v.unit_type+'" value="'+v.unit_type_id+'">'+
-                            '<label for="'+v.unit_type+'">'+v.unit_type+'</label>';
-                   
-                });
-                masters['prop_size_unit_input'] += '</li>';
-               
-                $('#property_size_units').html(masters['prop_size_unit_input']);
-                //alert(masters['amenities_input']);
-              }
-              
-             
+
               
           });
          
          
   }
-    function test(){
-      alert('hi');
-    }
-  </script>
+    // function test(){
+    //   alert('hi');
+    // }
+
+
+// Add row for Parking Sopts in Add Property
+$(document).ready(function () {
+    var counter = 1;
+
+    $("#addrow").on("click", function () {
+
+
+        //alert('hia');
+        var newRow = $("<tr>");
+        var cols = "";
+
+        cols += '<td><input type="text" class="form-control" placeholder="Enter floor name" name="data[parking][floor_name][]"/></td>';
+        cols += '<td><select name="data[parking][parking_type_id][]"><option value="">Parking Type</option>';
+
+        <?php foreach($getParkingType as $parkingType) { ?>
+        cols += '<option value="<?= $parkingType->parking_type_id?>"><?= $parkingType->parking_type ?></option>';
+        <?php } ?>
+
+        cols += '</select></td><td><input type="text" class="form-control" placeholder="Total Parking spots " name="data[parking][total_parking_spots][]"/></td>';
+        cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
+        newRow.append(cols);
+        $("table.order-list1").append(newRow);
+        counter++;
+    });
+
+
+
+    $("table.order-list1").on("click", ".ibtnDel", function (event) {
+        $(this).closest("tr").remove();       
+        counter -= 1
+    });
+
+
+});
+
+
+// Add row for Car Parking Price in Add Property
+$(document).ready(function () {
+    var counter = 1;
+    $("#second-addrow").on("click", function () {
+
+        var duration_price_input = $('.duration_price_input').html();
+        var newRow = $("<tr>");
+        var cols = "";
+
+        cols += '<td><select name="data[parking][car_type_id][]"><option>Car Type</option>';
+
+        <?php foreach($getCarType as $carType) { ?>
+        cols += '<option value="<?= $carType->car_type_id?>"><?= $carType->car_type ?></option>';
+        <?php } ?>
+
+        cols += '</select></td>';
+        
+        cols += duration_price_input;
+
+        cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
+        newRow.append(cols);
+        $("table.order-list").append(newRow);
+        counter++;
+    });
+    $("table.order-list").on("click", ".ibtnDel", function (event) {
+        $(this).closest("tr").remove();       
+        counter -= 1
+    });
+});
+</script>
 
 
 <!--  $("#rent_with_booking_duration_type").html('');
@@ -587,3 +639,7 @@
                   </td>
                 </tr>
                </table>'; -->
+
+
+ @stop
+

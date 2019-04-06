@@ -265,9 +265,8 @@
 </footer>
 
 
-<script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/jquery-1.11.3.min.js"></script>
+
 <script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/jquery.easing.min.js"></script>
-<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 
 <script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/custom-file-input.js"></script>
 <script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/owl.carousel.min.js"></script>
@@ -325,62 +324,62 @@ var animating; //flag to prevent quick multi-click glitches
 
 $(".next").click(function(){
 
-  var form = $("#msform");
-    form.validate({
-      rules: {
-        'data[property_name]': {
-          required: true,
-        },
-        'module_manage_id': {
-          required: true,
-        },
-        'data[location]': {
-          required: true,
-        },
-        'data[zip_code]': {
-          required: true,
-        },
-        'data[property_description]': {
-          required: true,
-        },
-        'property_size': {
-          required: true,
-        }
+  // var form = $("#msform");
+  //   form.validate({
+  //     rules: {
+  //       'data[property_name]': {
+  //         required: true,
+  //       },
+  //       'module_manage_id': {
+  //         required: true,
+  //       },
+  //       'data[location]': {
+  //         required: true,
+  //       },
+  //       'data[zip_code]': {
+  //         required: true,
+  //       },
+  //       'data[property_description]': {
+  //         required: true,
+  //       },
+  //       'property_size': {
+  //         required: true,
+  //       }
 
         
-      },
-      messages: {
-        'data[property_description]': {
-          required: "Property name is required",
-        },
-        'module_manage_id': {
-          required: "Property type is required",
-        },
-        'data[location]': {
-          required: "Location name is required",
-        },
-        'data[zip_code]': {
-          required: "Zip code is required",
-        },
-        'data[property_description]': {
-          required: "Property description is required",
-        },
-        'property_size': {
-          required: "Property Size is required",
-        }
-      }
-    });
+  //     },
+  //     messages: {
+  //       'data[property_description]': {
+  //         required: "Property name is required",
+  //       },
+  //       'module_manage_id': {
+  //         required: "Property type is required",
+  //       },
+  //       'data[location]': {
+  //         required: "Location name is required",
+  //       },
+  //       'data[zip_code]': {
+  //         required: "Zip code is required",
+  //       },
+  //       'data[property_description]': {
+  //         required: "Property description is required",
+  //       },
+  //       'property_size': {
+  //         required: "Property Size is required",
+  //       }
+  //     }
+  //   });
 
   // if(animating) return false;
   // animating = true;
 
-  if (form.valid() == true){
+  //if (form.valid() == true){
       current_fs = $(this).parent();
       next_fs = $(this).parent().next();
       next_fs.show(); 
       current_fs.hide();
      // animating = false;
-  }
+  //  }
 
   
   
@@ -451,8 +450,16 @@ $(".previous").click(function(){
 $(".submit").click(function(){
   return false;
 })
-
 });
+
+
+
+
+ 
+
+
+
+
 </script>
 
 </body>
