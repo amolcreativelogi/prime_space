@@ -29,4 +29,18 @@ class HomeController extends Controller
     {
     	return view('front.pages.all_property');
     }
+
+     public function Home()
+    {
+        
+        //get modules
+        $getModuleCategories = DB::table('tbl_module_manage')
+        ->select('module_manage_id','status','module_manage_name')
+        ->where([['is_deleted', '=', 0],
+                ['status', '=', 1]])->get();
+
+        return view('front.pages.home')->with('getModuleCategories',$getModuleCategories);
+    }
+
+   
 }

@@ -11,9 +11,11 @@
 |
 */
 session_start();
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('front/pages/home');
-});
+});*/
+
+Route::get('/','Front\HomeController@Home');
 
 //frontend route
 Route::get('/login','Front\HomeController@Login');
@@ -231,7 +233,7 @@ Route::post('/frontend/saveProperty','Front\PropertyController@saveProperty');
 
 
 //Search Query
-Route::get('/searchproperty','Front\PropertyController@SeachProperty');
+Route::get('/searchproperty/{module_id?}','Front\SearchPropertyController@SeachProperty');
 
  
 
