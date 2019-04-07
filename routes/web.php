@@ -221,19 +221,19 @@ Route::post('/resetPassword','Front\UserController@resetPassword');
 Route::get('/user/host','Front\HostController@hostDashboard');
 Route::get('/user/customer','Front\CustomerController@customerDashboard');
 
-//Route to 
+//Route to get masters details on add property form
 Route::post('/frontend/getPropertyMasters','Front\PropertyController@getPropertyMasters');
-//Route to 
+//Route to save property
 Route::post('/frontend/saveProperty','Front\PropertyController@saveProperty');
 
 
-
-//Route::post('/frontend/getPropertyMasters','Front\PropertyController@getPropertyMasters');
-
-
-
-//Search Query
+//Route to Search Property
 Route::get('/searchproperty/{module_id?}','Front\SearchPropertyController@SeachProperty');
 
- 
+//Route to load single property
+Route::get('/propertydetails/{module_id?}','Front\BookingController@propertyDetails');
+
+//Route to book property
+Route::post('/frontend/bookProperty','Front\BookingController@bookProperty');
+
 

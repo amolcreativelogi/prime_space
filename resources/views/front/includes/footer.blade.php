@@ -276,10 +276,10 @@
 <script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/common.js"></script>
 
 <script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/my-script.js"></script>
-
-
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('public') }}/assets/front-design/css/owl.carousel.min.css">
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('public') }}/assets/front-design/css/owl.theme.default.min.css">
+
+
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.js"></script>
@@ -307,13 +307,18 @@ jQuery('#to_date').datetimepicker({
 });
 $('#from_time').datetimepicker({
   datepicker:false,
-  format:'H:i'
+  format:'H:i:s'
 });
 $('#to_time').datetimepicker({
   datepicker:false,
-  format:'H:i'
+  format:'H:i:s'
 });
+
+
+
 </script>
+
+<script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/property-details-page.js"></script>
 
 <script>
 $(function() {
@@ -452,7 +457,8 @@ $(".submit").click(function(){
   return false;
 })
 
-});
+
+
 </script>
 
 </body>

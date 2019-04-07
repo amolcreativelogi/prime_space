@@ -62,7 +62,7 @@
     var module_id = ($('#select-property-type').val())?$('#select-property-type').val():'2';
     var fromdate = getCurrentDate();
     var todate =   getCurrentDate();
-    var fromtime = '01:00:00';
+    var fromtime = '00:00:00';
     var totime= '23:00:00';
     var location = "";
     var latitude = '36.1626638';//$('#latitude').val(); 
@@ -83,7 +83,7 @@
 
        fromdate = $('#from_date').val(); 
        todate =   $('#to_date').val(); 
-       fromtime = ($('#from_time').val())?$('#from_time').val():'01:00:00';
+       fromtime = ($('#from_time').val())?$('#from_time').val():'00:00:00';
        totime= ($('#to_time').val())?$('#to_time').val():'23:00:00';
        location = $('#hrlyFrmlocation').val();
        latitude = '36.1626638';//$('#latitude').val(); 
@@ -116,9 +116,7 @@ function initialize() {
         document.getElementById('latitude').value = place.geometry.location.lat();
         document.getElementById('longitude').value = place.geometry.location.lng();
     });
-}
 
-function initialize() {
   var input = document.getElementById('hrlyFrmlocation');
   var autocomplete = new google.maps.places.Autocomplete(input);
     google.maps.event.addListener(autocomplete, 'place_changed', function () {
@@ -130,9 +128,6 @@ function initialize() {
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
-
-
-
 
 </script>
 
