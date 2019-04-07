@@ -1,6 +1,6 @@
 @extends('front/layouts.default')
 @section('content')
-<?php //print_r($getPropImages); die;?>
+<?php //echo '.............'.date('m.d.Y'); die;//print_r($_SESSION); die;?>
 <div class="site-content">
   <?php if(empty($getPropertyDetails)){ echo '<h4>No contents to display.</h4>'; }else{?>
   <div class="single-property">
@@ -43,8 +43,14 @@
 
       <section class="property-content">
           <div class="container">
+            <div class="col-lg-8 col-md-8 col-sm-12">
+                <div class="col-sm-offset-0 col-sm-12" id="msg" >
+                    <div id="msg" class="alert" style="display: block;"></div>
+                </div>
+            </div>
             <div class="row">
               <div class="col-lg-8 col-md-8 col-sm-12 pc-left">
+
                <!--  <h3>Great industrial lot</h3> -->
                <h3><?php echo !isset($getPropertyDetails->name)?'':$getPropertyDetails->name;?></h3>
                <!--  <h4>60 Beard St, Brooklyn, NY</h4> -->
@@ -120,6 +126,9 @@
                   </div><!-- rentedby -->
                 </div>
               </div><!-- pc-left -->
+
+              
+
 
               <div class="col-lg-4 col-md-4 col-sm-12 pc-right">
                 <div class="pcright-box">
