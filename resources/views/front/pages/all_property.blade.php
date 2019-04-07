@@ -138,7 +138,8 @@
                       </div>
                       <span>23</span>
                     </fieldset>
-                      <button class="booknow">Book now</button>
+                      <a href='<?php echo URL('/') ?>/propertydetails?moduleid=<?php echo Request::get("module_id")."&propertyid=".$searchProp->property_id."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="booknow">Book now</a>
+                     <!--  <button class="booknow"></button> -->
                     </div>
                 </div>
             </div><!-- ps-box -->

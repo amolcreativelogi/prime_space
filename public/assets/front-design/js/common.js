@@ -285,6 +285,7 @@ function getCurrentDate(){
 
 
 
+<<<<<<< HEAD
  //to get lat long
 function initialize() {
   var input = document.getElementById('location');
@@ -308,3 +309,7 @@ function initialize() {
 
 
 google.maps.event.addDomListener(window, 'load', initialize);
+=======
+
+
+>>>>>>> master_priyanka
