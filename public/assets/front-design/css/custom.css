@@ -336,30 +336,13 @@ span.teating-div {position: absolute;left: 0;width: 100%;top: -4px;}
   padding: 13px 20px;}
 .add-property .form-field {border-bottom: 1px solid #ddd;margin-bottom: 20px;}
 .add-property .form-field label { float: left; font-size: 15px; }
-
-/*.add-property .form-field #tbl_rent_with_booking_duration_type tr {}*/
-/*.add-property .form-field #tbl_rent_with_booking_duration_type tr:nth-child(1) .col-sm-3:nth-child(1) {width: 25%;float: left;}*/
-/*.add-property .form-field #tbl_rent_with_booking_duration_type tr:nth-child(1) .col-sm-3:nth-child(2) {*/
-	/* width: 75%; */
-	/* float: left; */
-/*	display: inline-block;*/
-/*	max-width: 75%;*/
-/*	flex: auto;*/
-/*	width: 75%;*/
-/*}*/
-/*.add-property .form-field #tbl_rent_with_booking_duration_type tr:nth-child(1) .col-sm-3:nth-child(2) .col-sm-3 {*/
-/*	max-width: 100%;*/
-/*	width: 165px;*/
-/*	flex: auto;*/
-/*}*/
-
-.add-property .form-field table#tbl_rent_with_booking_duration_type tr:nth-child(1) td.col-sm-8 {width: 100%;}
-.add-property .form-field table#tbl_rent_with_booking_duration_type tr.duration_price_input td, .add-property .form-field table#tbl_rent_with_booking_duration_type tr.duration_price_input td:last-child {	width: 32%;
-	float: left;}
-.add-property .form-field table#tbl_rent_with_booking_duration_type tr td {width: 22%;float: left;}
-.add-property .form-field table#tbl_rent_with_booking_duration_type tr td:last-child {width:10%;} 
-.add-property .form-field table#tbl_rent_with_booking_duration_type tfoot tr td:last-child {width: 100%;}
- 
+.add-property .form-field table#tbl_rent_with_booking_duration_type tr {display: -webkit-box;
+display: -ms-flexbox;
+display: flex;
+-ms-flex-wrap: wrap;
+flex-wrap: wrap;
+margin-right: -15px;
+margin-left: -15px;} 
 .add-property .form-field .table td, .add-property .form-field .table th { border: 0;padding:0 5px; }
 .add-property .form-field select { width: 100%; height: 50px !important;padding: 5px 10px;font-size: 16px;line-height: normal;color: #303030;}
 .add-property #msform input#addrow, .add-property #msform input#second-addrow {background: #000;color: #fff;width: 150px;
@@ -518,7 +501,7 @@ color: #303030;}
 .rentedby {border-width:1px 0; border-style:solid; border-color: #DBDEDF; padding: 20px 0;}
 .rentedby h3 {font-family: Montserrat;font-style: normal;font-weight: 600;font-size: 24px;line-height: normal;color: #303030;margin: 0;}
 .rent-date {font-family: Helvetica Neue;font-size: 16px;line-height: 26px;color: #303030;}
-/*.reviewer-img { float: right; }*/
+.reviewer-img { float: right; }
 .rentedby .cont-host {font-family: Helvetica Neue;font-size: 16px;line-height: normal;text-align: center;color: #3351BB;
   border: 1px solid #3351BB;box-sizing: border-box;border-radius: 3px;display: inline-block;padding: 13px 20px;  text-transform: capitalize;margin: 10px 0 0 0;}
 .rentedby .cont-host:hover, .rentedby .cont-host:focus {color: #fff;border: 1px solid #3351BB; background: #3351BB; text-decoration: none; }
@@ -674,6 +657,8 @@ text-transform: uppercase;color: #303030;}
 @media only screen and (max-width: 1499px) {
 
 }
+
+
 
 
 

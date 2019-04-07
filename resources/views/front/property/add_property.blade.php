@@ -213,7 +213,7 @@
   <textarea placeholder="Property description" name="data[property_description]" id="property_description" cols="6"></textarea>
   <!-- <input type="file" name="" placeholder="Property Images " /> -->
   <div class="box">
-    <input type="file" name="property_images[]]" id="property_images" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple style="display: none;" />
+    <input type="file" name="property_images[]" id="property_images" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple style="display: none;" />
     <label for="property_images"><span></span> <strong>Choose Property Images</strong></label>
   </div>
   <input type="button" name="next" id="step1" class="next action-button" value="Next" />
@@ -222,7 +222,7 @@
   <fieldset>
   <h2 class="fs-title">Property Floor Map</h2>
   <div class="box">
-    <input type="file" name="data[parking][property-map]" id="property-map" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple style="display: none;" />
+    <input type="file" name="property_map[]" id="property-map" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple style="display: none;" />
     <label for="property-map"><span></span> <strong>Choose Property Floor Map</strong></label>
   </div>
   <input type="button" name="previous" class="previous action-button" value="Previous" />
@@ -241,7 +241,7 @@
               </td>
               <td class="col-sm-4">
                  <select name="data[parking][parking_type_id][]">
-                   <option>Parking Type</option>
+                   <option value="">Parking Type</option>
                   @if(!empty($getParkingType))
                     @foreach($getParkingType as $parkingType)
                       <option value="<?= $parkingType->parking_type_id?>"><?= $parkingType->parking_type ?></option>
@@ -269,13 +269,17 @@
       </tfoot>
     </table>
 
-    <label>Select Booking Duration Type and Enter Property Rent</label>
-    <table id="tbl_rent_with_booking_duration_type" class=" table order-list">
+
+
+
+
+<label>Select Booking Duration Type and Enter Property Rent</label>
+<table id="tbl_rent_with_booking_duration_type" class="table order-list">
       <tbody>
           <tr>
               <td class="col-sm-3">
                 <select name="data[parking][car_type_id][]">
-                   <option>Car Type</option>
+                   <option value="">Car Type</option>
                   @if(!empty($getCarType))
                     @foreach($getCarType as $carType)
                       <option value="<?= $carType->car_type_id?>"><?= $carType->car_type?></option>
@@ -326,20 +330,9 @@
   <div class="form-field step-show" id="3"  style="display:none;">
     <h2 class="fs-title">Property size </h2>
     <label style="float: none;width: 100%;text-align: left;font-weight: 600;">Units</label>
-    <ul class="custom-radio">
-    <li>
-      <input type="radio" name="units" id="sqft">
-      <label for="sqft">Sqft  </label>
-    </li>
-    <li>
-      <input type="radio" name="units" id="sq-Meter">
-      <label for="sq-Meter">Sq Meter </label>
-    </li>
-    <li>
-      <input type="radio" name="units" id="acres">
-      <label for="acres">Acres </label>
-    </li>
-  </ul>
+    <ul class="custom-radio" id="get_property_size">
+   
+    </ul>
 
   <input type="text" name="property_size" placeholder="Sqft / Sq Meter / Acres">
   <hr>
@@ -347,14 +340,15 @@
   <h2 class="fs-title">Tour Availability </h2>
     <ul class="custom-radio" name="data[land][tour_availability]" style="text-align: left;">
     <li>
-      <input type="radio" name="data[land][tour_availability]" value="1" id="tour_availability_no">
-      <label for="sqft">Yes  </label>
+      <input type="radio" name="data[land][tour_availability]" value="1" id="tour_availability_yes">
+      <label for="tour_availability_yes">Yes  </label>
     </li>
     <li>
-      <input type="radio" name="data[land][tour_availability]" value="0" id="tour_availability_yes">
-      <label for="sq-Meter">No </label>
+      <input type="radio" name="data[land][tour_availability]" value="0" id="tour_availability_no">
+      <label for="tour_availability_no">No </label>
     </li>
   </ul>
+
 
 
   <h2 class="fs-title">Land Use for</h2>
@@ -365,11 +359,28 @@
            <li>
             <input type="checkbox" name="data[land][land_used_for][]" 
             value="<?= $landType->land_type_id?>" id="<?= $landType->land_type_id?>land_used_for">
-            <label for="industrial"><?= $landType->land_type?></label>
+            <label for="<?= $landType->land_type_id?>land_used_for"><?= $landType->land_type?></label>
           </li>
           @endForEach
         @endIf
     </ul>
+
+    <label>Enter Property Rent</label>
+    <table id="tbl_land_rent_with_booking_duration_type" class="table order-list-land">
+      <tbody>
+          <tr>
+              <td class="col-sm-3">
+                <table id="rent_land_with_booking_duration_type">
+               </table>
+              </td>
+              <td class="col-sm-2"><a class="deleteRow"></a>
+
+              </td>
+          </tr>
+      </tbody>
+    </table>
+
+
   </div>
 
   <input type="button" name="previous" class="previous action-button" value="Previous" />
@@ -441,7 +452,7 @@
   <fieldset>
   <h2 class="fs-title">Documents</h2>
   <div class="box">
-    <input type="file" name="data[property-documents]" id="property-documents" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple style="display: none;" />
+    <input type="file" name="property_documents[]" id="property-documents" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple style="display: none;" />
     <label for="property-documents"><span></span> <strong>Choose Property Documents</strong></label>
   </div>
   <input type="button" name="previous" class="previous action-button" value="Previous" />
@@ -496,6 +507,7 @@
             var getBookingDurationType=json.getBookingDurationType;
             var getLocationTypes=json.getLocationTypes;
             var getAmenities=json.getAmenities;
+            var getUnitTypes=json.getUnitTypes;
             
 
             var masters=[];
@@ -503,16 +515,39 @@
               if(getBookingDurationType.length !== 0){
                 masters['duration_price_input'] ='<tr class="duration_price_input">';
                 $.each(getBookingDurationType, function(i, v) {
-
                     masters['duration_price_input'] += 
                    '<td class="col-sm-3">'+
                             '<input type="hidden" name="data[parking][duration_type_id]['+ v.duration_type_id +'][]" value="'+ v.duration_type_id +'"><input type="text" name="data[parking][rent_amount]['+ v.duration_type_id +'][]" placeholder="'+ v.duration_type +'Price">'+
                    '</td>'; 
                 });
                 masters['duration_price_input'] += '</tr>';
-               
+                if(module_manage_id == 2) {
                 $('#rent_with_booking_duration_type').html(masters['duration_price_input']);
+                } else if(module_manage_id ==3)  {
+                $('#rent_land_with_booking_duration_type').html(masters['duration_price_input']);  
+                }
               }
+
+               masters['unittypes_input'] = '';
+               if(getUnitTypes.length !== 0){
+                $.each(getUnitTypes, function(i, v) {
+                    masters['unittypes_input'] += 
+                   '<li><input type="radio" name="units" id='+ v.unit_type +' value="'+ v.unit_type_id +'"><label for='+ v.unit_type +'>'+ v.unit_type +'</label></li>'; 
+                });
+                $('#get_property_size').html(masters['unittypes_input']);
+
+
+                masters['duration_price_input'] += '</tr>';
+                if(module_manage_id == 2) {
+                $('#rent_with_booking_duration_type').html(masters['duration_price_input']);
+                } else if(module_manage_id ==3)  {
+                $('#rent_land_with_booking_duration_type').html(masters['duration_price_input']);  
+                }
+              }
+
+              
+
+
 
                //if booking duration type array is not blank for selected module
               if(getLocationTypes.length !== 0){
@@ -552,21 +587,17 @@
          
   }
     // function test(){
-    //   alert('hi');
+    //   alert('hi'); 
     // }
 
 
 // Add row for Parking Sopts in Add Property
 $(document).ready(function () {
     var counter = 1;
-
     $("#addrow").on("click", function () {
-
-
         //alert('hia');
         var newRow = $("<tr>");
         var cols = "";
-
         cols += '<td><input type="text" class="form-control" placeholder="Enter floor name" name="data[parking][floor_name][]"/></td>';
         cols += '<td><select name="data[parking][parking_type_id][]"><option value="">Parking Type</option>';
 
@@ -601,7 +632,7 @@ $(document).ready(function () {
         var newRow = $("<tr>");
         var cols = "";
 
-        cols += '<td><select name="data[parking][car_type_id][]"><option>Car Type</option>';
+        cols += '<td class="car_type_id"><select name="data[parking][car_type_id][]"><option value="">Car Type</option>';
 
         <?php foreach($getCarType as $carType) { ?>
         cols += '<option value="<?= $carType->car_type_id?>"><?= $carType->car_type ?></option>';
@@ -617,6 +648,28 @@ $(document).ready(function () {
         counter++;
     });
     $("table.order-list").on("click", ".ibtnDel", function (event) {
+        $(this).closest("tr").remove();       
+        counter -= 1
+    });
+});
+
+
+$(document).ready(function () {
+    var counter = 1;
+    $("#second-addrow-land").on("click", function () {
+
+        var duration_price_input = $('.duration_price_input').html();
+        var newRow = $("<tr>");
+        var cols = "";
+
+        cols += duration_price_input;
+
+        cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
+        newRow.append(cols);
+        $("table.order-list-land").append(newRow);
+        counter++;
+    });
+    $("table.order-list-land").on("click", ".ibtnDel", function (event) {
         $(this).closest("tr").remove();       
         counter -= 1
     });

@@ -213,6 +213,7 @@ $(function() {
     $('#select-property-type').change(function(){
         $('.step-show').hide();
         $('#' + $(this).val()).show();
+        
     });
 });
 

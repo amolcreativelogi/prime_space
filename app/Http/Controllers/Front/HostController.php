@@ -11,8 +11,10 @@ use DB;
 
 class HostController extends Controller
 {
+	
+
     public function hostDashboard()
-    {
+    {	
     	return view('front.host.host_dashboard');
 	}
 }

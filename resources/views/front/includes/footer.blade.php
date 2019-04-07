@@ -10,14 +10,20 @@
         </div>
         <div class="modal-body">
           <div class="site-signup site-form">
-        <form>
+        <form> 
+
+
           <select>
             <option>Choose a category</option>
             <option>Choose a category</option>
             <option>Choose a category</option>
           </select>
           <input type="text" name="" placeholder="Location" class="location">
-          <input type="text" name="" placeholder="Dates" class="dates">
+        <!--   <input type="text" name="" placeholder="Dates" class="dates"> -->
+          <div class="form-group date-group">
+            <div class="date"><input type="text" class="form-control" placeholder="Dates" id="from"></div>
+            </div>
+
           <input type="button" name=""  value="Search">
         </form>              
       </div>  
@@ -220,29 +226,29 @@
         <div class="col-lg-3 col-md-3 col-sm-6">
           <h4>Company</h4>
           <ul>
-            <li><a href="">About Us</a></li>
-            <li><a href="">Mission</a></li>
-            <li><a href="">Vision</a></li>
-            <li><a href="">Blog</a></li>
-            <li><a href="">Press</a></li>
-            <li><a href="">FAQ's</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Mission</a></li>
+            <li><a href="#">Vision</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Press</a></li>
+            <li><a href="<?php echo URL::to('faq'); ?>">FAQ's</a></li>
           </ul>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-6">
           <h4>Hosts</h4>
           <ul>
-            <li><a href="">Benefits for Hosting with Us</a></li>
-            <li><a href="">Become a Host</a></li>
-            <li><a href="">Host FAQ's </a></li>
-            <li><a href="">Community</a></li>
+            <li><a href="#">Benefits for Hosting with Us</a></li>
+            <li><a href="#">Become a Host</a></li>
+            <li><a href="<?php echo URL::to('host-faq'); ?>">Host FAQ's </a></li>
+            <li><a href="#">Community</a></li>
           </ul>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-6">
           <h4>Renter</h4>
           <ul>
-            <li><a href="">Benefits for Renting with Us</a></li>
-            <li><a href="">Become a Renter</a></li>
-            <li><a href="">Renter FAQ's </a></li>
+            <li><a href="#">Benefits for Renting with Us</a></li>
+            <li><a href="#">Become a Renter</a></li>
+            <li><a href="<?php echo URL::to('renter-faq'); ?>">Renter FAQ's </a></li>
           </ul>
         </div>
       </div>
@@ -265,7 +271,6 @@
 </footer>
 
 
-
 <script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/jquery.easing.min.js"></script>
 
 <script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/custom-file-input.js"></script>
@@ -274,49 +279,19 @@
 <script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/common.js"></script>
 
-<script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/my-script.js"></script>
-
-
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('public') }}/assets/front-design/css/owl.carousel.min.css">
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('public') }}/assets/front-design/css/owl.theme.default.min.css">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.js"></script>
 
+<script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/my-script.js"></script>
 
+ 
 
 <script type="text/javascript">
-jQuery.datetimepicker.setLocale('en');
 
-jQuery('#from').datetimepicker({
- timepicker:false,
- format:'m.d.Y'
-});
-jQuery('#to').datetimepicker({
- timepicker:false,
- format:'m.d.Y'
-});
-jQuery('#from_date').datetimepicker({
- timepicker:false,
- format:'m.d.Y'
-});
-jQuery('#to_date').datetimepicker({
- timepicker:false,
- format:'m.d.Y'
-});
-$('#from_time').datetimepicker({
-  datepicker:false,
-  format:'H:i'
-});
-$('#to_time').datetimepicker({
-  datepicker:false,
-  format:'H:i'
-});
-</script>
-
-<script>
 $(function() {
-
 //jQuery time
 var current_fs, next_fs, previous_fs; //fieldsets
 var left, opacity, scale; //fieldset properties which we will animate
@@ -324,66 +299,81 @@ var animating; //flag to prevent quick multi-click glitches
 
 $(".next").click(function(){
 
-  // var form = $("#msform");
-  //   form.validate({
-  //     rules: {
-  //       'data[property_name]': {
-  //         required: true,
-  //       },
-  //       'module_manage_id': {
-  //         required: true,
-  //       },
-  //       'data[location]': {
-  //         required: true,
-  //       },
-  //       'data[zip_code]': {
-  //         required: true,
-  //       },
-  //       'data[property_description]': {
-  //         required: true,
-  //       },
-  //       'property_size': {
-  //         required: true,
-  //       }
-
-        
-  //     },
-  //     messages: {
-  //       'data[property_description]': {
-  //         required: "Property name is required",
-  //       },
-  //       'module_manage_id': {
-  //         required: "Property type is required",
-  //       },
-  //       'data[location]': {
-  //         required: "Location name is required",
-  //       },
-  //       'data[zip_code]': {
-  //         required: "Zip code is required",
-  //       },
-  //       'data[property_description]': {
-  //         required: "Property description is required",
-  //       },
-  //       'property_size': {
-  //         required: "Property Size is required",
-  //       }
-  //     }
-  //   });
+  var form = $("#msform");
+    form.validate({
+      rules: {
+        'data[property_name]': {
+          required: true,
+        },
+        'module_manage_id': {
+          required: true,
+        },
+        'data[location]': {
+          required: true,
+        },
+        'data[zip_code]': {
+          required: true,
+        },
+        'data[property_description]': {
+          required: true,
+        },
+        "data[parking][floor_name][]": { 
+           required: true,
+        },
+        "data[parking][parking_type_id][]": { 
+           required: true,
+        },
+        "data[parking][total_parking_spots][]": { 
+           required: true,
+           digits: true
+        },
+        "data[parking][car_type_id][]": { 
+           required: true,
+        }
+      },
+      messages: {
+        'data[property_name]': {
+          required: "Property name is required",
+        },
+        'module_manage_id': {
+          required: "Property type is required",
+        },
+        'data[location]': {
+          required: "Location name is required",
+        },
+        'data[zip_code]': {
+          required: "Zip code is required",
+        },
+        'data[property_description]': {
+          required: "Property description is required",
+        },
+        "data[parking][floor_name][]": {
+          required: "Floer Name is required",
+        },
+        "data[parking][parking_type_id][]": {
+          required: "Parking Type is required",
+        },
+        "data[parking][total_parking_spots][]": {
+          required: "Total parking spot is required",
+        },
+        "data[parking][car_type_id][]": {
+          required: "Car type is required"
+        }
+      }
+    });
 
   // if(animating) return false;
   // animating = true;
 
-  //if (form.valid() == true){
+ if (form.valid() == true){
       current_fs = $(this).parent();
       next_fs = $(this).parent().next();
       next_fs.show(); 
       current_fs.hide();
      // animating = false;
-  //  }
+ }
 
-  
-  
-  
+
   //activate next step on progressbar using the index of next_fs
   $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
   
@@ -451,13 +441,6 @@ $(".submit").click(function(){
   return false;
 })
 });
-
-
-
-
- 
-
-
 
 
 </script>
