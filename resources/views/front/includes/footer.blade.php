@@ -279,8 +279,11 @@
 <script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/common.js"></script>
 
+<script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/my-script.js"></script>
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('public') }}/assets/front-design/css/owl.carousel.min.css">
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('public') }}/assets/front-design/css/owl.theme.default.min.css">
+
+
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.js"></script>
@@ -291,6 +294,38 @@
 
 <script type="text/javascript">
 
+jQuery('#from').datetimepicker({
+ timepicker:false,
+ format:'m.d.Y'
+});
+jQuery('#to').datetimepicker({
+ timepicker:false,
+ format:'m.d.Y'
+});
+jQuery('#from_date').datetimepicker({
+ timepicker:false,
+ format:'m.d.Y'
+});
+jQuery('#to_date').datetimepicker({
+ timepicker:false,
+ format:'m.d.Y'
+});
+$('#from_time').datetimepicker({
+  datepicker:false,
+  format:'H:i:s'
+});
+$('#to_time').datetimepicker({
+  datepicker:false,
+  format:'H:i:s'
+});
+
+
+
+</script>
+
+<script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/property-details-page.js"></script>
+
+<script>
 $(function() {
 //jQuery time
 var current_fs, next_fs, previous_fs; //fieldsets
@@ -440,7 +475,7 @@ $(".previous").click(function(){
 $(".submit").click(function(){
   return false;
 })
-});
+
 
 
 </script>

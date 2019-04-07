@@ -1,5 +1,6 @@
 @extends('front/layouts.default')
 @section('content')
+
 <div class="site-content">
 
   <section class="homebanner">
@@ -25,16 +26,21 @@
                 </div>
             </div>
             
-            <form action="{{ URL::asset('search_pryme_space') }}/" method="get">
-              <select>
-                <option>Choose a category</option>
-                <option>Choose a category</option>
-                <option>Choose a category</option>
-              </select>
-              <input type="text" name="" placeholder="Location" class="location">
-              <input type="text" name="" placeholder="Dates" class="dates">
-              <input type="button" name=""  value="Search">
-            </form>
+           <!--  <form action="{{ URL::asset('search_pryme_space') }}/" method="get"> -->
+              <select required id="select-property-type" name="module_manage_id" class="type">
+                  <option value="">Choose a category</option>
+                  <?php foreach($getModuleCategories as $category){ ?>
+                      <option value="<?php echo $category->module_manage_id ?>"><?php echo $category->module_manage_name ?></option>
+                      <?php } ?>
+                     </select>
+                  <input type="text" name="location" id="location" placeholder="Location" class="location" autocomplete="on" runat="server">
+                  <input type="hidden" id="city" name="city" />
+                  <input type="hidden" name="latitude" id="latitude">
+                  <input type="hidden" name="longitude" id="longitude">
+
+              <input type="text" name="search_dates" placeholder="Dates" id="search_dates" class="dates">
+              <input type="button" name="search" id="search" onclick="searchURL()" value="Search">
+           <!--  </form> -->
           </div>
         </div>
         <div class="col-lg-6 col-md-4 col-sm-12"></div>
@@ -276,4 +282,7 @@
 
 </div><!-- site-content -->
 @stop
+
+
+
 

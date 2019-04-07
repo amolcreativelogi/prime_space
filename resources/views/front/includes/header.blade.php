@@ -7,12 +7,17 @@
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('public') }}/assets/front-design/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('public') }}/assets/front-design/css/animate.css">
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('public') }}/assets/front-design/css/font-awesome.min.css">
-<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700" rel="stylesheet"> 
+<!-- location autocomplete -->
 
-<script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/jquery-1.11.3.min.js"></script> 
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCW7L7bkL1lt82llGHEqSbB7fczpddVDqU&libraries=places"></script>
 
-<script src="{{ URL::asset('public') }}/assets/front-design/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/jquery-1.11.3.min.js"></script>
 
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+
+
+</script>
 </head>
  
 <body class="<?php echo   (URL::to('/') == Request::url()) ? 'home' : ''; ?>">
@@ -86,3 +91,84 @@
   color: red;
 }
 </style> 
+</header><!-- site-header -->
+<script type="text/javascript">
+
+  function searchURL(){
+   
+    var module_id = ($('#select-property-type').val())?$('#select-property-type').val():'2';
+    var fromdate = getCurrentDate();
+    var todate =   getCurrentDate();
+    var fromtime = '00:00:00';
+    var totime= '23:00:00';
+    var location = "";
+    var latitude = '36.1626638';//$('#latitude').val(); 
+    var longitude = '-86.78160159999999';
+    var searchFormId=$("a.active").attr('href');
+    var activeTab = "monthly";
+    
+
+    if(searchFormId == '#monthly'){
+
+       fromdate = $('#from').val(); 
+       todate =   $('#to').val();
+       location = $('#location').val();
+       latitude = '36.1626638';//$('#hrlyFrmLatitude').val(); 
+       longitude = '-86.78160159999999';//$('#hrlyFrmLongitude').val();
+       activeTab = "monthly";
+    }else if(searchFormId == '#hourly'){
+
+       fromdate = $('#from_date').val(); 
+       todate =   $('#to_date').val(); 
+       fromtime = ($('#from_time').val())?$('#from_time').val():'00:00:00';
+       totime= ($('#to_time').val())?$('#to_time').val():'23:00:00';
+       location = $('#hrlyFrmlocation').val();
+       latitude = '36.1626638';//$('#latitude').val(); 
+       longitude = '-86.78160159999999';//$('#longitude').val();
+       activeTab = "hourly";
+
+    }else{
+
+    var  search_dates = $('#search_dates').val();
+     location = $('#location').val();
+     latitude = '36.1626638';//$('#latitude').val(); 
+     longitude = '-86.78160159999999';//$('#longitude').val();
+   
+  }
+
+    var url = "<?php echo URL('/') ?>/searchproperty?module_id="+module_id+"&fromdate="+fromdate+"&todate="+todate+"&fromtime="+fromtime+"&totime="+totime+"&latitude="+latitude+"&longitude="+longitude+"&location="+location+"&activeTab="+activeTab;
+    
+    //redirect url
+     window.location = url;
+    //window.location = "http://www.myurl.com/search/" + (input text value);
+  }
+
+<<<<<<< HEAD
+ 
+=======
+  //to get lat long
+function initialize() {
+  var input = document.getElementById('location');
+  var autocomplete = new google.maps.places.Autocomplete(input);
+    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+        var place = autocomplete.getPlace();
+        document.getElementById('city').value = place.name;
+        document.getElementById('latitude').value = place.geometry.location.lat();
+        document.getElementById('longitude').value = place.geometry.location.lng();
+    });
+
+  var input = document.getElementById('hrlyFrmlocation');
+  var autocomplete = new google.maps.places.Autocomplete(input);
+    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+        var place = autocomplete.getPlace();
+        document.getElementById('hrlyFrmCity').value = place.name;
+        document.getElementById('hrlyFrmLatitude').value = place.geometry.location.lat();
+        document.getElementById('hrlyFrmLongitude').value = place.geometry.location.lng();
+    });
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+>>>>>>> master_priyanka
+
+</script>
+
