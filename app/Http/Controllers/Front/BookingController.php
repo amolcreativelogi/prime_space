@@ -17,7 +17,7 @@ class BookingController extends Controller
 {
    
    
-    //Search properties
+    //Get property details
     public function propertyDetails()
     { 
       
@@ -48,138 +48,117 @@ class BookingController extends Controller
     public function bookProperty()
     {
       
-     
-       $data =array();
-       //fromdatetime
-       $data['start_date'] = '1970:01:01';
-       $data['start_time'] = '00:00:00';
+           $message ="";
+           $data =array();
 
-       if(!empty(request()->bookfromdate)){
+           //fromdatetime formatting
+           $data['start_date'] = '1970:01:01';
+           $data['start_time'] = '00:00:00';
 
-          $expFrmDate = explode(' ', request()->bookfromdate);
-          
-         if(isset($expFrmDate[0]) && !empty($expFrmDate[0])){
-            $frm_bdate = $expFrmDate[0];
-            $frm_bdate = DateTime::createFromFormat("m.d.Y" , $frm_bdate);
-            $data['start_date'] = $frm_bdate->format('Y-m-d');
-          }
+           if(!empty(request()->bookfromdate)){
 
-          if(isset($expFrmDate[1]) && !empty($expFrmDate[1]) && (request()->durationtype=='hourly')){
-             $frm_btime = $expFrmDate[1];
-             $data['start_time'] =$frm_btime;
-          }
-          
-       }
+              $expFrmDate = explode(' ',request()->bookfromdate);
+              
+             if(isset($expFrmDate[0]) && !empty($expFrmDate[0]) ){
+                $frm_bdate = $expFrmDate[0];
+                $frm_bdate = DateTime::createFromFormat("m.d.Y" , $frm_bdate);
+                $data['start_date'] = $frm_bdate->format('Y-m-d');
+              }
 
-        //todatetime
+              if(isset($expFrmDate[1]) && request()->durationtype == 'hourly'){
+                 $frm_btime = $expFrmDate[1];
+                 $data['start_time'] =$frm_btime;
+              }
 
-       $data['end_date'] = '1970:01:01';
-       $data['end_time'] = '23:00:00';
-
-       if(!empty(request()->booktodate)){
-
-          $expToDate = explode(' ', request()->booktodate);
-          $to_bdate = $expToDate[0];
-          if(!empty($to_bdate)){
-            $to_bdate = DateTime::createFromFormat("m.d.Y" , $to_bdate);
-            $data['end_date'] = $to_bdate->format('Y-m-d');
-
-          }
-
-          if(isset($expToDate[1]) && !empty($expToDate[1]) && (request()->durationtype=='hourly')){
-            $to_btime = $expToDate[1];
-            $data['end_time'] = $to_btime;
-          }
-
-       }
-
-       $data['duration']="";
-       $data['duration_type_id']="";
-
-       //Booking amount calculation 
-        $totalDays= $this->dateDiffInDays($data['start_date'],$data['end_date']);
-        $totalHours= $this->timeDiffInHours($data['start_time'],$data['end_time']);
-
-       if(request()->durationtype == 'hourly'){
-           $data['duration_type_id']="1";
-          
-
-       }else if( (request()->durationtype == 'monthly') && ($totalDays >= 30)){
-            $data['duration_type_id']="3";
+           }
            
-       }else{
-            $data['duration_type_id']="2";
+
+            //Todatetime formatting
+
+           $data['end_date'] = '1970:01:01';
+           $data['end_time'] = '23:00:00';
+
+           if(!empty(request()->booktodate)){
+
+              $expToDate = explode(' ', request()->booktodate);
+              $to_bdate = $expToDate[0];
+              if(!empty($to_bdate)){
+                $to_bdate = DateTime::createFromFormat("m.d.Y" , $to_bdate);
+                $data['end_date'] = $to_bdate->format('Y-m-d');
+
+              }
+
+              if( (isset($expToDate[1]) && !empty($expToDate[1])) && (request()->durationtype=='hourly')){
+                $to_btime = $expToDate[1];
+                $data['end_time'] = $to_btime;
+              }
+
+           }
+           //validate data
+
+           if( ($data['end_date'] <  $data['start_date']) || ( $data['end_date'] < date('Y-m-d') )){
+
+          $response = array('status' => 'danger',
+                'message'=> 'Please select correct dates.');
+            }
+            /*else if( (request()->durationtype == 'hourly') && ( strtotime($data['end_time']) <= strtotime($data('start_time'))) ){
+
+                $response = array('status' => 'danger',
+                      'message'=> 'Please select correct time.');
+            }*/
+            else{
+
            
+           $data['duration_type_id']="";
+
+           //Booking amount calculation 
+            $totalDays= $this->dateDiffInDays($data['start_date'],$data['end_date']);
+            $totalHours= $this->timeDiffInHours($data['start_time'],$data['end_time']);
+
+           if(request()->durationtype == 'hourly'){
+               $data['duration_type_id']="1";
+
+           }else if( (request()->durationtype == 'monthly') && ($totalDays >= 30)){
+                $data['duration_type_id']="3";
+               
+           }else{
+                $data['duration_type_id']="2";
+               
+           }
+
+           //getting rent amount for duration type daily i,e 2 for now
+
+           //$propertyAmount=$this->getPropertyAmount(request()->property_id,request()->moduleid,$data['duration_type_id']);
+           $propertyAmount=$this->getPropertyAmount(request()->property_id,request()->moduleid,2);
+           //get booking amount as per days and price per day
+           $bookingAmount = $totalDays*$propertyAmount;
+
+
+           $data['user_id']=empty($_SESSION['user']['user_id'])?'1':$_SESSION['user']['user_id'];
+           $data['property_id']=request()->propertyid;
+           $data['module_manage_id']=request()->moduleid;
+           $data['booking_amount']= $bookingAmount;
+           $data['booking_status']='pending'; 
+           $data['created_by']='1';
+           $data['modified_by']='1';
+
+           if(!empty($data)){
+               $insertBookingRow  = DB::table('tbl_property_bookings')->insert($data);
+               $response = array('status' =>'success',
+              'message'=> 'Booking has been done successfully.');
+              
+           }else{
+                $response = array('status' => 'danger',
+                'message'=> 'Booking has been done successfully.');
+           }
+
        }
-
-
-       $propertyAmount=$this->getPropertyAmount(request()->property_id,request()->moduleid,$data['duration_type_id']);
-
-
-
-       if(request()->durationtype == 'hourly'){ //hourly cal
-
-           $bookingAmount = $totalDays*$totalHours*$propertyAmount;
-           $data['booking_amount']=$bookingAmount;
-          
-
-       }else if( (request()->durationtype == 'monthly') && ($totalDays >= 30)){
-
-            $month = $totalDays/30;
-            $reminder =  $totalDays%30;
-            $ratePerDayForMonth=$propertyAmount/30;
-            $bookingAmount = ($month*$propertyAmount)+($reminder*$ratePerDayForMonth);
-            $data['booking_amount']=$bookingAmount;
-           
-       }else{
-            $bookingAmount = $totalDays*$propertyAmount;
-            $data['booking_amount']=$bookingAmount;
-           
-       }
-
-       $data['propertyAmount'] = $propertyAmount;
-       $data['totalDays'] = $totalDays;
-       $data['totalHours'] = $totalHours;
-       $data['property_id']=request()->module_id;
-       $data['module_manage_id']=request()->property_id;
-       $data['booking_amount']= $bookingAmount;//request()->durationtype;
-       $data['booking_status']='pending'; //request()->durationtype;
-       $data['created_by']='1';
-       $data['modified_by']='1';
+       //print_r($data);
+       
+       return json_encode($response);
       
-       print_r($data);
 
-
-       //todate
-      // $to_date = date('Y-m-d');
-       /*if(!empty(request()->booktodate)){
-          $todate = request()->booktodate;
-          $todate = DateTime::createFromFormat("m.d.Y" , $todate);
-          $to_date = $todate->format('Y-m-d');
-       }
-      print_r(request()->booktodate);*/
-       //todate
-       /*$to_date = date('Y-m-d');
-       if(!empty(request()->booktodate)){
-          $todate = request()->booktodate;
-          $todate = DateTime::createFromFormat("m.d.Y" , $todate);
-          $to_date = $todate->format('Y-m-d');
-       }*/
-
-
-       /*//fromtime
-       $from_time = date('Y-m-d');
-       if(!empty(request()->bookfromdate)){
-          $bookfromdate = request()->bookfromdate;
-          $bookfromdate = DateTime::createFromFormat("H:i:s" , $bookfromdate);
-          $from_time = $bookfromdate->format('H:i:s');
-       }*/
-       // print_r($to_date);
-      exit;
-
-
-
-
+       exit;
 
     }
 
