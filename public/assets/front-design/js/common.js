@@ -251,37 +251,3 @@ function getCurrentDate(){
 }
 
 
-
-
-
-
-
-
-<<<<<<< HEAD
- //to get lat long
-function initialize() {
-  var input = document.getElementById('location');
-  var autocomplete = new google.maps.places.Autocomplete(input);
-    google.maps.event.addListener(autocomplete, 'place_changed', function () {
-        var place = autocomplete.getPlace();
-        document.getElementById('city').value = place.name;
-        document.getElementById('latitude').value = place.geometry.location.lat();
-        document.getElementById('longitude').value = place.geometry.location.lng();
-    });
-
-  var input = document.getElementById('hrlyFrmlocation');
-  var autocomplete = new google.maps.places.Autocomplete(input);
-    google.maps.event.addListener(autocomplete, 'place_changed', function () {
-        var place = autocomplete.getPlace();
-        document.getElementById('hrlyFrmCity').value = place.name;
-        document.getElementById('hrlyFrmLatitude').value = place.geometry.location.lat();
-        document.getElementById('hrlyFrmLongitude').value = place.geometry.location.lng();
-    });
-}
-
-
-google.maps.event.addDomListener(window, 'load', initialize);
-=======
-
-
->>>>>>> master_priyanka

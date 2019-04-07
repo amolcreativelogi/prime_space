@@ -22,7 +22,7 @@ class VerifyCsrfToken extends Middleware
          'admin/getUser',
          'admin/getHost',
          'admin/getParkingList',
-         'admin/getLandist',
+         'admin/getLandList',
          'admin/AssignPermission',
          'admin/getDocumentTypes',
          'admin/getUnitTypes',

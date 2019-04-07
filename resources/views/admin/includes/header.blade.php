@@ -154,6 +154,7 @@ function DeleteRecordWithChild(id,parentTable,tbid,isDeleteChild,childTable)
 <li><a class="parent"><i class="fa fa-shopping-cart fa-fw"></i> <span>Land</span></a>
   <ul class="collapse">
      <li><a href="{{ URL::asset('admin/landTypeExecute') }}/">Land Type</a></li>
+     <li><a href="{{ URL::asset('admin/landList') }}/">Land List</a></li>
     <!-- <li><a href="{{ URL::asset('admin/amenityCategoriesExecute') }}/">Amenity Categories</a></li> -->
   </ul>
 </li>

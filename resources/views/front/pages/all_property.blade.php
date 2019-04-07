@@ -155,7 +155,6 @@
 </div><!-- all-properties -->
  
 </div><!-- site-content -->
-<script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/jquery-1.11.3.min.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -173,8 +172,6 @@ $(document).ready(function() {
     $('#to_time').val('<?php echo $_GET['totime'];?>');
     $('#hrlyFrmlocation').val('<?php echo $_GET['location'];?>');
   }
-  
-
 });
 </script> 
 @stop

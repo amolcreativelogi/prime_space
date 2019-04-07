@@ -91,6 +91,10 @@ Route::get('/admin/parkingList','Admin\ParkingController@parkingList');
 Route::post('/admin/getParkingList','Admin\ParkingController@getParkingList');
 
 
+Route::get('/admin/landList','Admin\LandController@landList');
+Route::post('/admin/getLandList','Admin\LandController@getLandList');
+
+
 /* LOCATION TYPE */
 
 //Route to load location type listing 

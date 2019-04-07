@@ -14,10 +14,9 @@
 
 <script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/jquery-1.11.3.min.js"></script>
 
-<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<script src="{{ URL::asset('public') }}/assets/front-design/js/jquery.validate.min.js"></script>
 
 
-</script>
 </head>
  
 <body class="<?php echo   (URL::to('/') == Request::url()) ? 'home' : ''; ?>">
@@ -143,9 +142,7 @@
     //window.location = "http://www.myurl.com/search/" + (input text value);
   }
 
-<<<<<<< HEAD
- 
-=======
+
   //to get lat long
 function initialize() {
   var input = document.getElementById('location');
@@ -168,7 +165,6 @@ function initialize() {
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
->>>>>>> master_priyanka
 
 </script>
 
