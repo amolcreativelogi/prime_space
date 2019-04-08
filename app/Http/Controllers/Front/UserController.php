@@ -13,6 +13,7 @@ use Mail;
 
 class UserController extends Controller
 {
+
     public function userRegistration(Request $request)
     {
     	
@@ -39,7 +40,7 @@ class UserController extends Controller
 	    					'user_type_id'=>$request->input('user_type_id'),
 	    					'dob'=>$dob,
 	    					'default_user_type'=>$request->input('user_type_id'),
-	    					'status'=>($request->input('user_type_id') == 2) ? 0 : 1,
+	    					'status'=>($request->input('user_type_id') == 2) ? 1 : 1,
 	    					'registration_type'=>1,
 	    					'created_by'=>1,
 	    					'modified_by'=>1,
@@ -47,17 +48,20 @@ class UserController extends Controller
 			    $result  = DB::table('prk_user_registrations')->insert($data);
 				if($result){
 
-					if($request->input('user_type_id') == 2)
-					{
-							$data = array('status' => true,
-							'response' => array('msg' =>'Thank you for applying for host to our site. We will review your details and send you an email letting you know whether your application has been successful or not.'),'url' => '');
-				
-					}
-					else
-					{
-						$data = array('status' => true,
+					$data = array('status' => true,
 								  'response' => array('msg' =>'Registered Successfully.'),'url' => '');
-					}
+
+					// if($request->input('user_type_id') == 2)
+					// {
+					// 		$data = array('status' => true,
+					// 		'response' => array('msg' =>'Thank you for applying for host to our site. We will review your details and send you an email letting you know whether your application has been successful or not.'),'url' => '');
+				
+					// }
+					// else
+					// {
+					// 	$data = array('status' => true,
+					// 			  'response' => array('msg' =>'Registered Successfully.'),'url' => '');
+					// }
 				}
 			}
 			
@@ -91,7 +95,7 @@ class UserController extends Controller
 	public function userLogin(Request $request)
 	{
 
-		$getuserLogin = DB::table('prk_user_registrations')->select('user_id','user_type_id','default_user_type','status')->where('email_id', '=', $request->input('email_id'))->where('password', '=', md5($request->input('password')))->first();
+		$getuserLogin = DB::table('prk_user_registrations')->select('user_id','user_type_id','default_user_type','status','firstname')->where('email_id', '=', $request->input('email_id'))->where('password', '=', md5($request->input('password')))->first();
 		$array = array();
     	if($getuserLogin)
     	{
@@ -103,13 +107,16 @@ class UserController extends Controller
     		else
     		{
     		$_SESSION['user']['is_user_login'] = true;
+    		$_SESSION['user']['firstname'] = $getuserLogin->firstname;
     		$_SESSION['user']['user_id'] = $getuserLogin->user_id;
     		$_SESSION['user']['user_type_id'] = $getuserLogin->user_type_id;
     		$_SESSION['user']['default_user_type'] = $getuserLogin->default_user_type;
     		if($getuserLogin->default_user_type == 2)
     		{
+    			$_SESSION['user']['user_type_permission'] = 'host';
     			$url = URL::to('/user/host');
     		} else {
+    			$_SESSION['user']['user_type_permission'] = 'customer';
     			$url = URL::to('/user/customer');
     		}
     	    $data = array('status' => true,
@@ -140,6 +147,24 @@ class UserController extends Controller
 		}
 		echo json_encode($data);
 		exit;
+	}
+
+	public function userlogout()
+	{
+		session_destroy();
+		return redirect('/');
+	}
+
+	public function switchtocustomer()
+	{
+		$_SESSION['user']['user_type_permission'] = 'customer';
+		return redirect('/user/customer');
+	}
+
+	public function switchtohost()
+	{
+		$_SESSION['user']['user_type_permission'] = 'host';
+		return redirect('/user/host');	
 	}
 
 	public function emailSend()

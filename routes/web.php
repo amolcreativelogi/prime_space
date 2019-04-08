@@ -22,7 +22,7 @@ Route::get('/login','Front\HomeController@Login');
 Route::get('/sign_up','Front\HomeController@Signup');
 Route::get('/forgot_password','Front\HomeController@Forgot_password');
 Route::get('/all_property','Front\HomeController@Allproperty');
-Route::get('/addproperty','Front\PropertyController@addProperty');
+
 
 
 
@@ -85,6 +85,24 @@ Route::post('/admin/getAmenities','Admin\MasterController@getAmenities');
 Route::get('/admin/testJoin','Admin\MasterController@testJoin');
 
 
+Route::get('/admin/parkingList','Admin\ParkingController@parkingList');
+Route::post('/admin/getParkingList','Admin\ParkingController@getParkingList');
+
+
+//Route to Booking
+Route::get('/admin/bookingList','Admin\BookingController@bookingList');
+Route::post('/admin/getallBookingList','Admin\BookingController@getallBookingList');
+
+Route::get('/admin/allParkingBooking','Admin\BookingController@allParkingBooking');
+Route::post('/admin/getallParkingList','Admin\BookingController@getallParkingList');
+
+Route::get('/admin/allLandBooking','Admin\BookingController@allLandBooking');
+Route::post('/admin/getallLandList','Admin\BookingController@getallLandList');
+
+Route::get('/admin/landList','Admin\LandController@landList');
+Route::post('/admin/getLandList','Admin\LandController@getLandList');
+
+
 /* LOCATION TYPE */
 
 //Route to load location type listing 
@@ -128,12 +146,23 @@ Route::post('/admin/saveBookingDurationType','Admin\MasterController@saveBooking
 
 //Route to get booking duration type list
 Route::post('/admin/getBookingDurationTypes','Admin\MasterController@getBookingDurationTypes');
+ 
 
 
+Route::get('/admin/Users','Admin\UsersController@Users');
 Route::get('/admin/Host_Users','Admin\UsersController@Host_Users');
+Route::get('/admin/Hosts','Admin\UsersController@Hosts');
+Route::post('/admin/AssignPermission','Admin\UsersController@AssignPermission');
+
+Route::post('/admin/getUser','Admin\UsersController@getUser');
+Route::post('/admin/getHost','Admin\UsersController@getHost');
+
 Route::post('/admin/getUserandHost','Admin\UsersController@getUserandHost');
 Route::get('/admin/viewUsersProfile','Admin\UsersController@viewUsersProfile');
 Route::get('/admin/viewUsersProfile/{id?}','Admin\UsersController@viewUsersProfile');
+
+
+
 /* DOCUMENT TYPE */
 
 //Route to load booking duration type listing 
@@ -218,15 +247,55 @@ Route::post('/userRegistration','Front\UserController@userRegistration');
 Route::post('/userLogin','Front\UserController@userLogin');
 Route::post('/resetPassword','Front\UserController@resetPassword');
 
-Route::get('/user/host','Front\HostController@hostDashboard');
-Route::get('/user/customer','Front\CustomerController@customerDashboard');
+
+Route::get('/user/parkingProperties','Front\HostController@parkingProperties')->middleware('UserAuth');
+Route::get('/user/landProperties','Front\HostController@landProperties')->middleware('UserAuth');
+Route::get('/user/bookingProperties','Front\HostController@bookingProperties')->middleware('UserAuth');
+
+Route::get('/user/host','Front\HostController@hostDashboard')->middleware('UserAuth');
+Route::get('/user/customer','Front\CustomerController@customerDashboard')->middleware('UserAuth');
+Route::get('/user/logout','Front\UserController@userlogout');
+
+Route::get('/user/switchtohost','Front\UserController@switchtohost');
+Route::get('/user/switchtocustomer','Front\UserController@switchtocustomer');
+Route::get('/user/switchtohost','Front\UserController@switchtohost');
+Route::get('/addproperty','Front\PropertyController@addProperty')->middleware('UserAuth');
+
+
+
+
+//Pages
+Route::get('/faq','Front\PagesController@faq');
+Route::get('/general-faq','Front\PagesController@general_faq');
+Route::get('/host-faq','Front\PagesController@host_faq');
+Route::get('/general-faq','Front\PagesController@general_faq');
+
+Route::get('/payments-faq','Front\PagesController@payments_faq');
+Route::get('/pricing-faq','Front\PagesController@pricing_faq');
+Route::get('/refund-faq','Front\PagesController@refund_faq');
+Route::get('/renter-faq','Front\PagesController@renter_faq');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //Route to get masters details on add property form
 Route::post('/frontend/getPropertyMasters','Front\PropertyController@getPropertyMasters');
 //Route to save property
 Route::post('/frontend/saveProperty','Front\PropertyController@saveProperty');
 
-
+ 
 //Route to Search Property
 Route::get('/searchproperty/{module_id?}','Front\SearchPropertyController@SeachProperty');
 
@@ -235,5 +304,6 @@ Route::get('/propertydetails/{module_id?}','Front\BookingController@propertyDeta
 
 //Route to book property
 Route::post('/frontend/bookProperty','Front\BookingController@bookProperty');
+
 
 

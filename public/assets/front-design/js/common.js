@@ -149,32 +149,32 @@ $('.forgotlink').click(function(){
 
 
 // Add row for Parking Sopts in Add Property
-$(document).ready(function () {
-    var counter = 1;
+// $(document).ready(function () {
+//     var counter = 1;
 
-    $("#addrow").on("click", function () {
-        alert('hi');
-        var newRow = $("<tr>");
-        var cols = "";
+//     $("#addrow").on("click", function () {
+//         alert('hi');
+//         var newRow = $("<tr>");
+//         var cols = "";
 
-        cols += '<td><input type="text" class="form-control" placeholder="Enter floor name" name="data[parking][floors][floor_name][' + counter + ']"/></td>';
-        cols += '<td><select name="data[parking][floors][parking_type][' + counter + ']"><option>Parking Type </option><option>Self </option><option>Valet </option><option>Reserved </option><option>Handicap </option></select></td>';
-        cols += '<td><input type="text" class="form-control" placeholder="Total Parking spots " name="data[parking][floors][total_parking_spots][' + counter + ']"/></td>';
-        cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
-        newRow.append(cols);
-        $("table.order-list1").append(newRow);
-        counter++;
-    });
-
-
-
-    $("table.order-list1").on("click", ".ibtnDel", function (event) {
-        $(this).closest("tr").remove();       
-        counter -= 1
-    });
+//         cols += '<td><input type="text" class="form-control" placeholder="Enter floor name" name="data[parking][floors][floor_name][' + counter + ']"/></td>';
+//         cols += '<td><select name="data[parking][floors][parking_type][' + counter + ']"><option>Parking Type </option><option>Self </option><option>Valet </option><option>Reserved </option><option>Handicap </option></select></td>';
+//         cols += '<td><input type="text" class="form-control" placeholder="Total Parking spots " name="data[parking][floors][total_parking_spots][' + counter + ']"/></td>';
+//         cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
+//         newRow.append(cols);
+//         $("table.order-list1").append(newRow);
+//         counter++;
+//     });
 
 
-});
+
+//     $("table.order-list1").on("click", ".ibtnDel", function (event) {
+//         $(this).closest("tr").remove();       
+//         counter -= 1
+//     });
+
+
+// });
 
 
 
@@ -191,35 +191,6 @@ function calculateGrandTotal() {
     $("#grandtotal").text(grandTotal.toFixed(2));
 }
 
-
-// Add row for Car Parking Price in Add Property
-$(document).ready(function () {
-    var counter = 1;
-
-    $("#second-addrow").on("click", function () {
-        var newRow = $("<tr>");
-        var cols = "";
-
-        cols += '<td><select name="data[booking_rent][car_type][' + counter + ']"><option>Car Type</option><option>Hatchback</option><option>Sedan</option><option>MPV</option><option>SUV </option><option>Crossover </option><option>Coupe</option><option>Convertibl </option></select></td>';
-        cols += '<td><input type="text" class="form-control" placeholder="Hourly Price" name="data[booking_rent][duration_type][' + counter + '][Hourly]"/></td>';
-        cols += '<td><input type="text" class="form-control" placeholder="Daily Price" name="data[booking_rent][duration_type][' + counter + '][Daily]"/></td>';
-        cols += '<td><input type="text" class="form-control" placeholder="Monthly  Price" name="data[booking_rent][duration_type][' + counter + '][Monthly]"/></td>';
-
-        cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
-        newRow.append(cols);
-        $("table.order-list").append(newRow);
-        counter++;
-    });
-
-
-
-    $("table.order-list").on("click", ".ibtnDel", function (event) {
-        $(this).closest("tr").remove();       
-        counter -= 1
-    });
-
-
-});
 
 
 
@@ -242,6 +213,7 @@ $(function() {
     $('#select-property-type').change(function(){
         $('.step-show').hide();
         $('#' + $(this).val()).show();
+        
     });
 });
 
@@ -279,37 +251,3 @@ function getCurrentDate(){
 }
 
 
-
-
-
-
-
-
-<<<<<<< HEAD
- //to get lat long
-function initialize() {
-  var input = document.getElementById('location');
-  var autocomplete = new google.maps.places.Autocomplete(input);
-    google.maps.event.addListener(autocomplete, 'place_changed', function () {
-        var place = autocomplete.getPlace();
-        document.getElementById('city').value = place.name;
-        document.getElementById('latitude').value = place.geometry.location.lat();
-        document.getElementById('longitude').value = place.geometry.location.lng();
-    });
-
-  var input = document.getElementById('hrlyFrmlocation');
-  var autocomplete = new google.maps.places.Autocomplete(input);
-    google.maps.event.addListener(autocomplete, 'place_changed', function () {
-        var place = autocomplete.getPlace();
-        document.getElementById('hrlyFrmCity').value = place.name;
-        document.getElementById('hrlyFrmLatitude').value = place.geometry.location.lat();
-        document.getElementById('hrlyFrmLongitude').value = place.geometry.location.lng();
-    });
-}
-
-
-google.maps.event.addDomListener(window, 'load', initialize);
-=======
-
-
->>>>>>> master_priyanka

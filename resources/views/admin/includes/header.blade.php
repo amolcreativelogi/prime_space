@@ -146,12 +146,15 @@ function DeleteRecordWithChild(id,parentTable,tbid,isDeleteChild,childTable)
   <ul class="collapse">
    <li><a href="{{ URL::asset('admin/carTypeExecute') }}/">Car Type</a></li>
    <li><a href="{{ URL::asset('admin/parkingTypeExecute') }}/">Parking Type</a></li>
+
+   <li><a href="{{ URL::asset('admin/parkingList') }}/">Parking List</a></li>
   </ul>
 </li>
 
 <li><a class="parent"><i class="fa fa-shopping-cart fa-fw"></i> <span>Land</span></a>
   <ul class="collapse">
      <li><a href="{{ URL::asset('admin/landTypeExecute') }}/">Land Type</a></li>
+     <li><a href="{{ URL::asset('admin/landList') }}/">Land List</a></li>
     <!-- <li><a href="{{ URL::asset('admin/amenityCategoriesExecute') }}/">Amenity Categories</a></li> -->
   </ul>
 </li>
@@ -159,8 +162,17 @@ function DeleteRecordWithChild(id,parentTable,tbid,isDeleteChild,childTable)
 <li><a class="parent"><i class="fa fa-shopping-cart fa-fw"></i> <span>Users</span></a>
   <ul class="collapse">
     <li><a href="{{ URL::asset('admin/Host_Users') }}/">All Users & Host</a></li>
-    <li><a href="#">All Users</a></li>
-    <li><a href="#">All Host</a></li>
+    <li><a href="{{ URL::asset('admin/Users') }}/">All Customers</a></li>
+    <li><a href="{{ URL::asset('admin/Hosts') }}/">All Host</a></li>
+  </ul>
+</li>
+
+
+<li><a class="parent"><i class="fa fa-shopping-cart fa-fw"></i> <span>Booking</span></a>
+  <ul class="collapse">
+    <li><a href="{{ URL::asset('admin/bookingList') }}/">All Booking</a></li>
+    <li><a href="{{ URL::asset('admin/allParkingBooking') }}/">All Parking Booking</a></li>
+    <li><a href="{{ URL::asset('admin/allLandBooking') }}/">All Land Booking</a></li>
   </ul>
 </li>
 

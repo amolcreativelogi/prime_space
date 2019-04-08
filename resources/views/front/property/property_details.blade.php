@@ -32,7 +32,7 @@
                 <?php }
                  }else{?>
                     <div class="item">
-                      <img src="images/homebanner1.jpg" alt="">
+                      <img src="{{ URL::asset('public') }}/assets/front-design/images/homebanner1.jpg" alt="">
                     </div>
                 <?php }?>
                <!--  <div class="item">
@@ -56,7 +56,7 @@
                <!--  <h4>60 Beard St, Brooklyn, NY</h4> -->
                 <h4><?php echo !isset($getPropertyDetails->location)?'':$getPropertyDetails->location;?></h4>
                 <div class="row firstrow">
-                  <div class="col-sm-3"><img src="images/ruler.svg" alt=""> 5,600 sqft</div>
+                  <div class="col-sm-3"><img src="{{ URL::asset('public') }}/assets/front-design/images/ruler.svg" alt=""> 5,600 sqft</div>
                   <div class="col-sm-3"><i class="fa fa-map-marker" aria-hidden="true"></i> Lot ID #5617253</div>
                   <div class="col-sm-3"><i class="fa fa-map-marker" aria-hidden="true"></i> Lorem</div>
                   <div class="col-sm-3"><i class="fa fa-map-marker" aria-hidden="true"></i> Lorem</div>
@@ -77,7 +77,12 @@
                 
                 <div class="property-location">
                   <h4>Location</h4>
+                  
+
+
                   <div><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7441.412572122276!2d79.06870567471097!3d21.16408394370072!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd4c0fcf85ee143%3A0x8a9261908197e622!2sSadar%2C+Nagpur%2C+Maharashtra!5e0!3m2!1sen!2sin!4v1554118760955!5m2!1sen!2sin" width="100%" height="320" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+
+
                 </div>
                 <div class="property-policies">
                   <h4>Policies</h4>
@@ -103,7 +108,7 @@
                   </div>
                   <div class="clear"></div>
                   <div class="reviewbox">
-                    <div class="reviewer-img"><img src="images/user-icon.jpg" alt=""></div>
+                    <div class="reviewer-img"><img src="{{ URL::asset('public') }}/assets/front-design/images/user-icon.jpg" alt=""></div>
                     <div class="reviewer-info"><h4>Ivan</h4><span>March 2019</span></div>
                     <div class="reviewer-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque quam lectus, faucibus in elit et, vehicula convallis est. Morbi lacinia, arcu vel venenatis rhoncus, arcu lorem tincidunt magna, ut sollicitudin dui massa in urna...<a href="">Read more</a></div>
                   </div>
@@ -119,7 +124,7 @@
                         <div class="rent-date">Joined in Dec, 2018</div>
                       </div>
                       <div class="col-sm-6">
-                        <div class="reviewer-img"><img src="images/user-icon.jpg" alt=""></div>
+                        <div class="reviewer-img"><img src="{{ URL::asset('public') }}/assets/front-design/images/user-icon.jpg" alt=""></div>
                       </div>
                     </div>
                     <a href="" class="cont-host">contact host</a>
@@ -159,7 +164,7 @@
                   <div class="col-sm-4">
                     <div class="morespaceBox">
                       <div class="ms-img">
-                        <img src="images/book-space2.jpg" alt="">
+                        <img src="{{ URL::asset('public') }}/assets/front-design/images/book-space2.jpg" alt="">
                       </div>
                       <div class="ms-info">
                         <h4>Morbi lacinia, arcu vel venenatis</h4>
@@ -185,7 +190,7 @@
                   <div class="col-sm-4">
                     <div class="morespaceBox">
                       <div class="ms-img">
-                        <img src="images/book-space2.jpg" alt="">
+                        <img src="{{ URL::asset('public') }}/assets/front-design/images/book-space2.jpg" alt="">
                       </div>
                       <div class="ms-info">
                         <h4>Morbi lacinia, arcu vel venenatis</h4>
@@ -211,7 +216,7 @@
                   <div class="col-sm-4">
                     <div class="morespaceBox">
                       <div class="ms-img">
-                        <img src="images/book-space2.jpg" alt="">
+                        <img src="{{ URL::asset('public') }}/assets/front-design/images/book-space2.jpg" alt="">
                       </div>
                       <div class="ms-info">
                         <h4>Morbi lacinia, arcu vel venenatis</h4>

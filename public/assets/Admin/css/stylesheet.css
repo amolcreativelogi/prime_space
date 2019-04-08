@@ -969,7 +969,8 @@ padding: 6px 12px;
 font-size: 12px;
 margin-top: 5px;
 margin-bottom: 5px;
-background: #F0F0F0;
+background: #F00;
+color: #FFF;
 }
 .btn-default.btn-on.active{background-color: #5BB75B;
 }

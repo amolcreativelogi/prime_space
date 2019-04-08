@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Pryme Space</title>
+
+<link rel="stylesheet" type="text/css" href="css/custom.css">
+
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+
+<link rel="stylesheet" type="text/css" href="css/animate.css">
+
+<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+
+<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700" rel="stylesheet"> 
+
+</head>
+
+<body>
+
+
+
+<header class="site-header">
+
+    <div class="container">
+
+		<div class="row">
+
+			<div class="col-lg-3 col-md-4 col-sm-12 logodiv">
+
+				<a href="index.html" class="logo"><img src="images/psw-logo.png" alt=""></a>
+
+			</div>
+
+			<div class="col-lg-9 col-md-8 col-sm-12 menudiv">
+
+				<a href="#" data-toggle="modal" class="searchModal popuplink" data-target="#searchModal"><i class="fa fa-search" aria-hidden="true"></i> Search</a>
+
+				 <nav class="navbar navbar-default pullright">
+
+				    <ul class="nav navbar-nav">
+
+				      <li class="demandpark"><a href="all-property.html">Try on-demand parking</a></li>
+
+				      <li class="dropdown"><a href="#" dropdown-toggle" data-toggle="dropdown">Get started <span class="caret"></span></a>
+
+							<ul class="dropdown-menu">
+
+								<li><a href="#">Get started</a></li>
+
+								<li><a href="#">Get started</a></li>
+
+								<li><a href="#">Get started</a></li>
+
+							</ul>
+
+				      </li>
+
+				      <li><a href="#">Help</a></li>
+
+				      <li><a href="#" data-toggle="modal" class="singupModal popuplink" data-target="#singupModal">Sign up</a></li>
+
+				      <li><a href="#" data-toggle="modal" class="loginModal popuplink" data-target="#loginModal">Log in</a></li>
+
+				    </ul>
+
+				</nav>
+
+			</div>
+
+	</div>
+
+</div>
+
+</header><!-- site-header -->
+
+
+
+<!-- searchModal start -->
+
+<div class="modal fade formModal" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+  <div class="modal-dialog" role="document">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+
+        <h5 class="modal-title" id="exampleModalLabel">Find a space</h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+          <span aria-hidden="true">&times;</span>
+
+        </button>
+
+      </div>
+
+      <div class="modal-body">
+
+        <div class="site-signup site-form">
+
+			<form>
+
+				<select>
+
+					<option>Choose a category</option>
+
+					<option>Choose a category</option>
+
+					<option>Choose a category</option>
+
+				</select>
+
+				<input type="text" name="" placeholder="Location" class="location">
+
+				<input type="text" name="" placeholder="Dates" class="dates">
+
+				<input type="button" name=""  value="Search">
+
+			</form>              
+
+		</div>	
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- searchModal end -->
+
+
+
+
+
+<!-- singupModal start -->
+
+<div class="modal fade formModal" id="singupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+  <div class="modal-dialog" role="document">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+
+        <h5 class="modal-title" id="exampleModalLabel">Sign up</h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+          <span aria-hidden="true">&times;</span>
+
+        </button>
+
+      </div>
+
+      <div class="modal-body">
+
+        <div class="site-signup site-form">
+
+                    <form id="form-signup" action="/site/signup" method="post">
+
+                      <input type="hidden" name="_csrf-frontend" value="">
+
+                      <div class="form-group field-signupform-email required">
+
+                          <input type="text" id="signupform-email" class="form-control" name="SignupForm[email]" aria-required="true" placeholder="Email Address">
+
+                      </div>
+
+                      <div class="form-group field-signupform-first_name required has-error">
+
+                          <input type="text" id="signupform-first_name" class="form-control" name="SignupForm[first_name]" autofocus="" aria-required="true" aria-invalid="true" placeholder="First Name">
+
+                      </div>
+
+                      <div class="form-group field-signupform-last_name required">
+
+                          <input type="text" id="signupform-last_name" class="form-control" name="SignupForm[last_name]" autofocus="" aria-required="true" placeholder="Last Name">
+
+                      </div>
+
+                      <div class="form-group field-signupform-password required">
+
+                          <input type="password" id="signupform-password" class="form-control" name="SignupForm[password]" aria-required="true" placeholder="Create a password">
+
+                      </div>
+
+                      <div class="form-group birthdategroup">
+
+                         <label>Birthday</label>
+
+                         <p>To sign up, you must be 18 or older. People won’t see your birthday</p>
+
+                         <div class="birthdaygroup">
+
+                         	<select class="month">
+
+                         		<option>January</option>
+
+                         		<option>February</option>
+
+                         		<option>March</option>
+
+                         	</select>
+
+                         	<select class="day">
+
+                         		<option>01</option>
+
+                         		<option>02</option>
+
+                         		<option>03</option>
+
+                         	</select>
+
+                         	<select class="year">
+
+                         		<option>1980</option>
+
+                         		<option>1981</option>
+
+                         		<option>1982</option>
+
+                         	</select>
+
+                         </div>
+
+                      </div>
+
+                      <div class="form-group acctype-group">
+
+                          <label class="control-label" for="signupform-confirm_password">account type</label>
+
+                          <ul>
+
+                          	<li>
+
+                          		<input type="radio" name="acctype" id="host">
+
+                          		<label for="host">Host</label>
+
+                          	</li>
+
+                          	<li>
+
+                          		<input type="radio" name="acctype" id="user">
+
+                          		<label for="user">User</label>
+
+                          	</li>
+
+                          </ul>
+
+                      </div>
+
+
+
+                    <div class="row">
+
+                        <div class="col-sm-1">
+
+                            <input type="checkbox" id="privacy_policy_check"> <span class="checkmark"></span>
+
+                        </div>
+
+                        <div class="col-sm-11">
+
+                            <label for="">
+
+                                By continuing you are confirming that you have read and agree to the <a href="#">Terms of Service</a> &amp; <a href="#">Privacy Policy</a>.
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <button type="submit" class="bluebtn" name="signup-button">Sign up</button>                    
+
+                    </div>
+
+
+
+                    <div class="form-group password-reset text-center">
+
+                        Already have a Prymespace account? <a href="#" data-toggle="modal" data-target="#loginModal" class="loginModal popuplink">Log in</a>.
+
+                    </div>
+
+                    </form>                
+
+			</div>	
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- singupModal end -->
+
+
+
+<!-- loginModal start -->
+
+<div class="modal fade formModal" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+  <div class="modal-dialog" role="document">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+
+        <h5 class="modal-title" id="exampleModalLabel">Log in to continue</h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+          <span aria-hidden="true">&times;</span>
+
+        </button>
+
+      </div>
+
+      <div class="modal-body">
+
+        <div class="site-signup site-form">
+
+                   <form id="login-form" action="/site/login" method="post">
+
+                            <input type="hidden" name="_csrf-frontend" value="">
+
+                            <div class="form-group field-loginform-email required has-error">
+
+                                <input type="text" id="loginform-email" class="form-control" name="LoginForm[email]" autofocus="" aria-required="true" aria-invalid="true" placeholder="Email Address">
+
+                            </div>
+
+                            <div class="form-group field-loginform-password required has-error">
+
+                                <input type="password" id="loginform-password" class="form-control" name="LoginForm[password]" aria-required="true" aria-invalid="true" placeholder="Password">
+
+                            </div>
+
+                            <div class="form-group field-loginform-rememberme">
+
+                              <div class="checkbox">
+
+                                  <label for="loginform-rememberme">
+
+                                  <input type="hidden" name="LoginForm[rememberMe]" value="0"><input type="checkbox" id="loginform-rememberme" name="LoginForm[rememberMe]" value="1" checked="">
+
+                                  Remember Me
+
+                                  </label>
+
+                              </div>
+
+                            </div>
+
+                            <div class="form-group text-center">
+
+                                <button type="submit" class="bluebtn" name="login-button">Login</button>
+
+                            </div>
+
+
+
+                            <div class="form-group text-center">
+
+                              <ul class="social-login">
+
+                                <li><a class="google auth-link" href="#" title="Google"><i class="fa fa-google" aria-hidden="true"></i>Google</a></li>
+
+                                <li><a class="facebook auth-link" href="#" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i>Facebook</a></li>
+
+                                <li><a class="linkedin auth-link" href="#" title="Linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i>Linkedin</a></li>
+
+                              </ul>
+
+                            </div>
+
+
+
+                            <a href="#" data-toggle="modal" data-target="#resetpassModal" class="forgotlink">Forgot password?</a>
+
+
+
+                            <div class="form-group password-reset text-center" >
+
+                                Don’t have a Prymespace account? <a href="#" data-toggle="modal" data-target="#singupModal" class="singupModal popuplink">Sign up</a>.
+
+                            </div>
+
+
+
+                        </form>              
+
+			</div>	
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- loginModal end -->
+
+
+
+<!-- resetpassModal start -->
+
+<div class="modal fade formModal" id="resetpassModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+  <div class="modal-dialog" role="document">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+
+        <h5 class="modal-title" id="exampleModalLabel">Reset password request</h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+          <span aria-hidden="true">&times;</span>
+
+        </button>
+
+      </div>
+
+      <div class="modal-body">
+
+        <div class="site-signup site-form">
+
+			<form id="request-password-reset-form" action="/site/request-password-reset" method="post">
+
+				<input type="hidden" name="_csrf-frontend">
+
+				<div class="form-group field-passwordresetrequestform-email">
+
+					<input type="text" id="passwordresetrequestform-email" class="form-control" name="PasswordResetRequestForm[email]" autofocus="" aria-required="true" aria-invalid="true" placeholder="Email Address">
+
+				</div>
+
+				<div class="form-group">
+
+					<button type="submit" class="bluebtn">Send</button>                            
+
+				</div>
+
+			</form>             
+
+		</div>	
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- loginModal end -->
+
+
+
+<div class="site-content">
+
+
+
+	<section class="refund-policy">
+
+   <div class="container">
+
+    <h3>Refund Policy</h3>
+
+     <p>Every space is different. A single cancellation policy does not fit all booking types. Hosts can choose the appropriate policy that works best for their space and business. One of the following cancellation policies chosen by Host will be applied to each listing, except for On-Demand Parking.</p>
+
+
+
+     <h6>Flexible</h6>
+
+     <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For a full refund of fees, cancellations must be made a full 24 hours prior to listing’s local check in time (or 3:00 PM if not specified) on the day of check in. For example, if check-in is on Friday, cancel by Thursday of that week before check in time.<br>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If the renter cancels less than 24 hours before check-in, the first night is non-refundable.<br>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If the renter arrives and decides to leave early, the accommodation fees for the nights not spent 24 hours after the official cancellation are fully refunded.</p>
+
+
+
+      <h6>Medium</h6>
+
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For a full refund of fees, cancellations must be made five full days prior to listing’s local start time (or 3:00 PM if not specified) on the day of check in. For example, if check-in is on Friday, cancel by the previous Sunday before check in time.<br>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If the renter cancels less than 5 days in advance, the first night is non-refundable but 50% of the accommodation fees for remaining nights will be refunded.<br>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If the renter decides to vacate early, 50% of the booking fees for the nights not spent 24 hours after the cancellation occurs are refunded.</p>
+
+
+
+      <h6>Strict</h6>
+
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For a full refund of booking fees, cancellations must be made within 48 hours of booking and at least 14 full days prior to listing’s local check-in time (or 3:00 PM if not specified) on the day of check-in.<br>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For a 50% refund of booking fees, cancellations must be made 7 full days prior to listing’s local check in time (or 3:00 PM if not specified) on the day of check in, otherwise no refund. For example, if check-in is on Friday, cancel by Friday of the previous week before check in time.<br>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If the renter cancels less than 7 days in advance or decides to leave early after check-in, the nights not spent are not refunded.</p>
+
+
+
+      <h6>On-Demand Parking (booking within 24 hours)</h6>
+
+      <p>Bookings are non-refundable, regardless of your use or non-use of the Booking and regardless of any circumstance surrounding the use or non-use of a Booking (i.e., traffic or weather delays, cancellation of a related event).</p>
+
+      <p><em>*Cancellation and refund policies are subject to change*</em></p>
+
+   </div> 
+
+  </section>
+
+
+
+</div><!-- site-content -->
+
+
+
+<footer class="site-footer">
+
+	<div class="container">
+
+		<div class="foot-top">
+
+			<div class="row">
+
+				<div class="col-lg-3 col-md-3 col-sm-6">
+
+					<a href="" class="foot-logo"><img src="images/psw-logo.png" alt=""></a>
+
+				</div>
+
+				<div class="col-lg-3 col-md-3 col-sm-6">
+
+					<h4>Company</h4>
+
+					<ul>
+
+						<li><a href="">About Us</a></li>
+
+						<li><a href="">Mission</a></li>
+
+						<li><a href="">Vision</a></li>
+
+						<li><a href="">Blog</a></li>
+
+						<li><a href="">Press</a></li>
+
+						<li><a href="">FAQ's</a></li>
+
+					</ul>
+
+				</div>
+
+				<div class="col-lg-3 col-md-3 col-sm-6">
+
+					<h4>Hosts</h4>
+
+					<ul>
+
+						<li><a href="">Benefits for Hosting with Us</a></li>
+
+						<li><a href="">Become a Host</a></li>
+
+						<li><a href="">Host FAQ's </a></li>
+
+						<li><a href="">Community</a></li>
+
+					</ul>
+
+				</div>
+
+				<div class="col-lg-3 col-md-3 col-sm-6">
+
+					<h4>Renter</h4>
+
+					<ul>
+
+						<li><a href="">Benefits for Renting with Us</a></li>
+
+						<li><a href="">Become a Renter</a></li>
+
+						<li><a href="">Renter FAQ's </a></li>
+
+					</ul>
+
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="foot-btm">
+
+			<ul>
+
+        <li><a href="">Cancellation and Refund Policy</a></li>
+
+				<li><a href="">Terms</a></li>
+
+				<li><a href="">Privacy Statement</a></li>
+
+			</ul>
+
+			<div class="copyright">© 2019 Pryme Space, Inc.</div>
+
+			<ul class="foot-social">
+
+				<li><a href=""><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+
+				<li><a href=""><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+
+				<li><a href=""><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+
+				<li><a href=""><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+
+				<li><a href=""><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+
+			</ul>
+
+		</div>
+
+	</div>
+
+</footer>
+
+
+
+
+
+
+
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="js/owl.carousel.min.js"></script>
+
+<script type="text/javascript" src="js/popper.min.js"></script>
+
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="js/common.js"></script>
+
+
+
+<link rel="stylesheet" type="text/css" href="css/owl.carousel.min.css">
+
+<link rel="stylesheet" type="text/css" href="css/owl.theme.default.min.css">
+
+
+
+</body>
+
+</html> 

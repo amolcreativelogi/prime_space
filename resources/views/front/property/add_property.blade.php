@@ -1,185 +1,12 @@
   @extends('front/layouts.default')
   @section('content')
 
- 
-
-
-  <!-- singupModal start -->
-  <div class="modal fade formModal" id="singupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Sign up</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="site-signup site-form">
-                      <form id="form-signup" action="/site/signup" method="post">
-                        <input type="hidden" name="_csrf-frontend" value="">
-                        <div class="form-group field-signupform-email required">
-                            <input type="text" id="signupform-email" class="form-control" name="SignupForm[email]" aria-required="true" placeholder="Email Address">
-                        </div>
-                        <div class="form-group field-signupform-first_name required has-error">
-                            <input type="text" id="signupform-first_name" class="form-control" name="SignupForm[first_name]" autofocus="" aria-required="true" aria-invalid="true" placeholder="First Name">
-                        </div>
-                        <div class="form-group field-signupform-last_name required">
-                            <input type="text" id="signupform-last_name" class="form-control" name="SignupForm[last_name]" autofocus="" aria-required="true" placeholder="Last Name">
-                        </div>
-                        <div class="form-group field-signupform-password required">
-                            <input type="password" id="signupform-password" class="form-control" name="SignupForm[password]" aria-required="true" placeholder="Create a password">
-                        </div>
-                        <div class="form-group birthdategroup">
-                           <label>Birthday</label>
-                           <p>To sign up, you must be 18 or older. People won’t see your birthday</p>
-                           <div class="birthdaygroup">
-                            <select class="month">
-                              <option>January</option>
-                              <option>February</option>
-                              <option>March</option>
-                            </select>
-                            <select class="day">
-                              <option>01</option>
-                              <option>02</option>
-                              <option>03</option>
-                            </select>
-                            <select class="year">
-                              <option>1980</option>
-                              <option>1981</option>
-                              <option>1982</option>
-                            </select>
-                           </div>
-                        </div>
-                        <div class="form-group acctype-group">
-                            <label class="control-label" for="signupform-confirm_password">account type</label>
-                            <ul>
-                              <li>
-                                <input type="radio" name="acctype" id="host">
-                                <label for="host">Host</label>
-                              </li>
-                              <li>
-                                <input type="radio" name="acctype" id="user">
-                                <label for="user">User</label>
-                              </li>
-                            </ul>
-                        </div>
-
-                      <div class="row">
-                          <div class="col-sm-1">
-                              <input type="checkbox" id="privacy_policy_check"> <span class="checkmark"></span>
-                          </div>
-                          <div class="col-sm-11">
-                              <label for="">
-                                  By continuing you are confirming that you have read and agree to the <a href="#">Terms of Service</a> &amp; <a href="#">Privacy Policy</a>.
-                              </label>
-                          </div>
-                      </div>
-
-                      <div class="form-group">
-                          <button type="submit" class="bluebtn" name="signup-button">Sign up</button>                    
-                      </div>
-
-                      <div class="form-group password-reset text-center">
-                          Already have a Prymespace account? <a href="#" data-toggle="modal" data-target="#loginModal" class="loginModal popuplink">Log in</a>.
-                      </div>
-                      </form>                
-        </div>  
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- singupModal end -->
-
-  <!-- loginModal start -->
-  <div class="modal fade formModal" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Log in to continue</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="site-signup site-form">
-                     <form id="login-form" action="/site/login" method="post">
-                              <input type="hidden" name="_csrf-frontend" value="">
-                              <div class="form-group field-loginform-email required has-error">
-                                  <input type="text" id="loginform-email" class="form-control" name="LoginForm[email]" autofocus="" aria-required="true" aria-invalid="true" placeholder="Email Address">
-                              </div>
-                              <div class="form-group field-loginform-password required has-error">
-                                  <input type="password" id="loginform-password" class="form-control" name="LoginForm[password]" aria-required="true" aria-invalid="true" placeholder="Password">
-                              </div>
-                              <div class="form-group field-loginform-rememberme">
-                                <div class="checkbox">
-                                    <label for="loginform-rememberme">
-                                    <input type="hidden" name="LoginForm[rememberMe]" value="0"><input type="checkbox" id="loginform-rememberme" name="LoginForm[rememberMe]" value="1" checked="">
-                                    Remember Me
-                                    </label>
-                                </div>
-                              </div>
-                              <div class="form-group text-center">
-                                  <button type="submit" class="bluebtn" name="login-button">Login</button>
-                              </div>
-
-                              <div class="form-group text-center">
-                                <ul class="social-login">
-                                  <li><a class="google auth-link" href="#" title="Google"><i class="fa fa-google-plus" aria-hidden="true"></i>Google+</a></li>
-                                  <li><a class="facebook auth-link" href="#" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i>Facebook</a></li>
-                                  <li><a class="linkedin auth-link" href="#" title="Linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i>Linkedin</a></li>
-                                </ul>
-                              </div>
-
-                              <a href="#" data-toggle="modal" data-target="#resetpassModal" class="forgotlink">Forgot password?</a>
-
-                              <div class="form-group password-reset text-center" >
-                                  Don’t have a Prymespace account? <a href="#" data-toggle="modal" data-target="#singupModal" class="singupModal popuplink">Sign up</a>.
-                              </div>
-
-                          </form>              
-        </div>  
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- loginModal end -->
-
-  <!-- resetpassModal start -->
-  <div class="modal fade formModal" id="resetpassModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Reset password request</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="site-signup site-form">
-        <form id="request-password-reset-form" action="/site/request-password-reset" method="post">
-          <input type="hidden" name="_csrf-frontend">
-          <div class="form-group field-passwordresetrequestform-email">
-            <input type="text" id="passwordresetrequestform-email" class="form-control" name="PasswordResetRequestForm[email]" autofocus="" aria-required="true" aria-invalid="true" placeholder="Email Address">
-          </div>
-          <div class="form-group">
-            <button type="submit" class="bluebtn">Send</button>                            
-          </div>
-        </form>             
-      </div>  
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- loginModal end -->
-
   <div class="site-content">
-
   <section class="add-property">
-      <div class="container">
-            <h2>add property</h2>
-  <!-- multistep form -->
-  <form action="<?php echo url('frontend/saveProperty'); ?>" method="post" enctype="multipart/form-data" id="msform" class="">
+  <div class="container">
+ <h2>add property</h2>
+  <!-- multistep form action="<?php echo url('frontend/saveProperty'); ?>"-->
+  <form  action="<?php echo url('frontend/saveProperty'); ?>" method="post" enctype="multipart/form-data" id="msform" class="">
 
      {!! csrf_field() !!} 
   <!-- <form id="msform" > -->
@@ -208,13 +35,16 @@
     <?php } ?>
   </select>
   <input type="hidden" name="module_manage" value="3" id="module_manage" class="form-control">
-  <input type="text" name="data[location]" id="location" placeholder="Location" />
+  <input type="text" name="data[location]" id="location-property" placeholder="Location" />
+  <input type="hidden" id="city-property" name="city">
+  <input type="hidden" name="data[latitude]" id="latitude-property">
+  <input type="hidden" name="data[longitude]" id="longitude-property">
   <input type="text" name="data[zip_code]" id="zip_code" placeholder="Enter Property Zip Code" />
   <textarea placeholder="Property description" name="data[property_description]" id="property_description" cols="6"></textarea>
   <!-- <input type="file" name="" placeholder="Property Images " /> -->
   <div class="box">
-    <input type="file" name="data[property-images]" id="property-images" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple style="display: none;" />
-    <label for="property-images"><span></span> <strong>Choose Property Images</strong></label>
+    <input type="file" name="property_images[]" id="property_images" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple style="display: none;" />
+    <label for="property_images"><span></span> <strong>Choose Property Images</strong></label>
   </div>
   <input type="button" name="next" id="step1" class="next action-button" value="Next" />
   </fieldset>
@@ -222,7 +52,7 @@
   <fieldset>
   <h2 class="fs-title">Property Floor Map</h2>
   <div class="box">
-    <input type="file" name="data[property-map]" id="property-map" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple style="display: none;" />
+    <input type="file" name="property_map[]" id="property-map" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple style="display: none;" />
     <label for="property-map"><span></span> <strong>Choose Property Floor Map</strong></label>
   </div>
   <input type="button" name="previous" class="previous action-button" value="Previous" />
@@ -237,11 +67,11 @@
       <tbody>
           <tr>
               <td class="col-sm-4">
-                  <input type="text" name="data[parking][floors][floor_name][0]" placeholder="Enter floor name">
+                  <input type="text" name="data[parking][floor_name][]" placeholder="Enter floor name">
               </td>
               <td class="col-sm-4">
-                 <select name="data[parking][floors][parking_type][0]">
-                   <option>Parking Type</option>
+                 <select name="data[parking][parking_type_id][]">
+                   <option value="">Parking Type</option>
                   @if(!empty($getParkingType))
                     @foreach($getParkingType as $parkingType)
                       <option value="<?= $parkingType->parking_type_id?>"><?= $parkingType->parking_type ?></option>
@@ -251,7 +81,7 @@
               </td>
                  
               <td class="col-sm-3">
-                  <input type="text" name="data[parking][floors][total_parking_spots][0]" placeholder="Total Parking spots ">
+                  <input type="text" name="data[parking][total_parking_spots][]" placeholder="Total Parking spots ">
               </td>
               <td class="col-sm-2"><a class="deleteRow"></a>
 
@@ -269,13 +99,17 @@
       </tfoot>
     </table>
 
-    <label>Select Booking Duration Type and Enter Property Rent</label>
-    <table id="tbl_rent_with_booking_duration_type" class=" table order-list">
+
+
+
+
+<label>Select Booking Duration Type and Enter Property Rent</label>
+<table id="tbl_rent_with_booking_duration_type" class="table order-list">
       <tbody>
           <tr>
               <td class="col-sm-3">
-                <select name="data[booking_rent][car_type][0]">
-                   <option>Car Type</option>
+                <select name="data[parking][car_type_id][]">
+                   <option value="">Car Type</option>
                   @if(!empty($getCarType))
                     @foreach($getCarType as $carType)
                       <option value="<?= $carType->car_type_id?>"><?= $carType->car_type?></option>
@@ -326,35 +160,25 @@
   <div class="form-field step-show" id="3"  style="display:none;">
     <h2 class="fs-title">Property size </h2>
     <label style="float: none;width: 100%;text-align: left;font-weight: 600;">Units</label>
-    <ul class="custom-radio" id="property_size_units">
-    <!-- <li>
-      <input type="radio" name="data[land][property_size][units]" id="sqft">
-      <label for="sqft">Sqft  </label>
-    </li>
-    <li>
-      <input type="radio" name="units" id="sq-Meter">
-      <label for="sq-Meter">Sq Meter </label>
-    </li>
-    <li>
-      <input type="radio" name="units" id="acres">
-      <label for="acres">Acres </label>
-    </li> -->
-  </ul>
+    <ul class="custom-radio" id="get_property_size">
+   
+    </ul>
 
-  <input type="text" name="data[land][property_size][size]" placeholder="Sqft / Sq Meter / Acres">
+  <input type="text" name="property_size" placeholder="Sqft / Sq Meter / Acres">
   <hr>
 
   <h2 class="fs-title">Tour Availability </h2>
     <ul class="custom-radio" name="data[land][tour_availability]" style="text-align: left;">
     <li>
-      <input type="radio" name="data[land][tour_availability]" value="1" id="tour_availability_no">
-      <label for="sqft">Yes  </label>
+      <input type="radio" name="data[land][tour_availability]" value="1" id="tour_availability_yes">
+      <label for="tour_availability_yes">Yes  </label>
     </li>
     <li>
-      <input type="radio" name="data[land][tour_availability]" value="0" id="tour_availability_yes">
-      <label for="sq-Meter">No </label>
+      <input type="radio" name="data[land][tour_availability]" value="0" id="tour_availability_no">
+      <label for="tour_availability_no">No </label>
     </li>
   </ul>
+
 
 
   <h2 class="fs-title">Land Use for</h2>
@@ -365,11 +189,28 @@
            <li>
             <input type="checkbox" name="data[land][land_used_for][]" 
             value="<?= $landType->land_type_id?>" id="<?= $landType->land_type_id?>land_used_for">
-            <label for="industrial"><?= $landType->land_type?></label>
+            <label for="<?= $landType->land_type_id?>land_used_for"><?= $landType->land_type?></label>
           </li>
           @endForEach
         @endIf
     </ul>
+
+    <label>Enter Property Rent</label>
+    <table id="tbl_land_rent_with_booking_duration_type" class="table order-list-land">
+      <tbody>
+          <tr>
+              <td class="col-sm-3">
+                <table id="rent_land_with_booking_duration_type">
+               </table>
+              </td>
+              <td class="col-sm-2"><a class="deleteRow"></a>
+
+              </td>
+          </tr>
+      </tbody>
+    </table>
+
+
   </div>
 
   <input type="button" name="previous" class="previous action-button" value="Previous" />
@@ -441,7 +282,7 @@
   <fieldset>
   <h2 class="fs-title">Documents</h2>
   <div class="box">
-    <input type="file" name="data[property-documents]" id="property-documents" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple style="display: none;" />
+    <input type="file" name="property_documents[]" id="property-documents" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple style="display: none;" />
     <label for="property-documents"><span></span> <strong>Choose Property Documents</strong></label>
   </div>
   <input type="button" name="previous" class="previous action-button" value="Previous" />
@@ -449,8 +290,11 @@
   </fieldset>
 
   <fieldset>
+
+  <div class="success-property" style="display: none;">
   <h2 class="fs-title">Thank you</h2>
   <h3 class="fs-subtitle">Thank you for adding Parking. Please wait for Admin approval.</h3>
+  </div>
 
   <input type="button" name="previous" class="previous action-button" value="Previous" />
   <input type="submit" name="submit" class="submita action-button" value="Submit" />
@@ -461,15 +305,10 @@
   </section>
 
   </div><!-- site-content -->
-
-
-  <link href="{{ URL::asset('public') }}/assets/front-design/css/component.css" rel="stylesheet">
-<!--   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
-  <!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script> -->
- @stop
-
-
-
+  <!-- <link href="{{ URL::asset('public') }}/assets/front-design/css/component.css" rel="stylesheet">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> 
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+ -->
   <script type="text/javascript">
     var baseurl = '<?php echo url('/'); ?>';
    /* $("#select-property-type").change(function() {
@@ -489,28 +328,47 @@
           data: {'module_manage_id':module_manage_id,'_token':"{{ csrf_token() }}"}
           })
           .done(function(response) {
-            alert(response);
+            //alert(response);
             var json = $.parseJSON(response); 
             var getBookingDurationType=json.getBookingDurationType;
             var getLocationTypes=json.getLocationTypes;
             var getAmenities=json.getAmenities;
+            var getUnitTypes=json.getUnitTypes;
             
 
             var masters=[];
               //if booking duration type array is not blank for selected module
               if(getBookingDurationType.length !== 0){
-                masters['duration_price_input'] ='<tr>';
+                masters['duration_price_input'] ='<tr class="duration_price_input">';
                 $.each(getBookingDurationType, function(i, v) {
-
                     masters['duration_price_input'] += 
                    '<td class="col-sm-3">'+
-                            '<input type="text" name="data[booking_rent][duration_type][0]['+v.duration_type+']"'
-                            +'"placeholder="'+v.duration_type+' Price">'+
-                   '</td>';
+                            '<input type="hidden" name="data[parking][duration_type_id]['+ v.duration_type_id +'][]" value="'+ v.duration_type_id +'"><input type="text" name="data[parking][rent_amount]['+ v.duration_type_id +'][]" placeholder="'+ v.duration_type +'Price">'+
+                   '</td>'; 
                 });
                 masters['duration_price_input'] += '</tr>';
-               
+                if(module_manage_id == 2) {
                 $('#rent_with_booking_duration_type').html(masters['duration_price_input']);
+                } else if(module_manage_id ==3)  {
+                $('#rent_land_with_booking_duration_type').html(masters['duration_price_input']);  
+                }
+              }
+
+               masters['unittypes_input'] = '';
+               if(getUnitTypes.length !== 0){
+                $.each(getUnitTypes, function(i, v) {
+                    masters['unittypes_input'] += 
+                   '<li><input type="radio" name="units" id='+ v.unit_type +' value="'+ v.unit_type_id +'"><label for='+ v.unit_type +'>'+ v.unit_type +'</label></li>'; 
+                });
+                $('#get_property_size').html(masters['unittypes_input']);
+
+
+                masters['duration_price_input'] += '</tr>';
+                if(module_manage_id == 2) {
+                $('#rent_with_booking_duration_type').html(masters['duration_price_input']);
+                } else if(module_manage_id ==3)  {
+                $('#rent_land_with_booking_duration_type').html(masters['duration_price_input']);  
+                }
               }
 
                //if booking duration type array is not blank for selected module
@@ -533,7 +391,6 @@
               if(getAmenities.length !== 0){
                 masters['amenities_input'] ='<li>';
                 $.each(getAmenities, function(i, v) {
-
                     masters['amenities_input'] += 
                             '<input type="checkbox" name="data[amenities][]" id="'+v.amenity_name+'" value="'+v.amenity_id+'">'+
                             '<label for="'+v.amenity_name+'">'+v.amenity_name+'</label>';
@@ -544,34 +401,261 @@
                 $('#amenities_list').html(masters['amenities_input']);
                 //alert(masters['amenities_input']);
               }
-              //if booking duration type array is not blank for selected module
-              if(getUnitTypes.length !== 0){
-                masters['prop_size_unit_input'] ='<li>';
-                $.each(getUnitTypes, function(i, v) {
-
-                    masters['amenities_input'] += 
-                            '<input type="checkbox" name="data[land][property_size][units]" id="'+v.unit_type+'" value="'+v.unit_type_id+'">'+
-                            '<label for="'+v.unit_type+'">'+v.unit_type+'</label>';
-                   
-                });
-                masters['prop_size_unit_input'] += '</li>';
-               
-                $('#property_size_units').html(masters['prop_size_unit_input']);
-                //alert(masters['amenities_input']);
-              }
-              
-             
-              
           });
-         
-         
   }
-    function test(){
-      alert('hi');
-    }
-  </script>
+    // function test(){
+    //   alert('hi'); 
+    // }
+// Add row for Parking Sopts in Add Property
+$(document).ready(function () {
+    var counter = 1;
+    $("#addrow").on("click", function () {
+        //alert('hia');
+        var newRow = $("<tr>");
+        var cols = "";
+        cols += '<td><input type="text" class="form-control" placeholder="Enter floor name" name="data[parking][floor_name][]"/></td>';
+        cols += '<td><select name="data[parking][parking_type_id][]"><option value="">Parking Type</option>';
+
+        <?php foreach($getParkingType as $parkingType) { ?>
+        cols += '<option value="<?= $parkingType->parking_type_id?>"><?= $parkingType->parking_type ?></option>';
+        <?php } ?>
+
+        cols += '</select></td><td><input type="text" class="form-control" placeholder="Total Parking spots " name="data[parking][total_parking_spots][]"/></td>';
+        cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
+        newRow.append(cols);
+        $("table.order-list1").append(newRow);
+        counter++;
+    });
+
+    $("table.order-list1").on("click", ".ibtnDel", function (event) {
+        $(this).closest("tr").remove();       
+        counter -= 1
+    });
+});
 
 
+// Add row for Car Parking Price in Add Property
+$(document).ready(function () {
+    var counter = 1;
+    $("#second-addrow").on("click", function () {
+
+        var duration_price_input = $('.duration_price_input').html();
+        var newRow = $("<tr>");
+        var cols = "";
+
+        cols += '<td class="car_type_id"><select name="data[parking][car_type_id][]"><option value="">Car Type</option>';
+
+        <?php foreach($getCarType as $carType) { ?>
+        cols += '<option value="<?= $carType->car_type_id?>"><?= $carType->car_type ?></option>';
+        <?php } ?>
+
+        cols += '</select></td>';
+        
+        cols += duration_price_input;
+
+        cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
+        newRow.append(cols);
+        $("table.order-list").append(newRow);
+        counter++;
+    });
+    $("table.order-list").on("click", ".ibtnDel", function (event) {
+        $(this).closest("tr").remove();       
+        counter -= 1
+    });
+});
+
+$(document).ready(function () {
+    var counter = 1;
+    $("#second-addrow-land").on("click", function () {
+
+        var duration_price_input = $('.duration_price_input').html();
+        var newRow = $("<tr>");
+        var cols = "";
+
+        cols += duration_price_input;
+
+        cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
+        newRow.append(cols);
+        $("table.order-list-land").append(newRow);
+        counter++;
+    });
+    $("table.order-list-land").on("click", ".ibtnDel", function (event) {
+        $(this).closest("tr").remove();       
+        counter -= 1
+    });
+});
+</script>
+
+
+<script type="text/javascript">
+$(function() {
+//jQuery time
+var current_fs, next_fs, previous_fs; //fieldsets
+var left, opacity, scale; //fieldset properties which we will animate
+var animating; //flag to prevent quick multi-click glitches
+
+$(".next").click(function(){
+
+  var form = $("#msform");
+    form.validate({
+      rules: {
+        'data[property_name]': {
+          required: true,
+        },
+        'module_manage_id': {
+          required: true,
+        },
+        'data[location]': {
+          required: true,
+        },
+        'data[zip_code]': {
+          required: true,
+          digits: true
+        },
+        "data[property_description]": { 
+           required: true,
+        },
+        "data[parking][parking_type_id][]": { 
+           required: true,
+        },
+        "data[parking][total_parking_spots][]": { 
+           required: true,
+           digits: true
+        },
+        "data[parking][car_type_id][]": { 
+           required: true,
+        }
+      },
+      messages: {
+        'data[property_name]': {
+          required: "Property name is required",
+        },
+        'module_manage_id': {
+          required: "Property type is required",
+        },
+        'data[location]': {
+          required: "Location name is required",
+        },
+        'data[zip_code]': {
+          required: "Zip code is required",
+        },
+        'data[property_description]': {
+          required: "Description is required",
+        },
+        "data[parking][floor_name][]": {
+          required: "Floer Name is required",
+        },
+        "data[parking][parking_type_id][]": {
+          required: "Parking Type is required",
+        },
+        "data[parking][total_parking_spots][]": {
+          required: "Total parking spot is required",
+        },
+        "data[parking][car_type_id][]": {
+          required: "Car type is required"
+        }
+      }
+    });
+  // if(animating) return false;
+  // animating = true;
+ if (form.valid() == true){
+      current_fs = $(this).parent();
+      next_fs = $(this).parent().next();
+      next_fs.show(); 
+      current_fs.hide();
+     // animating = false;
+ }
+
+  //activate next step on progressbar using the index of next_fs
+$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+  
+  //show the next fieldset
+  //next_fs.show(); 
+  //hide the current fieldset with style
+  current_fs.animate({opacity: 0}, {
+    step: function(now, mx) {
+      //as the opacity of current_fs reduces to 0 - stored in "now"
+      //1. scale current_fs down to 80%
+      scale = 1 - (1 - now) * 0.2;
+      //2. bring next_fs from the right(50%)
+      left = (now * 50)+"%";
+      //3. increase opacity of next_fs to 1 as it moves in
+      opacity = 1 - now;
+      current_fs.css({'transform': 'scale('+scale+')'});
+      next_fs.css({'left': left, 'opacity': opacity});
+    }, 
+    duration: 800, 
+    complete: function(){
+      current_fs.hide();
+      animating = false;
+    }, 
+    //this comes from the custom easing plugin
+    easing: 'easeInOutBack'
+  });
+});
+
+$(".previous").click(function(){
+  //if(animating) return false;
+  //animating = true;
+  
+  current_fs = $(this).parent();
+  previous_fs = $(this).parent().prev();
+  
+  //de-activate current step on progressbar
+  $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+  
+  //show the previous fieldset
+  previous_fs.show(); 
+  //hide the current fieldset with style
+  current_fs.animate({opacity: 0}, {
+    step: function(now, mx) {
+      //as the opacity of current_fs reduces to 0 - stored in "now"
+      //1. scale previous_fs from 80% to 100%
+      scale = 0.8 + (1 - now) * 0.2;
+      //2. take current_fs to the right(50%) - from 0%
+      left = ((1-now) * 50)+"%";
+      //3. increase opacity of previous_fs to 1 as it moves in
+      opacity = 1 - now;
+      current_fs.css({'left': left});
+      previous_fs.css({'transform': 'scale('+scale+')', 'opacity': opacity});
+    }, 
+    duration: 800, 
+    complete: function(){
+      current_fs.hide();
+      animating = false;
+    }, 
+    //this comes from the custom easing plugin
+    easing: 'easeInOutBack'
+  });
+});
+
+$('#msform').submit(function(event){
+    event.preventDefault();
+    var formData = new FormData($(this)[0]);            
+    var request = $.ajax({
+        type: 'POST',
+        url: $(this).attr('action'),
+        mimeType:'application/json',
+        dataType:'json',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(data){ 
+            if(data.status == 200)
+            { 
+            $('.loader').css('display','none');
+            $('.success-property').show();  
+            $(this)[0].reset();
+            }                         
+            //alert('success');
+        } ,
+        error: function(msg){
+             alert('error occurred please try again');  
+        }
+    });
+})
+});
+</script>
 <!--  $("#rent_with_booking_duration_type").html('');
 
               '<table id="rent_with_booking_duration_type">
@@ -587,3 +671,4 @@
                   </td>
                 </tr>
                </table>'; -->
+@stop

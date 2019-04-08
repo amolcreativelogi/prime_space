@@ -1,2 +1,17 @@
+@extends('front/layouts.default')
+@section('content')
+<div class="site-content">
 
-<h1>Welcome to customer dashboard</h1>
+
+<section class="dashboard-layout">
+    <div class="row">
+     @include('front/includes.customer_side_menu')
+      
+    </div>
+
+</section>
+ 
+</div>
+
+@stop
+

@@ -104,15 +104,15 @@ function lkForms(ID){
 		},
 		success: function (data) {
 			if(data.status == false){
-				$('.msg-gloabal').removeClass('alert alert-success');
-				$('.msg-gloabal').addClass('alert alert-danger');
-				$('.msg-gloabal').html(data.response.msg);
+				$('#'+ID+ ' .msg-gloabal').removeClass('alert alert-success');
+				$('#'+ID+ ' .msg-gloabal').addClass('alert alert-danger');
+				$('#'+ID+ ' .msg-gloabal').html(data.response.msg);
 				//loaderOut({status:0,msg:data.response.msg,url:data.url});
 			}else{
 
-				$('.msg-gloabal').removeClass('alert alert-danger');
-				$('.msg-gloabal').addClass('alert alert-success');
-				$('.msg-gloabal').html(data.response.msg);
+				$('#'+ID+ ' .msg-gloabal').removeClass('alert alert-danger');
+				$('#'+ID+ ' .msg-gloabal').addClass('alert alert-success');
+				$('#'+ID+ ' .msg-gloabal').html(data.response.msg);
 				$('#'+ID)[0].reset();
 				if(data.url != '')
 				{
@@ -166,13 +166,16 @@ $(function(){
 			    // Do your stuff here
 			    $('#user_type_id-error').show().html('Select any one account type'); 
 			    return false;
+			} else {
+				$('#user_type_id-error').show().html(''); 
 			}
 
 			if($('#privacy_policy_check').is(":checked")){
 				lkForms('form-signup');
+				$('#terms-error').show().html(''); 
 				//$(window).scrollTop(0);
 			}else{
-				$('#tearm').show().html('Terms of Service field is required'); 
+				$('#terms-error').show().html('Terms of service select is required'); 
 			}
 			//form.submit();
 		  }
@@ -231,155 +234,54 @@ $(function(){
 	 });
 });
 
+jQuery.datetimepicker.setLocale('en');
 
-$(function(){
-	//Registration Form
-	 $('#registration_teacher').validate({
-		rules: {
-				first_name: {
-				   required : true,
-		    	   minlength   : 3,
-				},
-				last_name: {
-					required: true,
-					minlength: 3,
-				},
-				email_address: {
-					required: true,
-					email: true
-				},
-				subject_class_id: {
-					required: true,
-				},
-				user_password: {
-					required: true,
-					minlength: 5,
-				},
-				user_cpassword: {
-					required: true,
-					equalTo: "#user_password"
-				},
-				organization: {
-					required: true,
-				},
-				your_phone: {
-					required: true,
-					digits: true,
-					minlength: 8,
-					maxlength: 10
-				},
-				organization_phone_number: {
-					digits: true,
-					minlength: 8,
-					maxlength: 10
-				},
-				user_type_id: {
-					required: true
-				}
-			},
-		messages: {
-				 first_name:{
-					required :"First Name field is required",
-				 }, 
-				 last_name:{
-					required :"Last Name field is required",
-				 },
-				 email_address:{
-					required :"Email Address field is required",
-				 },
-				 subject_class_id:{
-					required :"Subject field is required",
-				 },
-				 user_password:{
-					required :"Password field is required",
-				 },
-				  user_cpassword:{
-					required :"Confirm Password field is required",
-					equalTo :"Password and confirmation password do not match",
-				 },
-				 organization:{
-					required :"Organization field is required",
-				 },
-				 your_phone:{
-					required :"Your Phone field is required",
-				 },
-				 user_type_id: {
-					required :"Account type field is required",
-				 } 
-			},
-		submitHandler: function(form) {
-			if($('#tearm_conditions').is(":checked")){
-				//$('#tearm').html(''); 
-				lkForms('form-signup');
-				$(window).scrollTop(0);
-			}else{
-				$('#tearm').show().html('Terms and Conditions field is required');
-				//$(window).scrollTop(0); 
-			}
-			//form.submit();
-		  }
-	 });
+jQuery('#from,#search_dates').datetimepicker({
+ timepicker:false,
+ format:'m.d.Y'
+});
+jQuery('#to').datetimepicker({
+ timepicker:false,
+ format:'m.d.Y'
+});
+jQuery('#from_date').datetimepicker({
+ timepicker:false,
+ format:'m.d.Y'
+});
+jQuery('#to_date').datetimepicker({
+ timepicker:false,
+ format:'m.d.Y'
+});
+$('#from_time').datetimepicker({
+  datepicker:false,
+  format:'H:i'
+});
+$('#to_time').datetimepicker({
+  datepicker:false,
+  format:'H:i'
 });
 
 
+$(".modal").on("hidden.bs.modal", function(){
+
+	 $('#form-signup, #form-login, #form-password')
+    .find("input,textarea,select")
+       .val('')
+       .end()
+    .find("input[type=checkbox], input[type=radio]")
+       .prop("checked", "")
+       .end();
+     //$('form:first *:input[type!=hidden]:first').focus();
+	//alert();
+	//$('#form-signup, #form-login, #form-password')[0].reset();
+    $('.msg-gloabal').removeClass('alert alert-danger');
+	$('.msg-gloabal').removeClass('alert alert-success');
+	$('.msg-gloabal').html('');
+
+});
+
+$('#singupModal, #loginModal, #resetpassModal').on('shown.bs.modal', function() {
+  $('#email_id, #email_id_login, #forgot_password_email').focus();
+})
 
 
-// $("#step1").click(function(){
-// 	alert();
-// var form = $("#msform");
-// form.validate({
-// 	rules: {
-// 		property_name: {
-// 			required: true,
-// 			minlength: 6,
-// 		}
-// 	},
-// 	messages: {
-// 		property_name: {
-// 			required: "Username required",
-// 		}
-// 	}
-// });
-// });
-
-//----------------- Validation of add property form ----------------//
-/*$(function(){
-	//Registration Form
-	 $('#msform').validate({
-		rules: {
-
-				property_name: {
-					required: true
-				},
-				select-property-type: {
-				   required: true
-				},
-				location: {
-					required: true
-				},
-				zip_code: {
-					required: true,
-					minlength: 5,
-				},
-				property_description: {
-					required: true
-				},
-				property-images: {
-					required: true
-				}
-
-			},
-		messages: {
-				 property_name:{
-					required :"Email Address field is required",
-				 },
-				 location:{
-					required :"Password field is required",
-				 }
-			},
-		submitHandler: function(form) {
-			lkForms('form-login');
-			//form.submit();
-		  }
-	 });
-});*/
