@@ -41,7 +41,7 @@ class BookingController extends Controller
          ->leftJoin($tbl_prefix.'add_property_amenities as propAmnty', 'propAmnty.amenity_id', '=', 'amnty.amenity_id')
          ->where(['amnty.is_deleted'=>0,'amnty.status'=>1])->get();
 
-          return view('front.property.property_details')->with(['getPropertyDetails'=>$getPropertyDetails,'getPropAmenities'=>$getPropAmenities,'getPropImages'=>$getPropImages]);
+          return view('front.property.property_details')->with(['getPropertyDetails'=>$getPropertyDetails,'getPropAmenities'=>$getPropAmenities,'getPropImages'=>$getPropImages]); 
     }
 
 

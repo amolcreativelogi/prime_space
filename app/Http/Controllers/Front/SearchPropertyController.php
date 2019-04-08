@@ -19,7 +19,7 @@ class SearchPropertyController extends Controller
    //Search properties
     public function SeachProperty()
     {   
-    	
+
     	//convert date into mysql format Y-m-d
        $from_date = date('Y-m-d');
        if(!empty(request()->fromdate)){
@@ -77,7 +77,7 @@ class SearchPropertyController extends Controller
         //Search query
         $searchResult = DB::select("select
         	(select name from ".$tbl_prefix."add_property_files papf where papf.property_id = addProperty.property_id and document_type_id =1 order by file_id limit 1 ) as image ,".$rentAmount."
-        	addProperty.latitude,addProperty.longitude,addProperty.module_manage_id,addProperty.name,addProperty.status,addProperty.property_id ".$locationFields." from ".$tbl_prefix."add_property as addProperty
+        	addProperty.latitude,addProperty.longitude,addProperty.location,addProperty.module_manage_id,addProperty.name,addProperty.status,addProperty.property_id ".$locationFields." from ".$tbl_prefix."add_property as addProperty
 			 INNER JOIN 
 			(
 			SELECT property_id AS property_id FROM ".$tbl_prefix."add_property_availabilities where 
@@ -122,7 +122,7 @@ class SearchPropertyController extends Controller
         );
        // exit;
 
-    }
+    } 
 
 //Get table prefix by module id
     public function getTablePrefix($module_id){

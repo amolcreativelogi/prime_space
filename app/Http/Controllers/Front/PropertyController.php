@@ -46,7 +46,7 @@ class PropertyController extends Controller
         ->with('getLandType',$getLandType);
 
 
-
+ 
 
 
         /*->with(
@@ -163,7 +163,7 @@ class PropertyController extends Controller
                     break;
             };
 
-            
+
             //echo $request['data']['property_name'];die('in');
 
             // Commman parking and land save with condition
@@ -171,14 +171,14 @@ class PropertyController extends Controller
             {
             $propBasicDetails = array(
                                     'module_manage_id'=>$request['module_manage_id'],
-                                    'user_id'=>2,//$request->input('property_name'),
+                                    'user_id'=>$_SESSION['user']['user_id'],//$request->input('property_name'),
                                     'name'=>$request['data']['property_name'],
                                     'location'=>$request['data']['location'],
-                                    'latitude'=>10.000,
-                                    'longitude'=>9.000,//$request->input('longitude'),
+                                    'latitude'=>$request['data']['latitude'],
+                                    'longitude'=>$request['data']['longitude'],//$request->input('longitude'),
                                     'zip_code'=>$request['data']['zip_code'],
                                     'description'=>$request['data']['property_description'],
-                                    'location_type_id'=>1,
+                                    'location_type_id'=>$request['data']['location_type'],
                                     'status'=>1,
                                     'created_by'=>'1',
                                     'modified_by'=>'1',
@@ -190,8 +190,8 @@ class PropertyController extends Controller
                                     'user_id'=>2,//$request->input('property_name'),
                                     'name'=>$request['data']['property_name'],
                                     'location'=>$request['data']['location'],
-                                    'latitude'=>10.000,
-                                    'longitude'=>9.000,//$request->input('longitude'),
+                                    'latitude'=>$request['data']['latitude'],
+                                    'longitude'=>$request['data']['longitude'],//
                                     'zip_code'=>$request['data']['zip_code'],
                                     'description'=>$request['data']['property_description'],
                                     'tour_availability'=>$request['data']['land']['tour_availability'],
@@ -209,183 +209,179 @@ class PropertyController extends Controller
           if($propertyId)
           {
 
-            //property land
-            if(isset($request['data']['land']['land_used_for']) && !empty($request['data']['land']['land_used_for']) && $request['module_manage_id'] == 3)
-            {
-
-                foreach($request['data']['land']['land_used_for'] as $key => $land_used_for)
-                {
-                   $insertLandUserForDetails[]= array(
-                                         'land_type_id'=>($land_used_for)?$land_used_for:'',
-                                         'property_id'=>$propertyId,
-                                         'status'=>1,
-                                         'created_by'=>'1',
-                                         'modified_by'=>'1',
-                                         'is_deleted'=>'0');
-                            
-                }
-                $insertLandUserForDetails  = DB::table($tbl_prefix.'add_land_type')->insert($insertLandUserForDetails);
-            }
-
-         
-
-            //insert parking floors
-            if(isset($request['data']['parking']['floor_name']) && !empty($request['data']['parking']['floor_name']) && $request['module_manage_id'] == 2)
-            {
-                foreach($request['data']['parking']['floor_name'] as $key => $floor_name)
-                {
-                   $insertPropFloorDetails[]= array(
-                                         'floor_name'=>($floor_name)?$floor_name:'',
-                                         'parking_type_id'=>$request['data']['parking']['parking_type_id'][$key],
-                                         'total_parking_spots'=> $request['data']['parking']['total_parking_spots'][$key],
-                                         'property_id'=>$propertyId,
-                                         'status'=>1,
-                                         'created_by'=>'1',
-                                         'modified_by'=>'1',
-                                         'is_deleted'=>'0');
-                            
-                }
-                $insertPropFloorData  = DB::table($tbl_prefix.'add_property_floors')->insert($insertPropFloorDetails);
-            }
-
-             if(isset($request['data']['parking']['car_type_id']) && !empty($request['data']['parking']['car_type_id']))
-             {
-
-              if($request['module_manage_id'] == 2)
-              {
-                    foreach($request['data']['parking']['car_type_id'] as $keyC => $car_type_id)
+                    //property land
+                    if(isset($request['data']['land']['land_used_for']) && !empty($request['data']['land']['land_used_for']) && $request['module_manage_id'] == 3)
                     {
-                           foreach($request['data']['parking']['rent_amount'] as $keyR => $rent_amount)
-                           {
-                                  $insertPropRentDetails[]= array(
-                                             'car_type_id' => $car_type_id,
-                                             'duration_type_id'=>$request['data']['parking']['duration_type_id'][$keyR][$keyC],
-                                             'rent_amount' => $rent_amount[$keyC],
-                                             'property_id'=>$propertyId,
-                                             'status'=>1,
-                                             'created_by'=>'1',
-                                             'modified_by'=>'1',
-                                             'is_deleted'=>'0');
 
-                           }
-                  }
-              } 
-              else
-              {    
-
-                     foreach($request['data']['parking']['rent_amount'] as $keyR => $rent_amount)
-                     {
-
-                                $insertPropRentDetails[]= array(
-                                               'property_id' => $propertyId,
-                                               'duration_type_id'=>$keyR,
-                                               'rent_ammount'=>$rent_amount,
-                                               'status'=>1,
-                                               'created_by'=>'1',
-                                               'modified_by'=>'1',
-                                               'is_deleted'=>'0');
-
-                     }
-
-              }
-              //$insertPropRentData  = DB::table($tbl_prefix.'add_property_rent')->insert($insertPropRentDetails);
-            }
-
-          //Add Booking Durition
-          //exit;
-          $inserAmenitiesArr=[];
-          foreach ($request['data']['amenities'] as $value) {
-                        # code...
-                        $inserAmenitiesArr[]=array(
-                                                  'amenity_id'=>$value,
-                                                  'property_id'=>$propertyId,
-                                                  'status'=>1,
-                                                  'created_by'=>'1',
-                                                  'modified_by'=>'1',
-                                                  'is_deleted'=>'0'
-                                              );
+                        foreach($request['data']['land']['land_used_for'] as $key => $land_used_for)
+                        {
+                           $insertLandUserForDetails[]= array(
+                                                 'land_type_id'=>($land_used_for)?$land_used_for:'',
+                                                 'property_id'=>$propertyId,
+                                                 'status'=>1,
+                                                 'created_by'=>'1',
+                                                 'modified_by'=>'1',
+                                                 'is_deleted'=>'0');
+                                    
+                        }
+                        $insertLandUserForDetails  = DB::table($tbl_prefix.'add_land_type')->insert($insertLandUserForDetails);
                     }
-                    $insertPropFloorData  = DB::table($tbl_prefix.'add_property_amenities')->insert($inserAmenitiesArr);
-                    //print_r($propFloorDetails);die('in');
-            }
+
+                 
+
+                    //insert parking floors
+                    if(isset($request['data']['parking']['floor_name']) && !empty($request['data']['parking']['floor_name']) && $request['module_manage_id'] == 2)
+                    {
+                        foreach($request['data']['parking']['floor_name'] as $key => $floor_name)
+                        {
+                           $insertPropFloorDetails[]= array(
+                                                 'floor_name'=>($floor_name)?$floor_name:'',
+                                                 'parking_type_id'=>$request['data']['parking']['parking_type_id'][$key],
+                                                 'total_parking_spots'=> $request['data']['parking']['total_parking_spots'][$key],
+                                                 'property_id'=>$propertyId,
+                                                 'status'=>1,
+                                                 'created_by'=>'1',
+                                                 'modified_by'=>'1',
+                                                 'is_deleted'=>'0');
+                                    
+                        }
+                        $insertPropFloorData  = DB::table($tbl_prefix.'add_property_floors')->insert($insertPropFloorDetails);
+                    }
+
+                     if(isset($request['data']['parking']['car_type_id']) && !empty($request['data']['parking']['car_type_id']))
+                     {
+                      if($request['module_manage_id'] == 2)
+                      {
+                            foreach($request['data']['parking']['car_type_id'] as $keyC => $car_type_id)
+                            {
+                                   foreach($request['data']['parking']['rent_amount'] as $keyR => $rent_amount)
+                                   {
+                                          $insertPropRentDetails[]= array(
+                                                     'car_type_id' => $car_type_id,
+                                                     'duration_type_id'=>$request['data']['parking']['duration_type_id'][$keyR][$keyC],
+                                                     'rent_amount' => $rent_amount[$keyC],
+                                                     'property_id'=>$propertyId,
+                                                     'status'=>1,
+                                                     'created_by'=>'1',
+                                                     'modified_by'=>'1',
+                                                     'is_deleted'=>'0');
+
+                                   }
+                          }
+                      } 
+                      else
+                      {    
+                             foreach($request['data']['parking']['rent_amount'] as $keyR => $rent_amount)
+                             {
+
+                                        $insertPropRentDetails[]= array(
+                                                       'property_id' => $propertyId,
+                                                       'duration_type_id'=>$keyR,
+                                                       'rent_ammount'=>$rent_amount,
+                                                       'status'=>1,
+                                                       'created_by'=>'1',
+                                                       'modified_by'=>'1',
+                                                       'is_deleted'=>'0');
+
+                             }
+                      }
+                     $insertPropRentData  = DB::table($tbl_prefix.'add_property_rent')->insert($insertPropRentDetails);
+                    }
+                  //Add Booking Durition
+                  //exit;
+                  $inserAmenitiesArr=[];
+                  foreach ($request['data']['amenities'] as $value) {
+                                # code...
+                                $inserAmenitiesArr[]=array(
+                                                          'amenity_id'=>$value,
+                                                          'property_id'=>$propertyId,
+                                                          'status'=>1,
+                                                          'created_by'=>'1',
+                                                          'modified_by'=>'1',
+                                                          'is_deleted'=>'0'
+                                                      );
+                            }
+                            $insertPropFloorData  = DB::table($tbl_prefix.'add_property_amenities')->insert($inserAmenitiesArr);
+                            //print_r($propFloorDetails);die('in');
+                    }
+                    
+                   //Code for upload image, floor map and doc
+                   if($request->hasfile('property_images'))
+                   {
+                      foreach($request->file('property_images') as $key => $image)
+                      {
+                         // $name= str_replace(' ', '-', strtolower($request['data']['property_name']));
+                        $name = time().'-'.$image->getClientOriginalName();
+                        $image->move(public_path().'/images/properties', $name);  
+                        $data[] = $name;  
+                        $default_file = ($key == 0) ? 1 : 0;
+                        $insertPropertyImage[]= array(
+                                                   'name'=>$name,
+                                                   'property_id'=>$propertyId,
+                                                   'document_type_id'=>1,
+                                                   'default_file'=>$default_file,
+                                                   'status'=>1,
+                                                   'created_by'=>'1',
+                                                   'modified_by'=>'1',
+                                                   'is_deleted'=>'0');
+
+                      }
+                      $insertPropertyImage  = DB::table($tbl_prefix.'add_property_files')->insert($insertPropertyImage);
+                   }
 
 
+                   if($request->hasfile('property_documents'))
+                   {
+                      foreach($request->file('property_documents') as $key => $image)
+                      {
+                         // $name= str_replace(' ', '-', strtolower($request['data']['property_name']));
+                        $name = time().'-'.$image->getClientOriginalName();
+                        $image->move(public_path().'/images/property-documents', $name);  
+                        $data[] = $name;  
+                        $default_file = ($key == 0) ? 1 : 0;
+                        $insertPropertyDoc[]= array(
+                                                   'name'=>$name,
+                                                   'property_id'=>$propertyId,
+                                                   'document_type_id'=>3,
+                                                   'default_file'=>$default_file,
+                                                   'status'=>1,
+                                                   'created_by'=>'1',
+                                                   'modified_by'=>'1',
+                                                   'is_deleted'=>'0');
+
+                      }
+                      $insertPropertyDoc  = DB::table($tbl_prefix.'add_property_files')->insert($insertPropertyDoc);
+                   }
 
 
-            
+                   if($request->hasfile('property_map'))
+                   {
+                      foreach($request->file('property_map') as $key => $image)
+                      {
+                         // $name= str_replace(' ', '-', strtolower($request['data']['property_name']));
+                        $name = time().'-'.$image->getClientOriginalName();
+                        $image->move(public_path().'/images/property-documents', $name);  
+                        $data[] = $name;  
+                        $default_file = ($key == 0) ? 1 : 0;
+                        $insertPropertyMap[]= array(
+                                                   'name'=>$name,
+                                                   'property_id'=>$propertyId,
+                                                   'document_type_id'=>2,
+                                                   'default_file'=>$default_file,
+                                                   'status'=>1,
+                                                   'created_by'=>'1',
+                                                   'modified_by'=>'1',
+                                                   'is_deleted'=>'0');
 
-           //Code for upload image, floor map and doc
-           if($request->hasfile('property_images'))
-           {
-              foreach($request->file('property_images') as $key => $image)
-              {
-                 // $name= str_replace(' ', '-', strtolower($request['data']['property_name']));
-                $name = time().'-'.$image->getClientOriginalName();
-                $image->move(public_path().'/images/properties', $name);  
-                $data[] = $name;  
-                $default_file = ($key == 0) ? 1 : 0;
-                $insertPropertyImage[]= array(
-                                           'name'=>$name,
-                                           'property_id'=>$propertyId,
-                                           'document_type_id'=>1,
-                                           'default_file'=>$default_file,
-                                           'status'=>1,
-                                           'created_by'=>'1',
-                                           'modified_by'=>'1',
-                                           'is_deleted'=>'0');
+                      }
+                      $insertPropertyMap  = DB::table($tbl_prefix.'add_property_files')->insert($insertPropertyMap);
+                   }
+         }
 
-              }
-              $insertPropertyImage  = DB::table($tbl_prefix.'add_property_files')->insert($insertPropertyImage);
-           }
-
-
-           if($request->hasfile('property_documents'))
-           {
-              foreach($request->file('property_documents') as $key => $image)
-              {
-                 // $name= str_replace(' ', '-', strtolower($request['data']['property_name']));
-                $name = time().'-'.$image->getClientOriginalName();
-                $image->move(public_path().'/images/property-documents', $name);  
-                $data[] = $name;  
-                $default_file = ($key == 0) ? 1 : 0;
-                $insertPropertyDoc[]= array(
-                                           'name'=>$name,
-                                           'property_id'=>$propertyId,
-                                           'document_type_id'=>3,
-                                           'default_file'=>$default_file,
-                                           'status'=>1,
-                                           'created_by'=>'1',
-                                           'modified_by'=>'1',
-                                           'is_deleted'=>'0');
-
-              }
-              $insertPropertyDoc  = DB::table($tbl_prefix.'add_property_files')->insert($insertPropertyDoc);
-           }
-
-
-           if($request->hasfile('property_map'))
-           {
-              foreach($request->file('property_map') as $key => $image)
-              {
-                 // $name= str_replace(' ', '-', strtolower($request['data']['property_name']));
-                $name = time().'-'.$image->getClientOriginalName();
-                $image->move(public_path().'/images/property-documents', $name);  
-                $data[] = $name;  
-                $default_file = ($key == 0) ? 1 : 0;
-                $insertPropertyMap[]= array(
-                                           'name'=>$name,
-                                           'property_id'=>$propertyId,
-                                           'document_type_id'=>2,
-                                           'default_file'=>$default_file,
-                                           'status'=>1,
-                                           'created_by'=>'1',
-                                           'modified_by'=>'1',
-                                           'is_deleted'=>'0');
-
-              }
-              $insertPropertyMap  = DB::table($tbl_prefix.'add_property_files')->insert($insertPropertyMap);
-           }
-           }
-         exit;
+        $data = array('status' => 200,
+                      'response' => array('msg' =>'success'));
+            //echo 4;exit;  
+        echo json_encode($data);
+         //echo '{code:200,msg:success}';
     }
 }

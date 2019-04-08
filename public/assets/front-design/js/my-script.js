@@ -233,7 +233,7 @@ $(function(){
 
 jQuery.datetimepicker.setLocale('en');
 
-jQuery('#from').datetimepicker({
+jQuery('#from,#search_dates').datetimepicker({
  timepicker:false,
  format:'m.d.Y'
 });
@@ -257,3 +257,4 @@ $('#to_time').datetimepicker({
   datepicker:false,
   format:'H:i'
 });
+

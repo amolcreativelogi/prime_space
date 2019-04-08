@@ -85,11 +85,19 @@ Route::post('/admin/getAmenities','Admin\MasterController@getAmenities');
 Route::get('/admin/testJoin','Admin\MasterController@testJoin');
 
 
-
-//Route to load parking type listing 
 Route::get('/admin/parkingList','Admin\ParkingController@parkingList');
 Route::post('/admin/getParkingList','Admin\ParkingController@getParkingList');
 
+
+//Route to Booking
+Route::get('/admin/bookingList','Admin\BookingController@bookingList');
+Route::post('/admin/getallBookingList','Admin\BookingController@getallBookingList');
+
+Route::get('/admin/allParkingBooking','Admin\BookingController@allParkingBooking');
+Route::post('/admin/getallParkingList','Admin\BookingController@getallParkingList');
+
+Route::get('/admin/allLandBooking','Admin\BookingController@allLandBooking');
+Route::post('/admin/getallLandList','Admin\BookingController@getallLandList');
 
 Route::get('/admin/landList','Admin\LandController@landList');
 Route::post('/admin/getLandList','Admin\LandController@getLandList');
@@ -239,6 +247,11 @@ Route::post('/userRegistration','Front\UserController@userRegistration');
 Route::post('/userLogin','Front\UserController@userLogin');
 Route::post('/resetPassword','Front\UserController@resetPassword');
 
+
+Route::get('/user/parkingProperties','Front\HostController@parkingProperties')->middleware('UserAuth');
+Route::get('/user/landProperties','Front\HostController@landProperties')->middleware('UserAuth');
+Route::get('/user/bookingProperties','Front\HostController@bookingProperties')->middleware('UserAuth');
+
 Route::get('/user/host','Front\HostController@hostDashboard')->middleware('UserAuth');
 Route::get('/user/customer','Front\CustomerController@customerDashboard')->middleware('UserAuth');
 Route::get('/user/logout','Front\UserController@userlogout');
@@ -282,7 +295,7 @@ Route::post('/frontend/getPropertyMasters','Front\PropertyController@getProperty
 //Route to save property
 Route::post('/frontend/saveProperty','Front\PropertyController@saveProperty');
 
-
+ 
 //Route to Search Property
 Route::get('/searchproperty/{module_id?}','Front\SearchPropertyController@SeachProperty');
 
@@ -291,5 +304,6 @@ Route::get('/propertydetails/{module_id?}','Front\BookingController@propertyDeta
 
 //Route to book property
 Route::post('/frontend/bookProperty','Front\BookingController@bookProperty');
+
 
 
