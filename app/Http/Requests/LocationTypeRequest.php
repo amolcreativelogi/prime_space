@@ -24,6 +24,7 @@ class LocationTypeRequest extends FormRequest
     public function rules()
     {
         return [
+            'module_manage_id'=>'required',
             'location_type' => 'required'
         ];
     }
@@ -31,6 +32,7 @@ class LocationTypeRequest extends FormRequest
     public function messages()
     {
         return [
+            'module_manage_id.required' => 'Module Category field is required',
             'location_type.required' => 'Location type field is required'
         ];
     }

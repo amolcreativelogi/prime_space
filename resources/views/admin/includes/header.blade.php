@@ -13,7 +13,7 @@
 <link href="{{ URL::asset('public') }}/assets/Admin/css/opencart.css" type="text/css" rel="stylesheet">
 <link href="{{ URL::asset('public') }}/assets/Admin/css/font-awesome.css" type="text/css" rel="stylesheet">
 <link href="{{ URL::asset('public') }}/assets/Admin/css/summernote.css" rel="stylesheet">
-<script type="text/javascript" src="{{ URL::asset('public') }}/assets/Adminassets/js/summernote.js"></script>
+<!-- <script type="text/javascript" src="{{ URL::asset('public') }}/assets/Adminassets/js/summernote.js"></script> -->
 <script src="{{ URL::asset('public') }}/assets/Admin/js/moment.js" type="text/javascript"></script>
 <script src="{{ URL::asset('public') }}/assets/Admin/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
 <link href="{{ URL::asset('public') }}/assets/Admin/css/bootstrap-datetimepicker.css"  rel="stylesheet">
@@ -33,6 +33,8 @@
 <!---->
 
 <script src="{{ URL::asset('public') }}/assets/Admin/js/my-script.js " type="text/javascript"></script>
+<!--CUSTOM FRONTENT JS -->
+<script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/custom-file-input.js"></script>
 
 <script>
 var baseurl = '<?php echo url('/'); ?>'; 
@@ -46,11 +48,32 @@ function DeleteRecord(id,table,tbid)
 {
         if(confirm('Are you sure you want to delete this record?')){
         var url = baseurl+'/admin/DeteteRecord';
-        alert(url);
+        //alert(isDeleteChild);
         $.ajax({
         method: 'POST',
         url: url,
         data: {'id':id,'table':table,'dbid':tbid,'_token':"{{ csrf_token() }}"}
+        })
+        .done(function( msg ) {
+        alert('Record Deleted Successfully.');
+        //location.reload();
+        var oTable = $('#example').dataTable();
+        oTable.fnDraw();
+        });
+        }else{
+        return false;
+        }
+}
+
+function DeleteRecordWithChild(id,parentTable,tbid,isDeleteChild,childTable)
+{
+        if(confirm('Are you sure you want to delete this record?')){
+        var url = baseurl+'/admin/DeleteRecordWithChild';
+       // alert(isDeleteChild);
+        $.ajax({
+        method: 'POST',
+        url: url,
+        data: {'id':id,'parentTable':parentTable,'dbid':tbid,'isDeleteChild':isDeleteChild,'childTable':childTable,'_token':"{{ csrf_token() }}"}
         })
         .done(function( msg ) {
         alert('Record Deleted Successfully.');
@@ -112,6 +135,10 @@ function DeleteRecord(id,table,tbid)
     <li><a href="{{ URL::asset('admin/amenitiesExecute') }}/">Amenities</a></li>
     <li><a href="{{ URL::asset('admin/locationTypeExecute') }}/">Location Type</a></li>
     <li><a href="{{ URL::asset('admin/bookingDurationTypeExecute') }}/">Booking Duration Type</a></li>
+    <li><a href="{{ URL::asset('admin/documentTypeExecute') }}/">Document Type</a></li>
+    <li><a href="{{ URL::asset('admin/unitTypeExecute') }}/">Unit Type</a></li>
+    <li><a href="{{ URL::asset('admin/cancellationTypeExecute') }}/">Cancellation Type</a></li>
+    <li><a href="{{ URL::asset('admin/cancellationPoliciesExecute') }}/">Cancellation Policies </a></li>
   </ul>
 </li>
 
@@ -119,20 +146,33 @@ function DeleteRecord(id,table,tbid)
   <ul class="collapse">
    <li><a href="{{ URL::asset('admin/carTypeExecute') }}/">Car Type</a></li>
    <li><a href="{{ URL::asset('admin/parkingTypeExecute') }}/">Parking Type</a></li>
+
+   <li><a href="{{ URL::asset('admin/parkingList') }}/">Parking List</a></li>
   </ul>
 </li>
 
 <li><a class="parent"><i class="fa fa-shopping-cart fa-fw"></i> <span>Land</span></a>
   <ul class="collapse">
+     <li><a href="{{ URL::asset('admin/landTypeExecute') }}/">Land Type</a></li>
+     <li><a href="{{ URL::asset('admin/landList') }}/">Land List</a></li>
     <!-- <li><a href="{{ URL::asset('admin/amenityCategoriesExecute') }}/">Amenity Categories</a></li> -->
   </ul>
 </li>
 
 <li><a class="parent"><i class="fa fa-shopping-cart fa-fw"></i> <span>Users</span></a>
   <ul class="collapse">
-    <li><a href="#">All Users & Host</a></li>
-    <li><a href="#">All Users</a></li>
-    <li><a href="#">All Host</a></li>
+    <li><a href="{{ URL::asset('admin/Host_Users') }}/">All Users & Host</a></li>
+    <li><a href="{{ URL::asset('admin/Users') }}/">All Customers</a></li>
+    <li><a href="{{ URL::asset('admin/Hosts') }}/">All Host</a></li>
+  </ul>
+</li>
+
+
+<li><a class="parent"><i class="fa fa-shopping-cart fa-fw"></i> <span>Booking</span></a>
+  <ul class="collapse">
+    <li><a href="{{ URL::asset('admin/bookingList') }}/">All Booking</a></li>
+    <li><a href="{{ URL::asset('admin/allParkingBooking') }}/">All Parking Booking</a></li>
+    <li><a href="{{ URL::asset('admin/allLandBooking') }}/">All Land Booking</a></li>
   </ul>
 </li>
 
@@ -142,7 +182,5 @@ function DeleteRecord(id,table,tbid)
     <li><a href="#">Withdraw Requests</a></li>                    
   </ul>
 </li>
-
 </ul>
-
 </nav>

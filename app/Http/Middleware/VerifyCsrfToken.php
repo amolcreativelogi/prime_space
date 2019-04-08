@@ -18,19 +18,35 @@ class VerifyCsrfToken extends Middleware
          'admin/getLocationTypes',
          'admin/getParkingTypes',
          'admin/getBookingDurationTypes',
-         'admin/getUserandHost'
+         'admin/getUserandHost',  
+         'admin/getUser',
+         'admin/getHost',
+         'admin/getParkingList',
+         'admin/getLandList',
+         'admin/getallBookingList',
+         'admin/getallParkingList',
+         'admin/getallLandList',
+         'admin/AssignPermission',
+         'admin/getDocumentTypes',
+         'admin/getUnitTypes',
+         'admin/getCancellationTypes',
+         'admin/getCancellationPolicies',
+         'admin/getLandTypes',
+         'admin/Host_Users',
+         'frontend/getPropertyMasters',
+         'frontend/bookProperty'
     ];
 
-   // public function handle($request, Closure $next)
-   //  {
-   //      $regex = '#' . implode('|', $this->except_urls) . '#';
+     // public function handle($request, Closure $next)
+     //  {
+     //      $regex = '#' . implode('|', $this->except_urls) . '#';
 
-   //      if ($this->isReading($request) || $this->tokensMatch($request) || preg_match($regex, $request->path()))
-   //      {
-   //          return $this->addCookieToResponse($request, $next($request));
-   //      }
+     //      if ($this->isReading($request) || $this->tokensMatch($request) || preg_match($regex, $request->path()))
+     //      {
+     //          return $this->addCookieToResponse($request, $next($request));
+     //      }
 
-   //      throw new TokenMismatchException;
-   //  }
+     //      throw new TokenMismatchException;
+     //  }
 
 }

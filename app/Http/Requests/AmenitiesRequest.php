@@ -27,6 +27,7 @@ class AmenitiesRequest extends FormRequest
             'module_manage_id' => 'required',
             'amenity_name' => 'required'
             
+            
         ];
     }
 
