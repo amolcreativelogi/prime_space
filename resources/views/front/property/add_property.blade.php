@@ -510,8 +510,9 @@ $(".next").click(function(){
         },
         'data[zip_code]': {
           required: true,
+          digits: true
         },
-        "data[parking][floor_name][]": { 
+        "data[property_description]": { 
            required: true,
         },
         "data[parking][parking_type_id][]": { 
@@ -537,6 +538,9 @@ $(".next").click(function(){
         },
         'data[zip_code]': {
           required: "Zip code is required",
+        },
+        'data[property_description]': {
+          required: "Description is required",
         },
         "data[parking][floor_name][]": {
           required: "Floer Name is required",
@@ -639,8 +643,8 @@ $('#msform').submit(function(event){
         success: function(data){ 
             if(data.status == 200)
             { 
+            $('.loader').css('display','none');
             $('.success-property').show();  
-            $('#loader').css('display','none');
             $(this)[0].reset();
             }                         
             //alert('success');

@@ -141,10 +141,8 @@ class PropertyController extends Controller
     }
     
     public function saveProperty(Request $request)
-    {
-
-
-
+    {   
+       
         if(!$request->input('id')) {
 
             $tbl_prefix="";
@@ -162,7 +160,6 @@ class PropertyController extends Controller
                     # code...
                     break;
             };
-
 
             //echo $request['data']['property_name'];die('in');
 
@@ -271,13 +268,14 @@ class PropertyController extends Controller
                       } 
                       else
                       {    
+                         
                              foreach($request['data']['parking']['rent_amount'] as $keyR => $rent_amount)
                              {
 
                                         $insertPropRentDetails[]= array(
                                                        'property_id' => $propertyId,
                                                        'duration_type_id'=>$keyR,
-                                                       'rent_ammount'=>$rent_amount,
+                                                       'rent_amount'=>$rent_amount[0],
                                                        'status'=>1,
                                                        'created_by'=>'1',
                                                        'modified_by'=>'1',
@@ -285,6 +283,8 @@ class PropertyController extends Controller
 
                              }
                       }
+
+
                      $insertPropRentData  = DB::table($tbl_prefix.'add_property_rent')->insert($insertPropRentDetails);
                     }
                   //Add Booking Durition
