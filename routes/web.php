@@ -87,7 +87,7 @@ Route::get('/admin/testJoin','Admin\MasterController@testJoin');
 
 Route::get('/admin/parkingList','Admin\ParkingController@parkingList');
 Route::post('/admin/getParkingList','Admin\ParkingController@getParkingList');
-
+Route::get('/admin/ParkingDetails/{id?}','Admin\ParkingController@ParkingDetails');
 
 //Route to Booking
 Route::get('/admin/bookingList','Admin\BookingController@bookingList');
@@ -153,6 +153,9 @@ Route::get('/admin/Users','Admin\UsersController@Users');
 Route::get('/admin/Host_Users','Admin\UsersController@Host_Users');
 Route::get('/admin/Hosts','Admin\UsersController@Hosts');
 Route::post('/admin/AssignPermission','Admin\UsersController@AssignPermission');
+
+
+Route::post('/admin/PropertyApproval','Admin\ParkingController@PropertyApproval');
 
 Route::post('/admin/getUser','Admin\UsersController@getUser');
 Route::post('/admin/getHost','Admin\UsersController@getHost');
@@ -241,6 +244,8 @@ Route::get('/admin/mail','Admin\UsersController@mail');
 
 
 /*FRONTEND USER ROUTES*/
+
+
 
 //
 Route::post('/userRegistration','Front\UserController@userRegistration');

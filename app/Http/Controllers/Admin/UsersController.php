@@ -30,13 +30,16 @@ class UsersController extends Controller
 		$order=$orrd['dir'];
 		}
 
-		$getCarTotalRecord = DB::table('prk_user_registrations')->select('firstname','lastname','email_id','user_id')->where('default_user_type', '=', 2)->orWhere('user_type_id', '=', 5)->where('is_deleted', '=', 0)->get()->count();
+		$getCarTotalRecord = DB::table('prk_user_registrations')->select('firstname','lastname','email_id','user_id','is_deleted')->where('default_user_type', '=', 2)->orWhere('user_type_id', '=', 5)->where('is_deleted', '=', 0)->get()->count();
 
-		$query = DB::table('prk_user_registrations')->select('firstname','lastname','email_id','user_id','user_type_id')->where('default_user_type', '=', 2)->orWhere('user_type_id', '=', 5)->where('is_deleted', '=', 0);
-		if($_POST['search']['value']) {
+		$query = DB::table('prk_user_registrations')->select('firstname','lastname','email_id','user_id','user_type_id','is_deleted')->where('default_user_type', '=', 2)->where('is_deleted', '=', 0);
+		if($_POST['search']['value'] && $_POST['search']['value'] != 'clear') {
 	    $query->where('firstname', 'like', '%' .  $_POST['search']['value'] . '%');
+		$query->orWhere('lastname', 'like', '%' .  $_POST['search']['value'] . '%');
+		$query->orWhere('email_id', 'like', '%' .  $_POST['search']['value'] . '%');
 		}
 
+		$query->orWhere('user_type_id', '=', 5);
 		if($offset!= -1) {
 		    $query->skip($myll)->take($offset);
 		}
@@ -46,7 +49,9 @@ class UsersController extends Controller
         else{
        		$query->orderBy('user_id','desc');
         }
+
 		$getUsers = $query->get();
+
 	    $data = array();
 	    $data = array();
 	    $no = $_POST['start'];
@@ -90,13 +95,15 @@ class UsersController extends Controller
 		$order=$orrd['dir'];
 		}
 
-		$getCarTotalRecord = DB::table('prk_user_registrations')->select('firstname','lastname','email_id','user_id')->where('default_user_type', '=', 3)->orWhere('user_type_id', '=', 5)->where('is_deleted', '=', 0)->get()->count();
+		$getCarTotalRecord = DB::table('prk_user_registrations')->select('firstname','lastname','email_id','user_id','is_deleted')->where('default_user_type', '=', 3)->orWhere('user_type_id', '=', 5)->where('is_deleted', '=', 0)->get()->count();
 
-		$query = DB::table('prk_user_registrations')->select('firstname','lastname','email_id','user_id','user_type_id')->where('default_user_type', '=', 3)->orWhere('user_type_id', '=', 5)->where('is_deleted', '=', 0);
-		if($_POST['search']['value']) {
+		$query = DB::table('prk_user_registrations')->select('firstname','lastname','email_id','user_id','user_type_id','is_deleted')->where('default_user_type', '=', 3)->where('is_deleted', '=', 0);
+		if($_POST['search']['value'] && $_POST['search']['value'] != 'clear') {
 	    $query->where('firstname', 'like', '%' .  $_POST['search']['value'] . '%');
+		$query->orWhere('lastname', 'like', '%' .  $_POST['search']['value'] . '%');
+		$query->orWhere('email_id', 'like', '%' .  $_POST['search']['value'] . '%');
 		}
-
+		$query->orWhere('user_type_id', '=', 5);
 		if($offset!= -1) {
 		    $query->skip($myll)->take($offset);
 		}
@@ -173,13 +180,14 @@ class UsersController extends Controller
 		$order=$orrd['dir'];
 		}
 
-		$getCarTotalRecord = DB::table('prk_user_registrations')->select('firstname','lastname','email_id','user_id')->where('is_deleted', '=', 0)->get()->count();
+		$getCarTotalRecord = DB::table('prk_user_registrations')->select('firstname','lastname','email_id','user_id','is_deleted')->where('is_deleted', '=', 0)->get()->count();
 
-		$query = DB::table('prk_user_registrations')->select('firstname','lastname','email_id','user_id','user_type_id')->where('is_deleted', '=', 0);
-		if($_POST['search']['value']) {
+		$query = DB::table('prk_user_registrations')->select('firstname','lastname','email_id','user_id','user_type_id','is_deleted')->where('is_deleted', '=', 0);
+		if($_POST['search']['value'] && $_POST['search']['value'] != 'clear') {
 	    $query->where('firstname', 'like', '%' .  $_POST['search']['value'] . '%');
+		$query->orWhere('lastname', 'like', '%' .  $_POST['search']['value'] . '%');
+		$query->orWhere('email_id', 'like', '%' .  $_POST['search']['value'] . '%');
 		}
-
 		if($offset!= -1) {
 		    $query->skip($myll)->take($offset);
 		}
