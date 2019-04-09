@@ -544,9 +544,6 @@ $(".next").click(function(){
         'data[property_description]': {
           required: "Description is required",
         },
-        "data[parking][floor_name][]": {
-          required: "Floer Name is required",
-        },
         "data[parking][parking_type_id][]": {
           required: "Parking Type is required",
         },
@@ -566,10 +563,11 @@ $(".next").click(function(){
       next_fs.show(); 
       current_fs.hide();
      // animating = false;
+     $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
  }
 
   //activate next step on progressbar using the index of next_fs
-$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
   
   //show the next fieldset
   //next_fs.show(); 
@@ -631,6 +629,7 @@ $(".previous").click(function(){
   });
 });
 });
+
 
 $('#msform').submit(function(event){
     event.preventDefault();
