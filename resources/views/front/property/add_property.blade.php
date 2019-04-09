@@ -393,7 +393,7 @@
                 $.each(getAmenities, function(i, v) {
                     masters['amenities_input'] += 
                             '<input type="checkbox" name="data[amenities][]" id="'+v.amenity_name+'" value="'+v.amenity_id+'">'+
-                            '<label for="'+v.amenity_name+'">'+v.amenity_name+'</label>';
+                            '<label for="'+v.amenity_name+'">'+v.amenity_name+' <img src="<?php echo URL::to('/') ?>/public/images/amenity/'+v.amenity_image+'" width="50"></label>';
                    
                 });
                 masters['amenities_input'] += '</li>';
@@ -465,6 +465,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
+  $('#property_name').focus();
     var counter = 1;
     $("#second-addrow-land").on("click", function () {
 
@@ -489,6 +490,7 @@ $(document).ready(function () {
 
 <script type="text/javascript">
 $(function() {
+
 //jQuery time
 var current_fs, next_fs, previous_fs; //fieldsets
 var left, opacity, scale; //fieldset properties which we will animate
@@ -628,6 +630,7 @@ $(".previous").click(function(){
     easing: 'easeInOutBack'
   });
 });
+});
 
 $('#msform').submit(function(event){
     event.preventDefault();
@@ -653,7 +656,6 @@ $('#msform').submit(function(event){
              alert('error occurred please try again');  
         }
     });
-})
 });
 </script>
 <!--  $("#rent_with_booking_duration_type").html('');
