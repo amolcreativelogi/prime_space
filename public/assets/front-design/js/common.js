@@ -251,3 +251,55 @@ function getCurrentDate(){
 }
 
 
+$(function() {
+  $('#tablist').change(function(){
+    $('.tablist-container').hide();
+    $('#' + $(this).val()).show(); 
+  });
+});
+
+$(function() {
+  $('#landtablist').change(function(){
+    $('.landtablist-container').hide();
+    //$('#tablist').hide();
+    $('#' + $(this).val()).show();  
+  });
+});
+
+
+
+$(function() {
+  $('#select-property-type').change(function(){
+    $('.parking-slection').hide();
+   // $('#tablist').hide(); 
+    $('#' + $(this).val()).show();
+  });
+});
+
+
+$(function () {
+        $(".homebannertext #select-property-type").change(function () {
+            if ($(this).val() == "2") {
+                $("#land-search_dates1").show();
+            } else {
+                $("#search_dates1").hide();
+            }
+        });
+       
+    });
+
+
+// $(function () {
+//  $(".homebannertext #select-property-type").change(function () { 
+//             if ($(this).val() == "1) {
+//                 $("#search_dates1").show();
+//             } else {
+//                 $("#land-search_dates1").hide();
+//             }
+//         });
+// });
+
+
+
+
+

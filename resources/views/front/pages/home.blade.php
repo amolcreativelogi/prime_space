@@ -33,14 +33,15 @@
                       <option value="<?php echo $category->module_manage_id ?>"><?php echo $category->module_manage_name ?></option>
                       <?php } ?>
                      </select>
-
-
+                     
+                     
                   <input type="text" name="location" id="location" placeholder="Location" class="location" autocomplete="on" runat="server">
                   <input type="hidden" id="city" name="city" />
                   <input type="hidden" name="latitude" id="latitude">
                   <input type="hidden" name="longitude" id="longitude">
 
-              <input type="text" name="search_dates" placeholder="Dates" id="search_dates" class="dates">
+              <input type="text" name="search_dates" placeholder="Dates" id="search_dates1" class="dates">
+              <!--<input type="text" name="land-search_dates1" placeholder="Dates" id="land-search_dates1" class="dates" styel="display:none">-->
               <input type="button" name="search" id="search" onclick="searchURL()" value="Search">
            <!--  </form> --> 
           </div>

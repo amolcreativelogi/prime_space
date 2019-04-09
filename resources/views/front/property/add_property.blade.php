@@ -43,7 +43,7 @@
   <textarea placeholder="Property description" name="data[property_description]" id="property_description" cols="6"></textarea>
   <!-- <input type="file" name="" placeholder="Property Images " /> -->
   <div class="box">
-    <input type="file" name="property_images[]" id="property_images" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple style="display: none;" />
+    <input type="file" name="property_images" id="property_images" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple style="display: none;" />
     <label for="property_images"><span></span> <strong>Choose Property Images</strong></label>
   </div>
   <input type="button" name="next" id="step1" class="next action-button" value="Next" />
@@ -517,6 +517,10 @@ $(".next").click(function(){
         "data[property_description]": { 
            required: true,
         },
+        "property_images": {
+          required: true,
+          extension: "jpg,jpeg, png"
+        },
         "data[parking][parking_type_id][]": { 
            required: true,
         },
@@ -543,6 +547,9 @@ $(".next").click(function(){
         },
         'data[property_description]': {
           required: "Description is required",
+        },
+        'property_images': {
+          required: "Property Image is required",
         },
         "data[parking][parking_type_id][]": {
           required: "Parking Type is required",
@@ -630,14 +637,13 @@ $(".previous").click(function(){
 });
 });
 
-
-$('#msform').submit(function(event){
-    event.preventDefault();
+$('#msform').on('submit', function(e){
+    e.preventDefault();
     var formData = new FormData($(this)[0]);            
     var request = $.ajax({
         type: 'POST',
         url: $(this).attr('action'),
-        mimeType:'application/json',
+        //mimeType:'application/json',
         dataType:'json',
         data: formData,
         contentType: false,
@@ -671,5 +677,5 @@ $('#msform').submit(function(event){
                      <input type="text" name="" placeholder="Monthly Price">
                   </td>
                 </tr>
-               </table>'; -->
+</table>'; -->
 @stop

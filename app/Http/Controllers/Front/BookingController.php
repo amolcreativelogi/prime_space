@@ -221,4 +221,10 @@ class BookingController extends Controller
     }
 
 
+
+    public function bookNow()
+    {
+      return view('front/pages/booking');
+    }
+
 }

@@ -22,7 +22,9 @@
           <input type="hidden" name="longitude" id="longitude-top-search">
         <!--   <input type="text" name="" placeholder="Dates" class="dates"> -->
           <div class="form-group date-group">
-          <div class="date"><input type="text" class="form-control" placeholder="Dates" id="from"></div>
+              <input type="text" name="search_dates" placeholder="Dates" id="search_dates" class="dates">
+              <!--<input type="text" name="search_dates" placeholder="Dates" id="land-search_dates" class="dates" style="display:none">-->
+          <!--<div class="date"><input type="text" class="form-control" placeholder="Dates" id="from"></div>-->
           </div>
 
           <input type="button" name="" onclick="topPrpertySearch()"  value="Search">
@@ -68,18 +70,21 @@
                          <label>Birthday</label>
                          <p>To sign up, you must be 18 or older. People won’t see your birthday</p>
                          <div class="birthdaygroup">
-                          <select class="month" name="dob_month">
+                          <select class="month" name="dob_month" id="dob_month">
+                            <option value="">Select Month</option>
                             <?php for ($m=1; $m<=12; $m++) {
                             $month = date('F', mktime(0,0,0,$m, 1, date('Y'))); ?>
                             <option value="<?php echo $m; ?>"><?php echo $month; ?></option>
                             <?php } ?>
                           </select>
-                          <select class="day" name="dob_day">
+                          <select class="day" name="dob_day"  id="dob_day">
+                            x<option value="">Select Day</option>
                             <?php for ($d=1; $d<=31; $d++) { ?>
                             <option value="<?php echo $d; ?>"><?php echo $d; ?></option>
                             <?php } ?>
                           </select>
-                          <select class="year" name="dob_year">
+                          <select class="year" name="dob_year"  id="dob_year">
+                            <option value="">Select year</option>
                            <?php 
                            $year = date('Y')-18;
                            $validyear = date('Y')-100;
@@ -87,6 +92,7 @@
                            <option value="<?php echo $y; ?>"><?php echo $y; ?></option>
                            <?php } ?>
                           </select>
+                           <div id="dob_id-error" class="error" for="user_type"></div>
                          </div>
                       </div>
 

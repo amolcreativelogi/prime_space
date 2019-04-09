@@ -162,6 +162,31 @@ $(function(){
 			},
 		submitHandler: function(form) {
 
+			if ($("#dob_month").val() == ''){
+			    // Do your stuff here
+			    $('#dob_id-error').show().html('Select date of birth month'); 
+			    return false;
+			} else {
+				$('#dob_id-error').show().html(''); 
+			}
+
+			if ($("#dob_day").val() == ''){
+			    // Do your stuff here
+			    $('#dob_id-error').show().html('Select date of birth day'); 
+			    return false;
+			} else {
+				$('#dob_id-error').show().html(''); 
+			}
+
+			if ($("#dob_year").val() == ''){
+			    // Do your stuff here
+			    $('#dob_id-error').show().html('Select date of birth year'); 
+			    return false;
+			} else {
+				$('#dob_id-error').show().html(''); 
+			}
+
+
 			if ($("input[name='user_type_id']:checked").length == 0){
 			    // Do your stuff here
 			    $('#user_type_id-error').show().html('Select any one account type'); 
@@ -169,6 +194,7 @@ $(function(){
 			} else {
 				$('#user_type_id-error').show().html(''); 
 			}
+
 
 			if($('#privacy_policy_check').is(":checked")){
 				lkForms('form-signup');
@@ -236,7 +262,23 @@ $(function(){
 
 jQuery.datetimepicker.setLocale('en');
 
-jQuery('#from,#search_dates').datetimepicker({
+jQuery('#from').datetimepicker({
+ timepicker:false,
+ format:'m.d.Y'
+});
+jQuery('#search_dates').datetimepicker({
+ //timepicker:false,
+ format:'m.d.Y'
+});
+jQuery('#land-search_dates').datetimepicker({
+ timepicker:false,
+ format:'m.d.Y'
+});
+jQuery('#search_dates1').datetimepicker({
+ //timepicker:false,
+ format:'m.d.Y'
+});
+jQuery('#land-search_dates1').datetimepicker({ 
  timepicker:false,
  format:'m.d.Y'
 });
@@ -260,12 +302,16 @@ $('#to_time').datetimepicker({
   datepicker:false,
   format:'H:i'
 });
+$('#to_time').datetimepicker({
+  datepicker:false,
+  format:'H:i'
+});
 
 
 $(".modal").on("hidden.bs.modal", function(){
 
 	 $('#form-signup, #form-login, #form-password')
-    .find("input,textarea,select")
+    .find("input[type=text],textarea,select")
        .val('')
        .end()
     .find("input[type=checkbox], input[type=radio]")

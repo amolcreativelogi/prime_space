@@ -7,57 +7,31 @@
 <div class="all-properties">
     <section class="ap-filter">
       <div class="container">
-        <div class="prop-type">
-          <select id="select-property-type" name="module_manage_id">
-            <?php foreach($getModuleCategories as $category){ ?>
-                <option <?php if($category->module_manage_id == $searchArr['module_id']){ echo "selected";}?> value="<?php echo $category->module_manage_id ?>"><?php echo $category->module_manage_name ?></option>
-                <?php } ?>
-               </select>
-        </div>
-        <!-- Nav tabs -->
-        <!-- <ul class="nav nav-tabs" role="tablist">
-          <li class="nav-item <?php if($_GET['activeTab']=='monthly'){ echo 'active show';}else{ echo "";} ?>">
-            <a class="nav-link <?php if($_GET['activeTab']=='monthly'){ echo 'active show';}else{ echo "";} ?>"  data-toggle="tab" href="#monthly">Monthly</a>
-          </li>
-          <li class="nav-item <?php if($_GET['activeTab']=='hourly'){ echo 'active show';}else{ echo ""; } ?>">
-            <a class="nav-link <?php if($_GET['activeTab']=='hourly'){ echo 'active show';}else{ echo ""; } ?>"  data-toggle="tab" href="#hourly">Hourly</a>
-          </li>
-        </ul> -->
-
-        <ul class="nav nav-tabs" role="tablist">
-          <li class="nav-item active">
-            <a class="nav-link active"  data-toggle="tab" href="#monthly">Monthly</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link"  data-toggle="tab" href="#hourly">Hourly</a>
-          </li>
-        </ul> 
-
+          <div class="row">
+              <div class="col-sm-2">
+                  <div class="prop-type first-prop-type">
+                      <select id="select-property-type" name="module_manage_id">
+                        <?php foreach($getModuleCategories as $category){ ?>
+                            <option <?php if($category->module_manage_id == $searchArr['module_id']){ echo "selected";}?> value="<?php echo $category->module_manage_id ?>" class="property-type"><?php echo $category->module_manage_name ?></option>
+                            <?php } ?>
+                           </select>
+                    </div>
+                   
+                   
+              </div>
+              <div class="col-sm-10">
+                 <div id="2" class="parking-slection">
+                      <div class="prop-type">
+                        <select id="tablist">
+                            <option value="hourly">Hourly</option>
+                            <option value="daily">Daily</option>
+                            <option value="monthly">Monthly</option>
+                        </select>
+                    </div>
+                       
         <!-- Tab panes -->
-        <div class="tab-content">
-          <div id="monthly" class="container tab-pane active">
-            <form action="searchproperty/" method="get">
-              <div class="form-group">
-                <label>Region</label>
-                <div class="region">
-                    <input type="text" name="location" id="location" placeholder="Seattle" autocomplete="on" runat="server">
-                    <input type="hidden" id="city" name="city" />
-                    <input type="hidden" name="latitude" id="latitude">
-                    <input type="hidden" name="longitude" id="longitude"></div>
-                </div>
-              <div class="form-group date-group">
-                <label>From</label>
-                <!-- <div class="date"><input type="" name="" placeholder="Any"></div> -->
-                 <div class="date"><input type="text" class="form-control" placeholder="Any" id="from" /></div>
-              </div>
-              <div class="form-group date-group">
-                <label>To</label>
-                <div class="date"><input type="text" class="form-control" placeholder="Any" id="to" /></div>
-              </div>
-             
-            </form>
-          </div>
-          <div id="hourly" class="container tab-pane fade">
+        <div id="hourly" class="tablist-container filterbox hourly" style="display: block;">
+            
             <form>
               <div class="form-group">
                 <label>Search</label>
@@ -89,8 +63,143 @@
               </div>
             </form>
           </div>
+          
+            <div id="daily" class="tablist-container filterbox daily" style="display: none;">
+            <form action="searchproperty/" method="get">
+              <div class="form-group">
+                <label>Region</label>
+                <div class="region">
+                    <input type="text" name="location" id="location" placeholder="Seattle" autocomplete="on" runat="server">
+                    <input type="hidden" id="city" name="city" />
+                    <input type="hidden" name="latitude" id="latitude">
+                    <input type="hidden" name="longitude" id="longitude"></div>
+                </div>
+              <div class="form-group date-group">
+                <label>From</label>
+                <!-- <div class="date"><input type="" name="" placeholder="Any"></div> -->
+                 <div class="date"><input type="text" class="form-control" placeholder="Any" id="from" /></div>
+              </div>
+              <div class="form-group date-group">
+                <label>To</label>
+                <div class="date"><input type="text" class="form-control" placeholder="Any" id="to" /></div>
+              </div>
+             
+            </form>
+          </div>
+          
+          <div id="monthly" class="tablist-container filterbox monthly" style="display: none;">
+            <form action="searchproperty/" method="get">
+              <div class="form-group">
+                <label>Region</label>
+                <div class="region">
+                    <input type="text" name="location" id="location" placeholder="Seattle" autocomplete="on" runat="server">
+                    <input type="hidden" id="city" name="city" />
+                    <input type="hidden" name="latitude" id="latitude">
+                    <input type="hidden" name="longitude" id="longitude"></div>
+                </div>
+              <div class="form-group date-group">
+                <label>From</label>
+                <!-- <div class="date"><input type="" name="" placeholder="Any"></div> -->
+                 <div class="date"><input type="text" class="form-control" placeholder="Any" id="from" /></div>
+              </div>
+              <div class="form-group date-group">
+                <label>To</label>
+                <div class="date"><input type="text" class="form-control" placeholder="Any" id="to" /></div>
+              </div>
+             
+            </form>
+          </div>
+          
            <input type="button" value="submit" onclick="searchURL()">
         </div>
+        <div id="3" class="parking-slection" style="display: none;">
+             <div class="prop-type">
+                        <select id="landtablist"> 
+                            <option value="land-daily">Daily </option>
+                            <option value="land-weekly">Weekly</option>
+                            <option value="land-monthly">Monthly</option>
+                        </select>
+                    </div>
+            <div id="land-daily" class="landtablist-container filterbox daily" style="display: block;">
+            <form action="searchproperty/" method="get">
+              <div class="form-group">
+                <label>Region</label>
+                <div class="region">
+                    <input type="text" name="location" id="location" placeholder="Seattle" autocomplete="on" runat="server">
+                    <input type="hidden" id="city" name="city" />
+                    <input type="hidden" name="latitude" id="latitude">
+                    <input type="hidden" name="longitude" id="longitude"></div>
+                </div>
+              <div class="form-group date-group">
+                <label>From</label>
+                <!-- <div class="date"><input type="" name="" placeholder="Any"></div> -->
+                 <div class="date"><input type="text" class="form-control" placeholder="Any" id="from" /></div>
+              </div>
+              <div class="form-group date-group">
+                <label>To</label>
+                <div class="date"><input type="text" class="form-control" placeholder="Any" id="to" /></div>
+              </div>
+            </form>
+          </div>
+          
+          <div id="land-weekly" class="landtablist-container filterbox daily" style="display: none;">
+            <form action="searchproperty/" method="get">
+              <div class="form-group">
+                <label>Region</label>
+                <div class="region">
+                    <input type="text" name="location" id="location" placeholder="Seattle" autocomplete="on" runat="server">
+                    <input type="hidden" id="city" name="city" />
+                    <input type="hidden" name="latitude" id="latitude">
+                    <input type="hidden" name="longitude" id="longitude"></div>
+                </div>
+              <div class="form-group date-group">
+                <label>From</label>
+                <!-- <div class="date"><input type="" name="" placeholder="Any"></div> -->
+                 <div class="date"><input type="text" class="form-control" placeholder="Any" id="from" /></div>
+              </div>
+              <div class="form-group date-group">
+                <label>To</label>
+                <div class="date"><input type="text" class="form-control" placeholder="Any" id="to" /></div>
+              </div>
+            </form>
+          </div>
+          
+          <div id="land-monthly" class="landtablist-container filterbox daily" style="display: none;">
+            <form action="searchproperty/" method="get">
+              <div class="form-group">
+                <label>Region</label>
+                <div class="region">
+                    <input type="text" name="location" id="location" placeholder="Seattle" autocomplete="on" runat="server">
+                    <input type="hidden" id="city" name="city" />
+                    <input type="hidden" name="latitude" id="latitude">
+                    <input type="hidden" name="longitude" id="longitude"></div>
+                </div>
+              <div class="form-group date-group">
+                <label>From</label>
+                <!-- <div class="date"><input type="" name="" placeholder="Any"></div> -->
+                 <div class="date"><input type="text" class="form-control" placeholder="Any" id="from" /></div>
+              </div>
+              <div class="form-group date-group">
+                <label>To</label>
+                <div class="date"><input type="text" class="form-control" placeholder="Any" id="to" /></div>
+              </div>
+            </form>
+          </div>
+          <input type="button" value="submit" onclick="searchURL()">
+          </div>  
+              </div>
+          </div>
+        
+        <!-- Nav tabs -->
+        <!-- <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item <?php if($_GET['activeTab']=='monthly'){ echo 'active show';}else{ echo "";} ?>">
+            <a class="nav-link <?php if($_GET['activeTab']=='monthly'){ echo 'active show';}else{ echo "";} ?>"  data-toggle="tab" href="#monthly">Monthly</a>
+          </li>
+          <li class="nav-item <?php if($_GET['activeTab']=='hourly'){ echo 'active show';}else{ echo ""; } ?>">
+            <a class="nav-link <?php if($_GET['activeTab']=='hourly'){ echo 'active show';}else{ echo ""; } ?>"  data-toggle="tab" href="#hourly">Hourly</a>
+          </li>
+        </ul> -->
+        
       </div>
     </section><!-- ap-filter -->
 
@@ -139,7 +248,10 @@
                       </div>
                       <span>23</span>
                     </fieldset>
-                      <a href='<?php echo URL('/') ?>/propertydetails?moduleid=<?php echo Request::get("module_id")."&propertyid=".$searchProp->property_id."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="booknow">Book now</a>
+                    <a href="" class="get-direction"><i class="fa fa-map-marker" aria-hidden="true"></i></a>
+                    <a href='<?php echo URL('/') ?>/propertydetails?moduleid=<?php echo Request::get("module_id")."&propertyid=".$searchProp->property_id."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="get-details">details</a>
+                    <a href='<?php echo URL('/') ?>/propertydetails?moduleid=<?php echo Request::get("module_id")."&propertyid=".$searchProp->property_id."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="booknow">Book now</a>
+
                      <!--  <button class="booknow"></button> -->
                     </div>
                 </div>
@@ -256,7 +368,6 @@ function initMap() {
 // Load initialize function
 google.maps.event.addDomListener(window, 'load', initMap);
 </script>
-
 <script type="text/javascript">
 $(document).ready(function() {
   $activeTab = '<?php echo $_GET['activeTab'];?>';
@@ -264,8 +375,6 @@ $(document).ready(function() {
     $('#from').val('<?php echo $_GET['fromdate'];?>');
     $('#to').val('<?php echo $_GET['todate'];?>');
     $('#location').val('<?php echo $_GET['location'];?>');
-    $('#latitude').val('<?php echo $_GET['latitude'];?>');
-    $('#longitude').val('<?php echo $_GET['longitude'];?>');
   }else{
     $('#from_date').val('<?php echo $_GET['fromdate'];?>');
     $('#to_date').val('<?php echo $_GET['todate'];?>');
@@ -275,5 +384,6 @@ $(document).ready(function() {
   }
 });
 </script> 
+
 @stop
 

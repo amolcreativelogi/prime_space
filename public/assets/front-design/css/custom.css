@@ -379,37 +379,80 @@ span.teating-div {position: absolute;left: 0;width: 100%;top: -4px;}
 /*New All Properties*/
 .all-properties {}
 .ap-filter {border-bottom: 1px solid #DBDEDF;padding: 20px 0;margin-bottom: 30px;}
-.ap-filter .prop-type {position: relative;display: inline-block;padding: 0 30px 0 0;margin-right: 30px;}
-.ap-filter .prop-type::after {content: "\f107";font-family: FontAwesome;font-size: 30px;position: absolute;top: 0px;
-  right: 0;}
-.ap-filter .prop-type select {font-family: Helvetica Neue;font-size: 24px;line-height: normal;background: none;color: #303030; border: 0;}
+.ap-filter .prop-type.first-prop-type {
+	margin:0 0 15px 0;
+}
+.ap-filter .prop-type {
+	position: relative;
+	display: inline-block;
+	padding: 0;
+	margin: 0 0 10px 0;
+	width: 150px;
+}
+/*.ap-filter .prop-type::after {content: "\f107";font-family: FontAwesome;font-size: 30px;position: absolute;top: 0px;  right: 0;}*/
+.ap-filter .prop-type select {
+	font-family: Helvetica Neue;
+	font-size: 18px;
+	line-height: normal;
+	color: #303030;
+	width: 100%;
+	padding: 5px 10px;
+	background-position: 90% center;
+	height: 50px !important;
+	border-radius: 3px;
+}
 .ap-filter .nav-tabs {display: inline-block;border: 0;}
 .ap-filter .nav-tabs .nav-item { display: inline-block; margin: 0; }
 .ap-filter .nav-tabs .nav-link {font-family: Helvetica Neue;font-size: 16px;line-height: normal;text-align: center;border: 0;color: #303030;}
 .ap-filter .nav-tabs .nav-item.show .nav-link, .ap-filter .nav-tabs .nav-link.active {background: #3351BB;border-radius: 40px;color: #fff;}
 .ap-filter .tab-content {display: inline-block;width: 60%;}
-.ap-filter .tab-content form {}
-.ap-filter .tab-content .form-group { display: inline-block;margin-right: 15px; }
-.ap-filter .tab-content .form-group.date-group {width: 28%;margin: 0 5px;}
-.ap-filter .tab-content .form-group label {font-family: Montserrat;font-style: normal;font-weight: 600;font-size: 12px;
+.ap-filter .tablist-container form {}
+.ap-filter .form-group { display: inline-block;margin-right: 15px; }
+.ap-filter .form-group.date-group {width: 28%;margin: 0 5px;}
+.ap-filter .form-group label {font-family: Montserrat;font-style: normal;font-weight: 600;font-size: 12px;
 line-height: normal;letter-spacing: 0.05em;text-transform: uppercase;color: #505050;}
-.ap-filter .tab-content .form-group input {font-family: Helvetica Neue;font-size: 16px;line-height: normal;color: #303030; border:0;width: 100%;}
-.ap-filter .tab-content .form-group .region {position: relative;background: #FFFFFF;border: 1px solid #DBDEDF;
+.ap-filter .filterbox .form-group input {font-family: Helvetica Neue;font-size: 16px;line-height: normal;color: #303030; border:0;width: 100%;}
+.ap-filter .filterbox .form-group .region {position: relative;background: #FFFFFF;border: 1px solid #DBDEDF;
   border-radius: 3px;height: 50px;padding: 9px 10px 9px 35px;}
-.ap-filter .tab-content .form-group .region::before {content: "\f041";font-family: FontAwesome;color: #3351BB;font-size: 25px;position: absolute;left: 10px;top: 5px;}
-.ap-filter .tab-content .form-group .date { position: relative;background: #FFFFFF;border: 1px solid #DBDEDF;border-radius: 3px; height: 50px;padding: 9px 10px 9px 40px; }
-.ap-filter .tab-content .form-group .date::before {content: "\f133";font-family: FontAwesome;color: #3351BB;font-size: 18px;position: absolute;left: 10px;top: 12px;}
+.ap-filter .filterbox .form-group .region::before {content: "\f041";font-family: FontAwesome;color: #3351BB;font-size: 25px;position: absolute;left: 10px;top: 5px;}
+.ap-filter .filterbox .form-group .date { position: relative;background: #FFFFFF;border: 1px solid #DBDEDF;border-radius: 3px; height: 50px;padding: 9px 10px 9px 40px; }
+.ap-filter .filterbox .form-group .date::before {content: "\f133";font-family: FontAwesome;color: #3351BB;font-size: 18px;position: absolute;left: 10px;top: 12px;}
 
-.ap-filter .tab-content #hourly .form-group { margin-right: 2px;width: 25%;}
-.ap-filter .tab-content #hourly .form-group .search {position: relative;background: #FFFFFF;border: 1px solid #DBDEDF;border-radius: 3px; height: 50px;padding:9px 10px 9px 40px;}
-.ap-filter .tab-content #hourly .form-group .search:before {content: "\f002";font-family: FontAwesome;color: #3351BB;font-size: 18px;position: absolute;left:10px;top: 12px;}
-.ap-filter .tab-content #hourly .form-group .date {padding: 9px 10px 9px 10px;}
-.ap-filter .tab-content #hourly .form-group .date::before {right: 10px;left: auto;}
-.ap-filter .tab-content #hourly .time-group .time {position: relative;background: #FFFFFF;border: 1px solid #DBDEDF;border-radius: 3px; height: 50px;padding: 9px 10px 9px 10px; }
-.ap-filter .tab-content #hourly .time-group .time::before {content:"\f017";font-family: FontAwesome;color: #3351BB;font-size: 18px;position: absolute;left:auto; right: 10px;top: 12px;}
-.ap-filter .tab-content #hourly .form-group.date-group {width: 20%;margin: 0 2px;}
-.ap-filter .tab-content #hourly .form-group.time-group { width:15%;margin:0;}
-
+.ap-filter .filterbox .form-group { margin-right: 2px;width: 25%;}
+.ap-filter .filterbox .form-group .search {position: relative;background: #FFFFFF;border: 1px solid #DBDEDF;border-radius: 3px; height: 50px;padding:9px 10px 9px 40px;}
+.ap-filter .filterbox .form-group .search:before {content: "\f002";font-family: FontAwesome;color: #3351BB;font-size: 18px;position: absolute;left:10px;top: 12px;}
+.ap-filter .filterbox .form-group .date {padding: 9px 10px 9px 10px;}
+.ap-filter .filterbox .form-group .date::before {right: 10px;left: auto;}
+.ap-filter .filterbox .time-group .time {position: relative;background: #FFFFFF;border: 1px solid #DBDEDF;border-radius: 3px; height: 50px;padding: 9px 10px 9px 10px; }
+.ap-filter .filterbox .time-group .time::before {content:"\f017";font-family: FontAwesome;color: #3351BB;font-size: 18px;position: absolute;left:auto; right: 10px;top: 12px;}
+.ap-filter .filterbox .form-group.date-group {width: 20%;margin: 0 2px;}
+.ap-filter .filterbox .form-group.time-group { width:15%;margin:0;}
+.parking-slection input[type="button"] {
+	background: #3351BB;
+	border-radius: 3px;
+	width: 110px;
+	height: 48px;
+	font-family: Helvetica Neue;
+	font-size: 16px;
+	line-height: normal;
+	border: 0;
+	color: #fff;
+	cursor: pointer;
+	display: block;
+	text-transform: capitalize;
+}
+.parking-slection input[type="button"]:hover, .parking-slection input[type="button"]:focus { background:#000;}
+.get-details {
+	float: right;
+	text-transform: capitalize;
+	margin: 8px 5px 0 0;
+	text-decoration: underline;
+}
+.get-direction {
+	float: right;
+	margin: 5px 10px 0 10px;
+	font-size: 25px;
+}
 .ps-div {margin-bottom: 20px;}
 .ps-count {font-family: Helvetica Neue;font-size: 18px;line-height: normal;color: #505050; margin-bottom: 25px;}
 .ps-box {border: 1px solid #EBE8E2; margin-bottom: 16px; min-height: 182px;transition: all 0.5s ease-in-out;}
@@ -658,6 +701,78 @@ top: 100%;}
 .dl-content table td:last-child a:nth-child(1) {position: relative;font-size: 0;}
 .dl-content table td:last-child a:nth-child(1)::before {content: "\f06e";font-family: FontAwesome;color: #333;font-size: 16px;}
 
+
+.bookingform h3 {text-transform: capitalize;
+margin: 30px 0;}
+.selectdate { margin:0 0 30px 0; border:1px solid #ccc; padding:15px;}
+.selectdate .form-group {
+	width: 46%;
+	display: inline-block;
+	margin: 0 10px;
+}
+.selectdate .form-group input {font-family: Helvetica Neue;
+font-size: 16px;
+line-height: normal;
+color: #303030;
+width: 100%; height:50px;}
+.your-info {}
+.your-info h3 {text-transform: capitalize;margin: 30px 0;font-size: 20px;}
+.your-info .form-group label {
+	font-size: 15px;
+	width: 100%;
+	display: block;
+}
+.your-info .form-group label span { color:#ff0000;}
+.your-info .form-group input {font-family: Helvetica Neue;
+font-size: 16px;
+line-height: normal;
+color: #303030;
+width: 100%; height:50px;}
+.your-info .cardexp-group input {
+	width: 48%;
+	display: inline-block;
+}
+.your-info .form-group input[type="checkbox"] {
+	width: auto;
+	height: auto;
+	margin-right: 10px;
+}
+.your-info  input[type="button"] {
+	background: #3351BB;
+	border-radius: 3px;
+	width: 200px;
+	height: 48px;
+	font-family: Helvetica Neue;
+	font-size: 16px;
+	line-height: normal;
+	border: 0;
+	color: #fff;
+	cursor: pointer;
+	display: block;
+	text-transform: capitalize;margin-bottom: 20px;
+}
+.your-info input [type="button"]:hover, .your-info  input[type="button"]:focus { background:#000;}
+.total-order {
+	border: 1px solid #ccc;
+	padding: 20px;
+	text-align: center;
+	box-shadow: 0 0 5px #333;
+}
+.total-order span {
+	display: block;
+	font-weight: 600;
+	letter-spacing: 4px;
+	font-size: 30px;
+	margin: 10px 0 0 0;
+}
+.thanksmsgbox {
+	border: 1px solid #ddd;
+	text-align: center;
+	box-shadow: 0 0 10px #333;
+	padding: 100px 0; margin:50px auto;
+}
+.thanksmsgbox .fa {font-size: 100px;
+margin-bottom: 50px;}
 
 @media screen and (-webkit-min-device-pixel-ratio:0) { 
 .myadded-property .prop-view {position: absolute;left: 0;right: 0;bottom: -5px;}
