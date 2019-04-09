@@ -376,6 +376,21 @@ class PropertyController extends Controller
                       }
                       $insertPropertyMap  = DB::table($tbl_prefix.'add_property_files')->insert($insertPropertyMap);
                    }
+
+                   $nextyear = date('Y-m-d', strtotime('+365 days'));
+
+                   $propBasicavail = array(
+                                    'user_id'=>$_SESSION['user']['user_id'],//$request->input('property_name'),
+                                    'property_id'=>$propertyId,
+                                    'start_time'=>'00:00:01',
+                                    'end_time'=>'23:59:00',
+                                    'start_date'=>date('Y-m-d'),
+                                    'end_date'=>$nextyear,//$request->input('longitude'),
+                                    'created_by'=>'1',
+                                    'modified_by'=>'1',
+                                    'is_deleted'=>'0',
+                                 );
+                   $add_property_availabilities  = DB::table($tbl_prefix.'add_property_availabilities')->insert($propBasicavail);
          }
 
         $data = array('status' => 200,
