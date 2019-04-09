@@ -22,7 +22,9 @@
           <input type="hidden" name="longitude" id="longitude-top-search">
         <!--   <input type="text" name="" placeholder="Dates" class="dates"> -->
           <div class="form-group date-group">
-          <div class="date"><input type="text" class="form-control" placeholder="Dates" id="from"></div>
+              <input type="text" name="search_dates" placeholder="Dates" id="search_dates" class="dates">
+              <!--<input type="text" name="search_dates" placeholder="Dates" id="land-search_dates" class="dates" style="display:none">-->
+          <!--<div class="date"><input type="text" class="form-control" placeholder="Dates" id="from"></div>-->
           </div>
 
           <input type="button" name="" onclick="topPrpertySearch()"  value="Search">

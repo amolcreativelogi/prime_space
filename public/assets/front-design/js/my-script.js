@@ -262,7 +262,23 @@ $(function(){
 
 jQuery.datetimepicker.setLocale('en');
 
-jQuery('#from,#search_dates').datetimepicker({
+jQuery('#from').datetimepicker({
+ timepicker:false,
+ format:'m.d.Y'
+});
+jQuery('#search_dates').datetimepicker({
+ //timepicker:false,
+ format:'m.d.Y'
+});
+jQuery('#land-search_dates').datetimepicker({
+ timepicker:false,
+ format:'m.d.Y'
+});
+jQuery('#search_dates1').datetimepicker({
+ //timepicker:false,
+ format:'m.d.Y'
+});
+jQuery('#land-search_dates1').datetimepicker({ 
  timepicker:false,
  format:'m.d.Y'
 });
@@ -279,6 +295,10 @@ jQuery('#to_date').datetimepicker({
  format:'m.d.Y'
 });
 $('#from_time').datetimepicker({
+  datepicker:false,
+  format:'H:i'
+});
+$('#to_time').datetimepicker({
   datepicker:false,
   format:'H:i'
 });

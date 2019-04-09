@@ -293,8 +293,6 @@ Route::get('/renter-faq','Front\PagesController@renter_faq');
 
 
 
-
-
 //Route to get masters details on add property form
 Route::post('/frontend/getPropertyMasters','Front\PropertyController@getPropertyMasters');
 //Route to save property
@@ -303,6 +301,9 @@ Route::post('/frontend/saveProperty','Front\PropertyController@saveProperty');
  
 //Route to Search Property
 Route::get('/searchproperty/{module_id?}','Front\SearchPropertyController@SeachProperty');
+
+
+Route::get('/bookNow','Front\BookingController@bookNow');
 
 //Route to load single property
 Route::get('/propertydetails/{module_id?}','Front\BookingController@propertyDetails');

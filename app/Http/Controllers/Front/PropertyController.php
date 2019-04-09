@@ -143,7 +143,6 @@ class PropertyController extends Controller
     
     public function saveProperty(Request $request)
     {   
-
         if(!$request->input('id')) {
 
             $tbl_prefix="";
@@ -209,7 +208,7 @@ class PropertyController extends Controller
 
             // echo '<pre>';
             // print_r($propBasicDetails);
-            exit;
+           // exit;
 
           if($propertyId)
           {
