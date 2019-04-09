@@ -17,6 +17,7 @@
 <script src="{{ URL::asset('public') }}/assets/Admin/js/moment.js" type="text/javascript"></script>
 <script src="{{ URL::asset('public') }}/assets/Admin/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
 <link href="{{ URL::asset('public') }}/assets/Admin/css/bootstrap-datetimepicker.css"  rel="stylesheet">
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCW7L7bkL1lt82llGHEqSbB7fczpddVDqU&libraries=places"></script>
 
 <!--datatable css and js -->
 <script src="{{ URL::asset('public') }}/assets/Admin/js/datatable/jquery.dataTables.min.js" type="text/javascript"></script>

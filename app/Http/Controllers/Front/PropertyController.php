@@ -143,7 +143,7 @@ class PropertyController extends Controller
     
     public function saveProperty(Request $request)
     {   
-       
+
         if(!$request->input('id')) {
 
             $tbl_prefix="";
@@ -169,15 +169,15 @@ class PropertyController extends Controller
             {
             $propBasicDetails = array(
                                     'module_manage_id'=>$request['module_manage_id'],
-                                    'user_id'=>$_SESSION['user']['user_id'],//$request->input('property_name'),
+                                    'user_id'=>$_SESSION['user']['user_id'],
                                     'name'=>$request['data']['property_name'],
                                     'location'=>$request['data']['location'],
                                     'latitude'=>$request['data']['latitude'],
-                                    'longitude'=>$request['data']['longitude'],//$request->input('longitude'),
+                                    'longitude'=>$request['data']['longitude'],
                                     'zip_code'=>$request['data']['zip_code'],
                                     'description'=>$request['data']['property_description'],
                                     'location_type_id'=>$request['data']['location_type'],
-                                    'status'=>1,
+                                    'status'=>'0',
                                     'created_by'=>'1',
                                     'modified_by'=>'1',
                                     'is_deleted'=>'0',
@@ -185,7 +185,7 @@ class PropertyController extends Controller
             } else {
             $propBasicDetails = array(
                                     'module_manage_id'=>$request['module_manage_id'],
-                                    'user_id'=>2,//$request->input('property_name'),
+                                    'user_id'=>$_SESSION['user']['user_id'],
                                     'name'=>$request['data']['property_name'],
                                     'location'=>$request['data']['location'],
                                     'latitude'=>$request['data']['latitude'],
@@ -195,15 +195,22 @@ class PropertyController extends Controller
                                     'tour_availability'=>$request['data']['land']['tour_availability'],
                                     'property_size'=>$request['property_size'],
                                     'unit_type_id'=>$request['units'],
-                                    'land_type_id'=>1,
-                                    'status'=>1,
+                                    'land_type_id'=>'1',
+                                    'status'=>'0',
                                     'created_by'=>'1',
                                     'modified_by'=>'1',
                                     'is_deleted'=>'0',
                                  );  
             }
 
+
+
           $propertyId  = DB::table($tbl_prefix.'add_property')->insertGetId($propBasicDetails);
+
+            // echo '<pre>';
+            // print_r($propBasicDetails);
+            exit;
+
           if($propertyId)
           {
 
@@ -361,7 +368,7 @@ class PropertyController extends Controller
                       {
                          // $name= str_replace(' ', '-', strtolower($request['data']['property_name']));
                         $name = time().'-'.$image->getClientOriginalName();
-                        $image->move(public_path().'/images/property-documents', $name);  
+                        $image->move(public_path().'/images/property-floor-map', $name);  
                         $data[] = $name;  
                         $default_file = ($key == 0) ? 1 : 0;
                         $insertPropertyMap[]= array(
