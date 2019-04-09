@@ -105,7 +105,8 @@ class PropertyController extends Controller
         ->select(
             'tbl_mstr_amenities.amenity_name',
             'tbl_mstr_amenities.status',
-            'tbl_mstr_amenities.amenity_id'
+            'tbl_mstr_amenities.amenity_id',
+            'tbl_mstr_amenities.amenity_image'
             )
          ->leftJoin('tbl_mstr_amenities_with_category', 'tbl_mstr_amenities_with_category.amenity_id', '=', 'tbl_mstr_amenities.amenity_id')
          ->leftJoin('tbl_module_manage', 'tbl_module_manage.module_manage_id', '=', 'tbl_mstr_amenities_with_category.module_manage_id')->where('tbl_mstr_amenities.is_deleted', '=', 0)

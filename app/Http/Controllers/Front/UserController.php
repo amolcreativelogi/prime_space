@@ -16,13 +16,13 @@ class UserController extends Controller
 
     public function userRegistration(Request $request)
     {
-    	
 		$data = '';
 		if($_POST){
 			//Check Email id
 			$check_email = array('table'=>'prk_user_registrations',
 								'field'=>'email_id',
-								'where'=>array('email_id' => $_POST['email_id']));
+								'where'=>array('email_id' => $_POST['email_id'],'is_deleted' => 0));
+
 			$res = $this->check_duplicate($check_email);
 
 								
@@ -94,8 +94,8 @@ class UserController extends Controller
 
 	public function userLogin(Request $request)
 	{
-
-		$getuserLogin = DB::table('prk_user_registrations')->select('user_id','user_type_id','default_user_type','status','firstname')->where('email_id', '=', $request->input('email_id'))->where('password', '=', md5($request->input('password')))->first();
+	
+		$getuserLogin = DB::table('prk_user_registrations')->select('user_id','user_type_id','default_user_type','status','firstname')->where('is_deleted', '=', 0)->where('email_id', '=', $request->input('email_id'))->where('password', '=', md5($request->input('password')))->first();
 		$array = array();
     	if($getuserLogin)
     	{

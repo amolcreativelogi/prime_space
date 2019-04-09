@@ -61,7 +61,7 @@ class UsersController extends Controller
 	           $row[] = $carT->lastname;
 	           $row[] = $carT->email_id;
 	           $row[] = $this->getUseType($carT->user_type_id);
-	           $row[] ='<a href="'.url('admin/viewUsersProfile/'.$carT->user_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="View Profile"><i class="fa fa-eye"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$carT->user_id.','."'prk_car_type'".','."'car_type_id'".');"><i class="fa fa-trash-o"></i></button>';
+	           $row[] ='<a href="'.url('admin/viewUsersProfile/'.$carT->user_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="View Profile"><i class="fa fa-eye"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$carT->user_id.','."'prk_user_registrations'".','."'user_id'".');"><i class="fa fa-trash-o"></i></button>';
 	          $data[] = $row;
 	        }
 	      $output = array(
@@ -121,7 +121,7 @@ class UsersController extends Controller
 	           $row[] = $carT->lastname;
 	           $row[] = $carT->email_id;
 	           $row[] = $this->getUseType($carT->user_type_id);
-	           $row[] ='<a href="'.url('admin/viewUsersProfile/'.$carT->user_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="View Profile"><i class="fa fa-eye"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$carT->user_id.','."'prk_car_type'".','."'car_type_id'".');"><i class="fa fa-trash-o"></i></button>';
+	           $row[] ='<a href="'.url('admin/viewUsersProfile/'.$carT->user_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="View Profile"><i class="fa fa-eye"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$carT->user_id.','."'prk_user_registrations'".','."'user_id'".');"><i class="fa fa-trash-o"></i></button>';
 	          $data[] = $row;
 	        }
 	      $output = array(
@@ -204,7 +204,7 @@ class UsersController extends Controller
 	           $row[] = $carT->lastname;
 	           $row[] = $carT->email_id;
 	           $row[] = $this->getUseType($carT->user_type_id);
-	           $row[] ='<a href="'.url('admin/viewUsersProfile/'.$carT->user_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="View Profile"><i class="fa fa-eye"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$carT->user_id.','."'prk_car_type'".','."'car_type_id'".');"><i class="fa fa-trash-o"></i></button>';
+	           $row[] ='<a href="'.url('admin/viewUsersProfile/'.$carT->user_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="View Profile"><i class="fa fa-eye"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$carT->user_id.','."'prk_user_registrations'".','."'user_id'".');"><i class="fa fa-trash-o"></i></button>';
 	          $data[] = $row;
 	        }
 	      $output = array(
