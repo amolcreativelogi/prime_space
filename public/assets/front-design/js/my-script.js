@@ -104,15 +104,15 @@ function lkForms(ID){
 		},
 		success: function (data) {
 			if(data.status == false){
-				$('.msg-gloabal').removeClass('alert alert-success');
-				$('.msg-gloabal').addClass('alert alert-danger');
-				$('.msg-gloabal').html(data.response.msg);
+				$('#'+ID+ ' .msg-gloabal').removeClass('alert alert-success');
+				$('#'+ID+ ' .msg-gloabal').addClass('alert alert-danger');
+				$('#'+ID+ ' .msg-gloabal').html(data.response.msg);
 				//loaderOut({status:0,msg:data.response.msg,url:data.url});
 			}else{
 
-				$('.msg-gloabal').removeClass('alert alert-danger');
-				$('.msg-gloabal').addClass('alert alert-success');
-				$('.msg-gloabal').html(data.response.msg);
+				$('#'+ID+ ' .msg-gloabal').removeClass('alert alert-danger');
+				$('#'+ID+ ' .msg-gloabal').addClass('alert alert-success');
+				$('#'+ID+ ' .msg-gloabal').html(data.response.msg);
 				$('#'+ID)[0].reset();
 				if(data.url != '')
 				{
@@ -162,17 +162,46 @@ $(function(){
 			},
 		submitHandler: function(form) {
 
+			if ($("#dob_month").val() == ''){
+			    // Do your stuff here
+			    $('#dob_id-error').show().html('Select date of birth month'); 
+			    return false;
+			} else {
+				$('#dob_id-error').show().html(''); 
+			}
+
+			if ($("#dob_day").val() == ''){
+			    // Do your stuff here
+			    $('#dob_id-error').show().html('Select date of birth day'); 
+			    return false;
+			} else {
+				$('#dob_id-error').show().html(''); 
+			}
+
+			if ($("#dob_year").val() == ''){
+			    // Do your stuff here
+			    $('#dob_id-error').show().html('Select date of birth year'); 
+			    return false;
+			} else {
+				$('#dob_id-error').show().html(''); 
+			}
+
+
 			if ($("input[name='user_type_id']:checked").length == 0){
 			    // Do your stuff here
 			    $('#user_type_id-error').show().html('Select any one account type'); 
 			    return false;
+			} else {
+				$('#user_type_id-error').show().html(''); 
 			}
+
 
 			if($('#privacy_policy_check').is(":checked")){
 				lkForms('form-signup');
+				$('#terms-error').show().html(''); 
 				//$(window).scrollTop(0);
 			}else{
-				$('#tearm').show().html('Terms of Service field is required'); 
+				$('#terms-error').show().html('Terms of service select is required'); 
 			}
 			//form.submit();
 		  }
@@ -257,4 +286,28 @@ $('#to_time').datetimepicker({
   datepicker:false,
   format:'H:i'
 });
+
+
+$(".modal").on("hidden.bs.modal", function(){
+
+	 $('#form-signup, #form-login, #form-password')
+    .find("input[type=text],textarea,select")
+       .val('')
+       .end()
+    .find("input[type=checkbox], input[type=radio]")
+       .prop("checked", "")
+       .end();
+     //$('form:first *:input[type!=hidden]:first').focus();
+	//alert();
+	//$('#form-signup, #form-login, #form-password')[0].reset();
+    $('.msg-gloabal').removeClass('alert alert-danger');
+	$('.msg-gloabal').removeClass('alert alert-success');
+	$('.msg-gloabal').html('');
+
+});
+
+$('#singupModal, #loginModal, #resetpassModal').on('shown.bs.modal', function() {
+  $('#email_id, #email_id_login, #forgot_password_email').focus();
+})
+
 

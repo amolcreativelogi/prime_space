@@ -94,10 +94,10 @@ function searchURL(){
     var fromdate = getCurrentDate();
     var todate =   getCurrentDate();
     var fromtime = '00:00:00';
-    var totime= '23:00:00';
+    var totime= '23:59:00';
     var location = "";
-    var latitude = '36.1626638';//$('#latitude').val(); 
-    var longitude = '-86.78160159999999';
+    var latitude = $('#latitude').val(); 
+    var longitude = $('#latitude').val();
     var searchFormId=$("a.active").attr('href');
     var activeTab = "monthly";
     
@@ -107,8 +107,8 @@ function searchURL(){
        fromdate = $('#from').val(); 
        todate =   $('#to').val();
        location = $('#location').val();
-       latitude = '36.1626638';//$('#hrlyFrmLatitude').val(); 
-       longitude = '-86.78160159999999';//$('#hrlyFrmLongitude').val();
+       latitude = $('#hrlyFrmLatitude').val(); 
+       longitude = $('#hrlyFrmLongitude').val();
        activeTab = "monthly";
     }else if(searchFormId == '#hourly'){
 
@@ -117,8 +117,8 @@ function searchURL(){
        fromtime = ($('#from_time').val())?$('#from_time').val():'00:00:00';
        totime= ($('#to_time').val())?$('#to_time').val():'23:00:00';
        location = $('#hrlyFrmlocation').val();
-       latitude = '36.1626638';//$('#latitude').val(); 
-       longitude = '-86.78160159999999';//$('#longitude').val();
+       latitude = $('#latitude').val(); 
+       longitude = $('#longitude').val();
        activeTab = "hourly";
 
     }else{

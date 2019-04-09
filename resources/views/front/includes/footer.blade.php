@@ -47,11 +47,13 @@
       </div>
       <div class="modal-body">
         <div class="site-signup site-form">
+                      
                       <form id="form-signup" url="{{ URL::asset('userRegistration') }}" method="post" novalidate="novalidate">
+                        <div class="msg-gloabal"></div>
                       <input type="hidden" name="_csrf-frontend" value="">
                        {!! csrf_field() !!}
                       <div class="form-group field-signupform-email required">
-                          <input type="text" id="email_id" class="form-control" name="email_id" aria-required="true" placeholder="Email Address">
+                          <input type="text" id="email_id" autofocus class="form-control" name="email_id" aria-required="true" placeholder="Email Address">
                       </div>
                       <div class="form-group field-signupform-first_name required has-error">
                           <input type="text" id="firstname" class="form-control" name="firstname" autofocus="" aria-required="true" aria-invalid="true" placeholder="First Name">
@@ -66,18 +68,21 @@
                          <label>Birthday</label>
                          <p>To sign up, you must be 18 or older. People won’t see your birthday</p>
                          <div class="birthdaygroup">
-                          <select class="month" name="dob_month">
+                          <select class="month" name="dob_month" id="dob_month">
+                            <option value="">Select Month</option>
                             <?php for ($m=1; $m<=12; $m++) {
                             $month = date('F', mktime(0,0,0,$m, 1, date('Y'))); ?>
                             <option value="<?php echo $m; ?>"><?php echo $month; ?></option>
                             <?php } ?>
                           </select>
-                          <select class="day" name="dob_day">
+                          <select class="day" name="dob_day"  id="dob_day">
+                            x<option value="">Select Day</option>
                             <?php for ($d=1; $d<=31; $d++) { ?>
                             <option value="<?php echo $d; ?>"><?php echo $d; ?></option>
                             <?php } ?>
                           </select>
-                          <select class="year" name="dob_year">
+                          <select class="year" name="dob_year"  id="dob_year">
+                            <option value="">Select year</option>
                            <?php 
                            $year = date('Y')-18;
                            $validyear = date('Y')-100;
@@ -85,6 +90,7 @@
                            <option value="<?php echo $y; ?>"><?php echo $y; ?></option>
                            <?php } ?>
                           </select>
+                           <div id="dob_id-error" class="error" for="user_type"></div>
                          </div>
                       </div>
 
@@ -100,7 +106,7 @@
                               <label for="user">User</label>
                             </li>
                           </ul>
-                          <div id="user_type_id-error" class="error" for="email_address"></div>
+                          <div id="user_type_id-error" class="error" for="user_type"></div>
                       </div>
 
                     <div class="row">
@@ -111,9 +117,10 @@
                             <label for="">
                                 By continuing you are confirming that you have read and agree to the <a href="#">Terms of Service</a> &amp; <a href="#">Privacy Policy</a>.
                             </label>
+                            <div id="terms-error" class="error" for="terms-error"></div>
                         </div>
                     </div>
-                    <div class="msg-gloabal"></div>
+                    
                     <div class="form-group">
                         <button type="submit" class="bluebtn" name="signup-button">Sign up</button>                    
                     </div>
@@ -142,6 +149,7 @@
       <div class="modal-body">
         <div class="site-signup site-form">
                    <form id="form-login" url="{{ URL::asset('userLogin') }}" method="post" novalidate="novalidate">
+                            <div class="msg-gloabal"></div>
                              {!! csrf_field() !!}
                             <input type="hidden" name="_csrf-frontend" value="">
                             <div class="form-group field-loginform-email required has-error">
@@ -158,7 +166,7 @@
                                   </label>
                               </div>
                             </div>
-                             <div class="msg-gloabal"></div>
+                             
                             <div class="form-group text-center">
                                 <button type="submit" class="bluebtn" name="login-button">Login</button>
                             </div>

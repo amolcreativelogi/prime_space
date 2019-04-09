@@ -297,7 +297,7 @@
   </div>
 
   <input type="button" name="previous" class="previous action-button" value="Previous" />
-  <input type="submit" name="submit" class="submita action-button" value="Submit" />
+  <input type="submit" name="submit" class="submit action-button" value="Submit" />
   </fieldset>
 
   </form>
@@ -393,7 +393,7 @@
                 $.each(getAmenities, function(i, v) {
                     masters['amenities_input'] += 
                             '<input type="checkbox" name="data[amenities][]" id="'+v.amenity_name+'" value="'+v.amenity_id+'">'+
-                            '<label for="'+v.amenity_name+'">'+v.amenity_name+'</label>';
+                            '<label for="'+v.amenity_name+'">'+v.amenity_name+' <img src="<?php echo URL::to('/') ?>/public/images/amenity/'+v.amenity_image+'" width="50"></label>';
                    
                 });
                 masters['amenities_input'] += '</li>';
@@ -465,6 +465,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
+  $('#property_name').focus();
     var counter = 1;
     $("#second-addrow-land").on("click", function () {
 
@@ -489,6 +490,7 @@ $(document).ready(function () {
 
 <script type="text/javascript">
 $(function() {
+
 //jQuery time
 var current_fs, next_fs, previous_fs; //fieldsets
 var left, opacity, scale; //fieldset properties which we will animate
@@ -510,8 +512,9 @@ $(".next").click(function(){
         },
         'data[zip_code]': {
           required: true,
+          digits: true
         },
-        "data[parking][floor_name][]": { 
+        "data[property_description]": { 
            required: true,
         },
         "data[parking][parking_type_id][]": { 
@@ -538,8 +541,8 @@ $(".next").click(function(){
         'data[zip_code]': {
           required: "Zip code is required",
         },
-        "data[parking][floor_name][]": {
-          required: "Floer Name is required",
+        'data[property_description]': {
+          required: "Description is required",
         },
         "data[parking][parking_type_id][]": {
           required: "Parking Type is required",
@@ -560,10 +563,11 @@ $(".next").click(function(){
       next_fs.show(); 
       current_fs.hide();
      // animating = false;
+     $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
  }
 
   //activate next step on progressbar using the index of next_fs
-$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
   
   //show the next fieldset
   //next_fs.show(); 
@@ -624,6 +628,8 @@ $(".previous").click(function(){
     easing: 'easeInOutBack'
   });
 });
+});
+
 
 $('#msform').submit(function(event){
     event.preventDefault();
@@ -639,8 +645,8 @@ $('#msform').submit(function(event){
         success: function(data){ 
             if(data.status == 200)
             { 
+            $('.loader').css('display','none');
             $('.success-property').show();  
-            $('#loader').css('display','none');
             $(this)[0].reset();
             }                         
             //alert('success');
@@ -649,7 +655,6 @@ $('#msform').submit(function(event){
              alert('error occurred please try again');  
         }
     });
-})
 });
 </script>
 <!--  $("#rent_with_booking_duration_type").html('');

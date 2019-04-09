@@ -105,7 +105,8 @@ class PropertyController extends Controller
         ->select(
             'tbl_mstr_amenities.amenity_name',
             'tbl_mstr_amenities.status',
-            'tbl_mstr_amenities.amenity_id'
+            'tbl_mstr_amenities.amenity_id',
+            'tbl_mstr_amenities.amenity_image'
             )
          ->leftJoin('tbl_mstr_amenities_with_category', 'tbl_mstr_amenities_with_category.amenity_id', '=', 'tbl_mstr_amenities.amenity_id')
          ->leftJoin('tbl_module_manage', 'tbl_module_manage.module_manage_id', '=', 'tbl_mstr_amenities_with_category.module_manage_id')->where('tbl_mstr_amenities.is_deleted', '=', 0)
@@ -141,9 +142,7 @@ class PropertyController extends Controller
     }
     
     public function saveProperty(Request $request)
-    {
-
-
+    {   
 
         if(!$request->input('id')) {
 
@@ -163,7 +162,6 @@ class PropertyController extends Controller
                     break;
             };
 
-
             //echo $request['data']['property_name'];die('in');
 
             // Commman parking and land save with condition
@@ -171,15 +169,15 @@ class PropertyController extends Controller
             {
             $propBasicDetails = array(
                                     'module_manage_id'=>$request['module_manage_id'],
-                                    'user_id'=>$_SESSION['user']['user_id'],//$request->input('property_name'),
+                                    'user_id'=>$_SESSION['user']['user_id'],
                                     'name'=>$request['data']['property_name'],
                                     'location'=>$request['data']['location'],
                                     'latitude'=>$request['data']['latitude'],
-                                    'longitude'=>$request['data']['longitude'],//$request->input('longitude'),
+                                    'longitude'=>$request['data']['longitude'],
                                     'zip_code'=>$request['data']['zip_code'],
                                     'description'=>$request['data']['property_description'],
                                     'location_type_id'=>$request['data']['location_type'],
-                                    'status'=>1,
+                                    'status'=>'0',
                                     'created_by'=>'1',
                                     'modified_by'=>'1',
                                     'is_deleted'=>'0',
@@ -187,7 +185,7 @@ class PropertyController extends Controller
             } else {
             $propBasicDetails = array(
                                     'module_manage_id'=>$request['module_manage_id'],
-                                    'user_id'=>2,//$request->input('property_name'),
+                                    'user_id'=>$_SESSION['user']['user_id'],
                                     'name'=>$request['data']['property_name'],
                                     'location'=>$request['data']['location'],
                                     'latitude'=>$request['data']['latitude'],
@@ -197,15 +195,22 @@ class PropertyController extends Controller
                                     'tour_availability'=>$request['data']['land']['tour_availability'],
                                     'property_size'=>$request['property_size'],
                                     'unit_type_id'=>$request['units'],
-                                    'land_type_id'=>1,
-                                    'status'=>1,
+                                    'land_type_id'=>'1',
+                                    'status'=>'0',
                                     'created_by'=>'1',
                                     'modified_by'=>'1',
                                     'is_deleted'=>'0',
                                  );  
             }
 
+
+
           $propertyId  = DB::table($tbl_prefix.'add_property')->insertGetId($propBasicDetails);
+
+            // echo '<pre>';
+            // print_r($propBasicDetails);
+            exit;
+
           if($propertyId)
           {
 
@@ -271,13 +276,14 @@ class PropertyController extends Controller
                       } 
                       else
                       {    
+                         
                              foreach($request['data']['parking']['rent_amount'] as $keyR => $rent_amount)
                              {
 
                                         $insertPropRentDetails[]= array(
                                                        'property_id' => $propertyId,
                                                        'duration_type_id'=>$keyR,
-                                                       'rent_ammount'=>$rent_amount,
+                                                       'rent_amount'=>$rent_amount[0],
                                                        'status'=>1,
                                                        'created_by'=>'1',
                                                        'modified_by'=>'1',
@@ -285,6 +291,8 @@ class PropertyController extends Controller
 
                              }
                       }
+
+
                      $insertPropRentData  = DB::table($tbl_prefix.'add_property_rent')->insert($insertPropRentDetails);
                     }
                   //Add Booking Durition
@@ -360,7 +368,7 @@ class PropertyController extends Controller
                       {
                          // $name= str_replace(' ', '-', strtolower($request['data']['property_name']));
                         $name = time().'-'.$image->getClientOriginalName();
-                        $image->move(public_path().'/images/property-documents', $name);  
+                        $image->move(public_path().'/images/property-floor-map', $name);  
                         $data[] = $name;  
                         $default_file = ($key == 0) ? 1 : 0;
                         $insertPropertyMap[]= array(
@@ -376,6 +384,21 @@ class PropertyController extends Controller
                       }
                       $insertPropertyMap  = DB::table($tbl_prefix.'add_property_files')->insert($insertPropertyMap);
                    }
+
+                   $nextyear = date('Y-m-d', strtotime('+365 days'));
+
+                   $propBasicavail = array(
+                                    'user_id'=>$_SESSION['user']['user_id'],//$request->input('property_name'),
+                                    'property_id'=>$propertyId,
+                                    'start_time'=>'00:00:01',
+                                    'end_time'=>'23:59:00',
+                                    'start_date'=>date('Y-m-d'),
+                                    'end_date'=>$nextyear,//$request->input('longitude'),
+                                    'created_by'=>'1',
+                                    'modified_by'=>'1',
+                                    'is_deleted'=>'0',
+                                 );
+                   $add_property_availabilities  = DB::table($tbl_prefix.'add_property_availabilities')->insert($propBasicavail);
          }
 
         $data = array('status' => 200,

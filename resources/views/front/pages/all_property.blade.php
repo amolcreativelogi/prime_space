@@ -264,6 +264,8 @@ $(document).ready(function() {
     $('#from').val('<?php echo $_GET['fromdate'];?>');
     $('#to').val('<?php echo $_GET['todate'];?>');
     $('#location').val('<?php echo $_GET['location'];?>');
+    $('#latitude').val('<?php echo $_GET['latitude'];?>');
+    $('#longitude').val('<?php echo $_GET['longitude'];?>');
   }else{
     $('#from_date').val('<?php echo $_GET['fromdate'];?>');
     $('#to_date').val('<?php echo $_GET['todate'];?>');
