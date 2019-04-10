@@ -180,7 +180,7 @@ class PropertyController extends Controller
                                     'created_by'=>'1',
                                     'modified_by'=>'1',
                                     'is_deleted'=>'0',
-                                 );
+                                    );
             } else {
             $propBasicDetails = array(
                                     'module_manage_id'=>$request['module_manage_id'],
@@ -199,7 +199,7 @@ class PropertyController extends Controller
                                     'created_by'=>'1',
                                     'modified_by'=>'1',
                                     'is_deleted'=>'0',
-                                 );  
+                                    );  
             }
 
 
@@ -317,12 +317,20 @@ class PropertyController extends Controller
                    {
                       foreach($request->file('property_images') as $key => $image)
                       {
-                         // $name= str_replace(' ', '-', strtolower($request['data']['property_name']));
+                        $name= str_replace(' ', '-', strtolower($request['data']['property_name']));
                         $name = time().'-'.$image->getClientOriginalName();
+
+                        // $name = strtolower(trim($request->input('property_images'))).'.'.$image->getClientOriginalExtension();
                         $image->move(public_path().'/images/properties', $name);  
                         $data[] = $name;  
+
+                        
+                        // $image = $request->file('property_images');
+                        // $imagename = strtolower(trim($request->input('property_images'))).'.'.$image->getClientOriginalExtension();
+                        // $destinationPath = public_path('/images/properties');
+                        // $name = $image->move($destinationPath,$imagename);
                         $default_file = ($key == 0) ? 1 : 0;
-                        $insertPropertyImage[]= array(
+                        $insertPropertyImage[] = array(
                                                    'name'=>$name,
                                                    'property_id'=>$propertyId,
                                                    'document_type_id'=>1,
@@ -331,7 +339,6 @@ class PropertyController extends Controller
                                                    'created_by'=>'1',
                                                    'modified_by'=>'1',
                                                    'is_deleted'=>'0');
-
                       }
                       $insertPropertyImage  = DB::table($tbl_prefix.'add_property_files')->insert($insertPropertyImage);
                    }
@@ -342,11 +349,18 @@ class PropertyController extends Controller
                       foreach($request->file('property_documents') as $key => $image)
                       {
                          // $name= str_replace(' ', '-', strtolower($request['data']['property_name']));
+                        //  $name = strtolower(trim($request->input('property_documents'))).'.'.$image->getClientOriginalExtension();
+
                         $name = time().'-'.$image->getClientOriginalName();
                         $image->move(public_path().'/images/property-documents', $name);  
                         $data[] = $name;  
+                        // $image = $request->file('property_documents');
+                        // $imagename = strtolower(trim($request->input('property_documents'))).'.'.$image->getClientOriginalExtension();
+                        // $destinationPath = public_path('/images/property-documents');
+                        // $name = $image->move($destinationPath,$imagename);
+
                         $default_file = ($key == 0) ? 1 : 0;
-                        $insertPropertyDoc[]= array(
+                        $insertPropertyDoc[] = array(
                                                    'name'=>$name,
                                                    'property_id'=>$propertyId,
                                                    'document_type_id'=>3,
@@ -364,13 +378,21 @@ class PropertyController extends Controller
                    if($request->hasfile('property_map'))
                    {
                       foreach($request->file('property_map') as $key => $image)
-                      {
-                         // $name= str_replace(' ', '-', strtolower($request['data']['property_name']));
+                       {
+                         $name= str_replace(' ', '-', strtolower($request['data']['property_name']));
                         $name = time().'-'.$image->getClientOriginalName();
+
+                        // $name = strtolower(trim($request->input('property_name'))).'.'.$image->getClientOriginalExtension();
+
                         $image->move(public_path().'/images/property-floor-map', $name);  
                         $data[] = $name;  
+                        // $image = $request->file('property_map');
+                        // $imagename = strtolower(trim($request->input('property_map'))).'.'.$image->getClientOriginalExtension();
+                        // $destinationPath = public_path('/images/property-floor-map');
+                        // $name = $image->move($destinationPath,$imagename);
+
                         $default_file = ($key == 0) ? 1 : 0;
-                        $insertPropertyMap[]= array(
+                        $insertPropertyMap[] = array(
                                                    'name'=>$name,
                                                    'property_id'=>$propertyId,
                                                    'document_type_id'=>2,

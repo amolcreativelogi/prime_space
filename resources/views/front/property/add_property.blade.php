@@ -41,9 +41,8 @@
   <input type="hidden" name="data[longitude]" id="longitude-property">
   <input type="text" name="data[zip_code]" id="zip_code" placeholder="Enter Property Zip Code" />
   <textarea placeholder="Property description" name="data[property_description]" id="property_description" cols="6"></textarea>
-  <!-- <input type="file" name="" placeholder="Property Images " /> -->
   <div class="box">
-    <input type="file" name="property_images" id="property_images" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple style="display: none;" />
+    <input type="file" name="property_images[]" id="property_images" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple style="display: none;" />
     <label for="property_images"><span></span> <strong>Choose Property Images</strong></label>
   </div>
   <input type="button" name="next" id="step1" class="next action-button" value="Next" />
@@ -282,7 +281,7 @@
   <fieldset>
   <h2 class="fs-title">Documents</h2>
   <div class="box">
-    <input type="file" name="property_documents[]" id="property-documents" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple style="display: none;" />
+    <input type="file" name="property_documents[]" multiple id="property-documents" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" style="display: none;" />
     <label for="property-documents"><span></span> <strong>Choose Property Documents</strong></label>
   </div>
   <input type="button" name="previous" class="previous action-button" value="Previous" />
@@ -517,10 +516,6 @@ $(".next").click(function(){
         "data[property_description]": { 
            required: true,
         },
-        "property_images": {
-          required: true,
-          extension: "jpg,jpeg, png"
-        },
         "data[parking][parking_type_id][]": { 
            required: true,
         },
@@ -547,9 +542,6 @@ $(".next").click(function(){
         },
         'data[property_description]': {
           required: "Description is required",
-        },
-        'property_images': {
-          required: "Property Image is required",
         },
         "data[parking][parking_type_id][]": {
           required: "Parking Type is required",
