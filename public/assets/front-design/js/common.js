@@ -269,7 +269,7 @@ $(function() {
 
 
 $(function() {
-  $('#select-property-type').change(function(){
+  $('.select-property-type').change(function(){
     $('.parking-slection').hide();
    // $('#tablist').hide(); 
     $('#' + $(this).val()).show();
@@ -278,15 +278,28 @@ $(function() {
 
 
 $(function () {
-        $(".homebannertext #select-property-type").change(function () {
-            if ($(this).val() == "2") {
-                $("#land-search_dates1").show();
-            } else {
-                $("#search_dates1").hide();
-            }
-        });
-       
+    $("#select-property-type").change(function () {
+        if ($(this).val() == 2) {
+            $("#land-search_dates1").hide();
+            $("#search_dates1").show();
+        } else {
+            $("#search_dates1").hide();
+            $("#land-search_dates1").show();
+        }
     });
+});
+
+$(function () {
+    $(".select-property-type").change(function () {
+        if ($(this).val() == 2) {
+            $("#3").hide();
+            $("#2").show();
+        } else {
+            $("#2").hide();
+            $("#3").show();
+        }
+    });
+});
 
 
 // $(function () {
@@ -298,6 +311,19 @@ $(function () {
 //             }
 //         });
 // });
+
+
+
+
+let today = new Date().toISOString().substr(0, 10);
+document.querySelector("#today").value = today;
+
+document.querySelector("#today2").valueAsDate = new Date();
+
+
+
+
+
 
 
 

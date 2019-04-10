@@ -4,22 +4,24 @@
 <div class="site-content">
     <section class="bookingform">
         <div class="container">
-            <h3>booking form</h3>
+            <h3>Welcome to Prymestory. Book your property</h3>
+            <!--<h3>booking form</h3>-->
             <div class="row">
                 <div class="col-sm-8">
                     <div class="selectdate">
                         <div class="form-group date-group">
                             <label>From</label>
-                             <div class="date"><input type="text" class="form-control" placeholder="Any" id="from" /></div>
+                             <div class="date"><span><input id="today" type="date"><i class="fa fa-pencil" aria-hidden="true"></i></span></div>
                           </div>
                           <div class="form-group date-group">
                             <label>To</label>
-                            <div class="date"><input type="text" class="form-control" placeholder="Any" id="to" /></div>
+                            <div class="date"><span><input id="today" type="date"><i class="fa fa-pencil" aria-hidden="true"></i></span></div>
                           </div>
+                          
                     </div>
                     <hr>
                     <div class="your-info">
-                        <h3>Your Information</h3>
+                        <h3>Your Information <a href="#" data-toggle="modal" class="book-signup" data-target="#singupModal">Have a Prymestory account? Sign in</a></h3>
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
@@ -91,34 +93,48 @@
                             <hr>
                             <div class="col-sm-6"><h4>Your Order Total</h4></div>
                             <div class="col-sm-6"><h2>$25.00</h2></div>
-<div class="col-sm-6"><input type="button" value="submit" onclick="searchURL()"></div>
+<div class="col-sm-6"><input type="button" value="submit" onclick="searchURL()" data-toggle="modal"  data-target="#thanksModal"></div>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="total-order">ORDER TOTAL <span>$2500</span></div>
+                    <div class="book-box">
+                        <div class="book-add">237 Victoria St. - 237 Victoria St. Lot Target Park</div>
+                        <div class="book-img"><img src="{{ URL::asset('public') }}/assets/front-design/images/discoverpsace01.jpg" alt=""></div>
+                        <div class="book-amenties">
+                            <ul>
+                                <li><img src="{{ URL::asset('public') }}/assets/front-design/images/handicap.svg" alt=""><span>wheelchair</span></li> 
+                                <li><img src="{{ URL::asset('public') }}/assets/front-design/images/fire-extinguisher.svg" alt=""><span>fire extinguisher</span></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
             
         </div>
     </section>
     
+<!-- thanksModal start -->
+<div class="modal fade formModal" id="thanksModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!--<h5 class="modal-title" id="exampleModalLabel">Find a space</h5>-->
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="thanksmsgbox">
+            <i class="fa fa-smile-o" aria-hidden="true"></i>
+            <h2>Thanks for your Booking</h2>
+        </div>	
+      </div>
+    </div>
+  </div>
+</div>
+<!-- thanksModal end -->
     
-    <section class="thanksmsg">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-6">
-                    <div class="thanksmsgbox">
-                        <i class="fa fa-smile-o" aria-hidden="true"></i>
-
-                        <h2>Thanks for your Booking</h2>
-                    </div>
-                </div>
-                <div class="col-sm-3"></div>
-            </div>
-        </div>
-    </section>
-
 </div>
 @stop
