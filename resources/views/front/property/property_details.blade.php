@@ -54,12 +54,11 @@
                <!--  <h3>Great industrial lot</h3> -->
                <h3><?php echo !isset($getPropertyDetails->name)?'':$getPropertyDetails->name;?></h3>
                <!--  <h4>60 Beard St, Brooklyn, NY</h4> -->
-                <h4><?php echo !isset($getPropertyDetails->location)?'':$getPropertyDetails->location;?></h4>
+                <h4><i class="fa fa-map-marker" aria-hidden="true"></i> <?php echo !isset($getPropertyDetails->location)?'':$getPropertyDetails->location;?></h4>
                 <div class="row firstrow">
-                  <div class="col-sm-3"><img src="{{ URL::asset('public') }}/assets/front-design/images/ruler.svg" alt=""> 5,600 sqft</div>
-                  <div class="col-sm-3"><i class="fa fa-map-marker" aria-hidden="true"></i> Lot ID #5617253</div>
-                  <div class="col-sm-3"><i class="fa fa-map-marker" aria-hidden="true"></i> Lorem</div>
-                  <div class="col-sm-3"><i class="fa fa-map-marker" aria-hidden="true"></i> Lorem</div>
+                  <div class="col-sm-6"><i class="fa fa-server" aria-hidden="true"></i> Number of floor <strong>: 2 </strong></div>
+                  <div class="col-sm-6"><i class="fa fa-list" aria-hidden="true"></i> Total Parking Slots <strong>: 10</strong></div>
+                  <div class="col-sm-6"><i class="fa fa-car" aria-hidden="true"></i> Type of parking <strong>: Covered</strong></div>
                 </div>
                 <div class="about-property">
                   <h4>About the space</h4>
@@ -68,30 +67,98 @@
 
 
                   <div class="row secondrow">
-                  <div class="col-sm-3"><span>Uses</span>All uses considered</div>
-                  <div class="col-sm-3"><span>Cancellation</span>Strict <i class="fa fa-exclamation-circle" aria-hidden="true"></i></div>
-                  <div class="col-sm-3"><span>Lease term</span>Negotiable</div>
-                  <div class="col-sm-3"><span>Phasellus</span>Molestie mass</div>
+                      <div class="col-sm-12">
+                          <div class="dl-content tablediv">
+                              <table>
+                                  <thead>
+                                      <tr>
+                                          <th>Car Type</th>
+                                          <th>Hourly</th>
+                                          <th>Daily</th>
+                                          <th>Monthly</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr>
+                                          <td>Hatchback</td>
+                                          <td>10</td>
+                                          <td>50</td>
+                                          <td>300</td>
+                                      </tr>
+                                      <tr>
+                                          <td>Sedan</td>
+                                          <td>10</td>
+                                          <td>50</td>
+                                          <td>300</td>
+                                      </tr>
+                                      <tr>
+                                          <td>MPV</td>
+                                          <td>10</td>
+                                          <td>50</td>
+                                          <td>300</td>
+                                      </tr>
+                                      <tr>
+                                          <td>SUV</td>
+                                          <td>10</td>
+                                          <td>50</td>
+                                          <td>300</td>
+                                      </tr>
+                                      <tr>
+                                          <td>Crossover</td>
+                                          <td>10</td>
+                                          <td>50</td>
+                                          <td>300</td>
+                                      </tr>
+                                      <tr>
+                                          <td>Coupe</td>
+                                          <td>10</td>
+                                          <td>50</td>
+                                          <td>300</td>
+                                      </tr>
+                                      <tr>
+                                          <td>Convertibl</td>
+                                          <td>10</td>
+                                          <td>50</td>
+                                          <td>300</td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                          </div>
+                          <a href="#" data-toggle="modal" class="floor-map" data-target="#floor-map" >Floor Map</a>
+<!-- searchModal start -->
+<div class="modal fade formModal" id="floor-map" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Floor Map</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <img src="{{ URL::asset('public') }}/assets/front-design/images/parking.png" alt="">  
+      </div>
+    </div>
+  </div>
+</div>
+<!-- searchModal end -->
+                      </div>
+                  <!--<div class="col-sm-3"><span>Uses</span>All uses considered</div>-->
+                  <!--<div class="col-sm-3"><span>Cancellation</span>Strict <i class="fa fa-exclamation-circle" aria-hidden="true"></i></div>-->
+                  <!--<div class="col-sm-3"><span>Lease term</span>Negotiable</div>-->
+                  <!--<div class="col-sm-3"><span>Phasellus</span>Molestie mass</div>-->
                 </div>
                 </div>
-                
-                <div class="property-location">
-                  <h4>Location</h4>
-                  
 
 
-                  <div><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7441.412572122276!2d79.06870567471097!3d21.16408394370072!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd4c0fcf85ee143%3A0x8a9261908197e622!2sSadar%2C+Nagpur%2C+Maharashtra!5e0!3m2!1sen!2sin!4v1554118760955!5m2!1sen!2sin" width="100%" height="320" frameborder="0" style="border:0" allowfullscreen></iframe></div>
-
-
-                </div>
-                <div class="property-policies">
-                  <h4>Policies</h4>
-                  <ul>
-                    <li>Morbi lacinia, arcu vel venenatis</li>
-                    <li>Fusce vehicula libero</li>
-                    <li>Nam mauris tortor, sodales sit amet leo</li>
-                  </ul>
-                </div>
+                <!--<div class="property-policies">-->
+                <!--  <h4>Policies</h4>-->
+                <!--  <ul>-->
+                <!--    <li>Morbi lacinia, arcu vel venenatis</li>-->
+                <!--    <li>Fusce vehicula libero</li>-->
+                <!--    <li>Nam mauris tortor, sodales sit amet leo</li>-->
+                <!--  </ul>-->
+                <!--</div>-->
                 <div class="property-review">
                   <h3>2 Reviews</h3>
                   <div class="rating">
@@ -127,7 +194,7 @@
                         <div class="reviewer-img"><img src="{{ URL::asset('public') }}/assets/front-design/images/user-icon.jpg" alt=""></div>
                       </div>
                     </div>
-                    <a href="" class="cont-host">contact host</a>
+                    
                   </div><!-- rentedby -->
                 </div>
               </div><!-- pc-left -->
@@ -136,111 +203,125 @@
 
 
               <div class="col-lg-4 col-md-4 col-sm-12 pc-right">
-                <div class="pcright-box">
-                  <div class="pc-price">$2800/month</div>
-                  <div class="pc-avail"><span>Available</span>MAR 30</div>
-                  <form name="booking-form" id="booking-form" method="post">
-                     {!! csrf_field() !!} 
-                      <div class="form-group date-group">
-                        <label>From</label>
-                         <div class="date"><input type="text" class="form-control" placeholder="mm/dd/yyyy H:i:s" name="bookfromdate" value="<?=$_GET['fromdate'].' '.$_GET['fromtime']?>" id="bookfromdate" /></div>
-                      </div>
-                      <div class="form-group date-group">
-                        <label>To</label>
-                        <div class="date"><input type="text" class="form-control" name="booktodate" value="<?=$_GET['todate'].' '.$_GET['totime']?>"placeholder="mm/dd/yyyy H:i:s" id="booktodate" /></div>
-                      </div>
-                      <input type="hidden" name="module_id" id="module_id" value="<?=$getPropertyDetails->module_manage_id?>">
-                      <input type="hidden" name="property_id" id="property_id" value="<?=$getPropertyDetails->property_id?>">
-                      <input type="hidden" name="duration_type" id="duration_type" value="<?=$_GET['durationtype']?>">
-                  </form>
-                  <!-- <button class="bluebtn">Apply</button> -->
-                  <button class="whitebtn" id="bookProperty" onclick="bookProperty()">Book</button>
+                 <div class="property-location">
+                  <h4>Location</h4>
+                  <div><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7441.412572122276!2d79.06870567471097!3d21.16408394370072!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd4c0fcf85ee143%3A0x8a9261908197e622!2sSadar%2C+Nagpur%2C+Maharashtra!5e0!3m2!1sen!2sin!4v1554118760955!5m2!1sen!2sin" width="100%" height="320" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+                </div><br>
+                <div class="book-amenties">
+                    <h4>Amenties</h4>
+                    <ul>
+                        <li><img src="{{ URL::asset('public') }}/assets/front-design/images/handicap.svg" alt=""><span>wheelchair</span></li> 
+                        <li><img src="{{ URL::asset('public') }}/assets/front-design/images/fire-extinguisher.svg" alt=""><span>fire extinguisher</span></li>
+                    </ul>
                 </div>
+                <hr>
+                <a href="" class="cont-host">contact host</a>
+                 <hr>
+                <!--<div class="pcright-box">-->
+                <!--  <div class="pc-price">$2800/month</div>-->
+                <!--  <div class="pc-avail"><span>Available</span>MAR 30</div>-->
+                <!--  <form name="booking-form" id="booking-form" method="post">-->
+                <!--     {!! csrf_field() !!} -->
+                <!--      <div class="form-group date-group">-->
+                <!--        <label>From</label>-->
+                <!--         <div class="date"><input type="text" class="form-control" placeholder="mm/dd/yyyy H:i:s" name="bookfromdate" value="<?=$_GET['fromdate'].' '.$_GET['fromtime']?>" id="bookfromdate" /></div>-->
+                <!--      </div>-->
+                <!--      <div class="form-group date-group">-->
+                <!--        <label>To</label>-->
+                <!--        <div class="date"><input type="text" class="form-control" name="booktodate" value="<?=$_GET['todate'].' '.$_GET['totime']?>"placeholder="mm/dd/yyyy H:i:s" id="booktodate" /></div>-->
+                <!--      </div>-->
+                <!--      <input type="hidden" name="module_id" id="module_id" value="<?=$getPropertyDetails->module_manage_id?>">-->
+                <!--      <input type="hidden" name="property_id" id="property_id" value="<?=$getPropertyDetails->property_id?>">-->
+                <!--      <input type="hidden" name="duration_type" id="duration_type" value="<?=$_GET['durationtype']?>">-->
+                <!--  </form>-->
+                  <!-- <button class="bluebtn">Apply</button> -->
+                <!--  <button class="whitebtn" id="bookProperty" onclick="bookProperty()">Book</button>-->
+                <!--</div>-->
               </div><!-- pc-right -->
 
-              <div class="col-sm-12 more-space">
-                <h3>More spaces you may like</h3>
-                <div class="row">
-                  <div class="col-sm-4">
-                    <div class="morespaceBox">
-                      <div class="ms-img">
-                        <img src="{{ URL::asset('public') }}/assets/front-design/images/book-space2.jpg" alt="">
-                      </div>
-                      <div class="ms-info">
-                        <h4>Morbi lacinia, arcu vel venenatis</h4>
-                        <span>$2400 per month • 2667 sqft</span>
-                        <fieldset>
-                        <div class="rating">
-                            <input type="radio" id="star5-1" name="rating" value="5">
-                            <label class="full" for="star5-1" title="Awesome - 5 stars"></label>
-                            <input type="radio" id="star4-1" name="rating" value="4">
-                            <label class="full" for="star4-1" title="Pretty good - 4 stars"></label>
-                            <input type="radio" id="star3-1" name="rating" value="3">
-                            <label class="full" for="star3-1" title="Meh - 3 stars"></label>
-                            <input type="radio" id="star2-1" name="rating" value="2">
-                            <label class="full" for="star2-1" title="Kinda bad - 2 stars"></label>
-                            <input type="radio" id="star1-1" name="rating" value="1">
-                            <label class="full" for="star1-1" title="Sucks big time - 1 star"></label>
-                        </div>
-                        <span>23</span>
-                      </fieldset>
-                      </div>
-                    </div><!-- morespaceBox -->
-                  </div><!-- col-sm-4 -->
-                  <div class="col-sm-4">
-                    <div class="morespaceBox">
-                      <div class="ms-img">
-                        <img src="{{ URL::asset('public') }}/assets/front-design/images/book-space2.jpg" alt="">
-                      </div>
-                      <div class="ms-info">
-                        <h4>Morbi lacinia, arcu vel venenatis</h4>
-                        <span>$2400 per month • 2667 sqft</span>
-                        <fieldset>
-                        <div class="rating">
-                            <input type="radio" id="star5-2" name="rating" value="5">
-                            <label class="full" for="star5-2" title="Awesome - 5 stars"></label>
-                            <input type="radio" id="star4-2" name="rating" value="4">
-                            <label class="full" for="star4-2" title="Pretty good - 4 stars"></label>
-                            <input type="radio" id="star3-2" name="rating" value="3">
-                            <label class="full" for="star3-2" title="Meh - 3 stars"></label>
-                            <input type="radio" id="star2-2" name="rating" value="2">
-                            <label class="full" for="star2-2" title="Kinda bad - 2 stars"></label>
-                            <input type="radio" id="star1-2" name="rating" value="1">
-                            <label class="full" for="star1-2" title="Sucks big time - 1 star"></label>
-                        </div>
-                        <span>23</span>
-                      </fieldset>
-                      </div>
-                    </div><!-- morespaceBox -->
-                  </div><!-- col-sm-4 -->
-                  <div class="col-sm-4">
-                    <div class="morespaceBox">
-                      <div class="ms-img">
-                        <img src="{{ URL::asset('public') }}/assets/front-design/images/book-space2.jpg" alt="">
-                      </div>
-                      <div class="ms-info">
-                        <h4>Morbi lacinia, arcu vel venenatis</h4>
-                        <span>$2400 per month • 2667 sqft</span>
-                        <fieldset>
-                        <div class="rating">
-                            <input type="radio" id="star5-3" name="rating" value="5">
-                            <label class="full" for="star5-3" title="Awesome - 5 stars"></label>
-                            <input type="radio" id="star4-3" name="rating" value="4">
-                            <label class="full" for="star4-3" title="Pretty good - 4 stars"></label>
-                            <input type="radio" id="star3-3" name="rating" value="3">
-                            <label class="full" for="star3-3" title="Meh - 3 stars"></label>
-                            <input type="radio" id="star2-3" name="rating" value="2">
-                            <label class="full" for="star2-3" title="Kinda bad - 2 stars"></label>
-                            <input type="radio" id="star1-3" name="rating" value="1">
-                            <label class="full" for="star1-3" title="Sucks big time - 1 star"></label>
-                        </div>
-                        <span>23</span>
-                      </fieldset>
-                      </div>
-                    </div><!-- morespaceBox -->
-                  </div><!-- col-sm-4 -->
-                </div>
-              </div><!-- more-space -->
+              <!--<div class="col-sm-12 more-space">-->
+              <!--  <h3>More spaces you may like</h3>-->
+              <!--  <div class="row">-->
+              <!--    <div class="col-sm-4">-->
+              <!--      <div class="morespaceBox">-->
+              <!--        <div class="ms-img">-->
+              <!--          <img src="{{ URL::asset('public') }}/assets/front-design/images/book-space2.jpg" alt="">-->
+              <!--        </div>-->
+              <!--        <div class="ms-info">-->
+              <!--          <h4>Morbi lacinia, arcu vel venenatis</h4>-->
+              <!--          <span>$2400 per month • 2667 sqft</span>-->
+              <!--          <fieldset>-->
+              <!--          <div class="rating">-->
+              <!--              <input type="radio" id="star5-1" name="rating" value="5">-->
+              <!--              <label class="full" for="star5-1" title="Awesome - 5 stars"></label>-->
+              <!--              <input type="radio" id="star4-1" name="rating" value="4">-->
+              <!--              <label class="full" for="star4-1" title="Pretty good - 4 stars"></label>-->
+              <!--              <input type="radio" id="star3-1" name="rating" value="3">-->
+              <!--              <label class="full" for="star3-1" title="Meh - 3 stars"></label>-->
+              <!--              <input type="radio" id="star2-1" name="rating" value="2">-->
+              <!--              <label class="full" for="star2-1" title="Kinda bad - 2 stars"></label>-->
+              <!--              <input type="radio" id="star1-1" name="rating" value="1">-->
+              <!--              <label class="full" for="star1-1" title="Sucks big time - 1 star"></label>-->
+              <!--          </div>-->
+              <!--          <span>23</span>-->
+              <!--        </fieldset>-->
+              <!--        </div>-->
+              <!--      </div>-->
+              <!--    </div>-->
+              <!--    <div class="col-sm-4">-->
+              <!--      <div class="morespaceBox">-->
+              <!--        <div class="ms-img">-->
+              <!--          <img src="{{ URL::asset('public') }}/assets/front-design/images/book-space2.jpg" alt="">-->
+              <!--        </div>-->
+              <!--        <div class="ms-info">-->
+              <!--          <h4>Morbi lacinia, arcu vel venenatis</h4>-->
+              <!--          <span>$2400 per month • 2667 sqft</span>-->
+              <!--          <fieldset>-->
+              <!--          <div class="rating">-->
+              <!--              <input type="radio" id="star5-2" name="rating" value="5">-->
+              <!--              <label class="full" for="star5-2" title="Awesome - 5 stars"></label>-->
+              <!--              <input type="radio" id="star4-2" name="rating" value="4">-->
+              <!--              <label class="full" for="star4-2" title="Pretty good - 4 stars"></label>-->
+              <!--              <input type="radio" id="star3-2" name="rating" value="3">-->
+              <!--              <label class="full" for="star3-2" title="Meh - 3 stars"></label>-->
+              <!--              <input type="radio" id="star2-2" name="rating" value="2">-->
+              <!--              <label class="full" for="star2-2" title="Kinda bad - 2 stars"></label>-->
+              <!--              <input type="radio" id="star1-2" name="rating" value="1">-->
+              <!--              <label class="full" for="star1-2" title="Sucks big time - 1 star"></label>-->
+              <!--          </div>-->
+              <!--          <span>23</span>-->
+              <!--        </fieldset>-->
+              <!--        </div>-->
+              <!--      </div>-->
+              <!--    </div>-->
+              <!--    <div class="col-sm-4">-->
+              <!--      <div class="morespaceBox">-->
+              <!--        <div class="ms-img">-->
+              <!--          <img src="{{ URL::asset('public') }}/assets/front-design/images/book-space2.jpg" alt="">-->
+              <!--        </div>-->
+              <!--        <div class="ms-info">-->
+              <!--          <h4>Morbi lacinia, arcu vel venenatis</h4>-->
+              <!--          <span>$2400 per month • 2667 sqft</span>-->
+              <!--          <fieldset>-->
+              <!--          <div class="rating">-->
+              <!--              <input type="radio" id="star5-3" name="rating" value="5">-->
+              <!--              <label class="full" for="star5-3" title="Awesome - 5 stars"></label>-->
+              <!--              <input type="radio" id="star4-3" name="rating" value="4">-->
+              <!--              <label class="full" for="star4-3" title="Pretty good - 4 stars"></label>-->
+              <!--              <input type="radio" id="star3-3" name="rating" value="3">-->
+              <!--              <label class="full" for="star3-3" title="Meh - 3 stars"></label>-->
+              <!--              <input type="radio" id="star2-3" name="rating" value="2">-->
+              <!--              <label class="full" for="star2-3" title="Kinda bad - 2 stars"></label>-->
+              <!--              <input type="radio" id="star1-3" name="rating" value="1">-->
+              <!--              <label class="full" for="star1-3" title="Sucks big time - 1 star"></label>-->
+              <!--          </div>-->
+              <!--          <span>23</span>-->
+              <!--        </fieldset>-->
+              <!--        </div>-->
+              <!--      </div>-->
+              <!--    </div>-->
+              <!--  </div>-->
+              <!--</div><!-- more-space -->
 
             </div>
           </div>

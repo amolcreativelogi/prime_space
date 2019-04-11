@@ -4,7 +4,6 @@
 <?php use \App\Http\Controllers\Front\SearchPropertyController;//echo print_r($_GET); die;//echo '<pre>'; print_r($searchResult); echo '</pre>'?>
 <div class="site-content">
 
-
 <div class="all-properties">
     <section class="ap-filter">
       <div class="container">
@@ -146,13 +145,13 @@
         </div>
                 <div id="3" class="parking-slection" >
                     <nav>
-    					<div class="nav nav-tabs nav-fill" id="nav-tab1" role="tablist">
-    						<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#land-daily" role="tab" aria-controls="nav-home" aria-selected="true">Daily</a>
-    						<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#land-weekly" role="tab" aria-controls="nav-profile" aria-selected="false">Weekly</a>
-    						<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#land-monthly" role="tab" aria-controls="nav-contact" aria-selected="false">Monthly</a>
-    					</div>
-    					
-    					<select class="filter-select">
+              <div class="nav nav-tabs nav-fill" id="nav-tab1" role="tablist">
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#land-daily" role="tab" aria-controls="nav-home" aria-selected="true">Daily</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#land-weekly" role="tab" aria-controls="nav-profile" aria-selected="false">Weekly</a>
+                <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#land-monthly" role="tab" aria-controls="nav-contact" aria-selected="false">Monthly</a>
+              </div>
+              
+              <select class="filter-select">
                           <option>Land Use for</option>
                           <option>Industrial  </option>
                           <option>Agriculture  </option>
@@ -160,15 +159,15 @@
                           <option>Commercial </option>
                           <option>For All Type </option>
                         </select>
-    				</nav>
-        				<div class="tab-content" id="nav-tabContent">
-        					<div class="tab-pane fade show active" id="land-daily" role="tabpanel" aria-labelledby="nav-home-tab">
-        						<div id="land-daily" class="landtablist-container filterbox daily">
+            </nav>
+                <div class="tab-content" id="nav-tabContent">
+                  <div class="tab-pane fade show active" id="land-daily" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <div id="land-daily" class="landtablist-container filterbox daily">
                                 <form action="searchproperty/" method="get">
                                   <div class="form-group">
                                     <label>Region</label>
-                                    <div class="region">
-                                        <input type="text" name="location" id="location" placeholder="Seattle" autocomplete="on" runat="server">
+                                    <div class="search">
+                                        <input type="text" name="location" id="location" placeholder="Address, City" autocomplete="on" runat="server">
                                         <input type="hidden" id="city" name="city" />
                                         <input type="hidden" name="latitude" id="latitude">
                                         <input type="hidden" name="longitude" id="longitude"></div>
@@ -184,14 +183,14 @@
                                   </div>
                                 </form>
                               </div>
-        					</div>
-        					<div class="tab-pane fade" id="land-weekly" role="tabpanel" aria-labelledby="nav-profile-tab">
-        						<div id="land-weekly" class="landtablist-container filterbox daily">
+                  </div>
+                  <div class="tab-pane fade" id="land-weekly" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <div id="land-weekly" class="landtablist-container filterbox daily">
                                 <form action="searchproperty/" method="get">
                                   <div class="form-group">
                                     <label>Region</label>
-                                    <div class="region">
-                                        <input type="text" name="location" id="location" placeholder="Seattle" autocomplete="on" runat="server">
+                                    <div class="search">
+                                        <input type="text" name="location" id="location" placeholder="Address, City" autocomplete="on" runat="server">
                                         <input type="hidden" id="city" name="city" />
                                         <input type="hidden" name="latitude" id="latitude">
                                         <input type="hidden" name="longitude" id="longitude"></div>
@@ -208,13 +207,13 @@
                                 </form>
                               </div>
                             </div>
-        					<div class="tab-pane fade" id="land-monthly" role="tabpanel" aria-labelledby="nav-contact-tab">
-        						<div id="land-monthly" class="landtablist-container filterbox daily">
+                  <div class="tab-pane fade" id="land-monthly" role="tabpanel" aria-labelledby="nav-contact-tab">
+                    <div id="land-monthly" class="landtablist-container filterbox daily">
                                 <form action="searchproperty/" method="get">
                                   <div class="form-group">
                                     <label>Region</label>
-                                    <div class="region">
-                                        <input type="text" name="location" id="location" placeholder="Seattle" autocomplete="on" runat="server">
+                                    <div class="search">
+                                        <input type="text" name="location" id="location" placeholder="Address, City" autocomplete="on" runat="server">
                                         <input type="hidden" id="city" name="city" />
                                         <input type="hidden" name="latitude" id="latitude">
                                         <input type="hidden" name="longitude" id="longitude"></div>
@@ -230,11 +229,11 @@
                                   </div>
                                 </form>
                               </div>
-        					</div>
-        					<input type="button" value="submit" onclick="searchURL()">
-        				</div>
-				
-				
+                  </div>
+                  <input type="button" value="submit" onclick="searchURL()">
+                </div>
+        
+        
              <!--<div class="prop-type">-->
              <!--           <select id="landtablist"> -->
              <!--               <option value="land-daily">Daily </option>-->
@@ -268,7 +267,7 @@
     <section class="filter-result">
       <div class="container">
         <div class="row">
-          <div class="col-lg-4 col-md-4 col-sm-12 ps-div">
+          <div class="col-lg-5 col-md-5 col-sm-12 ps-div">
               <nav>
                     <div class="nav nav-tabs nav-fill" id="prop-tab" role="tablist">
 
@@ -333,16 +332,18 @@
                         <div class="ps-count"><?= $no_of_prop ?> Properties</div>
                       @foreach($searchResult as $searchProp)
                             <div class="ps-box">
-                                <div class="ps-img">
-                
-                            
+                            <div class="ps-img">
                             <?php if(isset($searchProp->image) && file_exists(public_path() . '/images/properties/' . $searchProp->image. '')) { ?>
                                   <img src="<?php echo url('/public/images/properties/'.$searchProp->image)?>" alt=""> 
                              <?php }else {
                                echo  $image =  'No Image';
                              }
                             ?>
-                            <fieldset>
+                                </div>
+                                <div class="ps-text">
+                                    <div class="pstext-top">
+                                      <h3><?= $searchProp->name; ?></h3>
+                                      <fieldset>
                                       <div class="rating">
                                           <input type="radio" id="star5-1" name="rating" value="5" />
                                           <label class = "full" for="star5-1" title="Awesome - 5 stars"></label>
@@ -359,10 +360,6 @@
                                       <span>23</span>
                                     </fieldset>
                                 <div class="prop-miles">5 miles</div>
-                                </div>
-                                <div class="ps-text">
-                                    <div class="pstext-top">
-                                      <h3><?= $searchProp->name; ?></h3>
                                       <?php $getDurationType=SearchPropertyController::getDurationType($searchProp->property_id,$searchProp->module_manage_id);?>
                                       <!--<div class="ps-avail"><?= $getDurationType;?></div>-->
                                       <!-- <div class="ps-avail">Hourly • Daily • Monthly</div> -->
@@ -391,7 +388,7 @@
 
           
           </div>
-          <div class="col-lg-8 col-md-8 col-sm-12 ps-map">
+          <div class="col-lg-7 col-md-7 col-sm-12 ps-map">
             <div id="mapCanvas"></div>
             <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7441.412572122276!2d79.06870567471097!3d21.16408394370072!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd4c0fcf85ee143%3A0x8a9261908197e622!2sSadar%2C+Nagpur%2C+Maharashtra!5e0!3m2!1sen!2sin!4v1553691732461" width="100%" height="600" frameborder="0" style="border:0" allowfullscreen></iframe> -->
           </div>
@@ -519,6 +516,7 @@ function initMap() {
 // Load initialize function
 google.maps.event.addDomListener(window, 'load', initMap);
 </script>
+
 <script type="text/javascript">
 $(document).ready(function() {
   $activeTab = '<?php echo $_GET['activeTab'];?>';
@@ -583,6 +581,9 @@ nav > div a.nav-item.nav-link:focus
     transition:background 0.20s linear;
 }
 </style>
+
+
+
 
 @stop
 

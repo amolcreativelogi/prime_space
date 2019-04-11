@@ -9,19 +9,36 @@
             <div class="row">
                 <div class="col-sm-8">
                     <div class="selectdate">
-                        <div class="form-group date-group">
-                            <label>From</label>
-                             <div class="date"><span><input id="today" type="date"><i class="fa fa-pencil" aria-hidden="true"></i></span></div>
-                          </div>
-                          <div class="form-group date-group">
-                            <label>To</label>
-                            <div class="date"><span><input id="today" type="date"><i class="fa fa-pencil" aria-hidden="true"></i></span></div>
-                          </div>
-                          
+                        <h3>new property</h3>
+                        <h4>sadar, nagpur</h4>
+                        <select class="filter-select">
+                          <option>Car Type</option>
+                          <option>Hatchback  </option>
+                          <option>Sedan  </option>
+                          <option>MPV  </option>
+                          <option>SUV </option>
+                          <option>Crossover </option>
+                          <option>Coupe  </option>
+                          <option>Convertibl </option>
+                        </select>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group date-group">
+                                    <label>From</label>
+                                     <div class="date">04/11/2019</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group date-group">
+                                    <label>To</label>
+                                    <div class="date">04/11/2019</div>
+                                  </div>
+                            </div>
+                        </div>
                     </div>
                     <hr>
                     <div class="your-info">
-                        <h3>Your Information <a href="#" data-toggle="modal" class="book-signup" data-target="#singupModal">Have a Prymestory account? Sign in</a></h3>
+                        <h3>Your Information <a href="#" data-toggle="modal" class="book-signup" data-target="#loginModal">Please sign-in to book your property</a></h3>
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
@@ -129,7 +146,7 @@
         <div class="thanksmsgbox">
             <i class="fa fa-smile-o" aria-hidden="true"></i>
             <h2>Thanks for your Booking</h2>
-        </div>	
+        </div>  
       </div>
     </div>
   </div>
