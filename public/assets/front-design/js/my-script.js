@@ -266,6 +266,46 @@ jQuery('#from').datetimepicker({
  timepicker:false,
  format:'m.d.Y'
 });
+jQuery('#to').datetimepicker({
+ timepicker:false,
+ format:'m.d.Y'
+});
+jQuery('#monthly_from').datetimepicker({
+ timepicker:false,
+ format:'m.d.Y',
+ minDate: 0
+});
+
+jQuery('#monthly_to').datetimepicker({
+ timepicker:false,
+ format:'m.d.Y',
+ maxDate:'+1m +0d',
+  minDate: 0
+});
+jQuery('#daily_from').datetimepicker({
+ timepicker:false,
+ format:'m.d.Y'
+});
+jQuery('#daily_to').datetimepicker({
+ timepicker:false,
+ format:'m.d.Y'
+});
+jQuery('#weekly_from').datetimepicker({
+ timepicker:false,
+ format:'m.d.Y'
+});
+jQuery('#weekly_to').datetimepicker({
+ timepicker:false,
+ format:'m.d.Y'
+});
+jQuery('#land-monthly_from').datetimepicker({
+ timepicker:false,
+ format:'m.d.Y'
+});
+jQuery('#land-monthly_to').datetimepicker({ 
+ timepicker:false,
+ format:'m.d.Y'
+});
 jQuery('#search_dates').datetimepicker({
  //timepicker:false,
  format:'m.d.Y'
@@ -276,7 +316,8 @@ jQuery('#land-search_dates').datetimepicker({
 });
 jQuery('#search_dates1').datetimepicker({
  //timepicker:false,
- format:'m.d.Y'
+ //format:'m.d.Y'
+ format:'m.d.Y H:i'
 });
 jQuery('#land-search_dates1').datetimepicker({ 
  timepicker:false,
@@ -287,12 +328,12 @@ jQuery('#to').datetimepicker({
  format:'m.d.Y'
 });
 jQuery('#from_date').datetimepicker({
- timepicker:false,
- format:'m.d.Y'
+ //timepicker:false,
+format:'m.d.Y H:i'
 });
 jQuery('#to_date').datetimepicker({
- timepicker:false,
- format:'m.d.Y'
+ //timepicker:false,
+format:'m.d.Y H:i'
 });
 $('#from_time').datetimepicker({
   datepicker:false,
