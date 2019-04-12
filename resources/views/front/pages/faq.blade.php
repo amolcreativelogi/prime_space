@@ -22,7 +22,7 @@
 
 <div class="tab-content">
   <div id="general-faq" class="tab-pane fade in active">
-    <div id="general" role="tablist" aria-multiselectable="true">
+    <div id="general" role="tablist" aria-multiselectable="true"> 
       
       <div class="card">
       <div class="card-header" role="tab" id="questionOne">
