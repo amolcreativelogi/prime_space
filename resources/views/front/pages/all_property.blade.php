@@ -249,7 +249,11 @@
                       <span>23</span>
                     </fieldset>
                     <a href="" class="get-direction"><i class="fa fa-map-marker" aria-hidden="true"></i></a>
-                    <a href='<?php echo URL('/') ?>/propertydetails?moduleid=<?php echo Request::get("module_id")."&propertyid=".$searchProp->property_id."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="get-details">details</a>
+
+                    <!-- <a data-target="#myModal" data-toggle="modal"  id="MainNavHelp" href="#myModal" class="get-details" onclick="showModal('<?php echo $searchProp->location?>')">Details</a> -->
+                     <a  data-toggle="modal"  id="MainNavHelp" href="#myModal" class="get-details" onclick='showModal("<?php echo $searchProp->location?>")'>Details</a>
+
+                   <!--  <a href='<?php //echo URL('/') ?>/propertydetails?moduleid=<?php //echo Request::get("module_id")."&propertyid=".$searchProp->property_id."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="get-details">details</a> -->
                     <a href='<?php echo URL('/') ?>/propertydetails?moduleid=<?php echo Request::get("module_id")."&propertyid=".$searchProp->property_id."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="booknow">Book now</a>
 
                      <!--  <button class="booknow"></button> -->
@@ -269,6 +273,30 @@
 </div><!-- all-properties -->
  
 </div><!-- site-content -->
+ <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <!-- <h4 class="modal-title">Modal Header</h4> -->
+                </div>
+                <div class="modal-body">
+                    <!-- <p>Some text in the modal.</p> -->
+                    <p><input name="user_location" id="user_location" placeholder="Your Location" /></p>
+                    <p><input name="prop_location" id="prop_location" placeholder=""/></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button"  class="btn btn-default" onclick="showlocationOnMap()">Submit</button>
+                    <button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
 
 <style type="text/css">
   
@@ -293,6 +321,22 @@ $mapperPointer =  json_encode($c);
 
 
 <script>
+
+  function showModal(prop_location){
+    $("#prop_location").val(""); 
+    $("#user_location").val(""); 
+    $("#prop_location").val(prop_location); 
+    $('#myModal').modal('show');
+    
+  }
+
+  function showlocationOnMap(){
+    var prop_location = $("#prop_location").val(); 
+    var user_location = $("#user_location").val();
+     
+    var url = "https://www.google.com/maps/dir/"+user_location+"/"+prop_location+"/";
+    window.location = url;
+  }
 
 //var jsonRes = <?php $searchResult; ?>;
 // var as = JSON.parse(jsonRes);
