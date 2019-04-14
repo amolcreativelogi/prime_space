@@ -298,7 +298,5 @@
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('public') }}/assets/front-design/css/owl.theme.default.min.css">
 
 <script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/property-details-page.js"></script>
-
-
 </body>
 </html> 

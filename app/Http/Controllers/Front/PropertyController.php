@@ -127,10 +127,29 @@ class PropertyController extends Controller
         ->where('tbl_mstr_booking_duration_type_with_module.status', '=', 1)
         ->get();
 
+
+         //get amenities with its modules
+        $getcancellationpolicies = DB::table('tbl_mstr_cancellation_policies as tcp')
+        ->select(
+            'tcp.cancellation_policy_id',
+            'cancellation_policy_text',
+            'cancellation_percentage',
+            'cancellation_type'
+            )
+         ->leftJoin('tbl_mstr_cancellation_type as tca', 'tca.cancellation_type_id', '=', 'tcp.cancellation_type_id')
+        ->where('tcp.module_manage_id', '=', $module_manage_id)
+        ->where('tca.status', '=', 1)
+        ->where('tca.is_deleted', '=', 0)
+        ->get();
+
+
+
+
          $getPropertyMasters =array('getLocationTypes'=>$getLocationTypes,
                                     'getUnitTypes'=>$getUnitTypes,
                                     'getAmenities'=>$getAmenities,
-                                    'getBookingDurationType'=>$getBookingDurationType
+                                    'getBookingDurationType'=>$getBookingDurationType,
+                                    'getcancellationpolicies'=>$getcancellationpolicies
                                         );
 
 
@@ -142,7 +161,8 @@ class PropertyController extends Controller
     }
     
     public function saveProperty(Request $request)
-    {   
+    {     
+          
         if(!$request->input('id')) {
 
             $tbl_prefix="";
@@ -161,6 +181,9 @@ class PropertyController extends Controller
                     break;
             };
 
+
+        
+
             //echo $request['data']['property_name'];die('in');
 
             // Commman parking and land save with condition
@@ -170,7 +193,7 @@ class PropertyController extends Controller
                                     'module_manage_id'=>$request['module_manage_id'],
                                     'user_id'=>$_SESSION['user']['user_id'],
                                     'name'=>$request['data']['property_name'],
-                                    'location'=>$request['data']['location'],
+                                    'location'=>'test',
                                     'latitude'=>$request['data']['latitude'],
                                     'longitude'=>$request['data']['longitude'],
                                     'zip_code'=>$request['data']['zip_code'],
@@ -186,7 +209,7 @@ class PropertyController extends Controller
                                     'module_manage_id'=>$request['module_manage_id'],
                                     'user_id'=>$_SESSION['user']['user_id'],
                                     'name'=>$request['data']['property_name'],
-                                    'location'=>$request['data']['location'],
+                                    'location'=>'test',//$request['data']['location'],
                                     'latitude'=>$request['data']['latitude'],
                                     'longitude'=>$request['data']['longitude'],//
                                     'zip_code'=>$request['data']['zip_code'],
@@ -206,9 +229,10 @@ class PropertyController extends Controller
 
           $propertyId  = DB::table($tbl_prefix.'add_property')->insertGetId($propBasicDetails);
 
-            // echo '<pre>';
-            // print_r($propBasicDetails);
-           // exit;
+
+          // echo '<pre>';
+         // print_r($propBasicDetails);
+        // exit;
 
           if($propertyId)
           {
@@ -406,20 +430,49 @@ class PropertyController extends Controller
                       $insertPropertyMap  = DB::table($tbl_prefix.'add_property_files')->insert($insertPropertyMap);
                    }
 
-                   $nextyear = date('Y-m-d', strtotime('+365 days'));
+                 if($request['module_manage_id'] == 2)
+                 {
+                    foreach($request['dayname'] as $key => $dayname)
+                    {
+                         $from_hours_time = ($request['day_hours'][$dayname] == 24) ? '00:00:01' : $request['from_hours_time'][$dayname]; 
+                         $to_hours_time = ($request['day_hours'][$dayname] == 24) ? '23:59:00' : $request['to_hours_time'][$dayname];
+                         $propAvailDetails[] = array(
+                                        'property_id'=>$propertyId,
+                                        'days'=>$dayname,
+                                        'start_time'=>$from_hours_time,
+                                        'end_time'=>$to_hours_time,
+                                        'status'=>1,
+                                        'created_by'=>'1',
+                                        'modified_by'=>'1',
+                                        'is_deleted'=>'0',
+                                        );
+                    }
+                    $propertyId  = DB::table($tbl_prefix.'property_days_time_availability')->insert($propAvailDetails);
+                }
 
-                   $propBasicavail = array(
-                                    'user_id'=>$_SESSION['user']['user_id'],//$request->input('property_name'),
-                                    'property_id'=>$propertyId,
-                                    'start_time'=>'00:00:01',
-                                    'end_time'=>'23:59:00',
-                                    'start_date'=>date('Y-m-d'),
-                                    'end_date'=>$nextyear,//$request->input('longitude'),
-                                    'created_by'=>'1',
-                                    'modified_by'=>'1',
-                                    'is_deleted'=>'0',
-                                 );
-                   $add_property_availabilities  = DB::table($tbl_prefix.'add_property_availabilities')->insert($propBasicavail);
+                $insertcancellation = array(
+                                             'cancellation_policy_id'=>$request['cancellation_policy_id'],
+                                             'property_id'=>$propertyId,
+                                             'status'=>1,
+                                             'created_by'=>'1',
+                                             'modified_by'=>'1',
+                                             'is_deleted'=>'0');
+                                        
+                $insertcancellationpolicies  = DB::table($tbl_prefix.'add_property_cancellation_policies')->insert($insertcancellation);
+               // $nextyear = date('Y-m-d', strtotime('+365 days'));
+
+               // $propBasicavail = array(
+               //                  'user_id'=>$_SESSION['user']['user_id'],//$request->input('property_name'),
+               //                  'property_id'=>$propertyId,
+               //                  'start_time'=>'00:00:01',
+               //                  'end_time'=>'23:59:00',
+               //                  'start_date'=>date('Y-m-d'),
+               //                  'end_date'=>$nextyear,//$request->input('longitude'),
+               //                  'created_by'=>'1',
+               //                  'modified_by'=>'1',
+               //                  'is_deleted'=>'0',
+               //               );
+               // $add_property_availabilities  = DB::table($tbl_prefix.'add_property_availabilities')->insert($propBasicavail);
          }
 
         $data = array('status' => 200,

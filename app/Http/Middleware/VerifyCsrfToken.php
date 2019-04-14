@@ -22,6 +22,7 @@ class VerifyCsrfToken extends Middleware
          'userLogin',  
          'userRegistration', 
          'resetPassword', 
+         'updatesaveprofile', 
          'admin/getUser', 
          'admin/getHost',
          'admin/getParkingList',

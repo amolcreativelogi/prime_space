@@ -209,6 +209,55 @@ $(function(){
 });
 
 
+//----------------- Validation of update password ----------------//
+$(function(){
+	//Registration Form
+	 $('#update-profile').validate({
+		rules: {
+				firstname: {
+				   required: true
+				},
+				lastname: {
+				   required: true
+				},
+				contact_no: {
+					required: false,
+					digits: true,
+					minlength: 8,
+					maxlength: 10
+				},
+				zipcode: {
+					required: false,
+					digits: true,
+					minlength: 5,
+					maxlength: 6
+				}
+			},
+		messages: {
+				  firstname:{
+					required :"First Name field is required",
+				 }, 
+				 lastname:{
+					required :"Last Name field is required",
+				 }, 
+				 contact_no:{
+					minlength: "phone no should be between 8 to 10 character",
+					maxlength: "phone no should be between 8 to 10 character",
+				 }, 
+				 zipcode:{
+					minlength: "phone no should be between 5 to 6 character",
+					maxlength: "phone no should be between 5 to 6 character",
+				 } 
+			},
+		submitHandler: function(form) {
+			lkForms('update-profile');
+			//form.submit();
+		  }
+	 });
+});
+
+
+
 //----------------- Validation of registration form ----------------//
 $(function(){
 	//Registration Form
@@ -264,11 +313,13 @@ jQuery.datetimepicker.setLocale('en');
 
 jQuery('#from').datetimepicker({
  timepicker:false,
- format:'m.d.Y'
+ format:'m.d.Y',
+  minDate: 0
 });
 jQuery('#to').datetimepicker({
  timepicker:false,
- format:'m.d.Y'
+ format:'m.d.Y',
+  minDate: 0
 });
 jQuery('#monthly_from').datetimepicker({
  timepicker:false,
@@ -279,73 +330,149 @@ jQuery('#monthly_from').datetimepicker({
 jQuery('#monthly_to').datetimepicker({
  timepicker:false,
  format:'m.d.Y',
- maxDate:'+1m +0d',
+ //maxDate:'+1m +0d',
   minDate: 0
 });
 jQuery('#daily_from').datetimepicker({
  timepicker:false,
- format:'m.d.Y'
+ format:'m.d.Y',
+  minDate: 0
 });
 jQuery('#daily_to').datetimepicker({
  timepicker:false,
- format:'m.d.Y'
+ format:'m.d.Y',
+  minDate: 0
 });
 jQuery('#weekly_from').datetimepicker({
  timepicker:false,
- format:'m.d.Y'
+ format:'m.d.Y',
+  minDate: 0
 });
 jQuery('#weekly_to').datetimepicker({
  timepicker:false,
- format:'m.d.Y'
+ format:'m.d.Y',
+  minDate: 0
 });
 jQuery('#land-monthly_from').datetimepicker({
  timepicker:false,
- format:'m.d.Y'
+ format:'m.d.Y',
+  minDate: 0
 });
 jQuery('#land-monthly_to').datetimepicker({ 
  timepicker:false,
- format:'m.d.Y'
+ format:'m.d.Y',
+  minDate: 0
 });
 jQuery('#search_dates').datetimepicker({
  //timepicker:false,
- format:'m.d.Y'
+ format:'m.d.Y',
+ minDate: 0,
+// minTime: 0
 });
 jQuery('#land-search_dates').datetimepicker({
  timepicker:false,
- format:'m.d.Y'
+ format:'m.d.Y',
+  minDate: 0
 });
 jQuery('#search_dates1').datetimepicker({
  //timepicker:false,
  //format:'m.d.Y'
- format:'m.d.Y H:i'
+ format:'m.d.Y H:i',
+  minDate: 0.0,
 });
 jQuery('#land-search_dates1').datetimepicker({ 
  timepicker:false,
- format:'m.d.Y'
+ format:'m.d.Y',
+  minDate: 0
 });
 jQuery('#to').datetimepicker({
  timepicker:false,
- format:'m.d.Y'
+ format:'m.d.Y',
+  minDate: 0
 });
 jQuery('#from_date').datetimepicker({
  //timepicker:false,
-format:'m.d.Y H:i'
+format:'m.d.Y H:i',
+ minDate: 0,
+ //minTime: 0
 });
 jQuery('#to_date').datetimepicker({
  //timepicker:false,
-format:'m.d.Y H:i'
+format:'m.d.Y H:i',
+ minDate: 0,
+ //minTime: 0
 });
 $('#from_time').datetimepicker({
   datepicker:false,
-  format:'H:i'
+  format:'H:i',
+   minDate: 0
 });
 $('#to_time').datetimepicker({
   datepicker:false,
-  format:'H:i'
+  format:'H:i',
+   minDate: 0
 });
 $('#to_time').datetimepicker({
   datepicker:false,
-  format:'H:i'
+  format:'H:i',
+   minDate: 0
+});
+
+jQuery('#sunday-from').datetimepicker({
+ datepicker:false,
+ format:'H:i',
+});
+jQuery('#sunday-to').datetimepicker({
+ datepicker:false,
+ format:'H:i',
+});
+jQuery('#monday-from').datetimepicker({
+ datepicker:false,
+ format:'H:i',
+});
+jQuery('#monday-to').datetimepicker({
+ datepicker:false,
+ format:'H:i',
+});
+jQuery('#tuesday-from').datetimepicker({
+ datepicker:false,
+ format:'H:i',
+});
+jQuery('#tuesday-to').datetimepicker({
+ datepicker:false,
+ format:'H:i',
+});
+jQuery('#wednesday-from').datetimepicker({
+ datepicker:false,
+ format:'H:i',
+});
+jQuery('#wednesday-to').datetimepicker({
+ datepicker:false,
+ format:'H:i',
+});
+jQuery('#thursday-from').datetimepicker({
+ datepicker:false,
+ format:'H:i',
+});
+jQuery('#thursday-to').datetimepicker({
+ datepicker:false,
+ format:'H:i',
+});
+jQuery('#friday-from').datetimepicker({
+ datepicker:false,
+ format:'H:i',
+});
+jQuery('#friday-to').datetimepicker({
+ datepicker:false,
+ format:'H:i',
+});
+jQuery('#saturday-from').datetimepicker({
+ datepicker:false,
+ format:'H:i',
+});
+jQuery('#saturday-to').datetimepicker({
+ datepicker:false,
+ format:'H:i',
 });
 
 

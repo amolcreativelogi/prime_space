@@ -16,8 +16,6 @@
                             <?php } ?>
                            </select>
                     </div>
-                   
-                   
               </div>
               <div class="col-sm-10">
                 <div id="2" class="parking-slection">
@@ -25,19 +23,15 @@
                             <nav>
                                 <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                                     <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#hourly" role="tab" aria-controls="nav-home" aria-selected="true">Hourly</a>
-                                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#daily" role="tab" aria-controls="nav-profile" aria-selected="false">Daily</a>
+                                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab"  href="#daily" role="tab" aria-controls="nav-profile" aria-selected="false">Daily</a>
                                     <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#monthly" role="tab" aria-controls="nav-contact" aria-selected="false">Monthly</a>
                                 </div>
                                 
-                                <select class="filter-select">
-                                  <option>Car Type</option>
-                                  <option>Hatchback  </option>
-                                  <option>Sedan  </option>
-                                  <option>MPV  </option>
-                                  <option>SUV </option>
-                                  <option>Crossover </option>
-                                  <option>Coupe  </option>
-                                  <option>Convertibl </option>
+                                <select class="filter-select" id="car_type_id" name="car_type_id">
+                                  <option value="">Car Type</option>
+                                  <?php foreach($getCarType as $carType) { ?>
+                                  <option value="<?php echo $carType->car_type_id; ?>"><?php echo $carType->car_type; ?></option>  
+                                  <?php } ?>
                                 </select>
                             </nav>
                             
@@ -83,10 +77,11 @@
                                   <div class="form-group">
                                     <label>search</label>
                                     <div class="search">
-                                        <input type="text" name="location" id="location" placeholder="Address, City" autocomplete="on" runat="server">
-                                        <input type="hidden" id="city" name="city" />
-                                        <input type="hidden" name="latitude" id="latitude">
-                                        <input type="hidden" name="longitude" id="longitude"></div>
+                                      <input type="text" name=dailyFrmlocation" id="dailyFrmlocation" placeholder="Address, City" autocomplete="on" runat="server">
+                                      <input type="hidden" id="dailyFrmCity" name="dailyFrmCity" />
+                                      <input type="hidden" name="dailyFrmLatitude" id="dailyFrmLatitude">
+                                      <input type="hidden" name="dailyFrmLongitude" id="dailyFrmLongitude">
+                                    </div>
                                     </div>
                                   <div class="form-group date-group">
                                     <label>From</label>
@@ -107,10 +102,10 @@
                                   <div class="form-group">
                                     <label>search</label>
                                     <div class="search">
-                                        <input type="text" name="location" id="location" placeholder="Address, City" autocomplete="on" runat="server">
-                                        <input type="hidden" id="city" name="city" />
-                                        <input type="hidden" name="latitude" id="latitude">
-                                        <input type="hidden" name="longitude" id="longitude"></div>
+                                        <input type="text" name="monthlyFrmlocation" id="monthlyFrmlocation" placeholder="Address, City" autocomplete="on" runat="server">
+                                        <input type="hidden" id="monthlyFrmCity" name="monthlyFrmCity" />
+                                        <input type="hidden" name="monthlyFrmLatitude" id="monthlyFrmLatitude">
+                                        <input type="hidden" name="monthlyFrmLongitude" id="monthlyFrmLongitude"></div>
                                     </div>
                                   <div class="form-group date-group">
                                     <label>From</label>
@@ -151,13 +146,11 @@
                 <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#land-monthly" role="tab" aria-controls="nav-contact" aria-selected="false">Monthly</a>
               </div>
               
-              <select class="filter-select">
-                          <option>Land Use for</option>
-                          <option>Industrial  </option>
-                          <option>Agriculture  </option>
-                          <option>Residential  </option>
-                          <option>Commercial </option>
-                          <option>For All Type </option>
+              <select class="filter-select" name="land_type_id" id="land_type_id">
+                          <option value="">Land Use for</option>
+                          <?php foreach($getlandType as $lType) { ?>
+                          <option value="<?php echo $lType->land_type_id; ?>"><?php echo $lType->land_type; ?></option>
+                          <?php } ?>
                         </select>
             </nav>
                 <div class="tab-content" id="nav-tabContent">
@@ -167,10 +160,10 @@
                                   <div class="form-group">
                                     <label>Region</label>
                                     <div class="search">
-                                        <input type="text" name="location" id="location" placeholder="Address, City" autocomplete="on" runat="server">
-                                        <input type="hidden" id="city" name="city" />
-                                        <input type="hidden" name="latitude" id="latitude">
-                                        <input type="hidden" name="longitude" id="longitude"></div>
+                                        <input type="text" name="landdailyFrmlocation" id="landdailyFrmlocation" placeholder="Address, City" autocomplete="on" runat="server">
+                                        <input type="hidden" id="landdailyFrmCity" name="landdailyFrmCity" />
+                                        <input type="hidden" name="landdailyFrmLatitude" id="landdailyFrmLatitude">
+                                        <input type="hidden" name="landdailyFrmLongitude" id="landdailyFrmLongitude"></div>
                                     </div>
                                   <div class="form-group date-group">
                                     <label>From</label>
@@ -190,10 +183,10 @@
                                   <div class="form-group">
                                     <label>Region</label>
                                     <div class="search">
-                                        <input type="text" name="location" id="location" placeholder="Address, City" autocomplete="on" runat="server">
-                                        <input type="hidden" id="city" name="city" />
-                                        <input type="hidden" name="latitude" id="latitude">
-                                        <input type="hidden" name="longitude" id="longitude"></div>
+                                       <input type="text" name="landweeklyFrmlocation" id="landweeklyFrmlocation" placeholder="Address, City" autocomplete="on" runat="server">
+                                        <input type="hidden" id="landweeklyFrmCity" name="landweeklyFrmCity" />
+                                        <input type="hidden" name="landweeklyFrmLatitude" id="landweeklyFrmLatitude">
+                                        <input type="hidden" name="landweeklyFrmLongitude" id="landweeklyFrmLongitude"></div>
                                     </div>
                                   <div class="form-group date-group">
                                     <label>From</label>
@@ -213,10 +206,10 @@
                                   <div class="form-group">
                                     <label>Region</label>
                                     <div class="search">
-                                        <input type="text" name="location" id="location" placeholder="Address, City" autocomplete="on" runat="server">
-                                        <input type="hidden" id="city" name="city" />
-                                        <input type="hidden" name="latitude" id="latitude">
-                                        <input type="hidden" name="longitude" id="longitude"></div>
+                                        <input type="text" name="landmonthlyFrmlocation" id="landmonthlyFrmlocation" placeholder="Address, City" autocomplete="on" runat="server">
+                                        <input type="hidden" id="landmonthlyFrmCity" name="landmonthlyFrmCity" />
+                                        <input type="hidden" name="landmonthlyFrmLatitude" id="landmonthlyFrmLatitude">
+                                        <input type="hidden" name="landmonthlyFrmLongitude" id="landmonthlyFrmLongitude"></div>
                                     </div>
                                   <div class="form-group date-group">
                                     <label>From</label>
@@ -271,7 +264,7 @@
               <nav>
                     <div class="nav nav-tabs nav-fill" id="prop-tab" role="tablist">
 
-                        <input type="text" id="" value="" placeholder="Set Location">
+                        <input type="text" id="location-from-search" value="" placeholder="Set Location">
                       <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#closest" role="tab" aria-controls="nav-home" aria-selected="true">closest</a>
                       <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#cheapest" role="tab" aria-controls="nav-profile" aria-selected="false">cheapest</a>
                     </div>
@@ -317,9 +310,9 @@
                                 </div>
                                 <div class="pstext-btm">
                                   
-                                <!--<input type="hidden" id="from_destination_<?php echo $searchProp->property_id; ?>" value="<?php echo $searchProp->location; ?>" placeholder="Search Destination">-->
-                                <a href="" class="get-direction" onclick="getAddress(<?php echo $searchProp->property_id; ?>)"  ><i class="fa fa-map-marker" aria-hidden="true"></i></a>
-                                <a href='#'  class="prop-details">details</a>
+                               <input type="hidden" id="to_destination_<?php echo $searchProp->property_id; ?>" value="<?php echo $searchProp->location; ?>" placeholder="Search Destination">
+                                <a href="javascript:void();" class="get-direction" onclick="getAddress(<?php echo $searchProp->property_id; ?>)"  ><i class="fa fa-map-marker" aria-hidden="true"></i></a>
+                                <a href='<?php echo URL('/') ?>/propertydetails'  class="prop-details">details</a>
                                 <a href='<?php echo URL('/') ?>/propertydetails?moduleid=<?php echo Request::get("module_id")."&propertyid=".$searchProp->property_id."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="booknow">Book now</a>
             <!--<input type="text"  id="to_destination_<?php echo $searchProp->property_id; ?>" class="form-control" placeholder="Search Destination" style="margin-top: 0px;margin-bottom: 5px;margin-top: -7px;">-->
                                  <!--  <button class="booknow"></button> -->
@@ -450,7 +443,7 @@ $mapperPointer =  json_encode($c);
 
   function getAddress(id)
   {
-    var fromdest = $('#from_destination_'+id).val();
+    var fromdest = $('#location-from-search').val();
     var to = $('#to_destination_'+id).val();
 
     url = 'https://www.google.com/maps/dir/'+fromdest+'/'+to+'';

@@ -40,6 +40,32 @@
                     <span class="admin-pay-method">DOB : </span>
                    <span class="admin-student"><?php echo date('m-d-Y',strtotime($user_profile->dob)); ?></span>
                   </li>
+
+                   <li>
+                    <span class="admin-pay-method">Address : </span>
+                   <span class="admin-student"><?php echo $user_profile->address; ?></span>
+                  </li>
+
+                  <li>
+                    <span class="admin-pay-method">City : </span>
+                   <span class="admin-student"><?php echo $user_profile->city; ?></span>
+                  </li>
+
+                  <li>
+                    <span class="admin-pay-method">Zipcode : </span>
+                   <span class="admin-student"><?php echo $user_profile->zipcode; ?></span>
+                  </li>
+
+
+                  <li>
+                    <span class="admin-pay-method">longitude : </span>
+                   <span class="admin-student"><?php echo $user_profile->user_longitude; ?></span>
+                  </li>
+
+                  <li>
+                    <span class="admin-pay-method">latitude : </span>
+                   <span class="admin-student"><?php echo $user_profile->user_latitude; ?></span>
+                  </li>
   
                 <!--  <li class="admin-last-subtotal">
                     <span class="admin-subtotal">User Type :</span>
