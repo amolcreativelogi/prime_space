@@ -62,7 +62,7 @@
                   <?php } else { ?>
                   <li><a href="<?php echo URL::to('user/switchtocustomer'); ?>">Switch to Customer</a></li>
                    <?php } } ?>
-                  <li><a href="#">edit profile</a></li>
+                  <li><a href="<?php echo URL::to('user/editprofile/'.$_SESSION['user']['user_id']); ?>">edit profile</a></li>
                   <li><a href="#">Account Setting </a></li>
                   <li><a href="<?php echo URL::to('/user/logout'); ?>">logout</a></li>
                 </ul>
@@ -196,6 +196,22 @@ var input = document.getElementById('location');
         document.getElementById('latitude-top-search').value = place3.geometry.location.lat();
         document.getElementById('longitude-top-search').value = place3.geometry.location.lng();
     });
+
+
+  var input4 = document.getElementById('update_profile_address');
+  var autocomplete4 = new google.maps.places.Autocomplete(input4);
+    google.maps.event.addListener(autocomplete4, 'place_changed', function () {
+        var place4 = autocomplete4.getPlace();
+        document.getElementById('city-profile-address').value = place4.name;
+        document.getElementById('latitude-profile-address').value = place4.geometry.location.lat();
+        document.getElementById('longitude-profile-address').value = place4.geometry.location.lng();
+    });
+
+  var input5 = document.getElementById('location-from-search');
+  var autocomplete5 = new google.maps.places.Autocomplete(input5);
+    google.maps.event.addListener(autocomplete5, 'place_changed', function () {
+    });
+
 }
 google.maps.event.addDomListener(window, 'load', initialize);
 </script>

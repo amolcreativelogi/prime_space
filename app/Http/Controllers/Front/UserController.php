@@ -179,4 +179,42 @@ class UserController extends Controller
         });
 		exit;
 	}
+
+	public function editprofile($userId)
+	{	
+		$getuserDetails = DB::table('prk_user_registrations')->select('*')->where('user_id', '=', $userId)->first();
+
+		return view('front.pages.update_profile')->with(['userdetails'=>$getuserDetails]);
+	}
+
+	public function updatesaveprofile(Request $request)
+	{
+		$data = array(
+					'firstname'=>$request->input('firstname'),
+					'lastname'=>$request->input('lastname'),
+					'contact_no'=>$request->input('contact_no'),
+					'address'=>$request->input('address'),
+					'zipcode'=>$request->input('zipcode'),
+					'city'=>$request->input('city'),
+					'user_latitude'=>$request->input('latitude'),
+					'user_longitude'=>$request->input('longitude')
+    				 );
+
+		$result  = DB::table('prk_user_registrations')->where('user_id', $request->input('user_id'))->update($data);
+
+
+		if($result)
+		{
+			//forgot password link send on email
+			$data = array('status' => true,
+						  'response' =>  array('msg' =>'Your profile has been updated successfully.'),'url' => '');	
+		}
+		else
+		{
+			$data = array('status' => false,
+						  'response' =>  array('msg' =>'Your profile not has been updated.'),'url' => '');	
+		}
+		echo json_encode($data);
+		exit;
+	}
 }

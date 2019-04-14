@@ -8,6 +8,7 @@
           <li><a href="">Newly add Properties</a></li>
           <li><a href="">Upcoming Booking </a></li> -->
           <li><a href="#">Dashboard</a></li>
+         
           <li><a href="<?php echo URL::to('addproperty'); ?>">Add Properties</a></li>
           <li><a href="<?php echo URL::to('user/parkingProperties'); ?>">Parking Properties</a></li>
           <li><a href="<?php echo URL::to('user/landProperties'); ?>">Land Properties</a></li>
