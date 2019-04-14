@@ -10,7 +10,9 @@
 <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700" rel="stylesheet"> 
 <!-- location autocomplete -->
 
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCW7L7bkL1lt82llGHEqSbB7fczpddVDqU&libraries=places"></script>
+<!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCW7L7bkL1lt82llGHEqSbB7fczpddVDqU&libraries=places"></script> -->
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2oRAljHGZArBeQc5OXY0MI5BBoQproWY&libraries=places"></script>
 
 <script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/jquery-1.11.3.min.js"></script>
 
@@ -91,6 +93,7 @@
 <script type="text/javascript">
 function searchURL(){
     var module_id = ($('#select-property-type').val())?$('#select-property-type').val():'2';
+
     var fromdate = getCurrentDate();
     var todate =   getCurrentDate();
     var fromtime = '00:00:00';
@@ -99,39 +102,93 @@ function searchURL(){
     var latitude = $('#latitude').val(); 
     var longitude = $('#latitude').val();
     var searchFormId=$("a.active").attr('href');
+    var searchFormLand=$("#nav-tab1 a.active").attr('href');
     var activeTab = "monthly";
-    
+    var car_type_id = 'no';
+    var land_type_id =  'no';
 
-    if(searchFormId == '#monthly'){
+    if(module_id == 2) {
+        if(searchFormId == '#monthly'){
+           fromdate = $('#monthly_from').val(); 
+           todate =   $('#monthly_to').val();
+           location = $('#monthlyFrmlocation').val();
+           latitude = $('#monthlyFrmLatitude').val(); 
+           longitude = $('#monthlyFrmLongitude').val();
+           car_type_id = ( $('#car_type_id').val()) ?  $('#car_type_id').val() : 'no';
+           activeTab = "monthly";
+        } else if(searchFormId == '#daily'){
+           fromdate = $('#from').val(); 
+           todate =   $('#to').val();
+           location = $('#dailyFrmlocation').val();
+           latitude = $('#dailyFrmLatitude').val(); 
+           longitude = $('#dailyFrmLongitude').val();
+           car_type_id = ( $('#car_type_id').val()) ?  $('#car_type_id').val() : 'no';
+           activeTab = "daily";
+        }
+        else if(searchFormId == '#hourly'){
+           var str = $('#from_date').val();
+           var from_date = str.split(' ');
+           var str1 = $('#to_date').val();
+           var to_date = str1.split(' ');
+           fromdate = from_date[0]; 
+           todate =   to_date[0]; 
+           fromtime = (from_date[1])?from_date[1]:'00:00:00';
+           totime= (to_date[1])?to_date[1]:'23:00:00';
+           location = $('#hrlyFrmlocation').val();
+           latitude = $('#hrlyFrmLatitude').val(); 
+           longitude = $('#hrlyFrmLongitude').val();
+           car_type_id = ( $('#car_type_id').val()) ?  $('#car_type_id').val() : 'no';
+           activeTab = "hourly";
+        }else{
+         var  search_dates = $('#search_dates').val();
+         location = $('#location').val();
+         latitude = $('#latitude').val(); 
+         longitude = $('#longitude').val();
+        } 
+    } else {
 
-       fromdate = $('#from').val(); 
-       todate =   $('#to').val();
-       location = $('#location').val();
-       latitude = $('#hrlyFrmLatitude').val(); 
-       longitude = $('#hrlyFrmLongitude').val();
-       activeTab = "monthly";
-    }else if(searchFormId == '#hourly'){
+       
+       if(searchFormLand == '#land-monthly'){
+           fromdate = $('#monthly_from').val(); 
+           todate =   $('#monthly_to').val();
+           location = $('#landmonthlyFrmlocation').val();
+           latitude = $('#landmonthlyFrmLatitude').val(); 
+           longitude = $('#landmonthlyFrmLongitude').val();
+           land_type_id = ( $('#land_type_id').val()) ?  $('#land_type_id').val() : 'no';
+           activeTab = "monthly";
+        } else if(searchFormLand == '#land-daily'){
+           fromdate = $('#daily_from').val(); 
+           todate =   $('#daily_to').val();
+           location = $('#landdailyFrmlocation').val();
+           latitude = $('#landdailyFrmLatitude').val(); 
+           longitude = $('#landdailyFrmLongitude').val();
+           land_type_id = ( $('#land_type_id').val()) ?  $('#land_type_id').val() : 'no';
+           activeTab = "daily";
+        }
+        else if(searchFormLand == '#land-weekly'){
+           fromdate = $('#weekly_from').val(); 
+           todate =   $('#weekly_to').val();
+           location = $('#landweeklyFrmlocation').val();
+           latitude = $('#landweeklyFrmLatitude').val(); 
+           longitude = $('#landweeklyFrmLongitude').val();
+           land_type_id = ( $('#land_type_id').val()) ?  $('#land_type_id').val() : 'no';
+           activeTab = "weekly";
+        }else{
+         var  search_dates = $('#search_dates').val();
+         location = $('#location').val();
+         latitude = $('#latitude').val(); 
+         longitude = $('#longitude').val();
+        }
 
-       fromdate = $('#from_date').val(); 
-       todate =   $('#to_date').val(); 
-       fromtime = ($('#from_time').val())?$('#from_time').val():'00:00:00';
-       totime= ($('#to_time').val())?$('#to_time').val():'23:00:00';
-       location = $('#hrlyFrmlocation').val();
-       latitude = $('#latitude').val(); 
-       longitude = $('#longitude').val();
-       activeTab = "hourly";
 
-    }else{
+    }
 
-    var  search_dates = $('#search_dates').val();
-     location = $('#location').val();
-     latitude = $('#latitude').val(); 
-     longitude = $('#longitude').val();
-   
-  }
-    var url = "<?php echo URL('/') ?>/searchproperty?module_id="+module_id+"&fromdate="+fromdate+"&todate="+todate+"&fromtime="+fromtime+"&totime="+totime+"&latitude="+latitude+"&longitude="+longitude+"&location="+location+"&activeTab="+activeTab;
+
+
+    var url = "<?php echo URL('/') ?>/searchproperty?module_id="+module_id+"&fromdate="+fromdate+"&todate="+todate+"&fromtime="+fromtime+"&totime="+totime+"&latitude="+latitude+"&longitude="+longitude+"&location="+location+"&car_type_id="+car_type_id+"&land_type_id="+land_type_id+"&activeTab="+activeTab;
+     //alert(url);
     //redirect url
-     window.location = url;
+    window.location = url;
     //window.location = "http://www.myurl.com/search/" + (input text value);
   }
 
@@ -178,6 +235,55 @@ var input = document.getElementById('location');
         document.getElementById('hrlyFrmLatitude').value = place1.geometry.location.lat();
         document.getElementById('hrlyFrmLongitude').value = place1.geometry.location.lng();
     });
+
+  var inputd = document.getElementById('dailyFrmlocation');
+  var autocompleted = new google.maps.places.Autocomplete(inputd);
+    google.maps.event.addListener(autocompleted, 'place_changed', function () {
+        var placed = autocompleted.getPlace();
+        document.getElementById('dailyFrmCity').value = placed.name;
+        document.getElementById('dailyFrmLatitude').value = placed.geometry.location.lat();
+        document.getElementById('dailyFrmLongitude').value = placed.geometry.location.lng();
+    });
+
+  var inputm = document.getElementById('monthlyFrmlocation');
+  var autocompletem = new google.maps.places.Autocomplete(inputm);
+    google.maps.event.addListener(autocompletem, 'place_changed', function () {
+        var placem = autocompletem.getPlace();
+        document.getElementById('monthlyFrmCity').value = placem.name;
+        document.getElementById('monthlyFrmLatitude').value = placem.geometry.location.lat();
+        document.getElementById('monthlyFrmLongitude').value = placem.geometry.location.lng();
+    });
+
+
+  // land search location
+  var inputlanddaily = document.getElementById('landdailyFrmlocation');
+  var autocompletelanddaily = new google.maps.places.Autocomplete(inputlanddaily);
+    google.maps.event.addListener(autocompletelanddaily, 'place_changed', function () {
+        var placelanddaily = autocompletelanddaily.getPlace();
+        document.getElementById('landdailyFrmCity').value = placelanddaily.name;
+        document.getElementById('landdailyFrmLatitude').value = placelanddaily.geometry.location.lat();
+        document.getElementById('landdailyFrmLongitude').value = placelanddaily.geometry.location.lng();
+    });
+
+   var inputlandweekly = document.getElementById('landweeklyFrmlocation');
+  var autocompletelandweekly = new google.maps.places.Autocomplete(inputlandweekly);
+    google.maps.event.addListener(autocompletelandweekly, 'place_changed', function () {
+        var placelandweekly = autocompletelandweekly.getPlace();
+        document.getElementById('landweeklyFrmCity').value = placelandweekly.name;
+        document.getElementById('landweeklyFrmLatitude').value = placelandweekly.geometry.location.lat();
+        document.getElementById('landweeklyFrmLongitude').value = placelandweekly.geometry.location.lng();
+    }); 
+
+  var inputlandmonthly = document.getElementById('landmonthlyFrmlocation');
+  var autocompletelandmonthly = new google.maps.places.Autocomplete(inputlandmonthly);
+    google.maps.event.addListener(autocompletelandmonthly, 'place_changed', function () {
+        var placelandmonthly = autocompletelandmonthly.getPlace();
+        document.getElementById('landmonthlyFrmCity').value = placelandmonthly.name;
+        document.getElementById('landmonthlyFrmLatitude').value = placelandmonthly.geometry.location.lat();
+        document.getElementById('landmonthlyFrmLongitude').value = placelandmonthly.geometry.location.lng();
+    });
+
+
 
   var input2 = document.getElementById('location-property');
   var autocomplete2 = new google.maps.places.Autocomplete(input2);
