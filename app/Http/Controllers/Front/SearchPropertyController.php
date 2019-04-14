@@ -116,9 +116,19 @@ class SearchPropertyController extends Controller
 
         //Count of properties
         $no_of_prop = ($searchResult)?count($searchResult):0;
-       
+
+         $getCarType = DB::table('prk_car_type')
+        ->select('status','car_type','car_type_id')
+        ->where([['is_deleted', '=', 0],
+                ['status', '=', 1]])->get();
+
+        $getlandType = DB::table('lnd_land_type')
+        ->select('status','land_type','land_type_id')
+        ->where([['is_deleted', '=', 0],
+                ['status', '=', 1]])->get();
+
         return view('front.pages.all_property')->with(
-        	['getModuleCategories'=>$getModuleCategories,'searchArr'=>$searchArr,'searchResult'=>$searchResult,'no_of_prop'=>$no_of_prop]
+        	['getModuleCategories'=>$getModuleCategories,'searchArr'=>$searchArr,'searchResult'=>$searchResult,'no_of_prop'=>$no_of_prop,'getCarType'=>$getCarType,'getlandType'=>$getlandType]
         );
        // exit;
 
