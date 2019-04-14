@@ -271,7 +271,7 @@
               <nav>
                     <div class="nav nav-tabs nav-fill" id="prop-tab" role="tablist">
 
-                        <input type="text" id="" value="" placeholder="Set Location">
+                        <input type="text" id="location-from-search" value="" placeholder="Set Location">
                       <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#closest" role="tab" aria-controls="nav-home" aria-selected="true">closest</a>
                       <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#cheapest" role="tab" aria-controls="nav-profile" aria-selected="false">cheapest</a>
                     </div>
@@ -317,9 +317,9 @@
                                 </div>
                                 <div class="pstext-btm">
                                   
-                                <!--<input type="hidden" id="from_destination_<?php echo $searchProp->property_id; ?>" value="<?php echo $searchProp->location; ?>" placeholder="Search Destination">-->
-                                <a href="" class="get-direction" onclick="getAddress(<?php echo $searchProp->property_id; ?>)"  ><i class="fa fa-map-marker" aria-hidden="true"></i></a>
-                                <a href='#'  class="prop-details">details</a>
+                               <input type="hidden" id="to_destination_<?php echo $searchProp->property_id; ?>" value="<?php echo $searchProp->location; ?>" placeholder="Search Destination">
+                                <a href="javascript:void();" class="get-direction" onclick="getAddress(<?php echo $searchProp->property_id; ?>)"  ><i class="fa fa-map-marker" aria-hidden="true"></i></a>
+                                <a href='<?php echo URL('/') ?>/propertydetails'  class="prop-details">details</a>
                                 <a href='<?php echo URL('/') ?>/propertydetails?moduleid=<?php echo Request::get("module_id")."&propertyid=".$searchProp->property_id."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="booknow">Book now</a>
             <!--<input type="text"  id="to_destination_<?php echo $searchProp->property_id; ?>" class="form-control" placeholder="Search Destination" style="margin-top: 0px;margin-bottom: 5px;margin-top: -7px;">-->
                                  <!--  <button class="booknow"></button> -->
@@ -427,7 +427,7 @@ $mapperPointer =  json_encode($c);
 
   function getAddress(id)
   {
-    var fromdest = $('#from_destination_'+id).val();
+    var fromdest = $('#location-from-search').val();
     var to = $('#to_destination_'+id).val();
 
     url = 'https://www.google.com/maps/dir/'+fromdest+'/'+to+'';

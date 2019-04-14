@@ -18,9 +18,12 @@
   <li></li>
   <li></li>
   <li></li>
+  <li></li>
+  <li></li>
   </ul>
 
   <!-- fieldsets -->
+ 
   <fieldset>
   <h2 class="fs-title">Property Information</h2>
   <input type="text" name="data[property_name]" id="property_name" placeholder="Property Name " />
@@ -58,6 +61,7 @@
   <input type="button" name="next" id="step2" class="next action-button" value="Next" />
   </fieldset>
 
+
   <fieldset>
   <div class="form-field step-show" id="2"  style="display:none;">
     <h2 class="fs-title">Cars and Pricing</h2>
@@ -65,10 +69,10 @@
     <table id="myTable" class=" table order-list1">
       <tbody>
           <tr>
-              <td class="col-sm-4">
+              <td class="col-sm-3">
                   <input type="text" name="data[parking][floor_name][]" placeholder="Enter floor name">
               </td>
-              <td class="col-sm-4">
+              <td class="col-sm-3">
                  <select name="data[parking][parking_type_id][]">
                    <option value="">Parking Type</option>
                   @if(!empty($getParkingType))
@@ -277,6 +281,185 @@
   <input type="button" name="previous" class="previous action-button" value="Previous" />
   <input type="button" name="next" id="step4" class="next action-button" value="Next" />
   </fieldset>
+  
+  <fieldset id="park-availabilty">
+  <h2 class="fs-title">When is it available?</h2>
+  <div class="box">
+    <div class="availablediv">
+    <div class="ad-row row sunday-row">
+      <div class="ad-col col-sm-2">Sunday</div>
+      <div class="ad-col col-sm-2">
+            <label class="switch">
+            <input type="checkbox" name="day_status[sunday]"  id="sunday-checkbox"  data-on="On" data-off="Off">
+            <span class="slider round" id="sunday-slider"></span>
+          </label>
+      </div>
+      <div class="ad-col col-sm-3">
+         <input type="text" name="dayname[]" value="sunday">
+        <input type="radio" name="day_hours[sunday]" value="24" id="sunday-allday" checked><label for="sunday-allday">All day (24 hours)</label>
+      </div>
+      <div class="ad-col col-sm-2">
+        <input type="radio" name="day_hours[sunday]" value="1" id="sunday-sethrs"><label for="sunday-sethrs">Set hours</label>
+      </div>
+      <div class="ad-col col-sm-3">
+        <div class="form-group date-group">
+              <input type="text" name="from_hours_time[sunday]" placeholder="Time" id="sunday-from" class="dates" >
+              <input type="text" name="to_hours_time[sunday]" placeholder="Time" id="sunday-to" class="dates"> 
+        </div>
+      </div>
+    </div><!--ad-row-->
+    <div class="ad-row row monday-row">
+      <div class="ad-col col-sm-2">Monday</div>
+      <div class="ad-col col-sm-2">
+       
+          <label class="switch">
+            <input type="checkbox" name="day_status[monday]" id="monday-checkbox">
+            <span class="slider round" id="monday-slider"></span>
+          </label>
+      </div>
+      <div class="ad-col col-sm-3">
+         <input type="text" name="dayname[]" value="monday">
+        <input type="radio" name="day_hours[monday]" value="24"  id="monday-allday" checked><label for="monday-allday">All day (24 hours)</label>
+      </div>
+      <div class="ad-col col-sm-2">
+        <input type="radio" name="day_hours[monday]" value="1"  id="monday-sethrs"><label for="monday-sethrs">Set hours</label>
+      </div>
+      <div class="ad-col col-sm-3">
+        <div class="form-group date-group">
+              <input type="text" name="from_hours_time[monday]" placeholder="Time" id="monday-from" class="dates">
+              <input type="text" name="to_hours_time[monday]" placeholder="Time" id="monday-to" class="dates"> 
+        </div>
+      </div>
+    </div><!--ad-row-->
+    <div class="ad-row row tuesday-row">
+      <div class="ad-col col-sm-2">Tuesday</div>
+      <div class="ad-col col-sm-2">
+          
+          <label class="switch">
+            <input type="checkbox" name="day_status[tuesday]" id="tuesday-checkbox">
+            <span class="slider round" id="tuesday-slider"></span>
+          </label>
+      </div>
+      <div class="ad-col col-sm-3">
+        <input type="text" name="dayname[]" value="tuesday">
+        <input type="radio" name="day_hours[tuesday]"  value="24" id="tuesday-allday" checked><label for="tuesday-allday">All day (24 hours)</label>
+      </div>
+      <div class="ad-col col-sm-2">
+        <input type="radio" name="day_hours[tuesday]" value="1"  id="tuesday-sethrs"><label for="tuesday-sethrs">Set hours</label>
+      </div>
+      <div class="ad-col col-sm-3">
+        <div class="form-group date-group">
+              <input type="text" name="from_hours_time[tuesday]" placeholder="Time" id="tuesday-from" class="dates">
+              <input type="text" name="to_hours_time[tuesday]" placeholder="Time" id="tuesday-to" class="dates"> 
+        </div>
+      </div>
+    </div><!--ad-row-->
+    <div class="ad-row row wednesday-row">
+      <div class="ad-col col-sm-2">Wednesday</div>
+      <div class="ad-col col-sm-2">
+         
+          <label class="switch">
+            <input type="checkbox" name="day_status[wednesday]" id="wednesday-checkbox">
+            <span class="slider round" id="wednesday-slider"></span>
+          </label>
+      </div>
+      <div class="ad-col col-sm-3"> 
+         <input type="text" name="dayname[]" value="wednesday">
+        <input type="radio" name="day_hours[wednesday]"  value="24" id="wednesday-allday" checked><label for="wednesday-allday">All day (24 hours)</label>
+      </div>
+      <div class="ad-col col-sm-2">
+        <input type="radio" name="day_hours[wednesday]" value="1"  id="wednesday-sethrs"><label for="wednesday-sethrs">Set hours</label>
+      </div>
+      <div class="ad-col col-sm-3">
+        <div class="form-group date-group">
+              <input type="text" name="from_hours_time[wednesday]" placeholder="Time" id="wednesday-from" class="dates">
+              <input type="text" name="to_hours_time[wednesday]" placeholder="Time" id="wednesday-to" class="dates"> 
+        </div>
+      </div>
+    </div><!--ad-row-->
+    <div class="ad-row row thursday-row">
+      <div class="ad-col col-sm-2">Thursday</div>
+      <div class="ad-col col-sm-2">
+          <label class="switch">
+            <input type="checkbox" name="day_status[thursday]"  id="thursday-checkbox">
+            <span class="slider round" id="thursday-slider"></span>
+          </label>
+      </div>
+      <div class="ad-col col-sm-3">
+        <input type="text" name="dayname[]" value="thursday">
+        <input type="radio"  name="day_hours[thursday]"  value="24" id="thursday-allday" checked><label for="thursday-allday">All day (24 hours)</label>
+      </div>
+      <div class="ad-col col-sm-2">
+        <input type="radio" name="day_hours[thursday]" value="1"  id="thursday-sethrs"><label for="thursday-sethrs">Set hours</label>
+      </div>
+      <div class="ad-col col-sm-3">
+        <div class="form-group date-group">
+              <input type="text" name="from_hours_time[thursday]" placeholder="Time" id="thursday-from" class="dates">
+              <input type="text" name="to_hours_time[thursday]" placeholder="Time" id="thursday-to" class="dates"> 
+        </div>
+      </div>
+    </div><!--ad-row-->
+    <div class="ad-row row friday-row">
+      <div class="ad-col col-sm-2">Friday</div>
+      <div class="ad-col col-sm-2">
+          <label class="switch">
+            <input type="checkbox"  name="day_status[friday]"  id="friday-checkbox">
+            <span class="slider round" id="friday-slider"></span>
+          </label>
+      </div>
+      <div class="ad-col col-sm-3">
+        <input type="text" name="dayname[]" value="friday">
+        <input type="radio" name="day_hours[friday]"  value="24" id="friday-allday" checked><label for="friday-allday">All day (24 hours)</label>
+      </div>
+      <div class="ad-col col-sm-2">
+        <input type="radio" name="day_hours[friday]"  value="1"  id="friday-sethrs"><label for="friday-sethrs">Set hours</label>
+      </div>
+      <div class="ad-col col-sm-3">
+        <div class="form-group date-group">
+              <input type="text" name="from_hours_time[friday]" placeholder="Time" id="friday-from" class="dates">
+              <input type="text" name="to_hours_time[friday]" placeholder="Time" id="friday-to" class="dates"> 
+        </div>
+      </div>
+    </div><!--ad-row-->
+    <div class="ad-row row saturday-row">
+      <div class="ad-col col-sm-2">Saturday</div>
+      <div class="ad-col col-sm-2">
+          <label class="switch">
+            <input type="checkbox" name="day_status[saturday]" id="saturday-checkbox">
+            <span class="slider round"  id="saturday-slider"></span>
+          </label>
+      </div>
+      <div class="ad-col col-sm-3">
+         <input type="text" name="dayname[]" value="saturday">
+        <input type="radio" name="day_hours[saturday]"  value="24" id="saturday-allday" checked><label for="saturday-allday">All day (24 hours)</label>
+      </div>
+      <div class="ad-col col-sm-2">
+        <input type="radio" name="day_hours[saturday]" value="1"  id="saturday-sethrs"><label for="saturday-sethrs">Set hours</label>
+      </div>
+      <div class="ad-col col-sm-3">
+        <div class="form-group date-group">
+              <input type="text" name="from_hours_time[saturday]" placeholder="Time" id="saturday-from" class="dates">
+              <input type="text" name="to_hours_time[saturday]" placeholder="Time" id="saturday-to" class="dates"> 
+        </div>
+      </div>
+    </div><!--ad-row-->
+  </div>
+  </div>
+  <input type="button" name="previous" class="previous action-button" value="Previous" />
+  <input type="button" name="next" class="next action-button" value="Next" />
+  </fieldset>
+
+  <fieldset id="cancellation-policy">
+  <h2 class="fs-title">Set your cancellation policy</h2>
+  <div class="box" id="get_cancellation_policy">
+   
+
+    
+    
+  </div>
+  <input type="button" name="previous" class="previous action-button" value="Previous" />
+  <input type="button" name="next" class="next action-button" value="Next" />
+  </fieldset>
 
   <fieldset>
   <h2 class="fs-title">Documents</h2>
@@ -333,6 +516,7 @@
             var getLocationTypes=json.getLocationTypes;
             var getAmenities=json.getAmenities;
             var getUnitTypes=json.getUnitTypes;
+            var getcancellationpolicies=json.getcancellationpolicies;
             
 
             var masters=[];
@@ -361,7 +545,7 @@
                 });
                 $('#get_property_size').html(masters['unittypes_input']);
 
-
+ 
                 masters['duration_price_input'] += '</tr>';
                 if(module_manage_id == 2) {
                 $('#rent_with_booking_duration_type').html(masters['duration_price_input']);
@@ -370,7 +554,22 @@
                 }
               }
 
-               //if booking duration type array is not blank for selected module
+
+              //if booking duration type array is not blank for selected module
+              if(getcancellationpolicies.length !== 0){
+                masters['cancellationpolicies'] ='';
+                $.each(getcancellationpolicies, function(i, v) {
+                    masters['cancellationpolicies'] += 
+                            '<div class="row"><div class="col-sm-3"><div class="ad-col"><input type="radio" name="cancellation_policy_id" id="'+ v.cancellation_policy_id +'" value="'+ v.cancellation_policy_id +'"/><label for="'+ v.cancellation_policy_id +'">'+ v.cancellation_type +'</label></div></div><div class="col-sm-9"><p>'+ v.cancellation_policy_text +'</p></div></div>';
+                   
+                });
+               // masters['cancellationpolicies'] += '';
+                $('#get_cancellation_policy').html(masters['cancellationpolicies']);
+                //alert(masters['location_type_input']);
+              }
+
+
+              //if booking duration type array is not blank for selected module
               if(getLocationTypes.length !== 0){
                 masters['location_type_input'] ='<li>';
                 $.each(getLocationTypes, function(i, v) {
@@ -498,62 +697,62 @@ var animating; //flag to prevent quick multi-click glitches
 $(".next").click(function(){
 
   var form = $("#msform");
-    form.validate({
-      rules: {
-        'data[property_name]': {
-          required: true,
-        },
-        'module_manage_id': {
-          required: true,
-        },
-        'data[location]': {
-          required: true,
-        },
-        'data[zip_code]': {
-          required: true,
-          digits: true
-        },
-        "data[property_description]": { 
-           required: true,
-        },
-        "data[parking][parking_type_id][]": { 
-           required: true,
-        },
-        "data[parking][total_parking_spots][]": { 
-           required: true,
-           digits: true
-        },
-        "data[parking][car_type_id][]": { 
-           required: true,
-        }
-      },
-      messages: {
-        'data[property_name]': {
-          required: "Property name is required",
-        },
-        'module_manage_id': {
-          required: "Property type is required",
-        },
-        'data[location]': {
-          required: "Location name is required",
-        },
-        'data[zip_code]': {
-          required: "Zip code is required",
-        },
-        'data[property_description]': {
-          required: "Description is required",
-        },
-        "data[parking][parking_type_id][]": {
-          required: "Parking Type is required",
-        },
-        "data[parking][total_parking_spots][]": {
-          required: "Total parking spot is required",
-        },
-        "data[parking][car_type_id][]": {
-          required: "Car type is required"
-        }
-      }
-    });
+    // form.validate({
+    //   rules: {
+    //     'data[property_name]': {
+    //       required: true,
+    //     },
+    //     'module_manage_id': {
+    //       required: true,
+    //     },
+    //     'data[location]': {
+    //       required: true,
+    //     },
+    //     'data[zip_code]': {
+    //       required: true,
+    //       digits: true
+    //     },
+    //     "data[property_description]": { 
+    //        required: true,
+    //     },
+    //     "data[parking][parking_type_id][]": { 
+    //        required: true,
+    //     },
+    //     "data[parking][total_parking_spots][]": { 
+    //        required: true,
+    //        digits: true
+    //     },
+    //     "data[parking][car_type_id][]": { 
+    //        required: true,
+    //     }
+    //   },
+    //   messages: {
+    //     'data[property_name]': {
+    //       required: "Property name is required",
+    //     },
+    //     'module_manage_id': {
+    //       required: "Property type is required",
+    //     },
+    //     'data[location]': {
+    //       required: "Location name is required",
+    //     },
+    //     'data[zip_code]': {
+    //       required: "Zip code is required",
+    //     },
+    //     'data[property_description]': {
+    //       required: "Description is required",
+    //     },
+    //     "data[parking][parking_type_id][]": {
+    //       required: "Parking Type is required",
+    //     },
+    //     "data[parking][total_parking_spots][]": {
+    //       required: "Total parking spot is required",
+    //     },
+    //     "data[parking][car_type_id][]": {
+    //       required: "Car type is required"
+    //     }
+    //   }
+    // });
   // if(animating) return false;
   // animating = true;
  if (form.valid() == true){
@@ -562,7 +761,7 @@ $(".next").click(function(){
       next_fs.show(); 
       current_fs.hide();
      // animating = false;
-     $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+     $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active"); 
  }
 
   //activate next step on progressbar using the index of next_fs
@@ -629,31 +828,31 @@ $(".previous").click(function(){
 });
 });
 
-$('#msform').on('submit', function(e){
-    e.preventDefault();
-    var formData = new FormData($(this)[0]);            
-    var request = $.ajax({
-        type: 'POST',
-        url: $(this).attr('action'),
-        //mimeType:'application/json',
-        dataType:'json',
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function(data){ 
-            if(data.status == 200)
-            { 
-            $('.loader').css('display','none');
-            $('.success-property').show();  
-            $(this)[0].reset();
-            }                         
-            //alert('success');
-        } ,
-        error: function(msg){
-             alert('error occurred please try again');  
-        }
-    });
-});
+// $('#msform').on('submit', function(e){
+//     e.preventDefault();
+//     var formData = new FormData($(this)[0]);            
+//     var request = $.ajax({
+//         type: 'POST',
+//         url: $(this).attr('action'),
+//         //mimeType:'application/json',
+//         dataType:'json',
+//         data: formData,
+//         contentType: false,
+//         processData: false,
+//         success: function(data){ 
+//             if(data.status == 200)
+//             { 
+//             $('.loader').css('display','none');
+//             $('.success-property').show();  
+//             $(this)[0].reset();
+//             }                         
+//             //alert('success');
+//         } ,
+//         error: function(msg){
+//              alert('error occurred please try again');  
+//         }
+//     });
+// });
 </script>
 <!--  $("#rent_with_booking_duration_type").html('');
 

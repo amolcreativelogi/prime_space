@@ -251,6 +251,8 @@ Route::get('/admin/mail','Admin\UsersController@mail');
 Route::post('/userRegistration','Front\UserController@userRegistration');
 Route::post('/userLogin','Front\UserController@userLogin');
 Route::post('/resetPassword','Front\UserController@resetPassword');
+Route::get('/user/editprofile/{id?}','Front\UserController@editprofile');
+Route::post('/updatesaveprofile/{id?}','Front\UserController@updatesaveprofile');
 
 
 Route::get('/user/parkingProperties','Front\HostController@parkingProperties')->middleware('UserAuth');
@@ -306,8 +308,8 @@ Route::get('/searchproperty/{module_id?}','Front\SearchPropertyController@SeachP
 Route::get('/bookNow','Front\BookingController@bookNow');
 
 //Route to load single property
-Route::get('/propertydetails/{module_id?}','Front\BookingController@propertyDetails');
-
+Route::get('/propertydetails/{module_id?}/{property_id?}','Front\BookingController@propertyDetails');
+ 
 //Route to book property
 Route::post('/frontend/bookProperty','Front\BookingController@bookProperty');
 

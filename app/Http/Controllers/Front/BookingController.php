@@ -18,15 +18,12 @@ class BookingController extends Controller
    
    
     //Get property details
-    public function propertyDetails()
-    { 
-      
-       $module_id = empty(request()->moduleid)?'2':request()->moduleid;
-       $property_id = empty(request()->propertyid)?'2':request()->propertyid;
-      //getTablePrefix
+    public function propertyDetails($module_id,$property_id)
+    {   
+       // $module_id = empty(request()->moduleid)?'2':request()->moduleid;
+       // $property_id = empty(request()->propertyid)?'2':request()->propertyid;
        $tbl_prefix=$this->getTablePrefix($module_id);
 
-      //getPropertyDetails
        $getPropertyDetails = DB::table($tbl_prefix.'add_property')->select('*')->where(['property_id'=>$property_id,'is_deleted'=>0,'status'=>1])->first();
 
        //get amenities with 
@@ -39,9 +36,26 @@ class BookingController extends Controller
           'amnty.amenity_id'
         )
          ->leftJoin($tbl_prefix.'add_property_amenities as propAmnty', 'propAmnty.amenity_id', '=', 'amnty.amenity_id')
-         ->where(['amnty.is_deleted'=>0,'amnty.status'=>1])->get();
+         ->where(['amnty.is_deleted'=>0,'amnty.status'=>1,'propAmnty.property_id'=>$property_id])->get();
 
-          return view('front.property.property_details')->with(['getPropertyDetails'=>$getPropertyDetails,'getPropAmenities'=>$getPropAmenities,'getPropImages'=>$getPropImages]); 
+         $getPropertyrent =  DB::table('prk_add_property_rent')->select('duration_type','car_type','rent_amount')->leftJoin('tbl_mstr_booking_duration_type', 'prk_add_property_rent.duration_type_id', '=', 'tbl_mstr_booking_duration_type.duration_type_id')->leftJoin('prk_car_type', 'prk_add_property_rent.car_type_id', '=', 'prk_car_type.car_type_id')->where('prk_add_property_rent.property_id', '=', $property_id)->get();
+
+         $getPropertyType =  DB::table('prk_add_property_floors')->select('parking_type','floor_name','total_parking_spots')->leftJoin('prk_parking_type', 'prk_add_property_floors.parking_type_id', '=', 'prk_parking_type.parking_type_id')->where('prk_add_property_floors.property_id', '=', $property_id)->get();
+
+          $getPropertyImagesFloorMap =  DB::table('prk_add_property_files')->select('name','document_type_id','default_file')->where('prk_add_property_files.property_id', '=', $property_id)->where('prk_add_property_files.document_type_id', '=', 2)->first();
+
+         // // foreach($getPropertyrent as $rent)
+         // // {
+         // //     $arrCarRent = array_push($rent['car_type'], $rent);
+           
+         // // }
+
+         // echo '<pre>';
+         // print_r($getPropertyType);
+         // exit;
+
+          return view('front.property.property_details')->with(['getPropertyDetails'=>$getPropertyDetails,'getPropAmenities'=>$getPropAmenities,'getPropertyType'=>$getPropertyType,'getPropImages'=>$getPropImages,'getPropertyImagesFloorMap'=>$getPropertyImagesFloorMap,'getPropertyrent'=>$getPropertyrent]); 
+    
     }
 
 
