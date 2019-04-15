@@ -132,6 +132,8 @@ class SearchPropertyController extends Controller
         );
        // exit;
 
+
+
     } 
 
 //Get table prefix by module id

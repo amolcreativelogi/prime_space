@@ -99,8 +99,8 @@ function searchURL(){
     var fromtime = '00:00:00';
     var totime= '23:59:00';
     var location = "";
-    var latitude = $('#latitude').val(); 
-    var longitude = $('#latitude').val();
+    var latitude = '36.16266380';//$('#latitude').val(); 
+    var longitude = '-86.78160160';//$('#latitude').val();
     var searchFormId=$("a.active").attr('href');
     var searchFormLand=$("#nav-tab1 a.active").attr('href');
     var activeTab = "monthly";

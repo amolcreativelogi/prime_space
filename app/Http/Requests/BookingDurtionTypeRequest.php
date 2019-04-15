@@ -24,6 +24,7 @@ class BookingDurtionTypeRequest extends FormRequest
     public function rules()
     {
         return [
+            'module_manage_id' => 'required',
             'booking_duration_type' => 'required'
         ];
     }
@@ -31,6 +32,7 @@ class BookingDurtionTypeRequest extends FormRequest
     public function messages()
     {
         return [
+            'module_manage_id.required' => 'Module category field is required',
             'booking_duration_type.required' => 'Booking duration type field is required'
         ];
     }

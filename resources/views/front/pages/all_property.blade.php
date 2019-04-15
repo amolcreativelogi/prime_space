@@ -328,6 +328,7 @@
                         </div><!-- ps-box -->
                        @endForeach
                     </div>
+
                     <div class="tab-pane fade" id="cheapest" role="tabpanel" aria-labelledby="nav-profile-tab">
                         <div class="ps-count"><?= $no_of_prop ?> Properties</div>
                       @foreach($searchResult as $searchProp)
@@ -379,14 +380,9 @@
                                 </div>
                             </div><!-- ps-box -->
                            @endForeach
+
                     </div>
                   </div>
-                  
-                  
-            
-           
-
-          
           </div>
           <div class="col-lg-7 col-md-7 col-sm-12 ps-map">
             <div id="mapCanvas"></div>
@@ -399,6 +395,30 @@
 </div><!-- all-properties -->
  
 </div><!-- site-content -->
+ <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <!-- <h4 class="modal-title">Modal Header</h4> -->
+                </div>
+                <div class="modal-body">
+                    <!-- <p>Some text in the modal.</p> -->
+                    <p><input name="user_location" id="user_location" placeholder="Your Location" /></p>
+                    <p><input name="prop_location" id="prop_location" placeholder=""/></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button"  class="btn btn-default" onclick="showlocationOnMap()">Submit</button>
+                    <button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
 
 
 <style type="text/css">
@@ -425,6 +445,9 @@ $mapperPointer =  json_encode($c);
 
 <script>
 
+
+
+
   function getAddress(id)
   {
     var fromdest = $('#location-from-search').val();
@@ -432,6 +455,7 @@ $mapperPointer =  json_encode($c);
 
     url = 'https://www.google.com/maps/dir/'+fromdest+'/'+to+'';
     window.open(url, '_blank');
+
   }
 
 //var jsonRes = <?php $searchResult; ?>;
