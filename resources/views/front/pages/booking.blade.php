@@ -11,16 +11,24 @@
                     <div class="selectdate">
                         <h3>new property</h3>
                         <h4>sadar, nagpur</h4>
-                        <select class="filter-select">
-                          <option>Car Type</option>
-                          <option>Hatchback  </option>
-                          <option>Sedan  </option>
-                          <option>MPV  </option>
-                          <option>SUV </option>
-                          <option>Crossover </option>
-                          <option>Coupe  </option>
-                          <option>Convertibl </option>
-                        </select>
+                        <!--<select class="filter-select">-->
+                        <!--  <option>Car Type</option>-->
+                        <!--  <option>Hatchback  </option>-->
+                        <!--  <option>Sedan  </option>-->
+                        <!--  <option>MPV  </option>-->
+                        <!--  <option>SUV </option>-->
+                        <!--  <option>Crossover </option>-->
+                        <!--  <option>Coupe  </option>-->
+                        <!--  <option>Convertibl </option>-->
+                        <!--</select>-->
+                        <label>Car Type : <strong>Hatchback</strong></label><br>
+                        <label>Location Type : <strong>Covered</strong></label>
+                        <!--<select class="filter-select">-->
+                        <!--    <option>Location Type</option>-->
+                        <!--    <option>Covered </option>-->
+                        <!--    <option>Uncovered </option>-->
+                        <!--    <option>Both </option>-->
+                        <!--</select>-->
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group date-group">

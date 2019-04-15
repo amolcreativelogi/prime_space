@@ -12,11 +12,11 @@
   <!-- <form id="msform" > -->
   <!-- progressbar -->
   <ul id="progressbar">
-  <li class="active"></li>
+  <li class="active"></li> 
   <li></li>
   <li></li>
   <li></li>
-  <li></li>
+  <li class="avail-hide"></li>
   <li></li>
   <li></li>
   <li></li>
@@ -44,9 +44,10 @@
   <input type="hidden" name="data[longitude]" id="longitude-property">
   <input type="text" name="data[zip_code]" id="zip_code" placeholder="Enter Property Zip Code" />
   <textarea placeholder="Property description" name="data[property_description]" id="property_description" cols="6"></textarea>
-  <div class="box">
-    <input type="file" name="property_images[]" id="property_images" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple style="display: none;" />
-    <label for="property_images"><span></span> <strong>Choose Property Images</strong></label>
+  <div>
+    <input type="file" name="property_images[]" id="property_images"/>
+     <!--  class="box"class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple style="display: none;"  -->
+    <!-- <label for="property_images"><span></span> <strong>Choose Property Images</strong></label> -->
   </div>
   <input type="button" name="next" id="step1" class="next action-button" value="Next" />
   </fieldset>
@@ -170,20 +171,7 @@
   <input type="text" name="property_size" placeholder="Sqft / Sq Meter / Acres">
   <hr>
 
-  <h2 class="fs-title">Tour Availability </h2>
-    <ul class="custom-radio" name="data[land][tour_availability]" style="text-align: left;">
-    <li>
-      <input type="radio" name="data[land][tour_availability]" value="1" id="tour_availability_yes">
-      <label for="tour_availability_yes">Yes  </label>
-    </li>
-    <li>
-      <input type="radio" name="data[land][tour_availability]" value="0" id="tour_availability_no">
-      <label for="tour_availability_no">No </label>
-    </li>
-  </ul>
-
-
-
+ 
   <h2 class="fs-title">Land Use for</h2>
     <ul class="custom-checkbox">
 
@@ -282,7 +270,8 @@
   <input type="button" name="next" id="step4" class="next action-button" value="Next" />
   </fieldset>
   
-  <fieldset id="park-availabilty">
+  <fieldset>
+  <div id="park-availabilty">
   <h2 class="fs-title">When is it available?</h2>
   <div class="box">
     <div class="availablediv">
@@ -295,7 +284,7 @@
           </label>
       </div>
       <div class="ad-col col-sm-3">
-         <input type="text" name="dayname[]" value="sunday">
+         <input type="hidden" name="dayname[]" value="sunday">
         <input type="radio" name="day_hours[sunday]" value="24" id="sunday-allday" checked><label for="sunday-allday">All day (24 hours)</label>
       </div>
       <div class="ad-col col-sm-2">
@@ -318,7 +307,7 @@
           </label>
       </div>
       <div class="ad-col col-sm-3">
-         <input type="text" name="dayname[]" value="monday">
+         <input type="hidden" name="dayname[]" value="monday">
         <input type="radio" name="day_hours[monday]" value="24"  id="monday-allday" checked><label for="monday-allday">All day (24 hours)</label>
       </div>
       <div class="ad-col col-sm-2">
@@ -341,7 +330,7 @@
           </label>
       </div>
       <div class="ad-col col-sm-3">
-        <input type="text" name="dayname[]" value="tuesday">
+        <input type="hidden" name="dayname[]" value="tuesday">
         <input type="radio" name="day_hours[tuesday]"  value="24" id="tuesday-allday" checked><label for="tuesday-allday">All day (24 hours)</label>
       </div>
       <div class="ad-col col-sm-2">
@@ -364,7 +353,7 @@
           </label>
       </div>
       <div class="ad-col col-sm-3"> 
-         <input type="text" name="dayname[]" value="wednesday">
+         <input type="hidden" name="dayname[]" value="wednesday">
         <input type="radio" name="day_hours[wednesday]"  value="24" id="wednesday-allday" checked><label for="wednesday-allday">All day (24 hours)</label>
       </div>
       <div class="ad-col col-sm-2">
@@ -386,7 +375,7 @@
           </label>
       </div>
       <div class="ad-col col-sm-3">
-        <input type="text" name="dayname[]" value="thursday">
+        <input type="hidden" name="dayname[]" value="thursday">
         <input type="radio"  name="day_hours[thursday]"  value="24" id="thursday-allday" checked><label for="thursday-allday">All day (24 hours)</label>
       </div>
       <div class="ad-col col-sm-2">
@@ -408,7 +397,7 @@
           </label>
       </div>
       <div class="ad-col col-sm-3">
-        <input type="text" name="dayname[]" value="friday">
+        <input type="hidden" name="dayname[]" value="friday">
         <input type="radio" name="day_hours[friday]"  value="24" id="friday-allday" checked><label for="friday-allday">All day (24 hours)</label>
       </div>
       <div class="ad-col col-sm-2">
@@ -430,7 +419,7 @@
           </label>
       </div>
       <div class="ad-col col-sm-3">
-         <input type="text" name="dayname[]" value="saturday">
+         <input type="hidden" name="dayname[]" value="saturday">
         <input type="radio" name="day_hours[saturday]"  value="24" id="saturday-allday" checked><label for="saturday-allday">All day (24 hours)</label>
       </div>
       <div class="ad-col col-sm-2">
@@ -445,6 +434,23 @@
     </div><!--ad-row-->
   </div>
   </div>
+  </div>
+  
+  <div class="tour-avail">
+      <h2 class="fs-title">Tour Availability </h2>
+        <ul class="custom-radio" name="data[land][tour_availability]" style="text-align: left;">
+        <li>
+          <input type="radio" name="data[land][tour_availability]" value="1" id="tour_availability_yes">
+          <label for="tour_availability_yes">Yes  </label>
+        </li>
+        <li>
+          <input type="radio" name="data[land][tour_availability]" value="0" id="tour_availability_no">
+          <label for="tour_availability_no">No </label>
+        </li>
+      </ul>
+  </div>
+  
+  
   <input type="button" name="previous" class="previous action-button" value="Previous" />
   <input type="button" name="next" class="next action-button" value="Next" />
   </fieldset>
@@ -697,62 +703,43 @@ var animating; //flag to prevent quick multi-click glitches
 $(".next").click(function(){
 
   var form = $("#msform");
-    // form.validate({
-    //   rules: {
-    //     'data[property_name]': {
-    //       required: true,
-    //     },
-    //     'module_manage_id': {
-    //       required: true,
-    //     },
-    //     'data[location]': {
-    //       required: true,
-    //     },
-    //     'data[zip_code]': {
-    //       required: true,
-    //       digits: true
-    //     },
-    //     "data[property_description]": { 
-    //        required: true,
-    //     },
-    //     "data[parking][parking_type_id][]": { 
-    //        required: true,
-    //     },
-    //     "data[parking][total_parking_spots][]": { 
-    //        required: true,
-    //        digits: true
-    //     },
-    //     "data[parking][car_type_id][]": { 
-    //        required: true,
-    //     }
-    //   },
-    //   messages: {
-    //     'data[property_name]': {
-    //       required: "Property name is required",
-    //     },
-    //     'module_manage_id': {
-    //       required: "Property type is required",
-    //     },
-    //     'data[location]': {
-    //       required: "Location name is required",
-    //     },
-    //     'data[zip_code]': {
-    //       required: "Zip code is required",
-    //     },
-    //     'data[property_description]': {
-    //       required: "Description is required",
-    //     },
-    //     "data[parking][parking_type_id][]": {
-    //       required: "Parking Type is required",
-    //     },
-    //     "data[parking][total_parking_spots][]": {
-    //       required: "Total parking spot is required",
-    //     },
-    //     "data[parking][car_type_id][]": {
-    //       required: "Car type is required"
-    //     }
-    //   }
-    // });
+    form.validate({
+      rules: {
+        'data[property_name]': {
+          required: true,
+        },
+        'module_manage_id': {
+          required: true,
+        },
+        'data[location]': {
+          required: true,
+        },
+        'data[zip_code]': {
+          required: true,
+          digits: true
+        },
+        "data[property_description]": { 
+           required: true,
+        }
+      },
+      messages: {
+        'data[property_name]': {
+          required: "Property name is required",
+        },
+        'module_manage_id': {
+          required: "Property type is required",
+        },
+        'data[location]': {
+          required: "Location name is required",
+        },
+        'data[zip_code]': {
+          required: "Zip code is required",
+        },
+        'data[property_description]': {
+          required: "Description is required",
+        }
+      }
+    });
   // if(animating) return false;
   // animating = true;
  if (form.valid() == true){
@@ -828,31 +815,31 @@ $(".previous").click(function(){
 });
 });
 
-// $('#msform').on('submit', function(e){
-//     e.preventDefault();
-//     var formData = new FormData($(this)[0]);            
-//     var request = $.ajax({
-//         type: 'POST',
-//         url: $(this).attr('action'),
-//         //mimeType:'application/json',
-//         dataType:'json',
-//         data: formData,
-//         contentType: false,
-//         processData: false,
-//         success: function(data){ 
-//             if(data.status == 200)
-//             { 
-//             $('.loader').css('display','none');
-//             $('.success-property').show();  
-//             $(this)[0].reset();
-//             }                         
-//             //alert('success');
-//         } ,
-//         error: function(msg){
-//              alert('error occurred please try again');  
-//         }
-//     });
-// });
+$('#msform').on('submit', function(e){
+    e.preventDefault();
+    var formData = new FormData($(this)[0]);            
+    var request = $.ajax({
+        type: 'POST',
+        url: $(this).attr('action'),
+        //mimeType:'application/json',
+        dataType:'json',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(data){ 
+            if(data.status == 200)
+            { 
+            $('.loader').css('display','none');
+            $('.success-property').show();  
+            $(this)[0].reset();
+            }                         
+            //alert('success');
+        } ,
+        error: function(msg){
+             alert('error occurred please try again');  
+        }
+    });
+});
 </script>
 <!--  $("#rent_with_booking_duration_type").html('');
 

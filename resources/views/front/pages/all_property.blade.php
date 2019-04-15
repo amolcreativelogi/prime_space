@@ -33,6 +33,13 @@
                                   <option value="<?php echo $carType->car_type_id; ?>"><?php echo $carType->car_type; ?></option>  
                                   <?php } ?>
                                 </select>
+                                
+                                <select class="filter-select">
+                                    <option>Location Type</option>
+                                    <option>Covered </option>
+                                    <option>Uncovered </option>
+                                    <option>Both </option>
+                                </select>
                             </nav>
                             
                             <div class="tab-content" id="nav-tabContent">
@@ -77,7 +84,7 @@
                                   <div class="form-group">
                                     <label>search</label>
                                     <div class="search">
-                                      <input type="text" name=dailyFrmlocation" id="dailyFrmlocation" placeholder="Address, City" autocomplete="on" runat="server">
+                                      <input type="text" name="dailyFrmlocation" id="dailyFrmlocation" placeholder="Address, City" autocomplete="on" runat="server">
                                       <input type="hidden" id="dailyFrmCity" name="dailyFrmCity" />
                                       <input type="hidden" name="dailyFrmLatitude" id="dailyFrmLatitude">
                                       <input type="hidden" name="dailyFrmLongitude" id="dailyFrmLongitude">

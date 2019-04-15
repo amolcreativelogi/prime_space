@@ -266,6 +266,13 @@ $(function() {
   });
 });
 
+$(function() {
+  $('#tab-prop-type').change(function(){
+    $('.parking-slection').hide();
+    $('#' + $(this).val()).show(); 
+  });
+});
+
 
 
 $(function() {
@@ -289,21 +296,40 @@ $(function () {
     });
 });
 
-                    $(function () {
-                        $("#select-property-type").change(function () {
-                            if ($(this).val() == 3) {
-                                $("#step4").addClass("open"); 
-                                $("#park-availabilty").addClass("exapnd");
-                                //$("#park-availabilty").css("display","none");
-                            } else {
-                                $("#step4").removeClass("open");
-                                $("#park-availabilty").removeClass("exapnd");
-                               // $("#park-availabilty").css("display","block");
-                            }
-                        });
-                    });
-                    
-                   
+
+
+$(function () {
+    $("#select-property-type").change(function () {
+        if ($(this).val() == 3) {
+            $("#step4").addClass("open"); 
+            $("#park-availabilty").hide(); 
+            $(".tour-avail").show(); 
+            $("#locationtype").hide(); 
+
+            // $("#park-availabilty").removeClass("exapnd");
+            // $(".avail-hide").hide();
+            // $("#park-availabilty").hide();
+            // $("#park-availabilty").css("display","none");
+        } else {
+            $("#step4").removeClass("open");
+            // $("#park-availabilty").addClass("exapnd");
+            // $(".avail-hide").show();
+            // $("#park-availabilty.exapnd").show();
+             $("#park-availabilty").show(); 
+            $(".tour-avail").hide(); 
+            $("#locationtype").show(); 
+        }
+    });
+});
+
+
+$(function() {
+$("#step4.open").click(function(){
+ $("#park-availabilty").css("display","none");
+});
+});
+
+
 
 $(function () {
     $("#select-property-type-top").change(function () {
@@ -429,12 +455,33 @@ $("#saturday-allday").click(function(){
 // });
 
 
+// Parking Tabs 
+function openParking(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+
+
 
 
 let today = new Date().toISOString().substr(0, 10);
 document.querySelector("#today").value = today;
 
 document.querySelector("#today2").valueAsDate = new Date();
+
+
 
 
 
