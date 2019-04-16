@@ -46,11 +46,6 @@
     <input type="text" class="form-control" name="zipcode"  value="<?php echo $userdetails->zipcode; ?>">
   </div>
 
-  <div class="form-group field-updateprofileform-address required">
-    <label class="control-label">Profile Image</label>
-    <input type="file" class="form-control" name="profile_pic">
-  </div>
-
   <div class="form-group">
     <button type="submit" class="bluebtn" name="update-profile-button">Update Profile</button>                    
   </div>

@@ -38,7 +38,6 @@ class UsersController extends Controller
 		$query->orWhere('lastname', 'like', '%' .  $_POST['search']['value'] . '%');
 		$query->orWhere('email_id', 'like', '%' .  $_POST['search']['value'] . '%');
 		}
-
 		$query->orWhere('user_type_id', '=', 5);
 		if($offset!= -1) {
 		    $query->skip($myll)->take($offset);
@@ -141,6 +140,7 @@ class UsersController extends Controller
     }
 
 
+ 
     public function getUseType($userType)
     {
     	switch ($userType) {

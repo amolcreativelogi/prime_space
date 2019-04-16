@@ -158,11 +158,13 @@ class PropertyController extends Controller
 
         //return view('front.property.add_property')->with('getModuleCategories', $getModuleCategories)->with('getLocationTypes', $getLocationTypes);
         
-    }
+    } 
     
     public function saveProperty(Request $request)
-    {     
-          
+    {       
+        echo '<pre>';
+        print_r($_POST);
+        exit;
         if(!$request->input('id')) {
 
             $tbl_prefix="";
@@ -180,11 +182,7 @@ class PropertyController extends Controller
                     # code...
                     break;
             };
-
-
-        
-
-            //echo $request['data']['property_name'];die('in');
+           //echo $request['data']['property_name'];die('in');
 
             // Commman parking and land save with condition
             if($request['module_manage_id'] == 2)
@@ -262,6 +260,7 @@ class PropertyController extends Controller
                     {
                         foreach($request['data']['parking']['floor_name'] as $key => $floor_name)
                         {
+                        if(!empty($floor_name) && !empty($request['data']['parking']['parking_type_id'][$key]) && !empty($request['data']['parking']['total_parking_spots'][$key])) {
                            $insertPropFloorDetails[]= array(
                                                  'floor_name'=>($floor_name)?$floor_name:'',
                                                  'parking_type_id'=>$request['data']['parking']['parking_type_id'][$key],
@@ -271,7 +270,7 @@ class PropertyController extends Controller
                                                  'created_by'=>'1',
                                                  'modified_by'=>'1',
                                                  'is_deleted'=>'0');
-                                    
+                              }
                         }
                         $insertPropFloorData  = DB::table($tbl_prefix.'add_property_floors')->insert($insertPropFloorDetails);
                     }
@@ -283,7 +282,10 @@ class PropertyController extends Controller
                             foreach($request['data']['parking']['car_type_id'] as $keyC => $car_type_id)
                             {
                                    foreach($request['data']['parking']['rent_amount'] as $keyR => $rent_amount)
-                                   {
+                                   {    
+
+                                       if(!empty($car_type_id) && !empty($request['data']['parking']['duration_type_id'][$keyR][$keyC]) && !empty($rent_amount[$keyC])) {
+
                                           $insertPropRentDetails[]= array(
                                                      'car_type_id' => $car_type_id,
                                                      'duration_type_id'=>$request['data']['parking']['duration_type_id'][$keyR][$keyC],
@@ -293,6 +295,7 @@ class PropertyController extends Controller
                                                      'created_by'=>'1',
                                                      'modified_by'=>'1',
                                                      'is_deleted'=>'0');
+                                        }
 
                                    }
                           }
@@ -301,7 +304,8 @@ class PropertyController extends Controller
                       {    
                          
                              foreach($request['data']['parking']['rent_amount'] as $keyR => $rent_amount)
-                             {
+                             {  
+                                        if(!empty($keyR) && !empty($rent_amount[0])) {
 
                                         $insertPropRentDetails[]= array(
                                                        'property_id' => $propertyId,
@@ -311,6 +315,7 @@ class PropertyController extends Controller
                                                        'created_by'=>'1',
                                                        'modified_by'=>'1',
                                                        'is_deleted'=>'0');
+                                    }
 
                              }
                       }
@@ -323,6 +328,7 @@ class PropertyController extends Controller
                   $inserAmenitiesArr=[];
                   foreach ($request['data']['amenities'] as $value) {
                                 # code...
+                                if(!empty($value)) {
                                 $inserAmenitiesArr[]=array(
                                                           'amenity_id'=>$value,
                                                           'property_id'=>$propertyId,
@@ -331,6 +337,7 @@ class PropertyController extends Controller
                                                           'modified_by'=>'1',
                                                           'is_deleted'=>'0'
                                                       );
+                                }
                             }
                             $insertPropFloorData  = DB::table($tbl_prefix.'add_property_amenities')->insert($inserAmenitiesArr);
                             //print_r($propFloorDetails);die('in');
@@ -354,6 +361,7 @@ class PropertyController extends Controller
                         // $destinationPath = public_path('/images/properties');
                         // $name = $image->move($destinationPath,$imagename);
                         $default_file = ($key == 0) ? 1 : 0;
+                        if(!empty($name)) {
                         $insertPropertyImage[] = array(
                                                    'name'=>$name,
                                                    'property_id'=>$propertyId,
@@ -363,6 +371,7 @@ class PropertyController extends Controller
                                                    'created_by'=>'1',
                                                    'modified_by'=>'1',
                                                    'is_deleted'=>'0');
+                        }
                       }
                       $insertPropertyImage  = DB::table($tbl_prefix.'add_property_files')->insert($insertPropertyImage);
                    }
@@ -436,12 +445,14 @@ class PropertyController extends Controller
                     {
                          $from_hours_time = ($request['day_hours'][$dayname] == 24) ? '00:00:01' : $request['from_hours_time'][$dayname]; 
                          $to_hours_time = ($request['day_hours'][$dayname] == 24) ? '23:59:00' : $request['to_hours_time'][$dayname];
+                         $day_status = (isset($request['day_status'][$dayname])) ? 1 : 0;
+
                          $propAvailDetails[] = array(
                                         'property_id'=>$propertyId,
                                         'days'=>$dayname,
                                         'start_time'=>$from_hours_time,
                                         'end_time'=>$to_hours_time,
-                                        'status'=>1,
+                                        'status'=>$day_status,
                                         'created_by'=>'1',
                                         'modified_by'=>'1',
                                         'is_deleted'=>'0',
@@ -457,8 +468,10 @@ class PropertyController extends Controller
                                              'created_by'=>'1',
                                              'modified_by'=>'1',
                                              'is_deleted'=>'0');
-                                        
+                
+                if(!empty($request['cancellation_policy_id'])) {                          
                 $insertcancellationpolicies  = DB::table($tbl_prefix.'add_property_cancellation_policies')->insert($insertcancellation);
+                }
                // $nextyear = date('Y-m-d', strtotime('+365 days'));
 
                // $propBasicavail = array(

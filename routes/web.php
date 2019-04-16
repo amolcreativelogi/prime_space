@@ -292,6 +292,7 @@ Route::get('/searchproperty/{module_id?}','Front\SearchPropertyController@SeachP
 
 Route::get('/bookNow','Front\BookingController@bookNow');
 
+
 //Route to load single property
 Route::get('/propertydetails/{module_id?}/{property_id?}','Front\BookingController@propertyDetails');
  
