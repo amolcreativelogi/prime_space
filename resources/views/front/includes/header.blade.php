@@ -112,16 +112,20 @@ function searchURL(){
     var searchFormId=$("a.active").attr('href');
     var searchFormLand=$("#nav-tab1 a.active").attr('href');
     var activeTab = "monthly";
-    var car_type_id = 'no';
-    var land_type_id =  'no';
+    var car_type_id = 1;
+    var land_type_id =  1;
+    var duration_type_id = '';
 
     if(module_id == 2) {
+        duration_type_id = 1;
         if(searchFormId == '#monthly'){
            fromdate = $('#monthly_from').val(); 
            todate =   $('#monthly_to').val();
            location = $('#monthlyFrmlocation').val();
            latitude = $('#monthlyFrmLatitude').val(); 
            longitude = $('#monthlyFrmLongitude').val();
+           duration_type_id = 3;
+
            car_type_id = ( $('#car_type_id').val()) ?  $('#car_type_id').val() : 'no';
            activeTab = "monthly";
         } else if(searchFormId == '#daily'){
@@ -132,6 +136,7 @@ function searchURL(){
            longitude = $('#dailyFrmLongitude').val();
            car_type_id = ( $('#car_type_id').val()) ?  $('#car_type_id').val() : 'no';
            activeTab = "daily";
+           duration_type_id = 2;
         }
         else if(searchFormId == '#hourly'){
            var str = $('#from_date').val();
@@ -147,6 +152,7 @@ function searchURL(){
            longitude = $('#hrlyFrmLongitude').val();
            car_type_id = ( $('#car_type_id').val()) ?  $('#car_type_id').val() : 'no';
            activeTab = "hourly";
+           duration_type_id = 1;
         }else{
          var  search_dates = $('#search_dates').val();
          location = $('#location').val();
@@ -155,7 +161,7 @@ function searchURL(){
         } 
     } else {
 
-       
+       duration_type_id = 2;
        if(searchFormLand == '#land-monthly'){
            fromdate = $('#monthly_from').val(); 
            todate =   $('#monthly_to').val();
@@ -164,6 +170,7 @@ function searchURL(){
            longitude = $('#landmonthlyFrmLongitude').val();
            land_type_id = ( $('#land_type_id').val()) ?  $('#land_type_id').val() : 'no';
            activeTab = "monthly";
+           duration_type_id = 3;
         } else if(searchFormLand == '#land-daily'){
            fromdate = $('#daily_from').val(); 
            todate =   $('#daily_to').val();
@@ -172,6 +179,7 @@ function searchURL(){
            longitude = $('#landdailyFrmLongitude').val();
            land_type_id = ( $('#land_type_id').val()) ?  $('#land_type_id').val() : 'no';
            activeTab = "daily";
+           duration_type_id = 2;
         }
         else if(searchFormLand == '#land-weekly'){
            fromdate = $('#weekly_from').val(); 
@@ -181,6 +189,7 @@ function searchURL(){
            longitude = $('#landweeklyFrmLongitude').val();
            land_type_id = ( $('#land_type_id').val()) ?  $('#land_type_id').val() : 'no';
            activeTab = "weekly";
+           duration_type_id = 4;
         }else{
          var  search_dates = $('#search_dates').val();
          location = $('#location').val();
@@ -193,7 +202,7 @@ function searchURL(){
 
 
 
-    var url = "<?php echo URL('/') ?>/searchproperty?module_id="+module_id+"&fromdate="+fromdate+"&todate="+todate+"&fromtime="+fromtime+"&totime="+totime+"&latitude="+latitude+"&longitude="+longitude+"&location="+location+"&car_type_id="+car_type_id+"&land_type_id="+land_type_id+"&activeTab="+activeTab;
+    var url = "<?php echo URL('/') ?>/searchproperty?module_id="+module_id+"&fromdate="+fromdate+"&todate="+todate+"&fromtime="+fromtime+"&totime="+totime+"&latitude="+latitude+"&longitude="+longitude+"&location="+location+"&car_type_id="+car_type_id+"&duration_type_id="+duration_type_id+"&land_type_id="+land_type_id+"&activeTab="+activeTab;
      //alert(url);
     //redirect url
     window.location = url;

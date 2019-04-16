@@ -931,31 +931,31 @@ $(".previous").click(function(){
 });
 });
 
-// $('#msform').on('submit', function(e){
-//     e.preventDefault();
-//     var formData = new FormData($(this)[0]);            
-//     var request = $.ajax({
-//         type: 'POST',
-//         url: $(this).attr('action'),
-//         //mimeType:'application/json',
-//         dataType:'json',
-//         data: formData,
-//         contentType: false,
-//         processData: false,
-//         success: function(data){ 
-//             if(data.status == 200)
-//             { 
-//             $('.loader').css('display','none');
-//             $('.success-property').show();  
-//             $(this)[0].reset();
-//             }                         
-//             //alert('success');
-//         } ,
-//         error: function(msg){
-//              alert('error occurred please try again');  
-//         }
-//     });
-// });
+$('#msform').on('submit', function(e){
+    e.preventDefault();
+    var formData = new FormData($(this)[0]);            
+    var request = $.ajax({
+        type: 'POST',
+        url: $(this).attr('action'),
+        //mimeType:'application/json',
+        dataType:'json',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(data){ 
+            if(data.status == 200)
+            { 
+            $('.loader').css('display','none');
+            $('.success-property').show();  
+            $(this)[0].reset();
+            }                         
+            //alert('success');
+        } ,
+        error: function(msg){
+             alert('error occurred please try again');  
+        }
+    });
+});
 </script>
 <!--  $("#rent_with_booking_duration_type").html('');
 
