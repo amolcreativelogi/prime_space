@@ -957,12 +957,43 @@ class MasterController extends Controller
 	**/
     public function addBookingDurationType($booking_duration_type_id = NULL)
     {
+		
+    	//get modulelist
 		$getModuleCategories = DB::table('tbl_module_manage')
 		    	->select('module_manage_id','status','module_manage_name')
 		    	->where([['is_deleted', '=', 0],
 		    			['status', '=', 1]])->get();
-    	$getBookingDurtionType = DB::table('tbl_mstr_booking_duration_type')->where('duration_type_id', '=', $booking_duration_type_id)->first();
-    	return view('admin.master.new_booking_duration_type')->with('editBookingDurtionType', $getBookingDurtionType)->with('getModuleCategories', $getModuleCategories);
+
+		//get booking duration type list as per its modules
+		$getBookingDurtionType = [];
+    	$module_manage_ids = [];
+
+    	if(!is_null($booking_duration_type_id)){
+    	$getBookingDurtionType = DB::table('tbl_mstr_booking_duration_type')->select('tbl_mstr_booking_duration_type.duration_type',
+			'tbl_mstr_booking_duration_type.status',
+			'tbl_mstr_booking_duration_type.duration_type_id',
+			DB::raw("(GROUP_CONCAT(tbl_module_manage.module_manage_id)) as `module_ids`"),
+			
+			DB::raw("(GROUP_CONCAT(module_manage_name)) as `modules`")
+		)
+		 ->leftJoin('tbl_mstr_booking_duration_type_with_module', 'tbl_mstr_booking_duration_type_with_module.duration_type_id', '=', 'tbl_mstr_booking_duration_type.duration_type_id')
+		 ->leftJoin('tbl_module_manage', 'tbl_module_manage.module_manage_id', '=', 'tbl_mstr_booking_duration_type_with_module.module_manage_id')->where('tbl_mstr_booking_duration_type.is_deleted', '=', 0)
+		 ->groupBy('tbl_mstr_booking_duration_type.duration_type_id','tbl_mstr_booking_duration_type.duration_type','tbl_mstr_booking_duration_type.status')
+		 ->where('tbl_mstr_booking_duration_type.duration_type_id', '=', $booking_duration_type_id)->first();
+
+		//format module ids from string to array
+		 
+		 if(!empty($getBookingDurtionType->module_ids)){
+			 $module_manage_ids = explode(',', $getBookingDurtionType->module_ids);
+		  }
+
+		 }
+		
+    	return view('admin.master.new_booking_duration_type')
+    	->with(array(
+    	'editBookingDurtionType' => $getBookingDurtionType,
+    	'getModuleCategories'=>$getModuleCategories,
+    	'module_manage_ids'=>$module_manage_ids));
     }
 
      /**
@@ -975,59 +1006,128 @@ class MasterController extends Controller
 
 	public function saveBookingDurationType(BookingDurtionTypeRequest $request)
     {	
-    	
-		 if(!$request->input('id')) {
+ 		
+ 		
+		 //get categories id
+		 $module_categories = $request->input('module_manage_id');
+		
+		if(!$request->input('id')) {
 
-		    //Add new record
-		 	//check duplicate entries
-		    $duplicateEntry = DB::table('tbl_mstr_booking_duration_type')->where('duration_type', '=', $request->input('booking_duration_type'))->where('module_manage_id', '=', $request->input('module_manage_id'))->where('is_deleted', '=', 0)->count();
-				if($duplicateEntry == 0) {
-			    	$data = array(
-			    					'duration_type'=>$request->input('booking_duration_type'),
-			    					'module_manage_id'=>$request->input('module_manage_id'),
-			    					'status'=>$request->input('status'),
-			    					'created_by'=>'1',
-			    					'modified_by'=>'1'
-			    				 );
-			    	$result  = DB::table('tbl_mstr_booking_duration_type')->insert($data);
-			    	if($result)
+		 	//check duplicate entries for amenity
+			$duplicateEntry = DB::table('tbl_mstr_booking_duration_type')->where('duration_type', '=', $request->input('booking_duration_type'))->where('is_deleted', '=', 0)->count();
+
+			if($duplicateEntry != 0) {
+
+			    	return redirect()->back()->withWarning('Booking duration type already exists');
+
+			}else{    
+				//Store ameniy details
+				$duration_type_details= array(
+    					'duration_type'=>$request->input('booking_duration_type'),
+    					'status'=>$request->input('status'),
+    					'created_by'=>'1',
+    					'modified_by'=>'1'
+    				 );
+
+
+				$duration_type_id  = DB::table('tbl_mstr_booking_duration_type')->insertGetId($duration_type_details);
+				    //$amenity_id = $saveAmenity->insertGetId();
+				   	
+				 $data =[];
+				   	foreach($module_categories as $module_category){
+					   		//Add new record
+					   	if(!empty($module_category)){
+					   		
+						    	$data[] = array(
+						    					'duration_type_id'=>$duration_type_id,
+						    					'module_manage_id'=>$module_category,
+						    					'status'=>$request->input('status'),
+						    					'created_by'=>'1',
+						    					'modified_by'=>'1'
+						    				 );
+
+					    }
+
+				   	}
+				   
+				   	if(!empty($data)){
+				   		$result  = DB::table('tbl_mstr_booking_duration_type_with_module')->insert($data);
+				   	}
+		   			
+			    	if(isset($result))
 			    	{
 			    		return redirect()->back()->withSuccess('Record has been saved successfully');
 			    	}
-			    }  else {
+				    
+			}
 
-			    		return redirect()->back()->withWarning('Booking duration type already saved');
-				}
 					    	
-		    } else {
-		    		//Update new record
-		    	//check duplicate entries
-		    	$duplicateEntry = DB::table('tbl_mstr_booking_duration_type')
-		    	->where('duration_type', '=', $request->input('booking_duration_type'))
-		    	->where('module_manage_id', '=', $request->input('module_manage_id'))
-		    	->where('duration_type_id', '!=', $request->input('id'))
-		    	->where('is_deleted', '=', 0)->count();
-				if($duplicateEntry == 0) {
-		    		$data = array(
-			    					'duration_type'=>$request->input('booking_duration_type'),
-			    					'module_manage_id'=>$request->input('module_manage_id'),
-			    					'status'=>$request->input('status'),
-			    					'created_by'=>'1',
-			    					'modified_by'=>'1'
-			    				 );
-					$result  = DB::table('tbl_mstr_booking_duration_type')->where('duration_type_id', $request->input('id'))->update($data);
-			    	if($result)
-			    	{
-			    		return redirect()->back()->withSuccess('Record has been updated successfully');
-			    	} else {
-			    		return redirect('admin/bookingDurationTypeExecute');
-			    	}
-			     }  else {
+		} else { //EDIT FUNCTIONALITY
+		 	
+		 	//check duplicate entries for amenity
+			$duplicateEntry = DB::table('tbl_mstr_booking_duration_type')->where('duration_type', '=', $request->input('booking_duration_type'))->where('duration_type_id', '!=', $request->input('id'))->where('is_deleted', '=', 0)->count();
 
-			    		return redirect()->back()->withWarning('Booking duration type already exists');
+			if($duplicateEntry == 0) {
+
+				//Store ameniy details
+				$duration_type_details= array(
+    					'duration_type'=>$request->input('booking_duration_type'),
+    					'status'=>$request->input('status'),
+    					'created_by'=>'1',
+    					'modified_by'=>'1'
+    				 );
+
+				$result  = DB::table('tbl_mstr_booking_duration_type')->where('duration_type_id', $request->input('id'))->update($duration_type_details);
+
+				//delete old entries 
+				$isDeletedDurationTypeModule = DB::table('tbl_mstr_booking_duration_type_with_module')->where('duration_type_id', $request->input('id'))
+				//->whereIn('module_manage_id', $module_categories)
+				->delete();
+
+				$data =[];
+
+				//if deleted old records then save new
+				if($isDeletedDurationTypeModule){
+					
+				   	foreach($module_categories as $module_category){
+					   		//Add new record
+					   	if(!empty($module_category)){
+						    	$data[] = array(
+				    					'duration_type_id'=>$request->input('id'),
+				    					'module_manage_id'=>$module_category,
+				    					'status'=>$request->input('status'),
+				    					'created_by'=>'1',
+				    					'modified_by'=>'1'
+				    				 );
+
+					    }
+					    
+
+				   	}
+
+				   	if(!empty($data)){
+				   		$insertBookingDurationTypeModule  = DB::table('tbl_mstr_booking_duration_type_with_module')->insert($data);
+				   	}
+		   			
+			    	if(isset($insertBookingDurationTypeModule))
+			    	{
+			    		return redirect()->back()->withSuccess('Record has been saved successfully');
+			    	}
+				    
 				}
-		    }
+
+			} else {
+
+				return redirect()->back()->withWarning('Booking duration type already exists');
+			}
+
+    		
+		}
+
+		   
     }
+
+	
 
     /**
 	author:Priyanka
@@ -1036,9 +1136,10 @@ class MasterController extends Controller
 	type:public
 	return:json array
 	**/
-    public function getBookingDurationTypes()
+
+	public function getBookingDurationTypes()
     {	
-    	$sort = array('module_manage_name','booking_duration_type','tbl_mstr_booking_duration_type.status');
+    	$sort = array('module_manage_name','duration_type','tbl_module_manage.status');
 		$myll = $_POST['start'];
 		$offset = $_POST['length'];
 		if(isset($_POST['order'][0])){
@@ -1046,11 +1147,23 @@ class MasterController extends Controller
 		$title=$orrd['column'];
 		$order=$orrd['dir'];
 		}
+ 		
+ 		//get total booking duration type
+		$getBookingDurTypeTotalRecord = DB::table('tbl_mstr_booking_duration_type')->select('tbl_mstr_booking_duration_type.duration_type','tbl_mstr_booking_duration_type.status','tbl_mstr_booking_duration_type.duration_type_id')->where('is_deleted', '=', 0)->get()->count();
 
-		$getBookingDurTypeTotalRecord = DB::table('tbl_mstr_booking_duration_type')->select('duration_type','tbl_mstr_booking_duration_type.status','duration_type_id')->where('is_deleted', '=', 0)->get()->count();
+		//get booking duration type with its modules
+		$query = DB::table('tbl_mstr_booking_duration_type')->select('tbl_mstr_booking_duration_type.duration_type',
+			'tbl_mstr_booking_duration_type.status',
+			'tbl_mstr_booking_duration_type.duration_type_id',
+			DB::raw("(GROUP_CONCAT(tbl_module_manage.module_manage_id)) as `module_ids`"),
+			
+			DB::raw("(GROUP_CONCAT(module_manage_name)) as `modules`")
+		)
+		 ->leftJoin('tbl_mstr_booking_duration_type_with_module', 'tbl_mstr_booking_duration_type_with_module.duration_type_id', '=', 'tbl_mstr_booking_duration_type.duration_type_id')
+		 ->leftJoin('tbl_module_manage', 'tbl_module_manage.module_manage_id', '=', 'tbl_mstr_booking_duration_type_with_module.module_manage_id')->where('tbl_mstr_booking_duration_type.is_deleted', '=', 0)
+		 ->groupBy('tbl_mstr_booking_duration_type.duration_type_id','tbl_mstr_booking_duration_type.duration_type','tbl_mstr_booking_duration_type.status');
 
-		$query = DB::table('tbl_mstr_booking_duration_type')->select('duration_type','tbl_mstr_booking_duration_type.status','duration_type_id','module_manage_name')->leftJoin('tbl_module_manage', 'tbl_module_manage.module_manage_id', '=', 'tbl_mstr_booking_duration_type.module_manage_id')->where('tbl_mstr_booking_duration_type.is_deleted', '=', 0);
-		if($_POST['search']['value']) {
+		if($_POST['search']['value'] && $_POST['search']['value'] != 'clear') {
 	    $query->where('duration_type', 'like', '%' .  $_POST['search']['value'] . '%');
 	    $query->orWhere('module_manage_name', 'like', '%' .  $_POST['search']['value'] . '%');
 		}
@@ -1068,26 +1181,29 @@ class MasterController extends Controller
 	    $data = array();
 	    $data = array();
 	    $no = $_POST['start'];
-	  
+	   
 	    $sr = 1;
-	    foreach ($getBookingDurType as $bookingDurType) {
+	     foreach ($getBookingDurType as $bookingDurType) {
 	      	  $no++;
 	          $row = array();
 	          //$row[] = $sr++;
-	          $row[] = $bookingDurType->module_manage_name;
+	          $row[] = $bookingDurType->modules;
 	          $row[] = $bookingDurType->duration_type;
 	          $row[] = ($bookingDurType->status == 1) ? 'Active' : 'Inactive';
-	           $row[] ='<a href="'.url('admin/addBookingDurationType/'.$bookingDurType->duration_type_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$bookingDurType->duration_type_id.','."'tbl_mstr_booking_duration_type'".','."'duration_type_id'".');"><i class="fa fa-trash-o"></i></button>';
+	           $row[] ='<a href="'.url('admin/addBookingDurationType/'.$bookingDurType->duration_type_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecordWithChild('.$bookingDurType->duration_type_id.','."'tbl_mstr_booking_duration_type'".','."'duration_type_id'".','."'1'".','."'tbl_mstr_booking_duration_type_with_module'".');"><i class="fa fa-trash-o"></i></button>';
 	          $data[] = $row;
 	        }
-	      $output = array(
+	         $output = array(
 	                      "draw" => $_POST['draw'],
 	                      "recordsTotal" => $getBookingDurTypeTotalRecord,
 	                      "recordsFiltered" => $getBookingDurTypeTotalRecord,
 	                      "data" => $data,
 	    );
+	      
 	    echo json_encode($output);
     }
+
+   
 
 
      /*-----------------------------------

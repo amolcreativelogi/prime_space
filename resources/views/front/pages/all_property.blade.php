@@ -30,16 +30,24 @@
                                 <select class="filter-select" id="car_type_id" name="car_type_id">
                                   <option value="">Car Type</option>
                                   <?php foreach($getCarType as $carType) { ?>
-                                  <option value="<?php echo $carType->car_type_id; ?>"><?php echo $carType->car_type; ?></option>  
+                                  <option <?php echo (Request::get("car_type_id")==$carType->car_type_id)?"selected":"" ?>
+                                  value="<?php echo $carType->car_type_id; ?>"><?php echo $carType->car_type; ?></option>  
+                                  <?php } ?>
+                                </select>
+
+                                <select class="filter-select" id="location_type_id" name="location_type_id">
+                                  <option value="">Location Type</option>
+                                  <?php foreach($getLocationType as $locationType) { ?>
+                                  <option <?php echo (Request::get("location_type_id")==$locationType->location_type_id)?"selected":"" ?> value="<?php echo $locationType->location_type_id; ?>"><?php echo $locationType->location_type; ?></option>  
                                   <?php } ?>
                                 </select>
                                 
-                                <select class="filter-select">
+                               <!--  <select class="filter-select">
                                     <option>Location Type</option>
                                     <option>Covered </option>
                                     <option>Uncovered </option>
                                     <option>Both </option>
-                                </select>
+                                </select> -->
                             </nav>
                             
                             <div class="tab-content" id="nav-tabContent">
@@ -156,7 +164,7 @@
               <select class="filter-select" name="land_type_id" id="land_type_id">
                           <option value="">Land Use for</option>
                           <?php foreach($getlandType as $lType) { ?>
-                          <option value="<?php echo $lType->land_type_id; ?>"><?php echo $lType->land_type; ?></option>
+                          <option <?php echo (Request::get("land_type_id")==$lType->land_type_id)?"selected":"" ?> value="<?php echo $lType->land_type_id; ?>"><?php echo $lType->land_type; ?></option>
                           <?php } ?>
                         </select>
             </nav>
@@ -190,7 +198,7 @@
                                   <div class="form-group">
                                     <label>Region</label>
                                     <div class="search">
-                                       <input type="text" name="landweeklyFrmlocation" id="landweeklyFrmlocation" placeholder="Address, City" autocomplete="on" runat="server">
+                                       <input type="text" name="landweeklyFrmlocation" id="landweeklyFrmlocation" value="" placeholder="Address, City" autocomplete="on" runat="server">
                                         <input type="hidden" id="landweeklyFrmCity" name="landweeklyFrmCity" />
                                         <input type="hidden" name="landweeklyFrmLatitude" id="landweeklyFrmLatitude">
                                         <input type="hidden" name="landweeklyFrmLongitude" id="landweeklyFrmLongitude"></div>
@@ -279,7 +287,7 @@
                   <div class="proptab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="closest" role="tabpanel" aria-labelledby="nav-home-tab">
                         <div class="ps-count"><?= $no_of_prop ?> Properties</div>
-                      @foreach($searchResult as $searchProp)
+                      @foreach($searchResult['closest'] as $searchProp)
                         <div class="ps-box">
                             <div class="ps-img">
                         <?php if(isset($searchProp->image) && file_exists(public_path() . '/images/properties/' . $searchProp->image. '')) { ?>
@@ -296,7 +304,25 @@
                                   <!--<div class="ps-avail"><?= $getDurationType;?></div>-->
                                   <!-- <div class="ps-avail">Hourly • Daily • Monthly</div> -->
                                   <!-- <div class="ps-price">$83<span>/day</span></div> -->
-                                  <div class="ps-price"><?= isset($searchProp->rent_amount)?$searchProp->rent_amount.'<span>/Hour</span>':''; ?></div>
+                                  <div class="ps-price">
+                                    <?= isset($searchProp->rent_amount)?'$'.$searchProp->rent_amount:''; 
+                                       $duration_type_txt="";
+                                        if(isset($searchProp->rent_amount) && !empty(Request::get('duration_type_id'))){
+                                       
+                                          if(Request::get('duration_type_id') == 4  ){
+                                            $duration_type_txt =" / Week";
+                                          }else if(Request::get('duration_type_id') == 3 ){
+                                            $duration_type_txt =" / Month";
+                                          }else if(Request::get('duration_type_id') == 2 ){
+                                            $duration_type_txt =" / Day";
+                                          }else{
+                                              $duration_type_txt =" / Hour";
+                                          }
+
+                                        };
+                                    ?>
+                                    <span><?= $duration_type_txt;?></span>
+                                    </div>
                                    <fieldset>
                                   <div class="rating">
                                       <input type="radio" id="star5-1" name="rating" value="5" />
@@ -313,7 +339,7 @@
                                   </div>
                                   <span>23</span>
                                 </fieldset>
-                                <div class="prop-miles">5 miles</div>
+                                <div class="prop-miles"><?= isset($searchProp->distance)?round($searchProp->distance).' miles':''?></div>
                                 </div>
                                 <div class="pstext-btm">
                                   
@@ -321,16 +347,16 @@
                                 <a href="javascript:void();" class="get-direction" onclick="getAddress(<?php echo $searchProp->property_id; ?>)"  ><i class="fa fa-map-marker" aria-hidden="true"></i></a>
                                 <a href='<?php echo URL('/') ?>/propertydetails'  class="prop-details">details</a>
                                 <a href='<?php echo URL('/') ?>/propertydetails?moduleid=<?php echo Request::get("module_id")."&propertyid=".$searchProp->property_id."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="booknow">Book now</a>
-            <!--<input type="text"  id="to_destination_<?php echo $searchProp->property_id; ?>" class="form-control" placeholder="Search Destination" style="margin-top: 0px;margin-bottom: 5px;margin-top: -7px;">-->
-                                 <!--  <button class="booknow"></button> -->
+          
                                 </div>
                             </div>
                         </div><!-- ps-box -->
                        @endForeach
                     </div>
+
                     <div class="tab-pane fade" id="cheapest" role="tabpanel" aria-labelledby="nav-profile-tab">
                         <div class="ps-count"><?= $no_of_prop ?> Properties</div>
-                      @foreach($searchResult as $searchProp)
+                      @foreach($searchResult['cheapest'] as $searchProp)
                             <div class="ps-box">
                             <div class="ps-img">
                             <?php if(isset($searchProp->image) && file_exists(public_path() . '/images/properties/' . $searchProp->image. '')) { ?>
@@ -359,12 +385,24 @@
                                       </div>
                                       <span>23</span>
                                     </fieldset>
-                                <div class="prop-miles">5 miles</div>
-                                      <?php $getDurationType=SearchPropertyController::getDurationType($searchProp->property_id,$searchProp->module_manage_id);?>
-                                      <!--<div class="ps-avail"><?= $getDurationType;?></div>-->
-                                      <!-- <div class="ps-avail">Hourly • Daily • Monthly</div> -->
-                                      <!-- <div class="ps-price">$83<span>/day</span></div> -->
-                                      <div class="ps-price"><?= isset($searchProp->rent_amount)?$searchProp->rent_amount.'<span>/Hour</span>':''; ?></div>
+                                <div class="prop-miles"><?= isset($searchProp->distance)?round($searchProp->distance).' miles':''?></div>
+                                     
+                                      <div class="ps-price"><?= isset($searchProp->rent_amount)?'$'.$searchProp->rent_amount:''; 
+                                        $duration_type_txt="";
+                                        if(isset($searchProp->rent_amount) && !empty(Request::get('duration_type_id'))){
+                                          
+                                          if(Request::get('duration_type_id') == 4  ){
+                                            $duration_type_txt =" / Week";
+                                          }else if(Request::get('duration_type_id') == 3 ){
+                                            $duration_type_txt =" / Month";
+                                          }else if(Request::get('duration_type_id') == 2 ){
+                                            $duration_type_txt =" / Day";
+                                          }else{
+                                              $duration_type_txt =" / Hour";
+                                          }
+
+                                        };
+                                    ?> <span><?= $duration_type_txt;?></span></div>
                                     </div>
                                     <div class="pstext-btm">
                                       
@@ -379,14 +417,9 @@
                                 </div>
                             </div><!-- ps-box -->
                            @endForeach
+
                     </div>
                   </div>
-                  
-                  
-            
-           
-
-          
           </div>
           <div class="col-lg-7 col-md-7 col-sm-12 ps-map">
             <div id="mapCanvas"></div>
@@ -399,6 +432,30 @@
 </div><!-- all-properties -->
  
 </div><!-- site-content -->
+ <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <!-- <h4 class="modal-title">Modal Header</h4> -->
+                </div>
+                <div class="modal-body">
+                    <!-- <p>Some text in the modal.</p> -->
+                    <p><input name="user_location" id="user_location" placeholder="Your Location" /></p>
+                    <p><input name="prop_location" id="prop_location" placeholder=""/></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button"  class="btn btn-default" onclick="showlocationOnMap()">Submit</button>
+                    <button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+</div>
+
+
 
 
 <style type="text/css">
@@ -413,7 +470,7 @@
 <?php 
 //Map Pointer
  $c = array();
-foreach($searchResult as $s)
+foreach($searchResult['closest'] as $s)
 {
     $c[] =   array($s->location,$s->latitude, $s->longitude);
    
@@ -425,6 +482,9 @@ $mapperPointer =  json_encode($c);
 
 <script>
 
+
+
+
   function getAddress(id)
   {
     var fromdest = $('#location-from-search').val();
@@ -432,6 +492,7 @@ $mapperPointer =  json_encode($c);
 
     url = 'https://www.google.com/maps/dir/'+fromdest+'/'+to+'';
     window.open(url, '_blank');
+
   }
 
 //var jsonRes = <?php $searchResult; ?>;
@@ -519,18 +580,54 @@ google.maps.event.addDomListener(window, 'load', initMap);
 
 <script type="text/javascript">
 $(document).ready(function() {
-  $activeTab = '<?php echo $_GET['activeTab'];?>';
-  if($activeTab == 'monthly'){
-    $('#from').val('<?php echo $_GET['fromdate'];?>');
-    $('#to').val('<?php echo $_GET['todate'];?>');
-    $('#location').val('<?php echo $_GET['location'];?>');
-  }else{
-    $('#from_date').val('<?php echo $_GET['fromdate'];?>');
-    $('#to_date').val('<?php echo $_GET['todate'];?>');
-    $('#from_time').val('<?php echo $_GET['fromtime'];?>');
-    $('#to_time').val('<?php echo $_GET['totime'];?>');
-    $('#hrlyFrmlocation').val('<?php echo $_GET['location'];?>');
-  }
+  
+  //form land
+  $('#landweeklyFrmlocation').val('<?php echo $_GET['location'];?>');
+  $('#landmonthlyFrmlocation').val('<?php echo $_GET['location'];?>');
+  $('#landdailyFrmlocation').val('<?php echo $_GET['location'];?>');
+
+  //form parking
+  $('#hrlyFrmlocation').val('<?php echo $_GET['location'];?>');
+  $('#dailyFrmlocation').val('<?php echo $_GET['location'];?>');
+  $('#monthlyFrmlocation').val('<?php echo $_GET['location'];?>');
+
+  var activeTab = '<?php echo $_GET['activeTab'];?>';
+  var module_id = '<?php echo $_GET['module_id'];?>';
+
+//parking top search form values keep selected
+  if(module_id==2){
+    if(activeTab == 'monthly' ){
+        $('#monthly_from').val('<?php echo $_GET['fromdate'];?>');
+        $('#monthly_to').val('<?php echo $_GET['todate'];?>');
+        $('#location').val('<?php echo $_GET['location'];?>');
+
+    }else if(activeTab == 'daily'){
+        $('#from').val('<?php echo $_GET['fromdate'];?>');
+        $('#to').val('<?php echo $_GET['todate'];?>');
+    }
+    else{
+        $('#from_date').val('<?php echo $_GET['fromdate'].' '.$_GET['fromtime'];?>');
+        $('#to_date').val('<?php echo $_GET['todate'].' '.$_GET['totime'];?>');
+        $('#from_time').val('<?php echo $_GET['fromtime'];?>');
+        $('#to_time').val('<?php echo $_GET['totime'];?>');
+        $('#hrlyFrmlocation').val('<?php echo $_GET['location'];?>');
+    }
+   }else{ //land top search form values keep selected
+      if(activeTab == 'monthly' ){
+          $('#land-monthly_from').val('<?php echo $_GET['fromdate'];?>');
+          $('#land-monthly_to').val('<?php echo $_GET['todate'];?>');
+
+      }else if(activeTab == 'daily'){
+          $('#daily_from').val('<?php echo $_GET['fromdate'];?>');
+          $('#daily_to').val('<?php echo $_GET['todate'];?>');
+      }
+      else{
+          $('#weekly_from').val('<?php echo $_GET['fromdate'];?>');
+          $('#weekly_to').val('<?php echo $_GET['todate'];?>');
+    
+      }
+
+   }
 });
 </script> 
 

@@ -269,8 +269,6 @@ Route::get('/user/switchtohost','Front\UserController@switchtohost');
 Route::get('/addproperty','Front\PropertyController@addProperty')->middleware('UserAuth');
 
 
-
-
 //Pages
 Route::get('/faq','Front\PagesController@faq');
 Route::get('/general-faq','Front\PagesController@general_faq');
@@ -281,19 +279,6 @@ Route::get('/payments-faq','Front\PagesController@payments_faq');
 Route::get('/pricing-faq','Front\PagesController@pricing_faq');
 Route::get('/refund-faq','Front\PagesController@refund_faq');
 Route::get('/renter-faq','Front\PagesController@renter_faq');
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //Route to get masters details on add property form
 Route::post('/frontend/getPropertyMasters','Front\PropertyController@getPropertyMasters');
@@ -313,6 +298,10 @@ Route::get('/propertydetails/{module_id?}/{property_id?}','Front\BookingControll
  
 //Route to book property
 Route::post('/frontend/bookProperty','Front\BookingController@bookProperty');
+
+//Route to get valid parking property 
+Route::post('/frontend/getValidParkingProperty','Front\SearchPropertyController@getValidParkingProperty');
+
 
 
 
