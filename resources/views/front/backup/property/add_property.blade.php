@@ -278,7 +278,7 @@
       <div class="ad-col col-sm-2">Sunday</div>
       <div class="ad-col col-sm-2">
             <label class="switch">
-            <input type="checkbox" name="day_status[sunday]"  id="sunday-checkbox"  data-on="On" data-off="Off">
+            <input type="checkbox" name="day_status[sunday]"  id="sunday-checkbox" value="1"  data-on="On" data-off="Off">
             <span class="slider round" id="sunday-slider"></span>
           </label>
       </div>
@@ -931,31 +931,31 @@ $(".previous").click(function(){
 });
 });
 
-// $('#msform').on('submit', function(e){
-//     e.preventDefault();
-//     var formData = new FormData($(this)[0]);            
-//     var request = $.ajax({
-//         type: 'POST',
-//         url: $(this).attr('action'),
-//         //mimeType:'application/json',
-//         dataType:'json',
-//         data: formData,
-//         contentType: false,
-//         processData: false,
-//         success: function(data){ 
-//             if(data.status == 200)
-//             { 
-//             $('.loader').css('display','none');
-//             $('.success-property').show();  
-//             $(this)[0].reset();
-//             }                         
-//             //alert('success');
-//         } ,
-//         error: function(msg){
-//              alert('error occurred please try again');  
-//         }
-//     });
-// });
+$('#msform').on('submit', function(e){
+    e.preventDefault();
+    var formData = new FormData($(this)[0]);            
+    var request = $.ajax({
+        type: 'POST',
+        url: $(this).attr('action'),
+        //mimeType:'application/json',
+        dataType:'json',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(data){ 
+            if(data.status == 200)
+            { 
+            $('.loader').css('display','none');
+            $('.success-property').show();  
+            $(this)[0].reset();
+            }                         
+            //alert('success');
+        } ,
+        error: function(msg){
+             alert('error occurred please try again');  
+        }
+    });
+});
 </script>
 <!--  $("#rent_with_booking_duration_type").html('');
 
