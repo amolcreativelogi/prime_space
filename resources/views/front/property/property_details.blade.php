@@ -229,7 +229,8 @@
                     </ul>
                 </div>
                 <hr>
-                <a href="" class="cont-host">contact host</a>
+                <a href="" class="cont-host">contact host</a><br/>
+                <a href='<?php echo URL('/') ?>/bookNow?moduleid=<?php echo Request::get("module_id")."&propertyid=".Request::get("propertyid")."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="cont-host">Book now</a>
                  <hr>
                
               </div><!-- pc-right -->
