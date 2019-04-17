@@ -22,7 +22,9 @@
           <input type="hidden" name="longitude" id="longitude-top-search">
         <!--   <input type="text" name="" placeholder="Dates" class="dates"> -->
           <div class="form-group date-group">
-          <div class="date"><input type="text" class="form-control" placeholder="Dates" id="from"></div>
+              <input type="text" name="search_dates" placeholder="Dates" id="search_dates" class="dates">
+              <!--<input type="text" name="search_dates" placeholder="Dates" id="land-search_dates" class="dates" style="display:none">-->
+          <!--<div class="date"><input type="text" class="form-control" placeholder="Dates" id="from"></div>-->
           </div>
 
           <input type="button" name="" onclick="topPrpertySearch()"  value="Search">
@@ -149,6 +151,7 @@
       <div class="modal-body">
         <div class="site-signup site-form">
                    <form id="form-login" url="{{ URL::asset('userLogin') }}" method="post" novalidate="novalidate">
+                            <div class="msg-gloabalsuccess"></div>
                             <div class="msg-gloabal"></div>
                              {!! csrf_field() !!}
                             <input type="hidden" name="_csrf-frontend" value="">
@@ -231,7 +234,7 @@
       <div class="row">
         <div class="col-lg-3 col-md-3 col-sm-6">
           <a href="" class="foot-logo"><img src="{{ URL::asset('public') }}/assets/front-design/images/psw-logo.png" alt=""></a>
-        </div>
+        </div> 
         <div class="col-lg-3 col-md-3 col-sm-6">
           <h4>Company</h4>
           <ul>
@@ -296,7 +299,5 @@
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('public') }}/assets/front-design/css/owl.theme.default.min.css">
 
 <script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/property-details-page.js"></script>
-
-
 </body>
 </html> 

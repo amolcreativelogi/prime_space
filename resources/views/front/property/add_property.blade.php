@@ -12,15 +12,18 @@
   <!-- <form id="msform" > -->
   <!-- progressbar -->
   <ul id="progressbar">
-  <li class="active"></li>
+  <li class="active"></li> 
   <li></li>
   <li></li>
+  <li></li>
+  <li class="avail-hide"></li>
   <li></li>
   <li></li>
   <li></li>
   </ul>
 
   <!-- fieldsets -->
+ 
   <fieldset>
   <h2 class="fs-title">Property Information</h2>
   <input type="text" name="data[property_name]" id="property_name" placeholder="Property Name " />
@@ -41,10 +44,9 @@
   <input type="hidden" name="data[longitude]" id="longitude-property">
   <input type="text" name="data[zip_code]" id="zip_code" placeholder="Enter Property Zip Code" />
   <textarea placeholder="Property description" name="data[property_description]" id="property_description" cols="6"></textarea>
-  <!-- <input type="file" name="" placeholder="Property Images " /> -->
-  <div class="box">
-    <input type="file" name="property_images[]" id="property_images" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple style="display: none;" />
-    <label for="property_images"><span></span> <strong>Choose Property Images</strong></label>
+  <div>
+    <input type="file" name="property_images[]" id="property_images" multiple>
+   <!--   class="box" class="inputfile inputfile-6" data-multiple-caption="{count} files selected"  <label for="property_images"><span></span> <strong>Choose Property Images</strong></label> -->
   </div>
   <input type="button" name="next" id="step1" class="next action-button" value="Next" />
   </fieldset>
@@ -52,12 +54,13 @@
   <fieldset>
   <h2 class="fs-title">Property Floor Map</h2>
   <div class="box">
-    <input type="file" name="property_map[]" id="property-map" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple style="display: none;" />
-    <label for="property-map"><span></span> <strong>Choose Property Floor Map</strong></label>
+    <input type="file" name="property_map[]" id="property-map"multiple />
+    <!-- class="inputfile inputfile-6" data-multiple-caption="{count} files selected"  style="display: none;"  <label for="property-map"><span></span> <strong>Choose Property Floor Map</strong></label> -->
   </div>
   <input type="button" name="previous" class="previous action-button" value="Previous" />
   <input type="button" name="next" id="step2" class="next action-button" value="Next" />
   </fieldset>
+
 
   <fieldset>
   <div class="form-field step-show" id="2"  style="display:none;">
@@ -66,10 +69,10 @@
     <table id="myTable" class=" table order-list1">
       <tbody>
           <tr>
-              <td class="col-sm-4">
+              <td class="col-sm-3">
                   <input type="text" name="data[parking][floor_name][]" placeholder="Enter floor name">
               </td>
-              <td class="col-sm-4">
+              <td class="col-sm-3">
                  <select name="data[parking][parking_type_id][]">
                    <option value="">Parking Type</option>
                   @if(!empty($getParkingType))
@@ -118,7 +121,7 @@
                   </select>
               </td>
 
-              <td class="col-sm-3">
+              <td class="col-sm-6">
                 <table id="rent_with_booking_duration_type">
                   <!-- <tr>
                     <td class="col-sm-3">
@@ -167,20 +170,7 @@
   <input type="text" name="property_size" placeholder="Sqft / Sq Meter / Acres">
   <hr>
 
-  <h2 class="fs-title">Tour Availability </h2>
-    <ul class="custom-radio" name="data[land][tour_availability]" style="text-align: left;">
-    <li>
-      <input type="radio" name="data[land][tour_availability]" value="1" id="tour_availability_yes">
-      <label for="tour_availability_yes">Yes  </label>
-    </li>
-    <li>
-      <input type="radio" name="data[land][tour_availability]" value="0" id="tour_availability_no">
-      <label for="tour_availability_no">No </label>
-    </li>
-  </ul>
-
-
-
+ 
   <h2 class="fs-title">Land Use for</h2>
     <ul class="custom-checkbox">
 
@@ -278,12 +268,209 @@
   <input type="button" name="previous" class="previous action-button" value="Previous" />
   <input type="button" name="next" id="step4" class="next action-button" value="Next" />
   </fieldset>
+  
+  <fieldset>
+  <div id="park-availabilty">
+  <h2 class="fs-title">When is it available?</h2>
+  <div class="box">
+    <div class="availablediv">
+    <div class="ad-row row sunday-row">
+      <div class="ad-col col-sm-2">Sunday</div>
+      <div class="ad-col col-sm-2">
+            <label class="switch">
+            <input type="checkbox" name="day_status[sunday]"  id="sunday-checkbox"  data-on="On" data-off="Off">
+            <span class="slider round" id="sunday-slider"></span>
+          </label>
+      </div>
+      <div class="ad-col col-sm-3">
+         <input type="hidden" name="dayname[]" value="sunday">
+        <input type="radio" name="day_hours[sunday]" value="24" id="sunday-allday" checked><label for="sunday-allday">All day (24 hours)</label>
+      </div>
+      <div class="ad-col col-sm-2">
+        <input type="radio" name="day_hours[sunday]" value="1" id="sunday-sethrs"><label for="sunday-sethrs">Set hours</label>
+      </div>
+      <div class="ad-col col-sm-3">
+        <div class="form-group date-group">
+              <input type="text" name="from_hours_time[sunday]" placeholder="Time" id="sunday-from" class="dates" >
+              <input type="text" name="to_hours_time[sunday]" placeholder="Time" id="sunday-to" class="dates"> 
+        </div>
+      </div>
+    </div><!--ad-row-->
+    <div class="ad-row row monday-row">
+      <div class="ad-col col-sm-2">Monday</div>
+      <div class="ad-col col-sm-2">
+       
+          <label class="switch">
+            <input type="checkbox" name="day_status[monday]" id="monday-checkbox">
+            <span class="slider round" id="monday-slider"></span>
+          </label>
+      </div>
+      <div class="ad-col col-sm-3">
+         <input type="hidden" name="dayname[]" value="monday">
+        <input type="radio" name="day_hours[monday]" value="24"  id="monday-allday" checked><label for="monday-allday">All day (24 hours)</label>
+      </div>
+      <div class="ad-col col-sm-2">
+        <input type="radio" name="day_hours[monday]" value="1"  id="monday-sethrs"><label for="monday-sethrs">Set hours</label>
+      </div>
+      <div class="ad-col col-sm-3">
+        <div class="form-group date-group">
+              <input type="text" name="from_hours_time[monday]" placeholder="Time" id="monday-from" class="dates">
+              <input type="text" name="to_hours_time[monday]" placeholder="Time" id="monday-to" class="dates"> 
+        </div>
+      </div>
+    </div><!--ad-row-->
+    <div class="ad-row row tuesday-row">
+      <div class="ad-col col-sm-2">Tuesday</div>
+      <div class="ad-col col-sm-2">
+          
+          <label class="switch">
+            <input type="checkbox" name="day_status[tuesday]" id="tuesday-checkbox">
+            <span class="slider round" id="tuesday-slider"></span>
+          </label>
+      </div>
+      <div class="ad-col col-sm-3">
+        <input type="hidden" name="dayname[]" value="tuesday">
+        <input type="radio" name="day_hours[tuesday]"  value="24" id="tuesday-allday" checked><label for="tuesday-allday">All day (24 hours)</label>
+      </div>
+      <div class="ad-col col-sm-2">
+        <input type="radio" name="day_hours[tuesday]" value="1"  id="tuesday-sethrs"><label for="tuesday-sethrs">Set hours</label>
+      </div>
+      <div class="ad-col col-sm-3">
+        <div class="form-group date-group">
+              <input type="text" name="from_hours_time[tuesday]" placeholder="Time" id="tuesday-from" class="dates">
+              <input type="text" name="to_hours_time[tuesday]" placeholder="Time" id="tuesday-to" class="dates"> 
+        </div>
+      </div>
+    </div><!--ad-row-->
+    <div class="ad-row row wednesday-row">
+      <div class="ad-col col-sm-2">Wednesday</div>
+      <div class="ad-col col-sm-2">
+         
+          <label class="switch">
+            <input type="checkbox" name="day_status[wednesday]" id="wednesday-checkbox">
+            <span class="slider round" id="wednesday-slider"></span>
+          </label>
+      </div>
+      <div class="ad-col col-sm-3"> 
+         <input type="hidden" name="dayname[]" value="wednesday">
+        <input type="radio" name="day_hours[wednesday]"  value="24" id="wednesday-allday" checked><label for="wednesday-allday">All day (24 hours)</label>
+      </div>
+      <div class="ad-col col-sm-2">
+        <input type="radio" name="day_hours[wednesday]" value="1"  id="wednesday-sethrs"><label for="wednesday-sethrs">Set hours</label>
+      </div>
+      <div class="ad-col col-sm-3">
+        <div class="form-group date-group">
+              <input type="text" name="from_hours_time[wednesday]" placeholder="Time" id="wednesday-from" class="dates">
+              <input type="text" name="to_hours_time[wednesday]" placeholder="Time" id="wednesday-to" class="dates"> 
+        </div>
+      </div>
+    </div><!--ad-row-->
+    <div class="ad-row row thursday-row">
+      <div class="ad-col col-sm-2">Thursday</div>
+      <div class="ad-col col-sm-2">
+          <label class="switch">
+            <input type="checkbox" name="day_status[thursday]"  id="thursday-checkbox">
+            <span class="slider round" id="thursday-slider"></span>
+          </label>
+      </div>
+      <div class="ad-col col-sm-3">
+        <input type="hidden" name="dayname[]" value="thursday">
+        <input type="radio"  name="day_hours[thursday]"  value="24" id="thursday-allday" checked><label for="thursday-allday">All day (24 hours)</label>
+      </div>
+      <div class="ad-col col-sm-2">
+        <input type="radio" name="day_hours[thursday]" value="1"  id="thursday-sethrs"><label for="thursday-sethrs">Set hours</label>
+      </div>
+      <div class="ad-col col-sm-3">
+        <div class="form-group date-group">
+              <input type="text" name="from_hours_time[thursday]" placeholder="Time" id="thursday-from" class="dates">
+              <input type="text" name="to_hours_time[thursday]" placeholder="Time" id="thursday-to" class="dates"> 
+        </div>
+      </div>
+    </div><!--ad-row-->
+    <div class="ad-row row friday-row">
+      <div class="ad-col col-sm-2">Friday</div>
+      <div class="ad-col col-sm-2">
+          <label class="switch">
+            <input type="checkbox"  name="day_status[friday]"  id="friday-checkbox">
+            <span class="slider round" id="friday-slider"></span>
+          </label>
+      </div>
+      <div class="ad-col col-sm-3">
+        <input type="hidden" name="dayname[]" value="friday">
+        <input type="radio" name="day_hours[friday]"  value="24" id="friday-allday" checked><label for="friday-allday">All day (24 hours)</label>
+      </div>
+      <div class="ad-col col-sm-2">
+        <input type="radio" name="day_hours[friday]"  value="1"  id="friday-sethrs"><label for="friday-sethrs">Set hours</label>
+      </div>
+      <div class="ad-col col-sm-3">
+        <div class="form-group date-group">
+              <input type="text" name="from_hours_time[friday]" placeholder="Time" id="friday-from" class="dates">
+              <input type="text" name="to_hours_time[friday]" placeholder="Time" id="friday-to" class="dates"> 
+        </div>
+      </div>
+    </div><!--ad-row-->
+    <div class="ad-row row saturday-row">
+      <div class="ad-col col-sm-2">Saturday</div>
+      <div class="ad-col col-sm-2">
+          <label class="switch">
+            <input type="checkbox" name="day_status[saturday]" id="saturday-checkbox">
+            <span class="slider round"  id="saturday-slider"></span>
+          </label>
+      </div>
+      <div class="ad-col col-sm-3">
+         <input type="hidden" name="dayname[]" value="saturday">
+        <input type="radio" name="day_hours[saturday]"  value="24" id="saturday-allday" checked><label for="saturday-allday">All day (24 hours)</label>
+      </div>
+      <div class="ad-col col-sm-2">
+        <input type="radio" name="day_hours[saturday]" value="1"  id="saturday-sethrs"><label for="saturday-sethrs">Set hours</label>
+      </div>
+      <div class="ad-col col-sm-3">
+        <div class="form-group date-group">
+              <input type="text" name="from_hours_time[saturday]" placeholder="Time" id="saturday-from" class="dates">
+              <input type="text" name="to_hours_time[saturday]" placeholder="Time" id="saturday-to" class="dates"> 
+        </div>
+      </div>
+    </div><!--ad-row-->
+  </div>
+  </div>
+  </div>
+  
+  <div class="tour-avail">
+      <h2 class="fs-title">Tour Availability </h2>
+        <ul class="custom-radio" style="text-align: left;">
+        <li>
+          <input type="radio" name="data[land][tour_availability]" value="1" id="tour_availability_yes">
+          <label for="tour_availability_yes">Yes  </label>
+        </li>
+        <li>
+          <input type="radio" name="data[land][tour_availability]" value="0" id="tour_availability_no">
+          <label for="tour_availability_no">No </label>
+        </li>
+      </ul>
+  </div>
+  
+  
+  <input type="button" name="previous" class="previous action-button" value="Previous" />
+  <input type="button" name="next" class="next action-button" value="Next" />
+  </fieldset>
+
+  <fieldset id="cancellation-policy">
+  <h2 class="fs-title">Set your cancellation policy</h2>
+  <div class="box" id="get_cancellation_policy">
+   
+
+    
+    
+  </div>
+  <input type="button" name="previous" class="previous action-button" value="Previous" />
+  <input type="button" name="next" class="next action-button" value="Next" />
+  </fieldset>
 
   <fieldset>
   <h2 class="fs-title">Documents</h2>
   <div class="box">
-    <input type="file" name="property_documents[]" id="property-documents" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple style="display: none;" />
-    <label for="property-documents"><span></span> <strong>Choose Property Documents</strong></label>
+    <input type="file" name="property_documents[]" multiple id="property-documents"/>
+   <!--  class="inputfile inputfile-6" data-multiple-caption="{count} files selected" style="display: none;"  <label for="property-documents"><span></span> <strong>Choose Property Documents</strong></label> -->
   </div>
   <input type="button" name="previous" class="previous action-button" value="Previous" />
   <input type="button" name="next" class="next action-button" value="Next" />
@@ -334,6 +521,7 @@
             var getLocationTypes=json.getLocationTypes;
             var getAmenities=json.getAmenities;
             var getUnitTypes=json.getUnitTypes;
+            var getcancellationpolicies=json.getcancellationpolicies;
             
 
             var masters=[];
@@ -362,7 +550,7 @@
                 });
                 $('#get_property_size').html(masters['unittypes_input']);
 
-
+ 
                 masters['duration_price_input'] += '</tr>';
                 if(module_manage_id == 2) {
                 $('#rent_with_booking_duration_type').html(masters['duration_price_input']);
@@ -371,7 +559,22 @@
                 }
               }
 
-               //if booking duration type array is not blank for selected module
+
+              //if booking duration type array is not blank for selected module
+              if(getcancellationpolicies.length !== 0){
+                masters['cancellationpolicies'] ='';
+                $.each(getcancellationpolicies, function(i, v) {
+                    masters['cancellationpolicies'] += 
+                            '<div class="row"><div class="col-sm-3"><div class="ad-col"><input type="radio" name="cancellation_policy_id" id="'+ v.cancellation_policy_id +'" value="'+ v.cancellation_policy_id +'"/><label for="'+ v.cancellation_policy_id +'">'+ v.cancellation_type +'</label></div></div><div class="col-sm-9"><p>'+ v.cancellation_policy_text +'</p></div></div>';
+                   
+                });
+               // masters['cancellationpolicies'] += '';
+                $('#get_cancellation_policy').html(masters['cancellationpolicies']);
+                //alert(masters['location_type_input']);
+              }
+
+
+              //if booking duration type array is not blank for selected module
               if(getLocationTypes.length !== 0){
                 masters['location_type_input'] ='<li>';
                 $.each(getLocationTypes, function(i, v) {
@@ -487,7 +690,7 @@ $(document).ready(function () {
 });
 </script>
 
-
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 <script type="text/javascript">
 $(function() {
 
@@ -517,6 +720,17 @@ $(".next").click(function(){
         "data[property_description]": { 
            required: true,
         },
+        "property_images[]": { 
+           required: true,
+           extension: "jpg|jpeg|png"
+        },
+        "property_map[]": { 
+           required: true,
+           extension: "jpg|jpeg|png"
+        },
+        "data[parking][floor_name][]": { 
+           required: true,
+        },
         "data[parking][parking_type_id][]": { 
            required: true,
         },
@@ -526,6 +740,48 @@ $(".next").click(function(){
         },
         "data[parking][car_type_id][]": { 
            required: true,
+        },
+        "data[parking][rent_amount][1][]": { 
+           required: true,
+        },
+        "data[parking][rent_amount][2][]": { 
+           required: true,
+        },
+        "data[parking][rent_amount][3][]": { 
+           required: true,
+        },
+        "data[parking][rent_amount][4][]": { 
+           required: true,
+        },
+        "data[amenities][]": {
+            required: true,
+            minlength: 1
+         },
+        "data[location_type]": {
+            required: true,
+            minlength: 1
+         },
+        "cancellation_policy_id": {
+            required: true,
+            minlength: 1
+         },
+         "property_documents[]": { 
+           required: true,
+           extension: "jpg|jpeg|png"
+        },
+        "units": { 
+           required: true,
+        },
+        "property_size": { 
+           required: true,
+           digits: true
+        },
+        "data[land][land_used_for][]": { 
+           required: true,
+        },
+        "data[land][tour_availability]": { 
+           required: true,
+            minlength: 1,
         }
       },
       messages: {
@@ -544,6 +800,15 @@ $(".next").click(function(){
         'data[property_description]': {
           required: "Description is required",
         },
+        'property_images[]': {
+          required: "Property Images is required",
+        },
+        'property_map[]': {
+          required: "Property Images is required",
+        },
+        'data[parking][floor_name][]': {
+          required: "floor name is required",
+        },
         "data[parking][parking_type_id][]": {
           required: "Parking Type is required",
         },
@@ -551,7 +816,43 @@ $(".next").click(function(){
           required: "Total parking spot is required",
         },
         "data[parking][car_type_id][]": {
-          required: "Car type is required"
+          required: "Car type id is required",
+        },
+        "data[parking][rent_amount][1][]": {
+          required: "Hourly Price is required",
+        },
+        "data[parking][rent_amount][2][]": {
+          required: "Daily Price is required",
+        },
+        "data[parking][rent_amount][3][]": {
+          required: "Monthly Price is required",
+        },
+        "data[parking][rent_amount][4][]": {
+          required: "Weekly Price is required",
+        },
+        "data[amenities][]": {
+          required: "Amenities is required",
+        },
+        "data[location_type]": {
+          required: "Location type is required",
+        },
+        "cancellation_policy_id": {
+          required: "Cancellation Policy is required",
+        },
+        "property_documents[]": {
+          required: "Property document is required",
+        },
+        "units": {
+          required: "Units is required",
+        },
+        "property_size": {
+          required: "Property size is required",
+        },
+        "data[land][land_used_for][]": {
+          required: "land size is required",
+        },
+        "data[land][tour_availability]": {
+          required: "tour availability is required"
         }
       }
     });
@@ -563,7 +864,7 @@ $(".next").click(function(){
       next_fs.show(); 
       current_fs.hide();
      // animating = false;
-     $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+     $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active"); 
  }
 
   //activate next step on progressbar using the index of next_fs
@@ -630,14 +931,13 @@ $(".previous").click(function(){
 });
 });
 
-
-$('#msform').submit(function(event){
-    event.preventDefault();
+$('#msform').on('submit', function(e){
+    e.preventDefault();
     var formData = new FormData($(this)[0]);            
     var request = $.ajax({
         type: 'POST',
         url: $(this).attr('action'),
-        mimeType:'application/json',
+        //mimeType:'application/json',
         dataType:'json',
         data: formData,
         contentType: false,
@@ -671,5 +971,5 @@ $('#msform').submit(function(event){
                      <input type="text" name="" placeholder="Monthly Price">
                   </td>
                 </tr>
-               </table>'; -->
+</table>'; -->
 @stop

@@ -22,6 +22,7 @@ class VerifyCsrfToken extends Middleware
          'userLogin',  
          'userRegistration', 
          'resetPassword', 
+         'updatesaveprofile', 
          'admin/getUser', 
          'admin/getHost',
          'admin/getParkingList',
@@ -38,7 +39,8 @@ class VerifyCsrfToken extends Middleware
          'admin/getLandTypes',
          'admin/Host_Users',
          'frontend/getPropertyMasters',
-         'frontend/bookProperty'
+         'frontend/bookProperty',
+         'frontend/saveProperty'
     ];
 
      // public function handle($request, Closure $next)

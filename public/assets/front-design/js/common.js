@@ -251,3 +251,244 @@ function getCurrentDate(){
 }
 
 
+$(function() {
+  $('#tablist').change(function(){
+    $('.tablist-container').hide();
+    $('#' + $(this).val()).show(); 
+  });
+});
+
+$(function() {
+  $('#landtablist').change(function(){
+    $('.landtablist-container').hide();
+    //$('#tablist').hide();
+    $('#' + $(this).val()).show();  
+  });
+});
+
+$(function() {
+  $('#tab-prop-type').change(function(){
+    $('.parking-slection').hide();
+    $('#' + $(this).val()).show(); 
+  });
+});
+
+
+
+$(function() {
+  $('.select-property-type').change(function(){
+    $('.parking-slection').hide();
+   // $('#tablist').hide(); 
+    $('#' + $(this).val()).show();
+  });
+});
+
+
+$(function () {
+    $("#select-property-type").change(function () {
+        if ($(this).val() == 2) {
+            $("#land-search_dates1").hide();
+            $("#search_dates1").show();
+        } else {
+            $("#search_dates1").hide();
+            $("#land-search_dates1").show();
+        }
+    });
+});
+
+
+
+$(function () {
+    $("#select-property-type").change(function () {
+        if ($(this).val() == 3) {
+            $("#step4").addClass("open"); 
+            $("#park-availabilty").hide(); 
+            $(".tour-avail").show(); 
+            $("#locationtype").hide(); 
+
+            // $("#park-availabilty").removeClass("exapnd");
+            // $(".avail-hide").hide();
+            // $("#park-availabilty").hide();
+            // $("#park-availabilty").css("display","none");
+        } else {
+            $("#step4").removeClass("open");
+            // $("#park-availabilty").addClass("exapnd");
+            // $(".avail-hide").show();
+            // $("#park-availabilty.exapnd").show();
+             $("#park-availabilty").show(); 
+            $(".tour-avail").hide(); 
+            $("#locationtype").show(); 
+        }
+    });
+});
+
+
+$(function() {
+$("#step4.open").click(function(){
+ $("#park-availabilty").css("display","none");
+});
+});
+
+
+
+$(function () {
+    $("#select-property-type-top").change(function () {
+        if ($(this).val() == 2) {
+            $("#land-search_dates").hide();
+            $("#search_dates").show();
+        } else {
+            $("#search_dates").hide();
+            $("#land-search_dates").show(); 
+        }
+    });
+});
+
+$(function () {
+    $(".select-property-type").change(function () {
+        if ($(this).val() == 2) {
+            $("#3").hide();
+            $("#2").show();
+        } else {
+            $("#2").hide();
+            $("#3").show();
+        }
+    });
+});
+
+
+$(function() {
+$("#sunday-checkbox").click(function(){
+ $(".sunday-row").toggleClass("hide-row");
+});
+$("#sunday-sethrs").click(function(){
+ $("#sunday-from").toggleClass("open");
+ $("#sunday-to").toggleClass("open");
+});
+$("#sunday-allday").click(function(){
+ $("#sunday-from").toggleClass("open");
+ $("#sunday-to").toggleClass("open");
+});
+
+$("#monday-checkbox").click(function(){
+ $(".monday-row").toggleClass("hide-row");
+});
+$("#monday-sethrs").click(function(){
+ $("#monday-from").toggleClass("open");
+ $("#monday-to").toggleClass("open");
+});
+$("#monday-allday").click(function(){
+ $("#monday-from").toggleClass("open");
+ $("#monday-to").toggleClass("open");
+});
+
+$("#tuesday-checkbox").click(function(){
+ $(".tuesday-row").toggleClass("hide-row");
+});
+$("#tuesday-sethrs").click(function(){
+ $("#tuesday-from").toggleClass("open");
+ $("#tuesday-to").toggleClass("open");
+});
+$("#tuesday-allday").click(function(){
+ $("#tuesday-from").toggleClass("open");
+ $("#tuesday-to").toggleClass("open");
+});
+
+$("#wednesday-checkbox").click(function(){
+ $(".wednesday-row").toggleClass("hide-row");
+});
+$("#wednesday-sethrs").click(function(){
+ $("#wednesday-from").toggleClass("open");
+ $("#wednesday-to").toggleClass("open");
+});
+$("#wednesday-allday").click(function(){
+ $("#wednesday-from").toggleClass("open");
+ $("#wednesday-to").toggleClass("open");
+});
+
+$("#thursday-checkbox").click(function(){
+ $(".thursday-row").toggleClass("hide-row");
+});
+$("#thursday-sethrs").click(function(){
+ $("#thursday-from").toggleClass("open");
+ $("#thursday-to").toggleClass("open");
+});
+$("#thursday-allday").click(function(){
+ $("#thursday-from").toggleClass("open");
+ $("#thursday-to").toggleClass("open");
+});
+
+$("#friday-checkbox").click(function(){
+ $(".friday-row").toggleClass("hide-row");
+});
+$("#friday-sethrs").click(function(){
+ $("#friday-from").toggleClass("open");
+ $("#friday-to").toggleClass("open");
+});
+$("#friday-allday").click(function(){
+ $("#friday-from").toggleClass("open");
+ $("#friday-to").toggleClass("open");
+});
+
+$("#saturday-checkbox").click(function(){
+ $(".saturday-row").toggleClass("hide-row");
+});
+$("#saturday-sethrs").click(function(){
+ $("#saturday-from").toggleClass("open");
+ $("#saturday-to").toggleClass("open");
+});
+$("#saturday-allday").click(function(){
+ $("#saturday-from").toggleClass("open");
+ $("#saturday-to").toggleClass("open");
+});
+
+});
+
+
+// $(function () {
+//  $(".homebannertext #select-property-type").change(function () { 
+//             if ($(this).val() == "1) {
+//                 $("#search_dates1").show();
+//             } else {
+//                 $("#land-search_dates1").hide();
+//             }
+//         });
+// });
+
+
+// Parking Tabs 
+function openParking(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+
+
+
+
+let today = new Date().toISOString().substr(0, 10);
+document.querySelector("#today").value = today;
+
+document.querySelector("#today2").valueAsDate = new Date();
+
+
+
+
+
+
+
+
+
+
+
+

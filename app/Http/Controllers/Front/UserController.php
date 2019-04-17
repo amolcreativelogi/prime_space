@@ -98,7 +98,7 @@ class UserController extends Controller
 	public function userLogin(Request $request)
 	{
 	
-		$getuserLogin = DB::table('prk_user_registrations')->select('user_id','user_type_id','default_user_type','status','firstname','is_deleted')->where('is_deleted', '=', 0)->where('email_id', '=', $request->input('email_id'))->where('password', '=', md5($request->input('password')))->first();
+		$getuserLogin = DB::table('prk_user_registrations')->select('user_id','user_type_id','default_user_type','status','firstname','is_deleted','profile_pic')->where('is_deleted', '=', 0)->where('email_id', '=', $request->input('email_id'))->where('password', '=', md5($request->input('password')))->first();
 		$array = array();
     	if($getuserLogin)
     	{
@@ -114,6 +114,7 @@ class UserController extends Controller
     		$_SESSION['user']['user_id'] = $getuserLogin->user_id;
     		$_SESSION['user']['user_type_id'] = $getuserLogin->user_type_id;
     		$_SESSION['user']['default_user_type'] = $getuserLogin->default_user_type;
+    		$_SESSION['user']['profile_pic'] = $getuserLogin->profile_pic;
     		if($getuserLogin->default_user_type == 2)
     		{
     			$_SESSION['user']['user_type_permission'] = 'host';
@@ -177,6 +178,58 @@ class UserController extends Controller
             $m->from('info@prymestory.com', 'Pryme Story');
             $m->to('amolkharate.wwg@gmail.com', 'Amol')->subject('you have successfully registered with prymestory.com');
         });
+		exit;
+	}
+
+	public function editprofile($userId)
+	{	
+		$getuserDetails = DB::table('prk_user_registrations')->select('*')->where('user_id', '=', $userId)->first();
+
+		return view('front.pages.update_profile')->with(['userdetails'=>$getuserDetails]);
+	}
+
+	public function updatesaveprofile(Request $request)
+	{
+		 $image = $request->file('profile_pic');
+		 if($image)
+		 {
+		 $imagename = strtolower(trim($request->input('firstname'))).'.'.$image->getClientOriginalExtension();
+		 $destinationPath = public_path('/images/user-profile');
+		 $amenities_image = $image->move($destinationPath,$imagename);
+		 $image = $imagename;
+		 } else {
+			$image = $request->input('edit_profile_pic');
+		 }
+		$data = array(
+					'firstname'=>$request->input('firstname'),
+					'lastname'=>$request->input('lastname'),
+					'contact_no'=>$request->input('contact_no'),
+					'address'=>$request->input('address'),
+					'zipcode'=>$request->input('zipcode'),
+					'city'=>$request->input('city'),
+					'user_latitude'=>$request->input('latitude'),
+					'user_longitude'=>$request->input('longitude'),
+					'profile_pic'=>$image
+    				 );
+
+		$result  = DB::table('prk_user_registrations')->where('user_id', $request->input('user_id'))->update($data);
+
+
+
+		if($result)
+		{
+			$_SESSION['user']['firstname'] = $request->input('firstname');
+			$_SESSION['user']['profile_pic'] = $image;
+			//forgot password link send on email
+			$data = array('status' => true,
+						  'response' =>  array('msg' =>'Your profile has been updated successfully.'),'url' => '');	
+		}
+		else
+		{
+			$data = array('status' => false,
+						  'response' =>  array('msg' =>'Your profile not has been updated.'),'url' => '');	
+		}
+		echo json_encode($data);
 		exit;
 	}
 }
