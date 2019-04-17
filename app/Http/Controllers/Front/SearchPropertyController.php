@@ -22,7 +22,6 @@ class SearchPropertyController extends Controller
   //Search properties
     public function SeachProperty()
     {   
-
       //convert date into mysql format Y-m-d
        $from_date = date('Y-m-d');
        if(!empty(request()->fromdate)){
@@ -76,6 +75,8 @@ class SearchPropertyController extends Controller
 
           //get  property id's which are available and not booked  
           $getValidPropIds=$this->getValidParkingProperty($module_id,$from_date,$to_date,$from_time,$to_time,$duration_type_id);
+
+
           //get location type
           $locationTypeWhere="";
           if(!empty($location_type_id)){
@@ -83,6 +84,8 @@ class SearchPropertyController extends Controller
             $locationTypeWhere =" AND addProperty.location_type_id=".$location_type_id;
 
           }
+
+
 
            //get conditions for car type
           $carTypeJoin="";
@@ -99,6 +102,10 @@ class SearchPropertyController extends Controller
 
           //serch result for cheapest
          $orderByRentPrice = !empty($carTypeWhere)?$carTypeWhere.' ORDER BY propRent.rent_amount':$carTypeWhere;
+
+
+         
+         
         $resultCheapest = DB::select("SELECT
           (SELECT name FROM ".$tbl_prefix."add_property_files papf WHERE papf.property_id = addProperty.property_id AND document_type_id =1 order by file_id limit 1 ) AS image,
           addProperty.latitude,addProperty.longitude,addProperty.location,addProperty.module_manage_id,addProperty.name,addProperty.status,addProperty.property_id ".$locationFields.$carTypeSelect." 
@@ -164,9 +171,7 @@ class SearchPropertyController extends Controller
          }else{
            
          }
-
-      
-        //print_r($searchResult);die('in');
+        // print_r($searchResult);die('in');
         $searchResult['closest']=$resultClosest;
         $searchResult['cheapest']=$resultCheapest;
 

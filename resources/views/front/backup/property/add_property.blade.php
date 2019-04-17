@@ -278,7 +278,7 @@
       <div class="ad-col col-sm-2">Sunday</div>
       <div class="ad-col col-sm-2">
             <label class="switch">
-            <input type="checkbox" name="day_status[sunday]"  id="sunday-checkbox"  data-on="On" data-off="Off">
+            <input type="checkbox" name="day_status[sunday]"  id="sunday-checkbox" value="1"  data-on="On" data-off="Off">
             <span class="slider round" id="sunday-slider"></span>
           </label>
       </div>

@@ -151,7 +151,6 @@
       <div class="modal-body">
         <div class="site-signup site-form">
                    <form id="form-login" url="{{ URL::asset('userLogin') }}" method="post" novalidate="novalidate">
-                            <div class="msg-gloabalsuccess"></div>
                             <div class="msg-gloabal"></div>
                              {!! csrf_field() !!}
                             <input type="hidden" name="_csrf-frontend" value="">
@@ -234,7 +233,7 @@
       <div class="row">
         <div class="col-lg-3 col-md-3 col-sm-6">
           <a href="" class="foot-logo"><img src="{{ URL::asset('public') }}/assets/front-design/images/psw-logo.png" alt=""></a>
-        </div> 
+        </div>
         <div class="col-lg-3 col-md-3 col-sm-6">
           <h4>Company</h4>
           <ul>

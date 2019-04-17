@@ -109,7 +109,15 @@ function lkForms(ID){
 				$('#'+ID+ ' .msg-gloabal').html(data.response.msg);
 				//loaderOut({status:0,msg:data.response.msg,url:data.url});
 			}else{
-
+				if(ID == 'form-signup')
+				{	
+					$('.loginModal').trigger('click');
+					$('#form-login .msg-gloabalsuccess').addClass('alert alert-success');
+					$('#form-login .msg-gloabalsuccess').html('<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> '+data.response.msg);
+				} else {
+					$('#form-login .msg-gloabalsuccess').removeClass('alert alert-success');
+					$('#form-login .msg-gloabalsuccess').html('');
+				}
 				$('#'+ID+ ' .msg-gloabal').removeClass('alert alert-danger');
 				$('#'+ID+ ' .msg-gloabal').addClass('alert alert-success');
 				$('#'+ID+ ' .msg-gloabal').html(data.response.msg);
