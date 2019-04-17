@@ -344,7 +344,7 @@
                                 <div class="pstext-btm">
                                   
                                <input type="hidden" id="to_destination_<?php echo $searchProp->property_id; ?>" value="<?php echo $searchProp->location; ?>" placeholder="Search Destination">
-                                <a href="javascript:void();" class="get-direction" onclick="getAddress(<?php echo $searchProp->property_id; ?>)"  ><i class="fa fa-map-marker" aria-hidden="true"></i></a>
+                                <a href="javascript:void();" class="get-direction" onclick="getAddress(<?php echo $searchProp->property_id; ?>)"  ><img src="{{ URL::asset('public') }}/assets/front-design/images/get-directions-button.svg" alt=""></a>
                                 <a href='<?php echo URL('/') ?>/propertydetails'  class="prop-details">details</a>
                                 <a href='<?php echo URL('/') ?>/propertydetails?moduleid=<?php echo Request::get("module_id")."&propertyid=".$searchProp->property_id."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="booknow">Book now</a>
           

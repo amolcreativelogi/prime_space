@@ -14,7 +14,7 @@
                   <img src="{{ URL::asset('public') }}/assets/front-design/images/parked-car.svg" alt="">Parking Properties</a>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li><a class="dropdown-item" href="<?php echo URL::to('addproperty'); ?>"><img src="{{ URL::asset('public') }}/assets/front-design/images/arrow.svg" alt=""> Add Parking</a></li>
-                    <li><a class="dropdown-item" href="<?php echo URL::to('addproperty'); ?>"><img src="{{ URL::asset('public') }}/assets/front-design/images/arrow.svg" alt=""> Edit Parking</a></li>
+                    <li><a class="dropdown-item" href="<?php echo URL::to('editparking'); ?>"><img src="{{ URL::asset('public') }}/assets/front-design/images/arrow.svg" alt=""> Edit Parking</a></li>
                     <li><a class="dropdown-item" href="<?php echo URL::to('user/parkingProperties'); ?>"><img src="{{ URL::asset('public') }}/assets/front-design/images/arrow.svg" alt=""> View Parking</a></li>
                 </ul>
           </li>
@@ -23,7 +23,7 @@
                   <img src="{{ URL::asset('public') }}/assets/front-design/images/land.svg" alt="">Land Properties</a>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li><a class="dropdown-item" href="<?php echo URL::to('addproperty'); ?>"><img src="{{ URL::asset('public') }}/assets/front-design/images/arrow.svg" alt=""> Add Land</a></li>
-                    <li><a class="dropdown-item" href="<?php echo URL::to('addproperty'); ?>"><img src="{{ URL::asset('public') }}/assets/front-design/images/arrow.svg" alt=""> Edit Land</a></li>
+                    <li><a class="dropdown-item" href="<?php echo URL::to('editland'); ?>"><img src="{{ URL::asset('public') }}/assets/front-design/images/arrow.svg" alt=""> Edit Land</a></li>
                     <li><a class="dropdown-item" href="<?php echo URL::to('user/landProperties'); ?>"><img src="{{ URL::asset('public') }}/assets/front-design/images/arrow.svg" alt=""> View Land</a></li>
                 </ul>
           </li>

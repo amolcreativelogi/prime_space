@@ -58,6 +58,17 @@ class PropertyController extends Controller
         
     }
 
+    public function editParking()
+    {
+        return view('front.property.edit_parking');
+    }
+
+     public function editLand()
+    {
+        return view('front.property.edit_land');
+    }
+    
+
      public function getPropertyMasters()
     {
 

@@ -267,6 +267,8 @@ Route::get('/user/switchtohost','Front\UserController@switchtohost');
 Route::get('/user/switchtocustomer','Front\UserController@switchtocustomer');
 Route::get('/user/switchtohost','Front\UserController@switchtohost');
 Route::get('/addproperty','Front\PropertyController@addProperty')->middleware('UserAuth');
+Route::get('/editparking','Front\PropertyController@editParking')->middleware('UserAuth');
+Route::get('/editland','Front\PropertyController@editLand')->middleware('UserAuth');
 
 
 //Pages

@@ -484,6 +484,95 @@ document.querySelector("#today2").valueAsDate = new Date();
 
 
 
+// Add row for Parking Sopts in Add Property
+$(document).ready(function () {
+    var counter = 0;
+
+    $("#addrow").on("click", function () {
+        var newRow = $("<tr>");
+        var cols = "";
+
+        cols += '<td><input type="text" class="form-control" placeholder="Enter floor name" name="name' + counter + '"/></td>';
+        cols += '<td><select><option>Parking Type </option><option>Self </option><option>Valet </option><option>Reserved </option><option>Handicap </option></select></td>';
+        cols += '<td><input type="text" class="form-control" placeholder="Total Parking spots " name="phone' + counter + '"/></td>';
+        cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
+        newRow.append(cols);
+        $("table.order-list1").append(newRow);
+        counter++;
+    });
+
+
+
+    $("table.order-list1").on("click", ".ibtnDel", function (event) {
+        $(this).closest("tr").remove();       
+        counter -= 1
+    });
+
+
+});
+
+
+
+function calculateRow(row) {
+    var price = +row.find('input[name^="price"]').val();
+
+}
+
+function calculateGrandTotal() {
+    var grandTotal = 0;
+    $("table.order-list").find('input[name^="price"]').each(function () {
+        grandTotal += +$(this).val();
+    });
+    $("#grandtotal").text(grandTotal.toFixed(2));
+}
+
+
+// Add row for Car Parking Price in Add Property
+$(document).ready(function () {
+    var counter = 0;
+
+    $("#second-addrow").on("click", function () {
+        var newRow = $("<tr class='row'>");
+        var cols = "";
+
+        cols += '<td class="col-sm-3"><select><option>Car Type</option><option>Hatchback</option><option>Sedan</option><option>MPV</option><option>SUV </option><option>Crossover </option><option>Coupe</option><option>Convertibl </option></select></td>';
+        cols += '<td class="col-sm-3"><input type="text" class="form-control" placeholder="Hourly Price" name="mail' + counter + '"/></td>';
+        cols += '<td class="col-sm-3"><input type="text" class="form-control" placeholder="Daily Price" name="phone' + counter + '"/></td>';
+        cols += '<td class="col-sm-3"><input type="text" class="form-control" placeholder="Monthly  Price" name="phone' + counter + '"/></td>';
+
+        cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
+        newRow.append(cols);
+        $("table.order-list").append(newRow);
+        counter++;
+    });
+
+
+
+    $("table.order-list").on("click", ".ibtnDel", function (event) {
+        $(this).closest("tr").remove();       
+        counter -= 1
+    });
+
+
+});
+
+
+
+function calculateRow(row) {
+    var price = +row.find('input[name^="price"]').val();
+
+}
+
+function calculateGrandTotal() {
+    var grandTotal = 0;
+    $("table.order-list").find('input[name^="price"]').each(function () {
+        grandTotal += +$(this).val();
+    });
+    $("#second-grandtotal").text(grandTotal.toFixed(3));
+}
+
+
+
 
 
 
