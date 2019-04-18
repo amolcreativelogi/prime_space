@@ -260,6 +260,12 @@ class BookingController extends Controller
       //get property 
       $data['getPropertyType'] =  DB::table('prk_add_property_floors')->select('parking_type','floor_name','total_parking_spots')->leftJoin('prk_parking_type', 'prk_add_property_floors.parking_type_id', '=', 'prk_parking_type.parking_type_id')->where('prk_add_property_floors.property_id', '=', $property_id)->first();
       
+      
+      //get user name and other details 
+      
+      
+      
+      
       //return view
       return view('front/pages/booking', $data);
     }

@@ -443,7 +443,7 @@ class PropertyController extends Controller
                     {
                          $from_hours_time = ($request['day_hours'][$dayname] == 24) ? '00:00:01' : $request['from_hours_time'][$dayname]; 
                          $to_hours_time = ($request['day_hours'][$dayname] == 24) ? '23:59:00' : $request['to_hours_time'][$dayname];
-                         $day_status = (isset($request['day_status'][$dayname])) ? 1 : 0;
+                         $day_status = (isset($request['day_status'][$dayname])) ? 0 : 1;
 
                          $propAvailDetails[] = array(
                                         'property_id'=>$propertyId,
