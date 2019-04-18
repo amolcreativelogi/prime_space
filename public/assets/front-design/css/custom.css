@@ -7,7 +7,9 @@
   font-weight: normal;
   font-style: normal;
 }
-
+ 
+ /*just checking */
+ 
 body {
   margin: 0;
   /*font-family: "Montserrat", sans-serif;*/
@@ -338,7 +340,7 @@ span.teating-div {position: absolute;left: 0;width: 100%;top: -4px;}
 .add-property #progressbar li.active:before, .add-property #progressbar li.active:after {background:#27AE60;color:white;}
 .add-property .box label {width: 100%;max-width: 100%;margin: 0;background: #fff;border: 1px solid #ced4da;height: 50px; position: relative;}
 .add-property .box label:hover, .add-property .box label:focus { border: 1px solid #ced4da;}
-.add-property .box label strong {position: absolute;right: 0;font-size: 15px;background: #000;padding: 14px 20px;  font-weight: normal; color:#fff;cursor: pointer;}
+.add-property .box label strong {position: absolute;right: 0;font-size: 15px;background: #000;padding: 13px 20px;  font-weight: normal; color:#fff;cursor: pointer;}
 .add-property .box label strong:hover, .add-property .box label strong:focus { background: #000;color:#fff; } 
 .add-property .box label span {float: left;width: 100%;text-align: left;font-size: 15px; color: #333;font-weight: normal;
   padding: 13px 20px;}
@@ -374,6 +376,9 @@ span.teating-div {position: absolute;left: 0;width: 100%;top: -4px;}
 .custom-checkbox [type="checkbox"]:not(:checked) + label:after {opacity:0;-webkit-transform:scale(0);transform:scale(0);}
 .custom-checkbox [type="checkbox"]:checked + label:after {opacity: 1;-webkit-transform: scale(1);transform: scale(1);}
 /*Custom Checkbox End*/
+.custom-fileinput { position: relative; }
+.add-property .box.custom-fileinput label { position: absolute; left: 0; right: 0; top: 0; }
+.add-property .box.custom-fileinput label.error { border: 0; height: auto;}
 
 .ad-col [type="radio"]:checked, .ad-col [type="radio"]:not(:checked) {position: absolute;left: -9999px;}
 .ad-col [type="radio"]:checked + label, .ad-col [type="radio"]:not(:checked) + label {position: relative;padding-left: 28px;cursor: pointer;line-height: 20px; display: inline-block;color: #666;cursor: pointer;}
@@ -685,9 +690,9 @@ top: 100%;}
 .dl-content .tab-content { margin: 0 20px; border-top: 1px solid #ddd; padding: 15px 0;}
 .dl-content .park-avail {border: 1px solid #ddd;margin:5px 5px;}
 .dl-content .park-color { display: inline-block;width: 30px;text-align: center;font-size: 12px;padding: 6px 0;border-right: 1px solid #ddd;height: 30px;vertical-align: top;color: #fff;}
-.park-color.available-parking { background: #f5f5f5; }
-.park-color.unavailable-parking { background: #ff0000; }
-.park-color.largeduration-parking {background: #ffc000; }
+.park-color.available-parking { background: #def2d6; }
+.park-color.unavailable-parking { background: #e7cac4; }
+.park-color.largeduration-parking {background: #f8f3d6; }
 .park-count {display: inline-block;text-transform: capitalize;font-size:15px;text-align: center;width: 70%;}
 .available-land {background: #52741d;}
 .unavailable-land {background: #738740;}
