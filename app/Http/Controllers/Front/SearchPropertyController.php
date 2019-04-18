@@ -171,8 +171,9 @@ class SearchPropertyController extends Controller
            
          }
         // print_r($searchResult);die('in');
-        $searchResult['closest']=$resultClosest;
-        $searchResult['cheapest']=$resultCheapest;
+        $searchResult['closest']=($resultClosest) ? $resultClosest : array();
+        $searchResult['cheapest']=($resultCheapest) ? $resultCheapest : array();
+       
 
         //Count of properties
         $no_of_prop = ($resultClosest)?count($resultClosest):0;

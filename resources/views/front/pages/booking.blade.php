@@ -9,8 +9,8 @@
             <div class="row">
                 <div class="col-sm-8">
                     <div class="selectdate">
-                        <h3>new property</h3>
-                        <h4>sadar, nagpur</h4>
+                        <h3><?php echo !isset($getPropertyDetails->name)?'':$getPropertyDetails->name;?></h3>
+                        <h4><?php echo !isset($getPropertyDetails->location)?'':$getPropertyDetails->location;?></h4>
                         <!--<select class="filter-select">-->
                         <!--  <option>Car Type</option>-->
                         <!--  <option>Hatchback  </option>-->
@@ -22,7 +22,7 @@
                         <!--  <option>Convertibl </option>-->
                         <!--</select>-->
                         <label>Car Type : <strong>Hatchback</strong></label><br>
-                        <label>Location Type : <strong>Covered</strong></label>
+                        <label>Parking Type : <strong><?php echo $getPropertyType->parking_type; ?></strong></label>
                         <!--<select class="filter-select">-->
                         <!--    <option>Location Type</option>-->
                         <!--    <option>Covered </option>-->
@@ -33,13 +33,13 @@
                             <div class="col-sm-6">
                                 <div class="form-group date-group">
                                     <label>From</label>
-                                     <div class="date">04/11/2019</div>
+                                     <div class="date"><?php echo $fromdate; ?></div>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group date-group">
                                     <label>To</label>
-                                    <div class="date">04/11/2019</div>
+                                    <div class="date"><?php echo $todate;?></div>
                                   </div>
                             </div>
                         </div>
@@ -125,8 +125,8 @@
                 <div class="col-sm-4">
                     <div class="total-order">ORDER TOTAL <span>$2500</span></div>
                     <div class="book-box">
-                        <div class="book-add">237 Victoria St. - 237 Victoria St. Lot Target Park</div>
-                        <div class="book-img"><img src="{{ URL::asset('public') }}/assets/front-design/images/discoverpsace01.jpg" alt=""></div>
+                        <div class="book-add"><?php echo !isset($getPropertyDetails->location)?'':$getPropertyDetails->location;?></div>
+                        <div class="book-img"><img src="<?php echo url('/public/images/properties/'.$getPropImages->name)?>" alt=""></div>
                         <div class="book-amenties">
                             <ul>
                                 <li><img src="{{ URL::asset('public') }}/assets/front-design/images/handicap.svg" alt=""><span>wheelchair</span></li> 

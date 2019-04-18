@@ -102,10 +102,6 @@
       </tfoot>
     </table>
 
-
-
-
-
 <label>Select Booking Duration Type and Enter Property Rent</label>
 <table id="tbl_rent_with_booking_duration_type" class="table order-list">
       <tbody>
@@ -276,9 +272,9 @@
     <div class="availablediv">
     <div class="ad-row row sunday-row">
       <div class="ad-col col-sm-2">Sunday</div>
-      <div class="ad-col col-sm-2">
-            <label class="switch">
-            <input type="checkbox" name="day_status[sunday]"  id="sunday-checkbox"  data-on="On" data-off="Off">
+      <div class="col-sm-2">
+            <label>
+            <input type="checkbox" name="day_status[sunday]"  id="sunday-checkbox"  data-on="On" data-off="Off" checked="checked">
             <span class="slider round" id="sunday-slider"></span>
           </label>
       </div>
@@ -298,10 +294,10 @@
     </div><!--ad-row-->
     <div class="ad-row row monday-row">
       <div class="ad-col col-sm-2">Monday</div>
-      <div class="ad-col col-sm-2">
+      <div class="col-sm-2">
        
-          <label class="switch">
-            <input type="checkbox" name="day_status[monday]" id="monday-checkbox">
+          <label>
+            <input type="checkbox" name="day_status[monday]" id="monday-checkbox"  checked="checked">
             <span class="slider round" id="monday-slider"></span>
           </label>
       </div>
@@ -321,10 +317,10 @@
     </div><!--ad-row-->
     <div class="ad-row row tuesday-row">
       <div class="ad-col col-sm-2">Tuesday</div>
-      <div class="ad-col col-sm-2">
+      <div class="col-sm-2">
           
-          <label class="switch">
-            <input type="checkbox" name="day_status[tuesday]" id="tuesday-checkbox">
+          <label>
+            <input type="checkbox" name="day_status[tuesday]" id="tuesday-checkbox"  checked="checked">
             <span class="slider round" id="tuesday-slider"></span>
           </label>
       </div>
@@ -344,10 +340,10 @@
     </div><!--ad-row-->
     <div class="ad-row row wednesday-row">
       <div class="ad-col col-sm-2">Wednesday</div>
-      <div class="ad-col col-sm-2">
+      <div class="col-sm-2">
          
-          <label class="switch">
-            <input type="checkbox" name="day_status[wednesday]" id="wednesday-checkbox">
+          <label>
+            <input type="checkbox" name="day_status[wednesday]" id="wednesday-checkbox"  checked="checked">
             <span class="slider round" id="wednesday-slider"></span>
           </label>
       </div>
@@ -367,9 +363,9 @@
     </div><!--ad-row-->
     <div class="ad-row row thursday-row">
       <div class="ad-col col-sm-2">Thursday</div>
-      <div class="ad-col col-sm-2">
-          <label class="switch">
-            <input type="checkbox" name="day_status[thursday]"  id="thursday-checkbox">
+      <div class="col-sm-2">
+          <label>
+            <input type="checkbox" name="day_status[thursday]"  id="thursday-checkbox"  checked="checked">
             <span class="slider round" id="thursday-slider"></span>
           </label>
       </div>
@@ -389,9 +385,9 @@
     </div><!--ad-row-->
     <div class="ad-row row friday-row">
       <div class="ad-col col-sm-2">Friday</div>
-      <div class="ad-col col-sm-2">
-          <label class="switch">
-            <input type="checkbox"  name="day_status[friday]"  id="friday-checkbox">
+      <div class="col-sm-2">
+          <label>
+            <input type="checkbox"  name="day_status[friday]"  id="friday-checkbox"  checked="checked">
             <span class="slider round" id="friday-slider"></span>
           </label>
       </div>
@@ -411,9 +407,9 @@
     </div><!--ad-row-->
     <div class="ad-row row saturday-row">
       <div class="ad-col col-sm-2">Saturday</div>
-      <div class="ad-col col-sm-2">
-          <label class="switch">
-            <input type="checkbox" name="day_status[saturday]" id="saturday-checkbox">
+      <div class="col-sm-2">
+          <label>
+            <input type="checkbox" name="day_status[saturday]" id="saturday-checkbox"  checked="checked">
             <span class="slider round"  id="saturday-slider"></span>
           </label>
       </div>
@@ -766,8 +762,7 @@ $(".next").click(function(){
             minlength: 1
          },
          "property_documents[]": { 
-           required: true,
-           extension: "jpg|jpeg|png"
+           required: true
         },
         "units": { 
            required: true,

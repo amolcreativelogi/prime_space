@@ -18,8 +18,10 @@ class BookingController extends Controller
    
    
     //Get property details
-    public function propertyDetails($module_id,$property_id)
+    public function propertyDetails()
     {   
+        $module_id = request()->moduleid;
+        $property_id = request()->propertyid;
        // $module_id = empty(request()->moduleid)?'2':request()->moduleid;
        // $property_id = empty(request()->propertyid)?'2':request()->propertyid;
        $tbl_prefix=$this->getTablePrefix($module_id);
@@ -238,7 +240,28 @@ class BookingController extends Controller
 
     public function bookNow()
     {
-      return view('front/pages/booking');
+      //request parameters from url    
+      $module_id = request()->moduleid;
+      $property_id = request()->propertyid;
+      $tbl_prefix=$this->getTablePrefix($module_id);
+      
+      //get property data
+      $data['getPropertyDetails'] = DB::table($tbl_prefix.'add_property')->select('*')->where(['property_id'=>$property_id,'is_deleted'=>0,'status'=>1])->first();
+      
+      
+      //get dates
+      $data['fromdate'] = request()->fromdate;  
+      $data['todate'] = request()->todate;  
+      
+      //get property images
+      $data['getPropImages'] = DB::table($tbl_prefix.'add_property_files')->select('name'
+        )->where(['is_deleted'=>0,'status'=>1,'property_id'=>$property_id])->first();
+      
+      //get property 
+      $data['getPropertyType'] =  DB::table('prk_add_property_floors')->select('parking_type','floor_name','total_parking_spots')->leftJoin('prk_parking_type', 'prk_add_property_floors.parking_type_id', '=', 'prk_parking_type.parking_type_id')->where('prk_add_property_floors.property_id', '=', $property_id)->first();
+      
+      //return view
+      return view('front/pages/booking', $data);
     }
 
 }
