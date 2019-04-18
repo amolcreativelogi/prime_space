@@ -650,7 +650,7 @@ text-transform: uppercase;color: #303030;}
 .col-lg-2.col-md-3.col-sm-12.dl-sidebar {border: 1px solid #848484;margin: 0;padding: 0;background: #475366; min-height:300px;}
 .dl-sidebar ul { margin: 0; padding: 0; }
 .dl-sidebar ul li { list-style: none; position:relative; }
-.dl-sidebar ul li a {display: block;border-bottom: 1px solid #848484;padding:8px 15px 8px 20px;font-size: 16px;color: #fff;transition: all 0.5s ease-in-out; position: relative;}
+.dl-sidebar ul li a {display: block;border-bottom: 1px solid #848484;padding:8px 15px 8px 20px;font-size: 16px;color: #fff;transition: all 0.5s ease-in-out; position: relative;text-transform: capitalize;}
 .dl-sidebar ul li a img {width: 22px;vertical-align: top;margin-right: 10px;}
 .dl-sidebar ul li a:hover, .dl-sidebar ul li a:focus {padding: 8px 15px 8px 30px;transition: all 0.5s ease-in-out; background: #3351BB; color: #fff; text-decoration: none;}
 /*.dl-sidebar ul li a::before, .dl-sidebar ul li a::before {content: "\f101";font-family: FontAwesome;font-size: 25px;*/
