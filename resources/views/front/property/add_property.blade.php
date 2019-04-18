@@ -45,7 +45,12 @@
   <input type="text" name="data[zip_code]" id="zip_code" placeholder="Enter Property Zip Code" />
   <textarea placeholder="Property description" name="data[property_description]" id="property_description" cols="6"></textarea>
   <div>
-    <input type="file" name="property_images[]" id="property_images" multiple>
+    <!-- <input type="file" name="property_images[]" id="property_images" multiple> -->
+  <div class="box custom-fileinput">
+    <input type="file" name="property_images[]" id="property_images" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple  />
+    <label for="property_images"><span></span> <strong>Choose Property Images</strong></label>
+  </div>
+
    <!--   class="box" class="inputfile inputfile-6" data-multiple-caption="{count} files selected"  <label for="property_images"><span></span> <strong>Choose Property Images</strong></label> -->
   </div>
   <input type="button" name="next" id="step1" class="next action-button" value="Next" />
@@ -54,8 +59,11 @@
   <fieldset>
   <h2 class="fs-title">Property Floor Map</h2>
   <div class="box">
-    <input type="file" name="property_map[]" id="property-map"multiple />
-    <!-- class="inputfile inputfile-6" data-multiple-caption="{count} files selected"  style="display: none;"  <label for="property-map"><span></span> <strong>Choose Property Floor Map</strong></label> -->
+    <!-- <input type="file" name="property_map[]" id="property-map" multiple /> -->
+    <div class="box custom-fileinput">
+    <input type="file" name="property_map[]" id="property-map" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple  />
+    <label for="property-map"><span></span> <strong>Choose Property Floor Map</strong></label>
+  </div>
   </div>
   <input type="button" name="previous" class="previous action-button" value="Previous" />
   <input type="button" name="next" id="step2" class="next action-button" value="Next" />
@@ -616,15 +624,15 @@ $(document).ready(function () {
         //alert('hia');
         var newRow = $("<tr>");
         var cols = "";
-        cols += '<td><input type="text" class="form-control" placeholder="Enter floor name" name="data[parking][floor_name][]"/></td>';
-        cols += '<td><select name="data[parking][parking_type_id][]"><option value="">Parking Type</option>';
+        cols += '<td class="col-sm-3"><input type="text" class="form-control" placeholder="Enter floor name" name="data[parking][floor_name][]"/></td>';
+        cols += '<td class="col-sm-3"><select name="data[parking][parking_type_id][]"><option value="">Parking Type</option>';
 
         <?php foreach($getParkingType as $parkingType) { ?>
         cols += '<option value="<?= $parkingType->parking_type_id?>"><?= $parkingType->parking_type ?></option>';
         <?php } ?>
 
-        cols += '</select></td><td><input type="text" class="form-control" placeholder="Total Parking spots " name="data[parking][total_parking_spots][]"/></td>';
-        cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
+        cols += '</select></td><td class="col-sm-3"><input type="text" class="form-control" placeholder="Total Parking spots " name="data[parking][total_parking_spots][]"/></td>';
+        cols += '<td class="col-sm-2"><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
         newRow.append(cols);
         $("table.order-list1").append(newRow);
         counter++;
@@ -646,7 +654,7 @@ $(document).ready(function () {
         var newRow = $("<tr>");
         var cols = "";
 
-        cols += '<td class="car_type_id"><select name="data[parking][car_type_id][]"><option value="">Car Type</option>';
+        cols += '<td class="car_type_id col-sm-3"><select name="data[parking][car_type_id][]"><option value="">Car Type</option>';
 
         <?php foreach($getCarType as $carType) { ?>
         cols += '<option value="<?= $carType->car_type_id?>"><?= $carType->car_type ?></option>';
