@@ -46,7 +46,6 @@ class BookingController extends Controller
 
 
 
-
          $getLandrent =  DB::table('lnd_add_property_rent')->select('duration_type','rent_amount')->leftJoin('tbl_mstr_booking_duration_type', 'lnd_add_property_rent.duration_type_id', '=', 'tbl_mstr_booking_duration_type.duration_type_id')->where('lnd_add_property_rent.property_id', '=', $property_id)->get();
 
 

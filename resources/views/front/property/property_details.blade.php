@@ -102,7 +102,7 @@
                   <div class="row secondrow">
                       <div class="col-sm-12">
                           <div class="dl-content tablediv">
-                            <?php if($module_id == 1) { ?>
+                            <?php if($module_id == 2) { ?>
                             <table class="table table-bordered">
                             <thead>
                               <tr>
