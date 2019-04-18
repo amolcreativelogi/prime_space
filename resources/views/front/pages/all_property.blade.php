@@ -228,8 +228,7 @@
                                     </div>
                                   <div class="form-group date-group">
                                     <label>From</label>
-                                    <!-- <div class="date"><input type="" name="" placeholder="Any"></div> -->
-                                     <div class="date"><input type="text" class="form-control" placeholder="Any" id="land-monthly_from" /></div> 
+                                     <div class="date"><input type="text" class="form-control"placeholder="Any" id="land-monthly_from" /></div> 
                                   </div>
                                   <div class="form-group date-group">
                                     <label>To</label>
@@ -709,6 +708,18 @@ $(document).ready(function() {
       }
 
    }
+
+   //top search fields keep selected
+
+    $('#select-property-type-top').val(module_id);
+    $('#location-top-search').val('<?php echo $_GET['location'];?>');
+    $('#latitude-top-search').val('<?php echo $_GET['latitude'];?>');
+    $('#longitude-top-search').val('<?php echo $_GET['longitude'];?>');
+    if(module_id == 2){
+
+      $('#search_dates').val('<?php echo $_GET['fromdate'].' '.$_GET['fromtime'];?>');
+        
+    }
 });
 </script> 
 
