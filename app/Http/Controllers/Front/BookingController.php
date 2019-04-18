@@ -20,8 +20,10 @@ class BookingController extends Controller
     //Get property details
     public function propertyDetails()
     {   
+
         $module_id = request()->moduleid;
         $property_id = request()->propertyid;
+
        // $module_id = empty(request()->moduleid)?'2':request()->moduleid;
        // $property_id = empty(request()->propertyid)?'2':request()->propertyid;
        $tbl_prefix=$this->getTablePrefix($module_id);
@@ -42,21 +44,33 @@ class BookingController extends Controller
 
          $getPropertyrent =  DB::table('prk_add_property_rent')->select('duration_type','car_type','rent_amount')->leftJoin('tbl_mstr_booking_duration_type', 'prk_add_property_rent.duration_type_id', '=', 'tbl_mstr_booking_duration_type.duration_type_id')->leftJoin('prk_car_type', 'prk_add_property_rent.car_type_id', '=', 'prk_car_type.car_type_id')->where('prk_add_property_rent.property_id', '=', $property_id)->get();
 
+
+
+
+         $getLandrent =  DB::table('lnd_add_property_rent')->select('duration_type','rent_amount')->leftJoin('tbl_mstr_booking_duration_type', 'lnd_add_property_rent.duration_type_id', '=', 'tbl_mstr_booking_duration_type.duration_type_id')->where('lnd_add_property_rent.property_id', '=', $property_id)->get();
+
+
+          $land_type_id =  DB::table('lnd_add_property')->select('land_type')->leftJoin('lnd_land_type', 'lnd_land_type.land_type_id', '=', 'lnd_add_property.land_type_id')->where('lnd_add_property.property_id', '=', $property_id)->first();
+
+          $unit_type_id =  DB::table('lnd_add_property')->select('property_size','unit_type')->leftJoin('tbl_mstr_unit_type', 'tbl_mstr_unit_type.unit_type_id', '=', 'lnd_add_property.unit_type_id')->where('lnd_add_property.property_id', '=', $property_id)->first();
+
+
+        
          $getPropertyType =  DB::table('prk_add_property_floors')->select('parking_type','floor_name','total_parking_spots')->leftJoin('prk_parking_type', 'prk_add_property_floors.parking_type_id', '=', 'prk_parking_type.parking_type_id')->where('prk_add_property_floors.property_id', '=', $property_id)->get();
 
-          $getPropertyImagesFloorMap =  DB::table('prk_add_property_files')->select('name','document_type_id','default_file')->where('prk_add_property_files.property_id', '=', $property_id)->where('prk_add_property_files.document_type_id', '=', 2)->first();
+          $getPropertyImagesFloorMap =  DB::table($tbl_prefix.'add_property_files')->select('name','document_type_id','default_file')->where('property_id', '=', $property_id)->where('document_type_id', '=', 2)->first();
 
          // // foreach($getPropertyrent as $rent)
          // // {
          // //     $arrCarRent = array_push($rent['car_type'], $rent);
            
          // // }
-
+ 
          // echo '<pre>';
          // print_r($getPropertyType);
          // exit;
 
-          return view('front.property.property_details')->with(['getPropertyDetails'=>$getPropertyDetails,'getPropAmenities'=>$getPropAmenities,'getPropertyType'=>$getPropertyType,'getPropImages'=>$getPropImages,'getPropertyImagesFloorMap'=>$getPropertyImagesFloorMap,'getPropertyrent'=>$getPropertyrent]); 
+          return view('front.property.property_details')->with(['getPropertyDetails'=>$getPropertyDetails,'getPropAmenities'=>$getPropAmenities,'getPropertyType'=>$getPropertyType,'getPropImages'=>$getPropImages,'getPropertyImagesFloorMap'=>$getPropertyImagesFloorMap,'getPropertyrent'=>$getPropertyrent,'getLandrent'=>$getLandrent,'module_id'=>$module_id,'land_type_id'=>$land_type_id,'unit_type_id'=>$unit_type_id]); 
     
     }
 
@@ -260,12 +274,10 @@ class BookingController extends Controller
       //get property 
       $data['getPropertyType'] =  DB::table('prk_add_property_floors')->select('parking_type','floor_name','total_parking_spots')->leftJoin('prk_parking_type', 'prk_add_property_floors.parking_type_id', '=', 'prk_parking_type.parking_type_id')->where('prk_add_property_floors.property_id', '=', $property_id)->first();
       
-      
       //get user name and other details 
       
-      
-      
-      
+      // print_r($data);
+      // exit;
       //return view
       return view('front/pages/booking', $data);
     }

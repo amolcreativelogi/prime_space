@@ -55,7 +55,7 @@
                <!--  <h4>60 Beard St, Brooklyn, NY</h4> -->
                 <h4><i class="fa fa-map-marker" aria-hidden="true"></i> <?php echo !isset($getPropertyDetails->location)?'':$getPropertyDetails->location;?></h4>
                 <div class="row firstrow">
-
+                   <?php if($module_id == 1) { ?>
                    <table class="table table-bordered">
                     <thead>
                       <tr>
@@ -74,6 +74,7 @@
                     <?php } ?>
                     </tbody>
                   </table>
+                <?php } ?>
 
                   <!-- <div class="col-sm-6"><i class="fa fa-server" aria-hidden="true"></i> Number of floor <strong>: 2 </strong></div>
                   <div class="col-sm-6"><i class="fa fa-list" aria-hidden="true"></i> Total Parking Slots <strong>: 10</strong></div>
@@ -81,14 +82,27 @@
                 </div>
                 <div class="about-property">
                   <h4>About the space</h4>
+                  <p>Zip Code - <?php echo !isset($getPropertyDetails->zip_code)?'':$getPropertyDetails->zip_code;?></p>
                   <p><?php echo !isset($getPropertyDetails->description)?'':$getPropertyDetails->description;?></p>
+
+                   <?php if($module_id == 3) { ?>
+                   <p>Tour Availability - <?php $tour_availability =  !isset($getPropertyDetails->tour_availability)?'':$getPropertyDetails->tour_availability; 
+                   echo ($tour_availability == 1) ? 'Yes' : 'No';
+                   ?></p>
+
+                    <p>Land Type - <?php echo  !isset($land_type_id->land_type)?'':$land_type_id->land_type; 
+                   ?></p>
+
+                     <p>Property Size - <?php echo  !isset($unit_type_id->unit_type)?'':$unit_type_id->property_size.' '.$unit_type_id->unit_type; 
+                   ?></p>
+                 <?php } ?>
                  <!--  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque quam lectus, faucibus in elit et, vehicula convallis est. Morbi lacinia, arcu vel venenatis rhoncus, arcu lorem tincidunt magna, ut sollicitudin dui massa in urna. Integer semper enim ac augue varius laoreet. Fusce vehicula libero a maximus pretium. In hac habitasse platea dictumst. Phasellus risus leo, mattis accumsan semper sed, dictum non arcu. Nam mauris tortor, sodales sit amet leo non, aliquam molestie massa. Fusce imperdiet sed metus viverra rutrum. Cras ut finibus libero. Pellentesque blandit hendrerit dolor ut dapibus. Sed a magna nisi. Nullam auctor nec nibh quis pellentesque.</p> -->
 
 
                   <div class="row secondrow">
                       <div class="col-sm-12">
                           <div class="dl-content tablediv">
-
+                            <?php if($module_id == 1) { ?>
                             <table class="table table-bordered">
                             <thead>
                               <tr>
@@ -106,7 +120,26 @@
                               </tr>
                             <?php } ?>
                             </tbody>
-                          </table>
+                            </table>
+                            <?php } else {?>
+
+                            <table class="table table-bordered">
+                            <thead>
+                              <tr>
+                                <th>Booking Type</th>
+                                <th>Rent</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <?php foreach($getLandrent as $rent) { ?>
+                              <tr>
+                                <td><?php echo $rent->duration_type; ?></td>
+                                <td>$ <?php echo $rent->rent_amount; ?></td>
+                              </tr>
+                            <?php } ?>
+                            </tbody>
+                            </table>
+                          <?php } ?>
 
                               <!-- <table>
                                   <thead>
