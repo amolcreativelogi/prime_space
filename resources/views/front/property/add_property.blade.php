@@ -45,7 +45,12 @@
   <input type="text" name="data[zip_code]" id="zip_code" placeholder="Enter Property Zip Code" />
   <textarea placeholder="Property description" name="data[property_description]" id="property_description" cols="6"></textarea>
   <div>
-    <input type="file" name="property_images[]" id="property_images" multiple>
+    <!-- <input type="file" name="property_images[]" id="property_images" multiple> -->
+  <div class="box custom-fileinput">
+    <input type="file" name="property_images[]" id="property_images" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple  />
+    <label for="property_images"><span></span> <strong>Choose Property Images</strong></label>
+  </div>
+
    <!--   class="box" class="inputfile inputfile-6" data-multiple-caption="{count} files selected"  <label for="property_images"><span></span> <strong>Choose Property Images</strong></label> -->
   </div>
   <input type="button" name="next" id="step1" class="next action-button" value="Next" />
@@ -54,8 +59,11 @@
   <fieldset>
   <h2 class="fs-title">Property Floor Map</h2>
   <div class="box">
-    <input type="file" name="property_map[]" id="property-map"multiple />
-    <!-- class="inputfile inputfile-6" data-multiple-caption="{count} files selected"  style="display: none;"  <label for="property-map"><span></span> <strong>Choose Property Floor Map</strong></label> -->
+    <!-- <input type="file" name="property_map[]" id="property-map" multiple /> -->
+    <div class="box custom-fileinput">
+    <input type="file" name="property_map[]" id="property-map" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple  />
+    <label for="property-map"><span></span> <strong>Choose Property Floor Map</strong></label>
+  </div>
   </div>
   <input type="button" name="previous" class="previous action-button" value="Previous" />
   <input type="button" name="next" id="step2" class="next action-button" value="Next" />
@@ -117,7 +125,7 @@
                   </select>
               </td>
 
-              <td class="col-sm-6">
+              <td class="booking_duration_type">
                 <table id="rent_with_booking_duration_type">
                   <!-- <tr>
                     <td class="col-sm-3">
@@ -170,14 +178,13 @@
   <h2 class="fs-title">Land Use for</h2>
     <ul class="custom-checkbox">
 
-       @if(!empty($getLandType))
+       @if(!empty($getLandType))<li>
           @foreach($getLandType as $landType)
-           <li>
             <input type="checkbox" name="data[land][land_used_for][]" 
             value="<?= $landType->land_type_id?>" id="<?= $landType->land_type_id?>land_used_for">
             <label for="<?= $landType->land_type_id?>land_used_for"><?= $landType->land_type?></label>
-          </li>
           @endForEach
+          </li>
         @endIf
     </ul>
 
@@ -185,7 +192,7 @@
     <table id="tbl_land_rent_with_booking_duration_type" class="table order-list-land">
       <tbody>
           <tr>
-              <td class="col-sm-3">
+              <td class="col-sm-10">
                 <table id="rent_land_with_booking_duration_type">
                </table>
               </td>
@@ -272,11 +279,9 @@
     <div class="availablediv">
     <div class="ad-row row sunday-row">
       <div class="ad-col col-sm-2">Sunday</div>
-      <div class="col-sm-2">
-            <label>
+      <div class="col-sm-2 custom-toggle">
             <input type="checkbox" name="day_status[sunday]"  id="sunday-checkbox"  data-on="On" data-off="Off" checked="checked">
-            <span class="slider round" id="sunday-slider"></span>
-          </label>
+            <label for="sunday-checkbox"><span class="slider round" id="sunday-slider"></span></label>
       </div>
       <div class="ad-col col-sm-3">
          <input type="hidden" name="dayname[]" value="sunday">
@@ -287,19 +292,16 @@
       </div>
       <div class="ad-col col-sm-3">
         <div class="form-group date-group">
-              <input type="text" name="from_hours_time[sunday]" placeholder="Time" id="sunday-from" class="dates" >
-              <input type="text" name="to_hours_time[sunday]" placeholder="Time" id="sunday-to" class="dates"> 
+              <input type="text" name="from_hours_time[sunday]" placeholder="From Time" id="sunday-from" class="dates" >
+              <input type="text" name="to_hours_time[sunday]" placeholder="To Time" id="sunday-to" class="dates"> 
         </div>
       </div>
     </div><!--ad-row-->
     <div class="ad-row row monday-row">
       <div class="ad-col col-sm-2">Monday</div>
-      <div class="col-sm-2">
-       
-          <label>
+      <div class="col-sm-2 custom-toggle">
             <input type="checkbox" name="day_status[monday]" id="monday-checkbox"  checked="checked">
-            <span class="slider round" id="monday-slider"></span>
-          </label>
+            <label for="monday-checkbox"><span class="slider round" id="monday-slider"></span></label>
       </div>
       <div class="ad-col col-sm-3">
          <input type="hidden" name="dayname[]" value="monday">
@@ -310,19 +312,16 @@
       </div>
       <div class="ad-col col-sm-3">
         <div class="form-group date-group">
-              <input type="text" name="from_hours_time[monday]" placeholder="Time" id="monday-from" class="dates">
-              <input type="text" name="to_hours_time[monday]" placeholder="Time" id="monday-to" class="dates"> 
+              <input type="text" name="from_hours_time[monday]" placeholder="From Time" id="monday-from" class="dates">
+              <input type="text" name="to_hours_time[monday]" placeholder="To Time" id="monday-to" class="dates"> 
         </div>
       </div>
     </div><!--ad-row-->
     <div class="ad-row row tuesday-row">
       <div class="ad-col col-sm-2">Tuesday</div>
-      <div class="col-sm-2">
-          
-          <label>
+      <div class="col-sm-2 custom-toggle">
             <input type="checkbox" name="day_status[tuesday]" id="tuesday-checkbox"  checked="checked">
-            <span class="slider round" id="tuesday-slider"></span>
-          </label>
+            <label for="tuesday-checkbox"><span class="slider round" id="tuesday-slider"></span></label>
       </div>
       <div class="ad-col col-sm-3">
         <input type="hidden" name="dayname[]" value="tuesday">
@@ -333,19 +332,16 @@
       </div>
       <div class="ad-col col-sm-3">
         <div class="form-group date-group">
-              <input type="text" name="from_hours_time[tuesday]" placeholder="Time" id="tuesday-from" class="dates">
-              <input type="text" name="to_hours_time[tuesday]" placeholder="Time" id="tuesday-to" class="dates"> 
+              <input type="text" name="from_hours_time[tuesday]" placeholder="From Time" id="tuesday-from" class="dates">
+              <input type="text" name="to_hours_time[tuesday]" placeholder="To Time" id="tuesday-to" class="dates"> 
         </div>
       </div>
     </div><!--ad-row-->
     <div class="ad-row row wednesday-row">
       <div class="ad-col col-sm-2">Wednesday</div>
-      <div class="col-sm-2">
-         
-          <label>
+      <div class="col-sm-2 custom-toggle">
             <input type="checkbox" name="day_status[wednesday]" id="wednesday-checkbox"  checked="checked">
-            <span class="slider round" id="wednesday-slider"></span>
-          </label>
+            <label for="wednesday-checkbox"><span class="slider round" id="wednesday-slider"></span></label>
       </div>
       <div class="ad-col col-sm-3"> 
          <input type="hidden" name="dayname[]" value="wednesday">
@@ -356,18 +352,16 @@
       </div>
       <div class="ad-col col-sm-3">
         <div class="form-group date-group">
-              <input type="text" name="from_hours_time[wednesday]" placeholder="Time" id="wednesday-from" class="dates">
-              <input type="text" name="to_hours_time[wednesday]" placeholder="Time" id="wednesday-to" class="dates"> 
+              <input type="text" name="from_hours_time[wednesday]" placeholder="From Time" id="wednesday-from" class="dates">
+              <input type="text" name="to_hours_time[wednesday]" placeholder="To Time" id="wednesday-to" class="dates"> 
         </div>
       </div>
     </div><!--ad-row-->
     <div class="ad-row row thursday-row">
       <div class="ad-col col-sm-2">Thursday</div>
-      <div class="col-sm-2">
-          <label>
+      <div class="col-sm-2 custom-toggle">
             <input type="checkbox" name="day_status[thursday]"  id="thursday-checkbox"  checked="checked">
-            <span class="slider round" id="thursday-slider"></span>
-          </label>
+            <label for="thursday-checkbox"><span class="slider round" id="thursday-slider"></span></label>
       </div>
       <div class="ad-col col-sm-3">
         <input type="hidden" name="dayname[]" value="thursday">
@@ -378,18 +372,16 @@
       </div>
       <div class="ad-col col-sm-3">
         <div class="form-group date-group">
-              <input type="text" name="from_hours_time[thursday]" placeholder="Time" id="thursday-from" class="dates">
-              <input type="text" name="to_hours_time[thursday]" placeholder="Time" id="thursday-to" class="dates"> 
+              <input type="text" name="from_hours_time[thursday]" placeholder="From Time" id="thursday-from" class="dates">
+              <input type="text" name="to_hours_time[thursday]" placeholder="To Time" id="thursday-to" class="dates"> 
         </div>
       </div>
     </div><!--ad-row-->
     <div class="ad-row row friday-row">
       <div class="ad-col col-sm-2">Friday</div>
-      <div class="col-sm-2">
-          <label>
+      <div class="col-sm-2 custom-toggle">
             <input type="checkbox"  name="day_status[friday]"  id="friday-checkbox"  checked="checked">
-            <span class="slider round" id="friday-slider"></span>
-          </label>
+            <label for="friday-checkbox"><span class="slider round" id="friday-slider"></span></label>
       </div>
       <div class="ad-col col-sm-3">
         <input type="hidden" name="dayname[]" value="friday">
@@ -400,18 +392,16 @@
       </div>
       <div class="ad-col col-sm-3">
         <div class="form-group date-group">
-              <input type="text" name="from_hours_time[friday]" placeholder="Time" id="friday-from" class="dates">
-              <input type="text" name="to_hours_time[friday]" placeholder="Time" id="friday-to" class="dates"> 
+              <input type="text" name="from_hours_time[friday]" placeholder="From Time" id="friday-from" class="dates">
+              <input type="text" name="to_hours_time[friday]" placeholder="To Time" id="friday-to" class="dates"> 
         </div>
       </div>
     </div><!--ad-row-->
     <div class="ad-row row saturday-row">
       <div class="ad-col col-sm-2">Saturday</div>
-      <div class="col-sm-2">
-          <label>
+      <div class="col-sm-2 custom-toggle">
             <input type="checkbox" name="day_status[saturday]" id="saturday-checkbox"  checked="checked">
-            <span class="slider round"  id="saturday-slider"></span>
-          </label>
+            <label for="saturday-checkbox"><span class="slider round"  id="saturday-slider"></span></label>
       </div>
       <div class="ad-col col-sm-3">
          <input type="hidden" name="dayname[]" value="saturday">
@@ -422,8 +412,8 @@
       </div>
       <div class="ad-col col-sm-3">
         <div class="form-group date-group">
-              <input type="text" name="from_hours_time[saturday]" placeholder="Time" id="saturday-from" class="dates">
-              <input type="text" name="to_hours_time[saturday]" placeholder="Time" id="saturday-to" class="dates"> 
+              <input type="text" name="from_hours_time[saturday]" placeholder="From Time" id="saturday-from" class="dates">
+              <input type="text" name="to_hours_time[saturday]" placeholder="To Time" id="saturday-to" class="dates"> 
         </div>
       </div>
     </div><!--ad-row-->
@@ -464,8 +454,13 @@
 
   <fieldset>
   <h2 class="fs-title">Documents</h2>
-  <div class="box">
-    <input type="file" name="property_documents[]" multiple id="property-documents"/>
+  <div>
+    <!-- <input type="file" name="property_documents[]" multiple id="property-documents"/> -->
+
+    <div class="box custom-fileinput">
+    <input type="file" name="property_documents[]" id="property-documents" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple  />
+    <label for="property-documents"><span></span> <strong>Choose Property Documents</strong></label>
+  </div>
    <!--  class="inputfile inputfile-6" data-multiple-caption="{count} files selected" style="display: none;"  <label for="property-documents"><span></span> <strong>Choose Property Documents</strong></label> -->
   </div>
   <input type="button" name="previous" class="previous action-button" value="Previous" />
@@ -479,8 +474,8 @@
   <h3 class="fs-subtitle">Thank you for adding Parking. Please wait for Admin approval.</h3>
   </div>
 
-  <input type="button" name="previous" class="previous action-button" value="Previous" />
-  <input type="submit" name="submit" class="submit action-button" value="Submit" />
+  <input type="button" name="previous" class="previous last-action-button action-button" value="Previous" />
+  <input type="submit" name="submit" class="submit last-action-button action-button" value="Submit" />
   </fieldset>
 
   </form>
@@ -572,15 +567,15 @@
 
               //if booking duration type array is not blank for selected module
               if(getLocationTypes.length !== 0){
-                masters['location_type_input'] ='<li>';
+                masters['location_type_input'] ='';
                 $.each(getLocationTypes, function(i, v) {
 
                     masters['location_type_input'] += 
-                            '<input type="radio" name="data[location_type]" id="'+v.location_type+'" value="'+v.location_type_id+'">'+
-                            '<label for="'+v.location_type+'">'+v.location_type+'</label>';
+                            '<li><input type="radio" name="data[location_type]" id="'+v.location_type+'" value="'+v.location_type_id+'">'+
+                            '<label for="'+v.location_type+'">'+v.location_type+'</label></li>';
                    
                 });
-                masters['location_type_input'] += '</li>';
+                masters['location_type_input'] += '';
                
                 $('#locationtypes').html(masters['location_type_input']);
                 //alert(masters['location_type_input']);
@@ -588,14 +583,14 @@
 
                //if booking duration type array is not blank for selected module
               if(getAmenities.length !== 0){
-                masters['amenities_input'] ='<li>';
+                masters['amenities_input'] ='';
                 $.each(getAmenities, function(i, v) {
                     masters['amenities_input'] += 
-                            '<input type="checkbox" name="data[amenities][]" id="'+v.amenity_name+'" value="'+v.amenity_id+'">'+
-                            '<label for="'+v.amenity_name+'">'+v.amenity_name+' <img src="<?php echo URL::to('/') ?>/public/images/amenity/'+v.amenity_image+'" width="50"></label>';
+                            '<li><input type="checkbox" name="data[amenities][]" id="'+v.amenity_name+'" value="'+v.amenity_id+'">'+
+                            '<label for="'+v.amenity_name+'"> <img src="<?php echo URL::to('/') ?>/public/images/amenity/'+v.amenity_image+'" width="50">'+v.amenity_name+'</label></li>';
                    
                 });
-                masters['amenities_input'] += '</li>';
+                masters['amenities_input'] += '';
                
                 $('#amenities_list').html(masters['amenities_input']);
                 //alert(masters['amenities_input']);
@@ -612,15 +607,15 @@ $(document).ready(function () {
         //alert('hia');
         var newRow = $("<tr>");
         var cols = "";
-        cols += '<td><input type="text" class="form-control" placeholder="Enter floor name" name="data[parking][floor_name][]"/></td>';
-        cols += '<td><select name="data[parking][parking_type_id][]"><option value="">Parking Type</option>';
+        cols += '<td class="col-sm-3"><input type="text" class="form-control" placeholder="Enter floor name" name="data[parking][floor_name][]"/></td>';
+        cols += '<td class="col-sm-3"><select name="data[parking][parking_type_id][]"><option value="">Parking Type</option>';
 
         <?php foreach($getParkingType as $parkingType) { ?>
         cols += '<option value="<?= $parkingType->parking_type_id?>"><?= $parkingType->parking_type ?></option>';
         <?php } ?>
 
-        cols += '</select></td><td><input type="text" class="form-control" placeholder="Total Parking spots " name="data[parking][total_parking_spots][]"/></td>';
-        cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
+        cols += '</select></td><td class="col-sm-3"><input type="text" class="form-control" placeholder="Total Parking spots " name="data[parking][total_parking_spots][]"/></td>';
+        cols += '<td class="col-sm-2"><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
         newRow.append(cols);
         $("table.order-list1").append(newRow);
         counter++;
@@ -642,7 +637,7 @@ $(document).ready(function () {
         var newRow = $("<tr>");
         var cols = "";
 
-        cols += '<td class="car_type_id"><select name="data[parking][car_type_id][]"><option value="">Car Type</option>';
+        cols += '<td class="car_type_id col-sm-3"><select name="data[parking][car_type_id][]"><option value="">Car Type</option>';
 
         <?php foreach($getCarType as $carType) { ?>
         cols += '<option value="<?= $carType->car_type_id?>"><?= $carType->car_type ?></option>';
@@ -927,6 +922,9 @@ $(".previous").click(function(){
 });
 
 $('#msform').on('submit', function(e){
+
+    $(".success-property").addClass('test');
+    
     e.preventDefault();
     var formData = new FormData($(this)[0]);            
     var request = $.ajax({
@@ -940,6 +938,13 @@ $('#msform').on('submit', function(e){
         success: function(data){ 
             if(data.status == 200)
             { 
+
+
+if($('.success-property').hasClass('test')) {
+ $(".last-action-button").hide();
+}
+
+
             $('.loader').css('display','none');
             $('.success-property').show();  
             $(this)[0].reset();
