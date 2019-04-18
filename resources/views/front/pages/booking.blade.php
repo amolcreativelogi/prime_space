@@ -117,13 +117,13 @@
                             <div class="col-sm-6"></div>
                             <hr>
                             <div class="col-sm-6"><h4>Your Order Total</h4></div>
-                            <div class="col-sm-6"><h2>$25.00</h2></div>
+                            <div class="col-sm-6"><h2>$<?php echo $finalprice;?></h2></div>
 <div class="col-sm-6"><input type="button" value="submit" onclick="searchURL()" data-toggle="modal"  data-target="#thanksModal"></div>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-4">
-                    <div class="total-order">ORDER TOTAL <span><?php echo $finalprice;?>$</span></div>
+                    <div class="total-order">ORDER TOTAL <span>$<?php echo $finalprice;?></span></div>
                     <div class="book-box">
                         <div class="book-add"><?php echo !isset($getPropertyDetails->location)?'':$getPropertyDetails->location;?></div>
                         <div class="book-img"><img src="<?php echo url('/public/images/properties/'.$getPropImages->name)?>" alt=""></div>
