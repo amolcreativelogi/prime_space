@@ -108,9 +108,16 @@ function searchURL(){
       var split_home_search_datetime = home_search_datetime.split(' ');
       var home_search_frmdate =split_home_search_datetime[0];
       var home_search_frmtime =split_home_search_datetime[1];
-      var home_search_frmtime_obj = new Date(home_search_datetime); 
-      var hour = home_search_frmtime_obj.getHours();
-      var home_search_totime = (hour < 9)?'0'+(hour+1)+':00':(hour+1)+':00';
+      //var home_search_frmtime_obj = new Date(home_search_datetime); 
+      var home_search_frmtime_obj = home_search_datetime.split(' ');
+      var hour = home_search_frmtime_obj[1]; //home_search_frmtime_obj.getHours();
+      //var home_search_totime = hour+1;
+
+      var hoursplit = hour.split(':');
+      var home_search_totime  = parseInt(hoursplit[0])+parseInt(1)+':'+hoursplit[1];
+      //(hour < 9)?'0'+(hour+1)+':00':(hour+1)+':00';
+      //(hour < 9)?'0'+(hour+1)+':00':(hour+1)+':00';
+
       activeTab = "hourly";
       duration_type_id=1;
     }
@@ -211,8 +218,6 @@ function searchURL(){
 
 
     }
-
-
 
     var url = "<?php echo URL('/') ?>/searchproperty?module_id="+module_id+"&fromdate="+fromdate+"&todate="+todate+"&fromtime="+fromtime+"&totime="+totime+"&latitude="+latitude+"&longitude="+longitude+"&location="+location+"&car_type_id="+car_type_id+"&location_type_id="+location_type_id+"&land_type_id="+land_type_id+"&activeTab="+activeTab+"&duration_type_id="+duration_type_id;
      //alert(url);

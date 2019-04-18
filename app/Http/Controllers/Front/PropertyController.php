@@ -214,7 +214,7 @@ class PropertyController extends Controller
                                     'property_size'=>$request['property_size'],
                                     'unit_type_id'=>$request['units'],
                                     'land_type_id'=>'1',
-                                    'status'=>'0',
+                                    'status'=>'1',
                                     'created_by'=>'1',
                                     'modified_by'=>'1',
                                     'is_deleted'=>'0',
