@@ -23,14 +23,14 @@ class SearchPropertyController extends Controller
     public function SeachProperty()
     {   
       //convert date into mysql format Y-m-d
-       $from_date = ''; //date('Y-m-d');
+       $from_date = date('Y-m-d');
        if(!empty(request()->fromdate)){
           $frm_date = request()->fromdate;
           $frm_date = DateTime::createFromFormat("m.d.Y" , $frm_date);
           $from_date = $frm_date->format('Y-m-d');
        }
 
-       $to_date = '';//date('Y-m-d');
+       $to_date = date('Y-m-d');
        if(!empty(request()->fromdate)){
           $todate = request()->todate;
           $todate = DateTime::createFromFormat("m.d.Y" , $todate);
@@ -100,7 +100,7 @@ class SearchPropertyController extends Controller
           }
 
           //serch result for cheapest
-         $orderByRentPrice = !empty($carTypeWhere)?$carTypeWhere.',propRent.rent_amount':$carTypeWhere;
+         $orderByRentPrice = !empty($carTypeWhere)?$carTypeWhere.' AND propRent.rent_amount':$carTypeWhere;
 
 
          
