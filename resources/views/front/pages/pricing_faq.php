@@ -90,7 +90,7 @@
 
       <div id="answerThree" class="collapse in" role="tabcard" aria-labelledby="questionThree">
 
-      <div class="card-body">
+      <div class="card-body" >
 
           <p>For on-demand parking, your payment will be on hold until you arrive at your parking space. Once you confirm your parking space, you’ll be charged for the entire amount of your reservation. If you run over your time some spaces may charge a premium for additional time, unless you extend your reservation before your expiration.</p>
 

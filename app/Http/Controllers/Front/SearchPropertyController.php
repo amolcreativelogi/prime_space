@@ -65,7 +65,7 @@ class SearchPropertyController extends Controller
         if(!empty($latitude) && !empty($longitude)){
           $locationFields =",(3959 * acos( cos( radians($latitude) ) * cos( radians(addProperty.latitude ) ) * cos( radians( addProperty.longitude ) - radians($longitude) )+sin( radians(
                          $latitude) ) * sin( radians( addProperty.latitude ) ) ) ) as distance ";
-             $locationWhr=' HAVING distance <= 3.10686 ORDER BY distance ';//5 km
+             $locationWhr=' HAVING distance <= 500.10686 ORDER BY distance ';//5 km
         }
 
         $searchResult=array();

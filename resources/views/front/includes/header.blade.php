@@ -43,11 +43,11 @@
             <ul class="nav navbar-nav">
               <li class="demandpark"><a href="#">Try on-demand parking</a></li>
               <li class="dropdown"><a href="#" dropdown-toggle" data-toggle="dropdown">Get started <span class="caret"></span></a>
-              <ul class="dropdown-menu">
+              <!-- <ul class="dropdown-menu">
                 <li><a href="#">Get started</a></li>
                 <li><a href="#">Get started</a></li>
                 <li><a href="#">Get started</a></li>
-              </ul>
+              </ul> -->
               </li>
               <li><a href="#">Help</a></li>
               <?php

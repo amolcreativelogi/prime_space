@@ -45,7 +45,12 @@
   <input type="text" name="data[zip_code]" id="zip_code" placeholder="Enter Property Zip Code" />
   <textarea placeholder="Property description" name="data[property_description]" id="property_description" cols="6"></textarea>
   <div>
-    <input type="file" name="property_images[]" id="property_images" multiple>
+    <!-- <input type="file" name="property_images[]" id="property_images" multiple> -->
+  <div class="box custom-fileinput">
+    <input type="file" name="property_images[]" id="property_images" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple  />
+    <label for="property_images"><span></span> <strong>Choose Property Images</strong></label>
+  </div>
+
    <!--   class="box" class="inputfile inputfile-6" data-multiple-caption="{count} files selected"  <label for="property_images"><span></span> <strong>Choose Property Images</strong></label> -->
   </div>
   <input type="button" name="next" id="step1" class="next action-button" value="Next" />
@@ -54,8 +59,11 @@
   <fieldset>
   <h2 class="fs-title">Property Floor Map</h2>
   <div class="box">
-    <input type="file" name="property_map[]" id="property-map"multiple />
-    <!-- class="inputfile inputfile-6" data-multiple-caption="{count} files selected"  style="display: none;"  <label for="property-map"><span></span> <strong>Choose Property Floor Map</strong></label> -->
+    <!-- <input type="file" name="property_map[]" id="property-map" multiple /> -->
+    <div class="box custom-fileinput">
+    <input type="file" name="property_map[]" id="property-map" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple  />
+    <label for="property-map"><span></span> <strong>Choose Property Floor Map</strong></label>
+  </div>
   </div>
   <input type="button" name="previous" class="previous action-button" value="Previous" />
   <input type="button" name="next" id="step2" class="next action-button" value="Next" />
@@ -101,6 +109,10 @@
           </tr>
       </tfoot>
     </table>
+
+
+
+
 
 <label>Select Booking Duration Type and Enter Property Rent</label>
 <table id="tbl_rent_with_booking_duration_type" class="table order-list">
@@ -272,9 +284,9 @@
     <div class="availablediv">
     <div class="ad-row row sunday-row">
       <div class="ad-col col-sm-2">Sunday</div>
-      <div class="col-sm-2">
-            <label>
-            <input type="checkbox" name="day_status[sunday]"  id="sunday-checkbox"  data-on="On" data-off="Off" checked="checked">
+      <div class="ad-col col-sm-2">
+            <label class="switch">
+            <input type="checkbox" name="day_status[sunday]"  id="sunday-checkbox"  data-on="On" data-off="Off">
             <span class="slider round" id="sunday-slider"></span>
           </label>
       </div>
@@ -294,10 +306,10 @@
     </div><!--ad-row-->
     <div class="ad-row row monday-row">
       <div class="ad-col col-sm-2">Monday</div>
-      <div class="col-sm-2">
+      <div class="ad-col col-sm-2">
        
-          <label>
-            <input type="checkbox" name="day_status[monday]" id="monday-checkbox"  checked="checked">
+          <label class="switch">
+            <input type="checkbox" name="day_status[monday]" id="monday-checkbox">
             <span class="slider round" id="monday-slider"></span>
           </label>
       </div>
@@ -317,10 +329,10 @@
     </div><!--ad-row-->
     <div class="ad-row row tuesday-row">
       <div class="ad-col col-sm-2">Tuesday</div>
-      <div class="col-sm-2">
+      <div class="ad-col col-sm-2">
           
-          <label>
-            <input type="checkbox" name="day_status[tuesday]" id="tuesday-checkbox"  checked="checked">
+          <label class="switch">
+            <input type="checkbox" name="day_status[tuesday]" id="tuesday-checkbox">
             <span class="slider round" id="tuesday-slider"></span>
           </label>
       </div>
@@ -340,10 +352,10 @@
     </div><!--ad-row-->
     <div class="ad-row row wednesday-row">
       <div class="ad-col col-sm-2">Wednesday</div>
-      <div class="col-sm-2">
+      <div class="ad-col col-sm-2">
          
-          <label>
-            <input type="checkbox" name="day_status[wednesday]" id="wednesday-checkbox"  checked="checked">
+          <label class="switch">
+            <input type="checkbox" name="day_status[wednesday]" id="wednesday-checkbox">
             <span class="slider round" id="wednesday-slider"></span>
           </label>
       </div>
@@ -363,9 +375,9 @@
     </div><!--ad-row-->
     <div class="ad-row row thursday-row">
       <div class="ad-col col-sm-2">Thursday</div>
-      <div class="col-sm-2">
-          <label>
-            <input type="checkbox" name="day_status[thursday]"  id="thursday-checkbox"  checked="checked">
+      <div class="ad-col col-sm-2">
+          <label class="switch">
+            <input type="checkbox" name="day_status[thursday]"  id="thursday-checkbox">
             <span class="slider round" id="thursday-slider"></span>
           </label>
       </div>
@@ -385,9 +397,9 @@
     </div><!--ad-row-->
     <div class="ad-row row friday-row">
       <div class="ad-col col-sm-2">Friday</div>
-      <div class="col-sm-2">
-          <label>
-            <input type="checkbox"  name="day_status[friday]"  id="friday-checkbox"  checked="checked">
+      <div class="ad-col col-sm-2">
+          <label class="switch">
+            <input type="checkbox"  name="day_status[friday]"  id="friday-checkbox">
             <span class="slider round" id="friday-slider"></span>
           </label>
       </div>
@@ -407,9 +419,9 @@
     </div><!--ad-row-->
     <div class="ad-row row saturday-row">
       <div class="ad-col col-sm-2">Saturday</div>
-      <div class="col-sm-2">
-          <label>
-            <input type="checkbox" name="day_status[saturday]" id="saturday-checkbox"  checked="checked">
+      <div class="ad-col col-sm-2">
+          <label class="switch">
+            <input type="checkbox" name="day_status[saturday]" id="saturday-checkbox">
             <span class="slider round"  id="saturday-slider"></span>
           </label>
       </div>
@@ -476,7 +488,7 @@
 
   <div class="success-property" style="display: none;">
   <h2 class="fs-title">Thank you</h2>
-  <h3 class="fs-subtitle">Thank you for adding Parking. Please wait for Admin approval.</h3>
+  <h3 class="fs-subtitle">Thank you for adding. Please wait for Admin approval.</h3>
   </div>
 
   <input type="button" name="previous" class="previous action-button" value="Previous" />
@@ -612,15 +624,15 @@ $(document).ready(function () {
         //alert('hia');
         var newRow = $("<tr>");
         var cols = "";
-        cols += '<td><input type="text" class="form-control" placeholder="Enter floor name" name="data[parking][floor_name][]"/></td>';
-        cols += '<td><select name="data[parking][parking_type_id][]"><option value="">Parking Type</option>';
+        cols += '<td class="col-sm-3"><input type="text" class="form-control" placeholder="Enter floor name" name="data[parking][floor_name][]"/></td>';
+        cols += '<td class="col-sm-3"><select name="data[parking][parking_type_id][]"><option value="">Parking Type</option>';
 
         <?php foreach($getParkingType as $parkingType) { ?>
         cols += '<option value="<?= $parkingType->parking_type_id?>"><?= $parkingType->parking_type ?></option>';
         <?php } ?>
 
-        cols += '</select></td><td><input type="text" class="form-control" placeholder="Total Parking spots " name="data[parking][total_parking_spots][]"/></td>';
-        cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
+        cols += '</select></td><td class="col-sm-3"><input type="text" class="form-control" placeholder="Total Parking spots " name="data[parking][total_parking_spots][]"/></td>';
+        cols += '<td class="col-sm-2"><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
         newRow.append(cols);
         $("table.order-list1").append(newRow);
         counter++;
@@ -642,7 +654,7 @@ $(document).ready(function () {
         var newRow = $("<tr>");
         var cols = "";
 
-        cols += '<td class="car_type_id"><select name="data[parking][car_type_id][]"><option value="">Car Type</option>';
+        cols += '<td class="car_type_id col-sm-3"><select name="data[parking][car_type_id][]"><option value="">Car Type</option>';
 
         <?php foreach($getCarType as $carType) { ?>
         cols += '<option value="<?= $carType->car_type_id?>"><?= $carType->car_type ?></option>';
@@ -762,7 +774,8 @@ $(".next").click(function(){
             minlength: 1
          },
          "property_documents[]": { 
-           required: true
+           required: true,
+           extension: "jpg|jpeg|png"
         },
         "units": { 
            required: true,
