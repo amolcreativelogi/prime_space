@@ -304,6 +304,11 @@ Route::post('/frontend/bookProperty','Front\BookingController@bookProperty');
 //Route to get valid parking property 
 Route::post('/frontend/getValidParkingProperty','Front\SearchPropertyController@getValidParkingProperty');
 
+//Route to get module list
+Route::post('/frontend/getModuleList','Front\SearchPropertyController@getModuleList');
+
+
+
 
 Route::get('/user/parkingdetails/{id?}','Front\HostController@ParkingDetails');
 Route::post('/user/DeleteRecord','Front\HostController@DeleteRecord');

@@ -11,12 +11,13 @@
         <div class="modal-body">
           <div class="site-signup site-form">
         <form> 
-          <select id="select-property-type-top">
+          <select id="select-property-type-top" required="required">
             <option value="">Choose a category</option>
-            <option value="2">Parking</option>
-            <option value="3">Land</option>
+            <!-- <option value="2">Parking</option>
+            <option value="3">Land</option> -->
           </select>
-          <input type="text" name="" placeholder="Location" id="location-top-search" class="location">
+         
+          <input type="text" name="location-top-search" placeholder="Location" id="location-top-search" autocomplete="off" runat="server">
           <input type="hidden" id="city-top-search" name="city" />
           <input type="hidden" name="latitude" id="latitude-top-search">
           <input type="hidden" name="longitude" id="longitude-top-search">
@@ -281,7 +282,6 @@
     </div>
   </div>
 </footer>
-
 
 <script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/jquery.easing.min.js"></script>
 
