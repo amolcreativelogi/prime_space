@@ -87,9 +87,10 @@
 {
   color: red;
 }
-</style> 
-
-
+.pac-container {
+    z-index: 10000 !important;
+}
+</style>
 <script type="text/javascript">
 function searchURL(){
     var module_id = ($('#select-property-type').val())?$('#select-property-type').val():'2';
@@ -356,3 +357,26 @@ var input = document.getElementById('location');
 google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 
+
+<script>
+function DeleteRecord(id,table,tbid)
+{   
+      if(confirm('Are you sure you want to delete this record?')){
+      var url = '<?php echo URL::to('user/DeleteRecord'); ?>';
+      //alert(isDeleteChild);
+      $.ajax({
+      method: 'POST',
+      url: url,
+      data: {'id':id,'table':table,'dbid':tbid,'_token':"{{ csrf_token() }}"}
+      })
+      .done(function( msg ) {
+      alert('Record Deleted Successfully.');
+      location.reload();
+      // var oTable = $('#example').dataTable();
+      // oTable.fnDraw();
+      });
+      }else{
+      return false;
+      }
+}
+</script>

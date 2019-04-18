@@ -305,5 +305,10 @@ Route::post('/frontend/bookProperty','Front\BookingController@bookProperty');
 Route::post('/frontend/getValidParkingProperty','Front\SearchPropertyController@getValidParkingProperty');
 
 
+Route::get('/user/parkingdetails/{id?}','Front\HostController@ParkingDetails');
+Route::post('/user/DeleteRecord','Front\HostController@DeleteRecord');
+Route::get('/user/downloadDoc/{id?}','Front\HostController@downloadDoc');
+
+
 
 

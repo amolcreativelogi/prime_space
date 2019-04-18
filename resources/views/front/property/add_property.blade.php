@@ -488,7 +488,7 @@
 
   <div class="success-property" style="display: none;">
   <h2 class="fs-title">Thank you</h2>
-  <h3 class="fs-subtitle">Thank you for adding. Please wait for Admin approval.</h3>
+  <h3 class="fs-subtitle"><div class="success-property-msg">Thank you for adding. Please wait for Admin approval.</div></h3>
   </div>
 
   <input type="button" name="previous" class="previous action-button" value="Previous" />
@@ -935,7 +935,7 @@ $(".previous").click(function(){
     }, 
     //this comes from the custom easing plugin
     easing: 'easeInOutBack'
-  });
+  }); 
 });
 });
 
@@ -952,7 +952,8 @@ $('#msform').on('submit', function(e){
         processData: false,
         success: function(data){ 
             if(data.status == 200)
-            { 
+            {   
+            $('.fs-subtitle').html(data.response['msg']);
             $('.loader').css('display','none');
             $('.success-property').show();  
             $(this)[0].reset();

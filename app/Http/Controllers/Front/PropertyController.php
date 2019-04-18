@@ -497,9 +497,14 @@ class PropertyController extends Controller
                // $add_property_availabilities  = DB::table($tbl_prefix.'add_property_availabilities')->insert($propBasicavail);
          }
 
+        if($request['module_manage_id'] == 2) {
         $data = array('status' => 200,
-                      'response' => array('msg' =>'success'));
+                      'response' => array('msg' =>'Thank you for adding Parking. Please wait for Admin approval.'));
+        } else {
+        $data = array('status' => 200,
+                      'response' => array('msg' =>'Thank you for adding Land. Please wait for Admin approval.')); 
             //echo 4;exit;  
+        }
         echo json_encode($data);
          //echo '{code:200,msg:success}';
     }

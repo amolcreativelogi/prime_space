@@ -1,16 +1,16 @@
-@extends('admin/layouts.default')
+@extends('front/layouts.default')
 @section('content')
-<div id="content">
-  <div class="page-header">
-    <div class="container-fluid">
-     <div class="pull-right">
-      </div>
-      <h1>Parking Property Details</h1>
-    </div>
-  </div>
-  <div class="container-fluid">
+<div class="site-content">
+
+
+<section class="dashboard-layout">
+    <div class="row">
+     @include('front/includes.host_side_menu')
+    
+    <div class="col-lg-10 col-md-9 col-sm-12 dl-content dash-content">
+        <div class="container-fluid">
             <div class="panel panel-default">
-     
+     <h1>Parking Property Details</h1>
  
                 <div class="panel-body">
       
@@ -160,6 +160,31 @@
                 </div>
 
 
+                 <div class="col-lg-12 list-unstyled">
+                  <h4>Property Documents</h4>
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Parking Dcouments</th>
+                       <!--  <th>Default Active</th> -->
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php foreach($getPropertyDoc as $pdoc) { 
+                        $imagepath = URL::to('/public/images/property-documents/'.$pdoc->name.'');
+                        ?>
+                      <tr>
+                        <td><a href="<?php echo URL::to('/user/downloadDoc/'.$pdoc->file_id.'') ?>">Download Doc</a>
+                        </td>
+                        <td><?php echo ($pdoc->default_file == 1) ? 'Active': 'Inactive'; ?></td>
+                      </tr>
+                    <?php }  ?>
+                    </tbody>
+                  </table>
+                </div>
+
+
                 <div class="col-lg-12 list-unstyled">
                   <h4>Property Images</h4>
                    
@@ -207,44 +232,10 @@
                   </table>
                 </div>
 
-                <li class="">
-                  <span class=""> <div >
-                  <label class="btn btn-default btn-on btn-xs active buttonswitch">
-                  <input type="radio" value="1" name="multifeatured_module[module_id][status]" <?php echo ($propertyDetails->status == 1) ? 'checked' : '' ?> onclick="updateSwitchPermission(<?php echo $propertyDetails->property_id; ?>,1)" >Active</label>
-                  <label class="btn btn-default btn-off btn-xs buttonswitch">
-                  <input type="radio" <?php echo ($propertyDetails->status == 0) ? 'checked' : '' ?>  onclick="updateSwitchPermission(<?php echo $propertyDetails->property_id; ?>,0)" value="0" name="multifeatured_module[module_id][status]">Inactive</label>
-                  </div></span>
-                  </li>
-
-
-                <!-- <div class="col-lg-12 list-unstyled">
-                  <h4>Property Doc</h4>
-                  <table class="table table-bordered">
-                    <thead>
-                      <tr>
-                        <th>Parking Doc</th>
-                        <th>Default Active</th>
-                        <th>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php foreach($getPropertyDoc as $pdoc) { ?>
-
-                      <tr>
-                        <td><a href="<?php echo URL::to('/public/images/property-documents/'.$pdoc->name.''); ?>">Download</a></td>
-                        <td><?php echo $pdoc->document_type_id; ?></td>
-                        <td><?php echo $pdoc->default_file; ?></td>
-                      </tr>
-                    <?php } ?>
-                    </tbody>
-                  </table>
-                </div>
--->
-               
+    
 
 
                 </div>   
-
            </div> 
                   
           <div class="col-lg-12 col-xs-12 admin-order-list"> 
@@ -252,57 +243,93 @@
            </div> 
               
           </div><!-- order-right -->
-        </div>
-      </div>
-    </div>
-  </div>
+    </div>      
+
+</section>
+ 
+</div>
 
 <style type="text/css">
-
-.disabledbutton
-{
-  background: #CCC;
-  border: 1px solid #CCC;
-}
-.disabledbutton:hover
-{
-  background: #CCC;
-  border: 1px solid #CCC;
-  cursor: context-menu;
-}
-</style>
-
-<style type="text/css">
-  
-  #mapCanvas1 {
+#mapCanvas1 {
     width: 100%;
     height: 400px;
 }
-
 </style>
 
 
-
 <script>
-function updateSwitchPermission(property_id,status)
-{
-    $.ajax({  
-      type: 'POST',  
-      url: '<?php echo URL::to('admin/PropertyApproval') ?>', 
-      data: { property_id: property_id,status: status },
-      success: function(response) {
-         if(response == 200)
-         {
-          alert('Property status updated successfull');
-         } else {
-          alert('Property status not updated successfull');
-         }
-      }
-  });
+
+//var jsonRes = <?php $searchResult; ?>;
+// var as = JSON.parse(jsonRes);
+// alert(as);
+// console.log(as);
+
+
+function  initMap() {
+    var map;
+    var bounds = new google.maps.LatLngBounds();
+    var mapOptions = {
+        mapTypeId: 'roadmap'
+    };
+    // Display a map on the web page
+    map = new google.maps.Map(document.getElementById("mapCanvas1"), mapOptions);
+    map.setTilt(50);
+    // Multiple markers location, latitude, and longitude
+    var markers =  [
+        ['<?php echo $propertyDetails->location; ?>', <?php echo $propertyDetails->latitude; ?>,  <?php echo $propertyDetails->longitude; ?>]
+    ];
+
+   
+
+   // console.log(markers);
+                        
+    // Info window content
+    // var infoWindowContent = [
+    //     ['<div class="info_content">' +
+    //     '<p>Sadar.</p>' + '</div>'],
+    //     ['<div class="info_content">' +
+    //     '<p>Nagpur.</p>' +
+    //     '</div>'],
+    //     ['<div class="info_content">' +
+    //     '<p>Mumbai.</p>' +
+    //     '</div>']
+    // ];
+        
+    // Add multiple markers to map
+    var infoWindow = new google.maps.InfoWindow(), marker, i;
+    
+    // Place each marker on the map  
+    for( i = 0; i < markers.length; i++ ) {
+        var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
+        bounds.extend(position);
+        marker = new google.maps.Marker({
+            position: position,
+            map: map,
+            title: markers[i][0]
+        });
+        
+        // Add info window to marker    
+        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+            return function() {
+                infoWindow.setContent(infoWindowContent[i][0]);
+                infoWindow.open(map, marker);
+            }
+        })(marker, i));
+
+        // Center the map to fit all markers on the screen
+        map.fitBounds(bounds);
+    }
+
+    // Set zoom level
+    var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
+        this.setZoom(1);
+        google.maps.event.removeListener(boundsListener);
+    });
+    
 }
+// Load initialize function
+google.maps.event.addDomListener(window, 'load', initMap);
 </script>
 
-
-
-</div>
 @stop
+
