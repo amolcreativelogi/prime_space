@@ -21,7 +21,8 @@
                         <!--  <option>Coupe  </option>-->
                         <!--  <option>Convertibl </option>-->
                         <!--</select>-->
-                        <label>Car Type : <strong>Hatchback</strong></label><br>
+                        <label>Car Type : <strong><?php echo $getCarProperty->car_type;?></strong></label><br>
+                        <label>Location Type : <strong>Covered</strong></label>
                         <!--<select class="filter-select">-->
                         <!--    <option>Location Type</option>-->
                         <!--    <option>Covered </option>-->
@@ -29,20 +30,17 @@
                         <!--    <option>Both </option>-->
                         <!--</select>-->
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-sm-6">
                                 <div class="form-group date-group">
-                                    
-                                    <div class="row">
-                                        <div class="col-md-4">
                                     <label>From</label>
-                                    <input type="text" name="frm_date" value="<?php echo $fromdate; ?>" class="dates">
-                                    </div>
-                                    <div class="col-md-4">
-                                     <label>To</label>
-                                    <input type="text" name="to_date" value="<?php echo $todate;?>" class="dates">
-                                    </div>
-                                    </div>
-                                    
+                                     <div class="date"><?php echo $fromdate; ?></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group date-group">
+                                    <label>To</label>
+                                    <div class="date"><?php echo $todate;?></div>
+                                  </div>
                             </div>
                         </div>
                     </div>
@@ -53,13 +51,13 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>FIRST NAME <span>*</span></label>
-                                    <input type="text" class="form-control" value="<?php echo $_SESSION['user']['firstname']; ?>" >
+                                    <input type="text" class="form-control" placeholder="FIRST NAME" >
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>LAST NAME <span>*</span></label>
-                                    <input type="text" class="form-control" value = "" >
+                                    <input type="text" class="form-control" placeholder="LAST NAME" >
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -125,15 +123,22 @@
                     </div>
                 </div>
                 <div class="col-sm-4">
-                    <div class="total-order">ORDER TOTAL <span>$2500</span></div>
+                    <div class="total-order">ORDER TOTAL <span><?php echo $finalprice;?>$</span></div>
                     <div class="book-box">
                         <div class="book-add"><?php echo !isset($getPropertyDetails->location)?'':$getPropertyDetails->location;?></div>
                         <div class="book-img"><img src="<?php echo url('/public/images/properties/'.$getPropImages->name)?>" alt=""></div>
                         <div class="book-amenties">
-                            <ul>
-                                <li><img src="{{ URL::asset('public') }}/assets/front-design/images/handicap.svg" alt=""><span>wheelchair</span></li> 
-                                <li><img src="{{ URL::asset('public') }}/assets/front-design/images/fire-extinguisher.svg" alt=""><span>fire extinguisher</span></li>
-                            </ul>
+                        <ul>
+                        <?php foreach($getPropAmenities as $amenities) {
+                          if (isset($amenities->amenity_image) && file_exists(public_path() . '/images/amenity/' . $amenities->amenity_image. '')) {
+                              $image = '<img src="'.url('/public/images/amenity/'.$amenities->amenity_image.'').'" width="100">';
+                          } else {
+                              $image =  'No Image';
+                          }
+                         ?>
+                        <li><?php echo $image; ?><span><?php echo $amenities->amenity_name; ?>  </span></li> 
+                        <?php } ?>
+                    </ul>
                         </div>
                     </div>
                 </div>

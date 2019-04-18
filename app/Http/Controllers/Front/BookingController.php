@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 use DateTime;
+use DateInterval;
+use DatePeriod;
+
 
 $now = new DateTime();
 
@@ -60,6 +63,7 @@ class BookingController extends Controller
 
           $getPropertyImagesFloorMap =  DB::table($tbl_prefix.'add_property_files')->select('name','document_type_id','default_file')->where('property_id', '=', $property_id)->where('document_type_id', '=', 2)->first();
 
+          
          // // foreach($getPropertyrent as $rent)
          // // {
          // //     $arrCarRent = array_push($rent['car_type'], $rent);
@@ -257,15 +261,37 @@ class BookingController extends Controller
       //request parameters from url    
       $module_id = request()->moduleid;
       $property_id = request()->propertyid;
+
+      $fromtime = request()->fromtime;
+      $totime = request()->totime;
+
+      $fromdate = request()->fromdate; 
+      $todate = request()->todate;  
+
+      $durationtype = request()->durationtype;
+      $car_type_req = request()->car_type_id;
+
+      //end of request parameters
+
       $tbl_prefix=$this->getTablePrefix($module_id);
       
       //get property data
       $data['getPropertyDetails'] = DB::table($tbl_prefix.'add_property')->select('*')->where(['property_id'=>$property_id,'is_deleted'=>0,'status'=>1])->first();
       
+
+      //get amminities
+
+      $data['getPropAmenities'] = DB::table('tbl_mstr_amenities as amnty')->select('amnty.amenity_name',
+      'amnty.status','amnty.amenity_image',
+      'amnty.amenity_id'
+    )
+     ->leftJoin($tbl_prefix.'add_property_amenities as propAmnty', 'propAmnty.amenity_id', '=', 'amnty.amenity_id')
+     ->where(['amnty.is_deleted'=>0,'amnty.status'=>1,'propAmnty.property_id'=>$property_id])->get();
       
       //get dates
       $data['fromdate'] = request()->fromdate;  
       $data['todate'] = request()->todate;  
+
       
       //get property images
       $data['getPropImages'] = DB::table($tbl_prefix.'add_property_files')->select('name'
@@ -274,12 +300,74 @@ class BookingController extends Controller
       //get property 
       $data['getPropertyType'] =  DB::table('prk_add_property_floors')->select('parking_type','floor_name','total_parking_spots')->leftJoin('prk_parking_type', 'prk_add_property_floors.parking_type_id', '=', 'prk_parking_type.parking_type_id')->where('prk_add_property_floors.property_id', '=', $property_id)->first();
       
-      //get user name and other details 
+      //get car details
+
+      $data['getCarProperty'] =  DB::table('prk_add_property_rent')->select('duration_type','car_type','rent_amount', 'prk_car_type.car_type_id')->leftJoin('tbl_mstr_booking_duration_type', 'prk_add_property_rent.duration_type_id', '=', 'tbl_mstr_booking_duration_type.duration_type_id')->leftJoin('prk_car_type', 'prk_add_property_rent.car_type_id', '=', 'prk_car_type.car_type_id')->where('prk_add_property_rent.property_id', '=', $property_id)->where('prk_car_type.car_type_id', '=', $car_type_req)->where('duration_type', '=', strtolower($durationtype))->first();
       
-      // print_r($data);
-      // exit;
+      $initialPrice = $data['getCarProperty']->rent_amount;
+      
+
+      $data['finalprice'] = $this->calculatePrice($fromtime, $totime, $fromdate, $todate, $durationtype, $initialPrice);
+
       //return view
       return view('front/pages/booking', $data);
     }
+
+    //function to calculate price 
+    public function calculatePrice($fromtime, $totime, $fromdate, $todate, $durationtype, $initialPrice){
+          $frm_date = DateTime::createFromFormat("m.d.Y" , $fromdate);
+          $from_date = $frm_date->format('Y-m-d');
+
+          $t_date = DateTime::createFromFormat("m.d.Y" , $todate);
+          $to_date = $t_date->format('Y-m-d');
+
+          $datetime1 = new DateTime($to_date);
+          $datetime2 = new DateTime($from_date);
+          
+     
+       if ($durationtype == "hourly"){
+        $to = \Carbon\Carbon::createFromFormat('H:s:i', $totime);
+        $from = \Carbon\Carbon::createFromFormat('H:s:i', $fromtime); 
+        $diff_in_minutes = $to->diffInMinutes($from);
+        $finalPrice = $diff_in_minutes * $initialPrice;
+        return $finalPrice;
+      }
+
+      else if ($durationtype == "daily"){
+        
+        $interval = $datetime2->diff($datetime1)->format('%m');
+        $finalPrice = $interval * $initialPrice;
+        return $finalPrice;
+      }
+
+      else if ($durationtype == "weekly"){
+        $this->datediffInWeeks($datetime1, $datetime2);
+        $finalPrice = $finalWeek* $initialPrice;
+      }
+
+      else if ($durationtype == "monthly"){
+        $year1 = $datetime2->format('y');
+        $year2 = $datetime1->format('y');
+        $month1 = $datetime2->format('m');
+        $month2 = $datetime1->format('m');
+        $diff = (($year1 - $year2) * 12) + ($month1 - $month2);
+        $finalPrice = $diff * $initialPrice;
+        return $finalPrice;
+
+      }
+
+    }
+
+    public function datediffInWeeks($datetime1, $datetime2)
+    {
+        if($datetime1 > $datetime2) return datediffInWeeks($datetime2, $datetime1);
+        $first = DateTime::createFromFormat('m/d/Y', $datetime1);
+        $second = DateTime::createFromFormat('m/d/Y', $datetime2);
+        $finalWeek = $first->diff($second)->days/7;
+        print_r($finalWeek);
+        exit;
+        return $finalWeek;
+    }
+
 
 }
