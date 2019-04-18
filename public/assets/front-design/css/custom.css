@@ -181,6 +181,8 @@ letter-spacing: 0.01em;}
 .getstarted a {font-style: normal;font-weight: 600;font-size: 24px;line-height: normal;color: #262626; text-align: center;border: 1px solid #000000;padding: 20px 30px;display: inline-block;margin: 0 10px;text-transform: none;font-family: "Montserrat";}
 .getstarted a:hover, .getstarted a:focus { border: 1px solid #000000; background: #000; color: #fff; text-decoration: none;}
 
+
+/*Footer CSS*/
 .site-footer {background: #262626;}
 .foot-top { padding: 63px 0 50px 0; }
 .site-footer .foot-logo img {width: 80%;}
@@ -190,7 +192,7 @@ letter-spacing: 0.01em;}
 .site-footer ul li a {font-family: Helvetica Neue;font-size: 16px;line-height: 27px;color: #BBBBBB;}
 .foot-btm { border-top:  1px solid #BBBBBB; text-align: right;padding: 30px 0;}
 .foot-btm ul { display: inline-block; }
-.foot-btm ul li { display: inline-block; }
+.foot-btm ul li { display: inline-block; }   
 .foot-btm ul li a { font-family: Helvetica Neue;font-size: 13px;line-height: 22px; color: #BBBBBB;padding: 0 15px;}
 .site-footer ul li a:hover, .site-footer ul li a:focus {color: #fff; text-decoration: underline;}
 .foot-btm .copyright {font-family: Helvetica Neue;font-size: 13px;line-height: 22px;color: #BBBBBB; display: inline-block; margin: 0 20px;}
