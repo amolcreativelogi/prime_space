@@ -23,26 +23,19 @@ class SearchPropertyController extends Controller
     public function SeachProperty()
     {   
       //convert date into mysql format Y-m-d
-       $from_date = date('Y-m-d');
+       $from_date = ''; //date('Y-m-d');
        if(!empty(request()->fromdate)){
           $frm_date = request()->fromdate;
           $frm_date = DateTime::createFromFormat("m.d.Y" , $frm_date);
           $from_date = $frm_date->format('Y-m-d');
        }
 
-       $to_date = date('Y-m-d');
+       $to_date = '';//date('Y-m-d');
        if(!empty(request()->fromdate)){
           $todate = request()->todate;
           $todate = DateTime::createFromFormat("m.d.Y" , $todate);
           $to_date = $todate->format('Y-m-d');
        }
-
-        // time 
-       $from_time = request()->fromtime; 
-       $to_time = request()->totime;
-
-       if($from_time=='00:00'){$from_time = '00:00:01';}
-       if($to_time=='23:00'){$to_time = '23:59:00';}
 
        $module_id = empty(request()->module_id)?'2':request()->module_id;
        $location = request()->location;
@@ -53,12 +46,18 @@ class SearchPropertyController extends Controller
        $duration_type_id = request()->duration_type_id;
        $land_type_id = request()->land_type_id;
 
+       // time 
+       $from_time = request()->fromtime; 
+       $to_time = request()->totime;
+
+       if($duration_type_id != 1){
+        if($from_time=='00:00'){$from_time = '00:00:01';}
+        if($to_time=='23:00'){$to_time = '23:59:00';}
+       }
+
        //get tbl prefix by module id
        $tbl_prefix=$this->getTablePrefix($module_id);
 
-
-       
-       //die;
 
         // when location is not empty build query
         $locationFields="";
@@ -172,8 +171,9 @@ class SearchPropertyController extends Controller
            
          }
         // print_r($searchResult);die('in');
-        $searchResult['closest']=$resultClosest;
-        $searchResult['cheapest']=$resultCheapest;
+        $searchResult['closest']=($resultClosest) ? $resultClosest : array();
+        $searchResult['cheapest']=($resultCheapest) ? $resultCheapest : array();
+       
 
         //Count of properties
         $no_of_prop = ($resultClosest)?count($resultClosest):0;
@@ -218,14 +218,14 @@ class SearchPropertyController extends Controller
     {   
 
     	//convert date into mysql format Y-m-d
-       $from_date = date('Y-m-d');
+      // $from_date = date('Y-m-d');
        if(!empty(request()->fromdate)){
        		$frm_date = request()->fromdate;
        		$frm_date = DateTime::createFromFormat("m.d.Y" , $frm_date);
        		$from_date = $frm_date->format('Y-m-d');
        }
 
-       $to_date = date('Y-m-d');
+       //$to_date = date('Y-m-d');
        if(!empty(request()->fromdate)){
        		$todate = request()->todate;
        		$todate = DateTime::createFromFormat("m.d.Y" , $todate);
@@ -392,14 +392,71 @@ class SearchPropertyController extends Controller
 
 //get valid parking property ids
   public function getValidParkingProperty($module_id,$from_date,$to_date,$from_time,$to_time,$duration_type_id){
+
+    $getValidPropertyIds='0';
+   
+    if(!empty($from_date) && !empty($to_date)){
+
     //get no. of days
     $days = $this->dateDiffInDays($from_date, $to_date);
 
     if($days <= 6){ //if duration is daily and hourly
 
+      //get days in selected time range
+
+     $getAvailableProperty = DB::select("SELECT property_id, group_concat(days) as aday FROM `prk_property_days_time_availability` WHERE (TIME('".$from_time."') BETWEEN start_time AND end_time) AND (TIME('".$to_time."') BETWEEN start_time AND end_time ) AND is_deleted = 0 and status = 1 group by property_id");
+
+     $days = array();
+     $strAvailablePropId='0';
+     $propId=array();
+      if(!empty($getAvailableProperty)){
+
+          //get daynames array from dates
+          $days=$this->getDays($from_date,$to_date); //return ex :(monday,tuesday)
+          //print_r($days);
+
+         //check if each day ex :(monday,tuesday) exist in string of daysname col aday from tbl
+          foreach($getAvailableProperty as $k=>$v){
+
+            foreach ($days as $key => $value) {
+
+            if(strpos($v->aday, $value) !== false) {
+                
+                $propId[$v->property_id][]=1; //if exist assign 1
+            }else{
+                $propId[$v->property_id][]=0; //if not exist assign 0
+            }
+
+          }
+          
+         }
+
+
+         if(!empty($propId)){ 
+
+            $arrStrAvailablePropId=array();
+            foreach ($propId as $pid => $value) {
+
+              if((reset($value) == 1 && count(array_unique($value)) == 1)) //check if each array element contain same value as 1 .i,e each day in search date range is available on search time range
+              {
+                
+                $arrStrAvailablePropId[]=$pid;
+              }
+            }
+
+            if(!empty($arrStrAvailablePropId)){
+              $strAvailablePropId=implode(',',$arrStrAvailablePropId);
+            }
+
+          }
+
+      }
+      //pass as property id string as ex.23,24
+      $avaibilityCondition=$strAvailablePropId;
+    /*
        //get day names string from daterange to check day wise avaibility 
        $dayNameString=$this->getDateRangeWithDayName($from_date,$to_date);
-       $avaibilityCondition = empty($dayNameString)?"":" AND days IN(".$dayNameString.")";
+       $avaibilityCondition = empty($dayNameString)?"":" AND days IN(".$dayNameString.")";*/
       
     }else{ //if duration is daily and monthly
 
@@ -407,7 +464,7 @@ class SearchPropertyController extends Controller
         //if searching monthly then property should be available for 6 days i,e can be off for single day in week
         $weekCount=($duration_type_id == 2)?7:6;
 
-        $avaibilityCondition = " AND property_id IN 
+        $avaibilityCondition = "SELECT property_id FROM `prk_property_days_time_availability` WHERE (TIME('".$to_time."') > start_time ) AND (TIME('".$from_time."') < end_time  ) AND is_deleted = 0 and status = 1 AND property_id IN 
         (
             SELECT property_id  FROM `prk_property_days_time_availability` WHERE is_deleted = 0 and status = 1
             GROUP BY property_id HAVING COUNT(*) >= ".$weekCount."
@@ -432,7 +489,7 @@ class SearchPropertyController extends Controller
     prop.name as name 
     FROM prk_add_property as prop  WHERE  prop.status=1 AND prop.is_deleted=0 AND prop.property_id IN 
     (
-        SELECT property_id FROM `prk_property_days_time_availability` WHERE (TIME('".$to_time."') > start_time ) AND (TIME('".$from_time."') < end_time  ) AND is_deleted = 0 and status = 1".$avaibilityCondition."
+        ".$avaibilityCondition."
      )
      
      ) AS A
@@ -450,14 +507,17 @@ class SearchPropertyController extends Controller
          GROUP BY A.property_id, A.name
          
      ) AS  Z
-     WHERE Difference > 0");
+     WHERE (Difference > 0 OR Difference IS NULL)");
+
+
+    }
 
    //return property id's
-    $getValidPropertyIds='0';
+    
     if(isset($getValidProperty[0]->property_ids) && !empty($getValidProperty[0]->property_ids)){
       $getValidPropertyIds=$getValidProperty[0]->property_ids;
     }
-
+    
     return $getValidPropertyIds;
 
 
@@ -491,6 +551,8 @@ class SearchPropertyController extends Controller
     } 
 
 
+
+
 //get string of daterange
   public function getDateRangeWithDayName($from_date,$to_date){
 
@@ -511,6 +573,26 @@ class SearchPropertyController extends Controller
 
     return $str;
   }
+
+  //get string of daterange
+  public function getDays($from_date,$to_date){
+
+    $begin = new DateTime($from_date);
+    $end = new DateTime($to_date);
+    $end = $end->modify( '+1 day' ); 
+    $interval = new DateInterval('P1D');
+    $daterange = new DatePeriod($begin, $interval ,$end);
+
+    $days=array();
+    foreach($daterange as $k=>$date){
+       $days[]= $date->format('l');
+    }
+
+    return $days;
+  }
+
+
+   
 
 
 

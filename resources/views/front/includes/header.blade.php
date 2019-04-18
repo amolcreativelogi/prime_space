@@ -54,15 +54,7 @@
               if(isset($_SESSION['user']['is_user_login'])) { ?>
               <div class="afterloginbox">
               <ul>
-                 <li class="dropdown"><a href="#" data-toggle="dropdown" aria-expanded="false">
-                  
-                  <?php if(!empty($_SESSION['user']['profile_pic'])) { ?>
-                  <img src="<?php echo URL::to('public/images/user-profile/'.$_SESSION['user']['profile_pic'].''); ?>" alt="">
-                 <?php } else { ?>
-                  <img src="<?php echo URL::to('public/images/user-profile/user-default-image.png'); ?>" alt="">
-                 <?php } ?>
-
-                  <?php echo $_SESSION['user']['firstname']; ?> <span class="caret"></span></a>
+                 <li class="dropdown"><a href="#" dropdown-toggle"="" data-toggle="dropdown" aria-expanded="false"><img src="http://alkurn.info/html/Prymespace/images/test-author-03.jpg" alt=""><?php echo $_SESSION['user']['firstname']; ?> <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="<?php echo ($_SESSION['user']['user_type_permission'] == 'host') ?  URL::to('user/host') :  URL::to('user/customer'); ?>">dashboard</a></li>
                   <?php if($_SESSION['user']['user_type_id'] == 5) { 
@@ -102,41 +94,64 @@
 function searchURL(){
     var module_id = ($('#select-property-type').val())?$('#select-property-type').val():'2';
 
+    //default date time
     var fromdate = getCurrentDate();
     var todate =   getCurrentDate();
-    var fromtime = '00:00:00';
+    var fromtime = '00:00:01';
     var totime= '23:59:00';
+    var activeTab = "daily";
+    var duration_type_id = 2;
+    
+    //home from date time 
+    var  home_search_datetime = $('#search_dates1').val();
+    if(typeof(home_search_datetime) != "undefined" && home_search_datetime != ""){
+      var split_home_search_datetime = home_search_datetime.split(' ');
+      var home_search_frmdate =split_home_search_datetime[0];
+      var home_search_frmtime =split_home_search_datetime[1];
+      //var home_search_frmtime_obj = new Date(home_search_datetime); 
+      var home_search_frmtime_obj = home_search_datetime.split(' ');
+      var hour = home_search_frmtime_obj[1]; //home_search_frmtime_obj.getHours();
+      //var home_search_totime = hour+1;
+
+      var hoursplit = hour.split(':');
+      var home_search_totime  = parseInt(hoursplit[0])+parseInt(1)+':'+hoursplit[1];
+      //(hour < 9)?'0'+(hour+1)+':00':(hour+1)+':00';
+      //(hour < 9)?'0'+(hour+1)+':00':(hour+1)+':00';
+
+      activeTab = "hourly";
+      duration_type_id=1;
+    }
+
     var location = "";
-    var latitude = '36.16266380';//$('#latitude').val(); 
-    var longitude = '-86.78160160';//$('#latitude').val();
+    var latitude = '';//$('#latitude').val(); 
+    var longitude = '';//$('#latitude').val();
     var searchFormId=$("a.active").attr('href');
     var searchFormLand=$("#nav-tab1 a.active").attr('href');
-    var activeTab = "monthly";
-    var car_type_id = 1;
-    var land_type_id =  1;
-    var duration_type_id = '';
+    
+    var car_type_id = '';
+    var land_type_id =  '';
+    var location_type_id ='';
 
     if(module_id == 2) {
-        duration_type_id = 1;
+        location_type_id = ( $('#location_type_id').val()) ?  $('#location_type_id').val() : '';
         if(searchFormId == '#monthly'){
            fromdate = $('#monthly_from').val(); 
            todate =   $('#monthly_to').val();
            location = $('#monthlyFrmlocation').val();
            latitude = $('#monthlyFrmLatitude').val(); 
            longitude = $('#monthlyFrmLongitude').val();
-           duration_type_id = 3;
-
-           car_type_id = ( $('#car_type_id').val()) ?  $('#car_type_id').val() : 'no';
+           car_type_id = ( $('#car_type_id').val()) ?  $('#car_type_id').val() : '';
            activeTab = "monthly";
+           duration_type_id=3;
         } else if(searchFormId == '#daily'){
            fromdate = $('#from').val(); 
            todate =   $('#to').val();
            location = $('#dailyFrmlocation').val();
            latitude = $('#dailyFrmLatitude').val(); 
            longitude = $('#dailyFrmLongitude').val();
-           car_type_id = ( $('#car_type_id').val()) ?  $('#car_type_id').val() : 'no';
+           car_type_id = ( $('#car_type_id').val()) ?  $('#car_type_id').val() : '';
            activeTab = "daily";
-           duration_type_id = 2;
+           duration_type_id=2;
         }
         else if(searchFormId == '#hourly'){
            var str = $('#from_date').val();
@@ -145,41 +160,44 @@ function searchURL(){
            var to_date = str1.split(' ');
            fromdate = from_date[0]; 
            todate =   to_date[0]; 
-           fromtime = (from_date[1])?from_date[1]:'00:00:00';
-           totime= (to_date[1])?to_date[1]:'23:00:00';
+           fromtime = (from_date[1])?from_date[1]:'00:00:01';
+           totime= (to_date[1])?to_date[1]:'23:59:00';
            location = $('#hrlyFrmlocation').val();
            latitude = $('#hrlyFrmLatitude').val(); 
            longitude = $('#hrlyFrmLongitude').val();
-           car_type_id = ( $('#car_type_id').val()) ?  $('#car_type_id').val() : 'no';
+           car_type_id = ( $('#car_type_id').val()) ?  $('#car_type_id').val() : '';
            activeTab = "hourly";
-           duration_type_id = 1;
+           duration_type_id=1;
         }else{
          var  search_dates = $('#search_dates').val();
          location = $('#location').val();
          latitude = $('#latitude').val(); 
          longitude = $('#longitude').val();
+         fromdate = (home_search_frmdate)?home_search_frmdate:getCurrentDate();
+         todate = (home_search_frmdate)?home_search_frmdate:getCurrentDate();
+         fromtime = (home_search_frmtime)?home_search_frmtime:'00:00:01';
+         totime= (home_search_totime)?home_search_totime:'23:59:00';
         } 
     } else {
-
-       duration_type_id = 2;
+       
        if(searchFormLand == '#land-monthly'){
-           fromdate = $('#monthly_from').val(); 
-           todate =   $('#monthly_to').val();
+           fromdate = $('#land-monthly_from').val(); 
+           todate =   $('#land-monthly_to').val();
            location = $('#landmonthlyFrmlocation').val();
            latitude = $('#landmonthlyFrmLatitude').val(); 
            longitude = $('#landmonthlyFrmLongitude').val();
-           land_type_id = ( $('#land_type_id').val()) ?  $('#land_type_id').val() : 'no';
+           land_type_id = ( $('#land_type_id').val()) ?  $('#land_type_id').val() : '';
            activeTab = "monthly";
-           duration_type_id = 3;
+           duration_type_id=3;
         } else if(searchFormLand == '#land-daily'){
            fromdate = $('#daily_from').val(); 
            todate =   $('#daily_to').val();
            location = $('#landdailyFrmlocation').val();
            latitude = $('#landdailyFrmLatitude').val(); 
            longitude = $('#landdailyFrmLongitude').val();
-           land_type_id = ( $('#land_type_id').val()) ?  $('#land_type_id').val() : 'no';
+           land_type_id = ( $('#land_type_id').val()) ?  $('#land_type_id').val() : '';
            activeTab = "daily";
-           duration_type_id = 2;
+           duration_type_id=2;
         }
         else if(searchFormLand == '#land-weekly'){
            fromdate = $('#weekly_from').val(); 
@@ -187,22 +205,21 @@ function searchURL(){
            location = $('#landweeklyFrmlocation').val();
            latitude = $('#landweeklyFrmLatitude').val(); 
            longitude = $('#landweeklyFrmLongitude').val();
-           land_type_id = ( $('#land_type_id').val()) ?  $('#land_type_id').val() : 'no';
+           land_type_id = ( $('#land_type_id').val()) ?  $('#land_type_id').val() : '';
            activeTab = "weekly";
-           duration_type_id = 4;
+           duration_type_id=4;
         }else{
          var  search_dates = $('#search_dates').val();
          location = $('#location').val();
          latitude = $('#latitude').val(); 
          longitude = $('#longitude').val();
+
         }
 
 
     }
 
-
-
-    var url = "<?php echo URL('/') ?>/searchproperty?module_id="+module_id+"&fromdate="+fromdate+"&todate="+todate+"&fromtime="+fromtime+"&totime="+totime+"&latitude="+latitude+"&longitude="+longitude+"&location="+location+"&car_type_id="+car_type_id+"&duration_type_id="+duration_type_id+"&land_type_id="+land_type_id+"&activeTab="+activeTab;
+    var url = "<?php echo URL('/') ?>/searchproperty?module_id="+module_id+"&fromdate="+fromdate+"&todate="+todate+"&fromtime="+fromtime+"&totime="+totime+"&latitude="+latitude+"&longitude="+longitude+"&location="+location+"&car_type_id="+car_type_id+"&location_type_id="+location_type_id+"&land_type_id="+land_type_id+"&activeTab="+activeTab+"&duration_type_id="+duration_type_id;
      //alert(url);
     //redirect url
     window.location = url;

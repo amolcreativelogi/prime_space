@@ -200,7 +200,7 @@ class PropertyController extends Controller
                                     'module_manage_id'=>$request['module_manage_id'],
                                     'user_id'=>$_SESSION['user']['user_id'],
                                     'name'=>$request['data']['property_name'],
-                                    'location'=>'test',
+                                    'location'=>$request['data']['location'],
                                     'latitude'=>$request['data']['latitude'],
                                     'longitude'=>$request['data']['longitude'],
                                     'zip_code'=>$request['data']['zip_code'],
@@ -216,7 +216,7 @@ class PropertyController extends Controller
                                     'module_manage_id'=>$request['module_manage_id'],
                                     'user_id'=>$_SESSION['user']['user_id'],
                                     'name'=>$request['data']['property_name'],
-                                    'location'=>'test',//$request['data']['location'],
+                                    'location'=>$request['data']['location'],
                                     'latitude'=>$request['data']['latitude'],
                                     'longitude'=>$request['data']['longitude'],//
                                     'zip_code'=>$request['data']['zip_code'],
@@ -225,7 +225,7 @@ class PropertyController extends Controller
                                     'property_size'=>$request['property_size'],
                                     'unit_type_id'=>$request['units'],
                                     'land_type_id'=>'1',
-                                    'status'=>'0',
+                                    'status'=>'1',
                                     'created_by'=>'1',
                                     'modified_by'=>'1',
                                     'is_deleted'=>'0',
@@ -454,7 +454,7 @@ class PropertyController extends Controller
                     {
                          $from_hours_time = ($request['day_hours'][$dayname] == 24) ? '00:00:01' : $request['from_hours_time'][$dayname]; 
                          $to_hours_time = ($request['day_hours'][$dayname] == 24) ? '23:59:00' : $request['to_hours_time'][$dayname];
-                         $day_status = (isset($request['day_status'][$dayname])) ? 0 : 1;
+                         $day_status = (isset($request['day_status'][$dayname])) ? 1 : 0;
 
                          $propAvailDetails[] = array(
                                         'property_id'=>$propertyId,

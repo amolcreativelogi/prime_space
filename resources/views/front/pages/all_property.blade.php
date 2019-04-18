@@ -280,8 +280,8 @@
                     <div class="nav nav-tabs nav-fill" id="prop-tab" role="tablist">
 
                         <input type="text" id="location-from-search" value="" placeholder="Set Location">
-                      <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#closest" role="tab" aria-controls="nav-home" aria-selected="true">closest</a>
-                      <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#cheapest" role="tab" aria-controls="nav-profile" aria-selected="false">cheapest</a>
+                      <a class="nav-item nav-link active search-tab" id="nav-home-tab" data-toggle="tab" href="#closest" role="tab" aria-controls="nav-home" aria-selected="true">closest</a>
+                      <a class="nav-item nav-link search-tab" id="nav-profile-tab" data-toggle="tab" href="#cheapest" role="tab" aria-controls="nav-profile" aria-selected="false">cheapest</a>
                     </div>
                   </nav>
                   <div class="proptab-content" id="nav-tabContent">
@@ -346,7 +346,7 @@
                                <input type="hidden" id="to_destination_<?php echo $searchProp->property_id; ?>" value="<?php echo $searchProp->location; ?>" placeholder="Search Destination">
                                 <a href="javascript:void();" class="get-direction" onclick="getAddress(<?php echo $searchProp->property_id; ?>)"  ><img src="{{ URL::asset('public') }}/assets/front-design/images/get-directions-button.svg" alt=""></a>
                                 <a href='<?php echo URL('/') ?>/propertydetails'  class="prop-details">details</a>
-                                <a href='<?php echo URL('/') ?>/propertydetails?moduleid=<?php echo Request::get("module_id")."&propertyid=".$searchProp->property_id."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="booknow">Book now</a>
+                                <a href='<?php echo URL('/') ?>/bookNow?moduleid=<?php echo Request::get("module_id")."&propertyid=".$searchProp->property_id."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="booknow">Book now</a>
           
                                 </div>
                             </div>
@@ -410,7 +410,7 @@
                                      <!--<input type="hidden" id="from_destination_<?php echo $searchProp->property_id; ?>" value="<?php echo $searchProp->location; ?>" placeholder="Search Destination">-->
                                     <a href="" class="get-direction" onclick="getAddress(<?php echo $searchProp->property_id; ?>)"  ><i class="fa fa-map-marker" aria-hidden="true"></i></a>
                                     <a href='#' class="prop-details">details</a>
-                                    <a href='<?php echo URL('/') ?>/propertydetails?moduleid=<?php echo Request::get("module_id")."&propertyid=".$searchProp->property_id."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="booknow">Book now</a>
+                                    <a href='<?php echo URL('/') ?>/bookNow?moduleid=<?php echo Request::get("module_id")."&propertyid=".$searchProp->property_id."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="booknow">Book now</a>
                 <!--<input type="text"  id="to_destination_<?php echo $searchProp->property_id; ?>" class="form-control" placeholder="Search Destination" style="margin-top: 0px;margin-bottom: 5px;margin-top: -7px;">-->
                                      <!--  <button class="booknow"></button> -->
                                     </div>
@@ -469,21 +469,30 @@
 
 <?php 
 //Map Pointer
- $c = array();
+$jsonClosest = array();
 foreach($searchResult['closest'] as $s)
 {
-    $c[] =   array($s->location,$s->latitude, $s->longitude);
+    $jsonClosest[] =   array($s->location,$s->latitude, $s->longitude);
    
 }
-$mapperPointer =  json_encode($c);
+//map pointer for cheapest tab
+$jsonCheapest = array();
+foreach($searchResult['cheapest'] as $s)
+{
+    $jsonCheapest[] =   array($s->location,$s->latitude, $s->longitude);
+   
+}
+
+$mapperPointerClosest =  json_encode($jsonClosest);
+$mapperPointerCheapest =  json_encode($jsonCheapest);
+
 ?>
 
 
 
 <script>
 
-
-
+  
 
   function getAddress(id)
   {
@@ -509,6 +518,45 @@ if(module == 2){
     $("#2").hide();
 }
 
+function reloadMarkers() {
+ 
+    // Loop through markers and set map to null for each
+   /* for (var i=0; i<markers.length; i++) {
+     
+        markers[i].setMap(null);
+    }*/
+
+    var searchTabId=$("a.search-tab.active").attr('href');
+    alert(searchTabId);
+    // Reset the markers array
+    markers = [];
+    if(searchTabId == "#closest"){
+      // Call set markers to re-add markers
+      setMarkers('<?php echo $mapperPointerClosest;?>');
+    }else{
+      setMarkers('<?php echo $mapperPointerCheapest;?>');
+      
+    }
+    
+
+
+}
+
+  /*  var markers;
+    $('.search-tab').click(function(){
+    alert('hi');
+    var searchTabId=$("a.search-tab.active").attr('href');
+    alert(searchTabId);
+    markers = [];
+    if(searchTabId == "#closest"){
+      setMarkers('<?php echo $mapperPointerClosest;?>');
+    }else{
+      setMarkers('<?php echo $mapperPointerCheapest;?>');
+      
+    }
+   
+    });*/
+
 function initMap() {
     var map;
     var bounds = new google.maps.LatLngBounds();
@@ -518,8 +566,12 @@ function initMap() {
     // Display a map on the web page
     map = new google.maps.Map(document.getElementById("mapCanvas"), mapOptions);
     map.setTilt(50);
+    var markers ;
+    markers = <?php echo $mapperPointerClosest; ?>;
+    
+
     // Multiple markers location, latitude, and longitude
-    var markers = <?php echo $mapperPointer; ?>;
+   // var markers = <?php echo $mapperPointerClosest; ?>;
 
 
     // [
@@ -580,16 +632,40 @@ google.maps.event.addDomListener(window, 'load', initMap);
 
 <script type="text/javascript">
 $(document).ready(function() {
-  
   //form land
+
   $('#landweeklyFrmlocation').val('<?php echo $_GET['location'];?>');
+  $('#landweeklyFrmLatitude').val('<?php echo $_GET['latitude'];?>');
+  $('#landweeklyFrmLongitude').val('<?php echo $_GET['longitude'];?>');
+
   $('#landmonthlyFrmlocation').val('<?php echo $_GET['location'];?>');
+  $('#landmonthlyFrmLatitude').val('<?php echo $_GET['latitude'];?>');
+  $('#landmonthlyFrmLongitude').val('<?php echo $_GET['longitude'];?>');
+
   $('#landdailyFrmlocation').val('<?php echo $_GET['location'];?>');
+  $('#landdailyFrmLatitude').val('<?php echo $_GET['latitude'];?>');
+  $('#landdailyFrmLongitude').val('<?php echo $_GET['longitude'];?>');
 
   //form parking
+
+  //Keep selected location and lat long on form
+
+  //Hourly
   $('#hrlyFrmlocation').val('<?php echo $_GET['location'];?>');
+  $('#hrlyFrmLatitude').val('<?php echo $_GET['latitude'];?>');
+  $('#hrlyFrmLongitude').val('<?php echo $_GET['longitude'];?>');
+
+  //Daily
   $('#dailyFrmlocation').val('<?php echo $_GET['location'];?>');
+  $('#dailyFrmLatitude').val('<?php echo $_GET['latitude'];?>');
+  $('#dailyFrmLongitude').val('<?php echo $_GET['longitude'];?>');
+
+  //Monthly
   $('#monthlyFrmlocation').val('<?php echo $_GET['location'];?>');
+  $('#monthlyFrmLatitude').val('<?php echo $_GET['latitude'];?>');
+  $('#monthlyFrmLongitude').val('<?php echo $_GET['longitude'];?>');
+  
+  
 
   var activeTab = '<?php echo $_GET['activeTab'];?>';
   var module_id = '<?php echo $_GET['module_id'];?>';
@@ -606,8 +682,13 @@ $(document).ready(function() {
         $('#to').val('<?php echo $_GET['todate'];?>');
     }
     else{
+        var frmaDt ='<?php echo $_GET['fromdate']?>';
+        var toDt ='<?php echo $_GET['todate']?>';
+
+      if(frmaDt !='' && toDt !=''){
         $('#from_date').val('<?php echo $_GET['fromdate'].' '.$_GET['fromtime'];?>');
         $('#to_date').val('<?php echo $_GET['todate'].' '.$_GET['totime'];?>');
+      }
         $('#from_time').val('<?php echo $_GET['fromtime'];?>');
         $('#to_time').val('<?php echo $_GET['totime'];?>');
         $('#hrlyFrmlocation').val('<?php echo $_GET['location'];?>');
