@@ -45,31 +45,32 @@
                         </div>
                     </div>
                     <hr>
+                    <?php if(isset($_SESSION['user']['is_user_login'])) { ?>
                     <div class="your-info">
-                        <h3>Your Information <a href="#" data-toggle="modal" class="book-signup" data-target="#loginModal">Please sign-in to book your property</a></h3>
+                        <h3>Your Information</h3>
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>FIRST NAME <span>*</span></label>
-                                    <input type="text" class="form-control" placeholder="FIRST NAME" >
+                                    <input type="text" class="form-control" placeholder="FIRST NAME" value="<?php echo $user_details_get->firstname; ?>">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>LAST NAME <span>*</span></label>
-                                    <input type="text" class="form-control" placeholder="LAST NAME" >
+                                    <input type="text" class="form-control" placeholder="LAST NAME" value="<?php echo $user_details_get->lastname; ?>">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>EMAIL <span>*</span></label>
-                                    <input type="text" class="form-control" placeholder="name@email.com" >
+                                    <input type="text" class="form-control" placeholder="name@email.com" value="<?php echo $user_details_get->email_id; ?>" >
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>PHONE NUMBER</label>
-                                    <input type="text" class="form-control" placeholder="(__) __-___" >
+                                    <input type="text" class="form-control" placeholder="(__) __-___" value="<?php echo $user_details_get->contact_no; ?>">
                                 </div>
                             </div>
                         </div>
@@ -118,9 +119,12 @@
                             <hr>
                             <div class="col-sm-6"><h4>Your Order Total</h4></div>
                             <div class="col-sm-6"><h2>$<?php echo $finalprice;?></h2></div>
-<div class="col-sm-6"><input type="button" value="submit" onclick="searchURL()" data-toggle="modal"  data-target="#thanksModal"></div>
+                            <div class="col-sm-6"><input type="button" value="submit" onclick="searchURL()" data-toggle="modal"  data-target="#thanksModal"></div>
                         </div>
                     </div>
+<?php } else {?>
+    <a href="#" data-toggle="modal" class="book-signup" data-target="#loginModal">Please sign-in to book your property</a>
+<?php }?>
                 </div>
                 <div class="col-sm-4">
                     <div class="total-order">ORDER TOTAL <span>$<?php echo $finalprice;?></span></div>
