@@ -100,7 +100,7 @@ class SearchPropertyController extends Controller
           }
 
           //serch result for cheapest
-          $orderByRentPrice = (!empty($carTypeWhere) && !empty($locationWhr))?',propRent.rent_amount':' ORDER BY propRent.rent_amount';//die;
+          $orderByRentPrice = (!empty($carTypeWhere) && !empty($locationFields))?' HAVING distance <= 10000000000.10686 ORDER BY propRent.rent_amount':' ORDER BY propRent.rent_amount';//die;
 
 
          
@@ -111,7 +111,7 @@ class SearchPropertyController extends Controller
           FROM ".$tbl_prefix."add_property AS addProperty
           ".$carTypeJoin."
           WHERE addProperty.module_manage_id =".$module_id."
-          AND addProperty.status = 1 AND addProperty.is_deleted = 0 AND addProperty.property_id IN(".$getValidPropIds.")".$carTypeWhere.$locationTypeWhere.$locationWhr.$orderByRentPrice
+          AND addProperty.status = 1 AND addProperty.is_deleted = 0 AND addProperty.property_id IN(".$getValidPropIds.")".$carTypeWhere.$locationTypeWhere.$orderByRentPrice
 
          );
 
