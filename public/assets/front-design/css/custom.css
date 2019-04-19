@@ -204,7 +204,7 @@ letter-spacing: 0.01em;}
 .foot-btm .copyright {font-family: Helvetica Neue;font-size: 13px;line-height: 22px;color: #BBBBBB; display: inline-block; margin: 0 20px;}
 .foot-btm ul.foot-social li a { padding: 0 6px;font-size: 16px;}
 
-.site-form {padding: 50px 0; font-size: 15px;}
+.site-form {padding:0; font-size: 15px;}
 .site-form h1 {font-family: Montserrat;font-style: normal;font-weight: 600;font-size: 20px;line-height: normal;color: #303030;}
 .site-form .subtitle {text-align: center;font-size: 16px;margin-bottom: 25px;}
 .site-form .form-group { min-height: auto; position: relative; margin-bottom: 14px;}
@@ -250,15 +250,14 @@ line-height: normal;text-transform: uppercase;color: #303030;}
   width:25%;}
 /*.formbox { width: 530px; margin: 0 auto; padding: 0 36px; }*/
 body.modal-open, body.modal-open .modal { padding: 0 !important; }
-.formModal .modal-title {font-family: Montserrat;font-style: normal;font-weight: 600;font-size: 20px;line-height: normal;
-  color: #303030;padding: 20px 0 0 0;}
+.formModal .modal-title {font-family: Montserrat;font-style: normal;font-weight: 600;font-size: 20px;line-height: normal;color: #303030;padding:0;}
 .formModal .modal-dialog {max-width: 530px;}
 #searchModal.formModal .modal-dialog { margin: 12% auto;}
 #loginModal.formModal .modal-dialog { margin:6% auto;}
 #resetpassModal.formModal .modal-dialog { margin: 15% auto;}
 .formModal .modal-content {border-radius: 0;padding: 20px;}
 .formModal .modal-header { border: 0; }
-.formModal .site-form { padding: 0; }
+.formModal .modal-header { border: 0; padding: 0 15px 5px 15px;}
 .formModal .site-form .form-group .bluebtn {background: #3351BB;border-radius: 3px;font-family: Helvetica Neue;font-size: 16px;line-height: normal;color: #FFFFFF;text-transform: inherit;height: 50px;margin: 10px 0 8px 0; cursor: pointer;}
 .formModal .site-form .form-group .bluebtn:hover, .formModal .site-form .form-group .bluebtn:focus { background: #333; }
 .formModal .site-form .form-group.password-reset {border-top: 1px solid #C8C8C8;font-family: Helvetica Neue;font-size: 14px;line-height: 23px;text-align: center;color: #303030;margin: 0;padding: 15px 0 0 0;}
@@ -333,7 +332,7 @@ span.teating-div {position: absolute;left: 0;width: 100%;top: -4px;}
 .add-property #msform textarea {height:105px;border-radius: 3px;font-family: Helvetica Neue;font-size: 16px;line-height: normal;color: #303030;padding: 5px 10px;width: 100%; resize: none;border: 1px solid #ced4da; margin-bottom: 14px;}
 .add-property #msform .action-button {width: 100px;background: #000;font-weight: normal;color: white;border: 0 none;border-radius: 1px;cursor: pointer;padding: 10px 5px;margin: 10px 5px;}
 .add-property #msform .action-button:hover, .add-property #msform .action-button:focus {box-shadow: 0 0 0 2px white, 0 0 0 3px #000;}
-.add-property .fs-title {font-size:18px;text-transform: uppercase;color: #2C3E50;margin-bottom:20px;font-family: Helvetica Neue;}
+.add-property .fs-title {font-size:18px;text-transform: uppercase;color: #2C3E50;margin: 0 0 20px 0;font-family: Helvetica Neue;}
 .add-property .fs-subtitle {font-weight: normal;font-size: 13px;color: #666;margin-bottom: 20px;}
 .add-property #progressbar {overflow: hidden;counter-reset: step;padding: 0;width: 90%;margin: 0 auto 30px;}
 .add-property #progressbar li {list-style-type: none;font-family: Helvetica Neue;font-size: 14px;line-height: 23px;color: #303030; text-transform: uppercase;width: 12%;float: left;position: relative;}
@@ -349,8 +348,14 @@ span.teating-div {position: absolute;left: 0;width: 100%;top: -4px;}
 .add-property .box label span {float: left;width: 100%;text-align: left;font-size: 15px; color: #333;font-weight: normal;
   padding: 13px 20px;}
 .add-property .form-field {border-bottom: 1px solid #ddd;margin-bottom: 20px;}
+.add-property .form-field table#tbl_rent_with_booking_duration_type tr:nth-child(1) td.col-sm-3:nth-child(2) {
+  width: 600px;
+}
+.add-property .form-field table#tbl_rent_with_booking_duration_type tr:nth-child(1) td.col-sm-6 {width: 600px;}
 .add-property .form-field label { float: left; font-size: 15px; }
-
+.add-property .form-field table#tbl_rent_with_booking_duration_type tr.duration_price_input td, .add-property .form-field table#tbl_rent_with_booking_duration_type tr.duration_price_input td:last-child { width: 32%;
+  float: left;
+}
 .add-property .form-field table#tbl_rent_with_booking_duration_type tr, .add-property .form-field table#myTable tr {display: -webkit-box;display: -ms-flexbox;display: flex;-ms-flex-wrap: wrap;flex-wrap: wrap;margin-right: -15px;margin-left: -15px;}
 /*.add-property .form-field table#tbl_rent_with_booking_duration_type tr:nth-child(1) td.col-sm-3:nth-child(2) {width:600px;}*/
 .add-property .form-field table#tbl_rent_with_booking_duration_type tr:nth-child(1) td.col-sm-3:nth-child(2) table {width:100%;}
@@ -359,7 +364,10 @@ span.teating-div {position: absolute;left: 0;width: 100%;top: -4px;}
 .add-property .form-field table#tbl_rent_with_booking_duration_type tr.duration_price_input td:last-child {	width: 32%;	float: left;}
 .add-property .form-field table#tbl_rent_with_booking_duration_type tr.duration_price_input td {}
 .add-property .form-field table#tbl_rent_with_booking_duration_type tr td { width: 22%;float: left;max-width: 22%;}
-.add-property .form-field table#tbl_rent_with_booking_duration_type tr td.col-sm-7 {margin: 0;max-width: unset; width: 100%;}
+.add-property .form-field table#tbl_rent_with_booking_duration_type tr td.col-sm-7 {margin: 0;max-width: unset;
+  width: 94.5%;position: absolute;left: 24%;}
+.add-property .form-field table#tbl_rent_with_booking_duration_type tr td.col-sm-7 + .col-sm-2 {position: absolute;
+  right: 0;}
 .add-property .form-field table#tbl_rent_with_booking_duration_type tr td.col-sm-7 .col-sm-3 { margin: 0;}
 .add-property .form-field table#tbl_rent_with_booking_duration_type tr td:last-child {width:10%;} 
 .add-property .form-field table#tbl_rent_with_booking_duration_type tr:nth-child(1) td.col-sm-3:nth-child(1) { margin: 0 10px 0 0;}
@@ -368,6 +376,7 @@ span.teating-div {position: absolute;left: 0;width: 100%;top: -4px;}
 .add-property .form-field table#tbl_rent_with_booking_duration_type tr td.booking_duration_type {max-width: 100%;
   width:94.5%;position: absolute;right: 0;float: right;left: 24%;}
 .add-property .form-field table#tbl_rent_with_booking_duration_type tr td.booking_duration_type #rent_with_booking_duration_type {width: 100%;}
+.add-property #msform .box label.error { border: 0;}
 
 .add-property .form-field .table td, .add-property .form-field .table th { border: 0;padding:0 5px; }
 .add-property .form-field select { width: 100%; height: 50px !important;padding: 5px 10px;font-size: 16px;line-height: normal;color: #303030;}

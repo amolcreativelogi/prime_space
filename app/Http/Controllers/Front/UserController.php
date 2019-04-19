@@ -187,6 +187,10 @@ class UserController extends Controller
 
 		return view('front.pages.update_profile')->with(['userdetails'=>$getuserDetails]);
 	}
+	public function accountSetting()
+    {
+        return view('front.pages.accountSetting');      
+    }
 
 	public function updatesaveprofile(Request $request)
 	{

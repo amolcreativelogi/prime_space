@@ -16,6 +16,16 @@
 <form id="update-profile" url="{{ URL::asset('updatesaveprofile') }}" method="post" novalidate="novalidate">
   <div class="msg-gloabal"></div>
   {!! csrf_field() !!}
+
+  <div class="form-group field-updateprofileform-address required">
+    <!-- <label class="control-label">Profile Image</label> -->
+    <!-- <input type="file" class="form-control" name="profile_pic" id="profile_pic"> -->
+    <div class="box custom-fileinput">
+    <input type="file" name="profile_pic" id="profile_pic" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple  />
+    <label for="profile_pic"><span></span> <strong>Choose Profile Picture</strong></label>
+  </div>
+  </div>
+
   <div class="form-group field-updateprofileform-emailaddress">
     <label class="control-label">Email Address</label>
     <input type="hidden" value="<?php echo $userdetails->user_id; ?>" id="id_user_id" name="user_id">
@@ -44,11 +54,6 @@
   <div class="form-group field-updateprofileform-address required">
     <label class="control-label">Zip Code</label>
     <input type="text" class="form-control" name="zipcode"  value="<?php echo $userdetails->zipcode; ?>">
-  </div>
-
-  <div class="form-group field-updateprofileform-address required">
-    <label class="control-label">Profile Image</label>
-    <input type="file" class="form-control" name="profile_pic">
   </div>
 
   <div class="form-group">

@@ -54,4 +54,8 @@ class PagesController extends Controller
     {
         return view('front.pages.messages');      
     }
+    public function accountSetting()
+    {
+        return view('front.pages.accountSetting');      
+    }
 }
