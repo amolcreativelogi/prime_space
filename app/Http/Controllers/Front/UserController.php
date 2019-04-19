@@ -189,17 +189,25 @@ class UserController extends Controller
 	}
 
 	public function updatesaveprofile(Request $request)
-	{
-		 $image = $request->file('profile_pic');
-		 if($image)
+	{	 
+		if( $request->file('profile_pic')){
+			$image = $request->file('profile_pic')->store('userprofile');
+			$result  = DB::table('prk_user_registrations')->where('user_id', $request->input('user_id'))->update(['profile_pic' => $image]);
+			$_SESSION['user']['profile_pic'] = $image;
+		}
+
+
+		/* if($image)
 		 {
-		 $imagename = strtolower(trim($request->input('firstname'))).'.'.$image->getClientOriginalExtension();
-		 $destinationPath = public_path('/images/user-profile');
-		 $amenities_image = $image->move($destinationPath,$imagename);
+		 //$imagename = strtolower(trim($request->input('firstname'))).'.'.$image->getClientOriginalExtension();
+		 //$destinationPath = public_path('/images/user-profile');
+		 //$amenities_image = $image->move($destinationPath,$imagename);
 		 $image = $imagename;
 		 } else {
 			$image = $request->input('edit_profile_pic');
-		 }
+		 }*/
+
+
 		$data = array(
 					'firstname'=>$request->input('firstname'),
 					'lastname'=>$request->input('lastname'),
@@ -208,8 +216,7 @@ class UserController extends Controller
 					'zipcode'=>$request->input('zipcode'),
 					'city'=>$request->input('city'),
 					'user_latitude'=>$request->input('latitude'),
-					'user_longitude'=>$request->input('longitude'),
-					'profile_pic'=>$image
+					'user_longitude'=>$request->input('longitude')
     				 );
 
 		$result  = DB::table('prk_user_registrations')->where('user_id', $request->input('user_id'))->update($data);
@@ -220,14 +227,16 @@ class UserController extends Controller
 		{
 			$_SESSION['user']['firstname'] = $request->input('firstname');
 			$_SESSION['user']['profile_pic'] = $image;
+			return back()->with(['success' => "Your profile has been updated successfully."]);
 			//forgot password link send on email
-			$data = array('status' => true,
-						  'response' =>  array('msg' =>'Your profile has been updated successfully.'),'url' => '');	
+			//$data = array('status' => true,
+			//			  'response' =>  array('msg' =>'Your profile has been updated successfully.'),'url' => '');	
 		}
 		else
 		{
-			$data = array('status' => false,
-						  'response' =>  array('msg' =>'Your profile not has been updated.'),'url' => '');	
+			return back()->with(['success' => "Your profile not has been updated."]);
+			//$data = array('status' => false,
+			//			  'response' =>  array('msg' =>'Your profile not has been updated.'),'url' => '');	
 		}
 		echo json_encode($data);
 		exit;
