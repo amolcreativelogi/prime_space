@@ -454,7 +454,7 @@ class PropertyController extends Controller
                     {
                          $from_hours_time = ($request['day_hours'][$dayname] == 24) ? '00:00:01' : $request['from_hours_time'][$dayname]; 
                          $to_hours_time = ($request['day_hours'][$dayname] == 24) ? '23:59:00' : $request['to_hours_time'][$dayname];
-                         $day_status = (isset($request['day_status'][$dayname])) ? 1 : 0;
+                         $day_status = (isset($request['day_status'][$dayname])) ? 0 : 1;
 
                          $propAvailDetails[] = array(
                                         'property_id'=>$propertyId,
@@ -497,9 +497,14 @@ class PropertyController extends Controller
                // $add_property_availabilities  = DB::table($tbl_prefix.'add_property_availabilities')->insert($propBasicavail);
          }
 
+        if($request['module_manage_id'] == 2) {
         $data = array('status' => 200,
-                      'response' => array('msg' =>'success'));
+                      'response' => array('msg' =>'Thank you for adding Parking. Please wait for Admin approval.'));
+        } else {
+        $data = array('status' => 200,
+                      'response' => array('msg' =>'Thank you for adding Land. Please wait for Admin approval.')); 
             //echo 4;exit;  
+        }
         echo json_encode($data);
          //echo '{code:200,msg:success}';
     }

@@ -372,8 +372,8 @@ jQuery('#land-monthly_to').datetimepicker({
   minDate: 0
 });
 jQuery('#search_dates').datetimepicker({
- //timepicker:false,
- format:'m.d.Y',
+ timepicker:true,
+ format:'m.d.Y H:i',
  minDate: 0,
 // minTime: 0
 });

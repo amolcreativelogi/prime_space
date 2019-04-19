@@ -38,7 +38,7 @@
         <a href="{{ URL::asset('/') }}" class="logo"><img src="{{ URL::asset('public') }}/assets/front-design/images/psw-logo.png" alt=""></a>
       </div>
       <div class="col-lg-9 col-md-8 col-sm-12 menudiv">
-        <a href="#" data-toggle="modal" class="searchModal popuplink" data-target="#searchModal"><i class="fa fa-search" aria-hidden="true"></i> Search</a>
+        <a href="#" data-toggle="modal" class="searchModal popuplink" data-target="#searchModal" onclick="getTopSerchModuleList()"><i class="fa fa-search" aria-hidden="true" ></i> Search</a>
          <nav class="navbar navbar-default pullright">
             <ul class="nav navbar-nav">
               <li class="demandpark"><a href="<?php echo URL::to('/searchproperty?module_id=2&fromdate=04.19.2019&todate=04.19.2019&fromtime=00:00:01&totime=23:59:00&latitude=&longitude=&location=&car_type_id=&location_type_id=&land_type_id=&activeTab=daily&duration_type_id=2'); ?>">Try on-demand parking</a></li>
@@ -57,7 +57,7 @@
                 <a href="<?php echo URL::to('messages'); ?>" class="head-msg"><i class="fa fa-envelope-o" aria-hidden="true"></i></a>
                 <a href="<?php echo URL::to('notification'); ?>" class="head-notification"><i class="fa fa-bell" aria-hidden="true"></i><span class="not-count">20</span></a>
               <ul>
-                 <li class="dropdown"><a href="#" dropdown-toggle"="" data-toggle="dropdown" aria-expanded="false"><img src="http://alkurn.info/html/Prymespace/images/test-author-03.jpg" alt=""><?php echo $_SESSION['user']['firstname']; ?> <span class="caret"></span></a>
+                 <li class="dropdown"><a href="#" dropdown-toggle="" data-toggle="dropdown" aria-expanded="false"><img src="http://alkurn.info/html/Prymespace/images/test-author-03.jpg" alt=""><?php echo $_SESSION['user']['firstname']; ?> <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="<?php echo ($_SESSION['user']['user_type_permission'] == 'host') ?  URL::to('user/host') :  URL::to('user/customer'); ?>">dashboard</a></li>
                   <?php if($_SESSION['user']['user_type_id'] == 5) { 
@@ -90,7 +90,16 @@
 {
   color: red;
 }
+.pac-container {
+    z-index: 10000 !important;
+}
 </style> 
+
+<?php 
+//get url module id
+$module_manage_id=(isset($_GET['module_id']) && !empty($_GET['module_id']))?$_GET['module_id']:'';
+ 
+?>
 
 
 <script type="text/javascript">
@@ -111,16 +120,11 @@ function searchURL(){
       var split_home_search_datetime = home_search_datetime.split(' ');
       var home_search_frmdate =split_home_search_datetime[0];
       var home_search_frmtime =split_home_search_datetime[1];
-      //var home_search_frmtime_obj = new Date(home_search_datetime); 
-      var home_search_frmtime_obj = home_search_datetime.split(' ');
-      var hour = home_search_frmtime_obj[1]; //home_search_frmtime_obj.getHours();
-      //var home_search_totime = hour+1;
-
+      //var home_search_frmtime_obj = home_search_datetime.split(' ');
+      var hour = home_search_frmtime;//home_search_frmtime_obj[1];
       var hoursplit = hour.split(':');
       var home_search_totime  = parseInt(hoursplit[0])+parseInt(1)+':'+hoursplit[1];
-      //(hour < 9)?'0'+(hour+1)+':00':(hour+1)+':00';
-      //(hour < 9)?'0'+(hour+1)+':00':(hour+1)+':00';
-
+     
       activeTab = "hourly";
       duration_type_id=1;
     }
@@ -131,8 +135,8 @@ function searchURL(){
     var searchFormId=$("a.active").attr('href');
     var searchFormLand=$("#nav-tab1 a.active").attr('href');
     
-    var car_type_id = '';
-    var land_type_id =  '';
+    var car_type_id = '1';
+    var land_type_id =  '2';
     var location_type_id ='';
 
     if(module_id == 2) {
@@ -143,7 +147,7 @@ function searchURL(){
            location = $('#monthlyFrmlocation').val();
            latitude = $('#monthlyFrmLatitude').val(); 
            longitude = $('#monthlyFrmLongitude').val();
-           car_type_id = ( $('#car_type_id').val()) ?  $('#car_type_id').val() : '';
+           car_type_id = ( $('#car_type_id').val()) ?  $('#car_type_id').val() : '1';
            activeTab = "monthly";
            duration_type_id=3;
         } else if(searchFormId == '#daily'){
@@ -152,7 +156,7 @@ function searchURL(){
            location = $('#dailyFrmlocation').val();
            latitude = $('#dailyFrmLatitude').val(); 
            longitude = $('#dailyFrmLongitude').val();
-           car_type_id = ( $('#car_type_id').val()) ?  $('#car_type_id').val() : '';
+           car_type_id = ( $('#car_type_id').val()) ?  $('#car_type_id').val() : '1';
            activeTab = "daily";
            duration_type_id=2;
         }
@@ -168,7 +172,7 @@ function searchURL(){
            location = $('#hrlyFrmlocation').val();
            latitude = $('#hrlyFrmLatitude').val(); 
            longitude = $('#hrlyFrmLongitude').val();
-           car_type_id = ( $('#car_type_id').val()) ?  $('#car_type_id').val() : '';
+           car_type_id = ( $('#car_type_id').val()) ?  $('#car_type_id').val() : '1';
            activeTab = "hourly";
            duration_type_id=1;
         }else{
@@ -189,7 +193,7 @@ function searchURL(){
            location = $('#landmonthlyFrmlocation').val();
            latitude = $('#landmonthlyFrmLatitude').val(); 
            longitude = $('#landmonthlyFrmLongitude').val();
-           land_type_id = ( $('#land_type_id').val()) ?  $('#land_type_id').val() : '';
+           land_type_id = ( $('#land_type_id').val()) ?  $('#land_type_id').val() : '2';
            activeTab = "monthly";
            duration_type_id=3;
         } else if(searchFormLand == '#land-daily'){
@@ -198,7 +202,7 @@ function searchURL(){
            location = $('#landdailyFrmlocation').val();
            latitude = $('#landdailyFrmLatitude').val(); 
            longitude = $('#landdailyFrmLongitude').val();
-           land_type_id = ( $('#land_type_id').val()) ?  $('#land_type_id').val() : '';
+           land_type_id = ( $('#land_type_id').val()) ?  $('#land_type_id').val() : '2';
            activeTab = "daily";
            duration_type_id=2;
         }
@@ -208,7 +212,7 @@ function searchURL(){
            location = $('#landweeklyFrmlocation').val();
            latitude = $('#landweeklyFrmLatitude').val(); 
            longitude = $('#landweeklyFrmLongitude').val();
-           land_type_id = ( $('#land_type_id').val()) ?  $('#land_type_id').val() : '';
+           land_type_id = ( $('#land_type_id').val()) ?  $('#land_type_id').val() : '2';
            activeTab = "weekly";
            duration_type_id=4;
         }else{
@@ -221,12 +225,11 @@ function searchURL(){
 
 
     }
-
+     //create url
     var url = "<?php echo URL('/') ?>/searchproperty?module_id="+module_id+"&fromdate="+fromdate+"&todate="+todate+"&fromtime="+fromtime+"&totime="+totime+"&latitude="+latitude+"&longitude="+longitude+"&location="+location+"&car_type_id="+car_type_id+"&location_type_id="+location_type_id+"&land_type_id="+land_type_id+"&activeTab="+activeTab+"&duration_type_id="+duration_type_id;
-     //alert(url);
     //redirect url
     window.location = url;
-    //window.location = "http://www.myurl.com/search/" + (input text value);
+   
   }
 
 function topPrpertySearch()
@@ -235,21 +238,69 @@ function topPrpertySearch()
     fromdate = $('#from_date').val(); 
     var fromdate = getCurrentDate();
     var todate =   getCurrentDate();
-    var fromtime = '00:00:00';
-    var totime= '23:00:00';
+    var fromtime = '00:00:01';
+    var totime= '23:59:00';
     var location = "";
     var searchFormId=$("a.active").attr('href');
-    var activeTab = "monthly";
-
+    var activeTab = "daily";
     var  search_dates = $('#search_dates').val();
     var  location = $('#location-top-search').val();
-    var  latitude = $('#city-top-search').val(); 
+    var  latitude = $('#latitude-top-search').val(); 
     var  longitude = $('#longitude-top-search').val();
+    var duration_type_id=2;
+    var location_type_id="";
 
-   var url = "<?php echo URL('/') ?>/searchproperty?module_id="+module_id+"&fromdate="+fromdate+"&todate="+todate+"&fromtime="+fromtime+"&totime="+totime+"&latitude="+latitude+"&longitude="+longitude+"&location="+location+"&activeTab="+activeTab;
+    if(module_id == 2){//parking
+      //top from date time 
+      var  top_search_datetime = $('#search_dates').val();
+     
+      if(typeof(top_search_datetime) != "undefined" && top_search_datetime != ""){
+        var split_top_search_datetime = top_search_datetime.split(' ');
+        var fromdate =split_top_search_datetime[0];
+        var todate =split_top_search_datetime[0];
+        var fromtime =split_top_search_datetime[1];
+        var hour = split_top_search_datetime[1];
+        var hoursplit = hour.split(':');
+        var totime  = parseInt(hoursplit[0])+parseInt(1)+':'+hoursplit[1];
+        activeTab = "hourly";
+        duration_type_id=1;
+      }
+
+    }
+    //create url
+    var url = "<?php echo URL('/') ?>/searchproperty?module_id="+module_id+"&fromdate="+fromdate+"&todate="+todate+"&fromtime="+fromtime+"&totime="+totime+"&latitude="+latitude+"&longitude="+longitude+"&location="+location+"&car_type_id=1"+"&location_type_id="+location_type_id+"&land_type_id=2"+"&activeTab="+activeTab+"&duration_type_id="+duration_type_id;
     //redirect url
      window.location = url;
 }
+
+function getTopSerchModuleList(){
+      
+      var module_id = '<?php echo $module_manage_id;?>';
+      if(module_id == 2){ $("#search_dates").show();}else{$("#search_dates").hide();}
+     
+      $.ajax({
+        type: "POST",
+        url: "<?php echo URL('/') ?>/frontend/getModuleList",
+        //context: document.body,
+        global: false,
+        success: function(data){
+          if( data != ''){
+            $("#select-property-type-top").empty();
+            var response = $.parseJSON(data);
+            $("#select-property-type-top").append("<option value=''>Choose a category</option>");
+            $.each(response,function(index,item) 
+            {
+              var selectedOpt= (module_id == item.module_manage_id)?"selected":"";
+              $("#select-property-type-top").append("<option "+selectedOpt+" value='"+item.module_manage_id+"'>"+item.module_manage_name+"</option>");
+            });
+          }
+        }
+          
+      });
+
+}
+
+
 
 //to get lat long
 function initialize() {
@@ -359,3 +410,26 @@ var input = document.getElementById('location');
 google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 
+
+<script>
+function DeleteRecord(id,table,tbid)
+{   
+      if(confirm('Are you sure you want to delete this record?')){
+      var url = '<?php echo URL::to('user/DeleteRecord'); ?>';
+      //alert(isDeleteChild);
+      $.ajax({
+      method: 'POST',
+      url: url,
+      data: {'id':id,'table':table,'dbid':tbid,'_token':"{{ csrf_token() }}"}
+      })
+      .done(function( msg ) {
+      alert('Record Deleted Successfully.');
+      location.reload();
+      // var oTable = $('#example').dataTable();
+      // oTable.fnDraw();
+      });
+      }else{
+      return false;
+      }
+}
+</script>

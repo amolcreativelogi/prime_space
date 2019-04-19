@@ -21,7 +21,8 @@
                         <!--  <option>Coupe  </option>-->
                         <!--  <option>Convertibl </option>-->
                         <!--</select>-->
-                        <label>Car Type : <strong>Hatchback</strong></label><br>
+                        <label>Car Type : <strong><?php echo $getCarProperty->car_type;?></strong></label><br>
+                        <label>Location Type : <strong>Covered</strong></label>
                         <!--<select class="filter-select">-->
                         <!--    <option>Location Type</option>-->
                         <!--    <option>Covered </option>-->
@@ -119,21 +120,28 @@
                             <div class="col-sm-6"></div>
                             <hr>
                             <div class="col-sm-6"><h4>Your Order Total</h4></div>
-                            <div class="col-sm-6"><h2>$25.00</h2></div>
+                            <div class="col-sm-6"><h2>$<?php echo $finalprice;?></h2></div>
 <div class="col-sm-6"><input type="button" value="submit" onclick="searchURL()" data-toggle="modal"  data-target="#thanksModal"></div>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-4">
-                    <div class="total-order">ORDER TOTAL <span>$2500</span></div>
+                    <div class="total-order">ORDER TOTAL <span>$<?php echo $finalprice;?></span></div>
                     <div class="book-box">
                         <div class="book-add"><?php echo !isset($getPropertyDetails->location)?'':$getPropertyDetails->location;?></div>
                         <div class="book-img"><img src="<?php echo url('/public/images/properties/'.$getPropImages->name)?>" alt=""></div>
                         <div class="book-amenties">
-                            <ul>
-                                <li><img src="{{ URL::asset('public') }}/assets/front-design/images/handicap.svg" alt=""><span>wheelchair</span></li> 
-                                <li><img src="{{ URL::asset('public') }}/assets/front-design/images/fire-extinguisher.svg" alt=""><span>fire extinguisher</span></li>
-                            </ul>
+                        <ul>
+                        <?php foreach($getPropAmenities as $amenities) {
+                          if (isset($amenities->amenity_image) && file_exists(public_path() . '/images/amenity/' . $amenities->amenity_image. '')) {
+                              $image = '<img src="'.url('/public/images/amenity/'.$amenities->amenity_image.'').'" width="100">';
+                          } else {
+                              $image =  'No Image';
+                          }
+                         ?>
+                        <li><?php echo $image; ?><span><?php echo $amenities->amenity_name; ?>  </span></li> 
+                        <?php } ?>
+                    </ul>
                         </div>
                     </div>
                 </div>

@@ -23,14 +23,14 @@ class SearchPropertyController extends Controller
     public function SeachProperty()
     {   
       //convert date into mysql format Y-m-d
-       $from_date = ''; //date('Y-m-d');
+       $from_date = date('Y-m-d');
        if(!empty(request()->fromdate)){
           $frm_date = request()->fromdate;
           $frm_date = DateTime::createFromFormat("m.d.Y" , $frm_date);
           $from_date = $frm_date->format('Y-m-d');
        }
 
-       $to_date = '';//date('Y-m-d');
+       $to_date = date('Y-m-d');
        if(!empty(request()->fromdate)){
           $todate = request()->todate;
           $todate = DateTime::createFromFormat("m.d.Y" , $todate);
@@ -65,7 +65,7 @@ class SearchPropertyController extends Controller
         if(!empty($latitude) && !empty($longitude)){
           $locationFields =",(3959 * acos( cos( radians($latitude) ) * cos( radians(addProperty.latitude ) ) * cos( radians( addProperty.longitude ) - radians($longitude) )+sin( radians(
                          $latitude) ) * sin( radians( addProperty.latitude ) ) ) ) as distance ";
-             $locationWhr=' HAVING distance <= 3.10686 ORDER BY distance ';//5 km
+             $locationWhr=' HAVING distance <= 10000000000.10686 ORDER BY distance ';//5 km
         }
 
         $searchResult=array();
@@ -100,18 +100,18 @@ class SearchPropertyController extends Controller
           }
 
           //serch result for cheapest
-         $orderByRentPrice = !empty($carTypeWhere)?$carTypeWhere.' ORDER BY propRent.rent_amount':$carTypeWhere;
+          $orderByRentPrice = (!empty($carTypeWhere) && !empty($locationFields))?' HAVING distance <= 10000000000.10686 ORDER BY propRent.rent_amount':' ORDER BY propRent.rent_amount';//die;
 
 
          
-         
+         //search result for cheapest
         $resultCheapest = DB::select("SELECT
           (SELECT name FROM ".$tbl_prefix."add_property_files papf WHERE papf.property_id = addProperty.property_id AND document_type_id =1 order by file_id limit 1 ) AS image,
           addProperty.latitude,addProperty.longitude,addProperty.location,addProperty.module_manage_id,addProperty.name,addProperty.status,addProperty.property_id ".$locationFields.$carTypeSelect." 
           FROM ".$tbl_prefix."add_property AS addProperty
           ".$carTypeJoin."
           WHERE addProperty.module_manage_id =".$module_id."
-          AND addProperty.status = 1 AND addProperty.is_deleted = 0 AND addProperty.property_id IN(".$getValidPropIds.")".$locationTypeWhere.$orderByRentPrice
+          AND addProperty.status = 1 AND addProperty.is_deleted = 0 AND addProperty.property_id IN(".$getValidPropIds.")".$carTypeWhere.$locationTypeWhere.$orderByRentPrice
 
          );
 
@@ -161,9 +161,9 @@ class SearchPropertyController extends Controller
           $resultCheapest = '';
           if(!empty($result)){
                 $collection = collect($result);
-                $resultClosestSrt=$collection->where('distance','<','12.4274');//20 km 
+                $resultClosestSrt=$collection->where('distance','<=','10000000000.10686');//20 km 
                 $resultClosest =  $resultClosestSrt->sortBy('distance');
-                $resultCheapest = $collection->sortBy('rent_amount');
+                $resultCheapest = $resultClosest->sortBy('rent_amount');
           }
           
 
@@ -591,7 +591,18 @@ class SearchPropertyController extends Controller
     return $days;
   }
 
+    //get module list
+  public function getModuleList()
+  {
+    
+    //get modules
+    $getModuleCategories = DB::table('tbl_module_manage')
+    ->select('module_manage_id','module_manage_name')
+    ->where([['is_deleted', '=', 0],
+                ['status', '=', 1]])->get();
 
+    return json_encode($getModuleCategories);
+  }
    
 
 

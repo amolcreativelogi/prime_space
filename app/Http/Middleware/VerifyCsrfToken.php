@@ -40,7 +40,9 @@ class VerifyCsrfToken extends Middleware
          'admin/Host_Users',
          'frontend/getPropertyMasters',
          'frontend/bookProperty',
-         'frontend/saveProperty'
+         'frontend/saveProperty',
+         'user/DeteteRecord',
+         'frontend/getModuleList'
     ];
 
      // public function handle($request, Closure $next)
