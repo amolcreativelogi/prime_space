@@ -28,6 +28,7 @@
                 </ul>
           </li>
           <li><a href="<?php echo URL::to('user/bookingProperties'); ?>"><img src="{{ URL::asset('public') }}/assets/front-design/images/booking.svg" alt="">Booking Properties</a></li>
-          <li><a href="<?php echo URL::to('user/bookingProperties'); ?>"><img src="{{ URL::asset('public') }}/assets/front-design/images/order-history.png" alt="">transaction history</a></li>
+          <li><a href="<?php echo URL::to('user/upcomingBooking'); ?>"><img src="{{ URL::asset('public') }}/assets/front-design/images/booking.svg" alt="">upcoming Booking</a></li>
+          <li><a href="<?php echo URL::to('user/transationHistory'); ?>"><img src="{{ URL::asset('public') }}/assets/front-design/images/order-history.png" alt="">transaction history</a></li>
         </ul>
       </div>

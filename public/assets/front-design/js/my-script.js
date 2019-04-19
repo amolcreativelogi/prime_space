@@ -483,6 +483,15 @@ jQuery('#saturday-to').datetimepicker({
  format:'H:i',
 });
 
+jQuery('#transfromdate').datetimepicker({
+ timepicker:false,
+ ///format:'H:i',
+});
+jQuery('#transtodate').datetimepicker({
+ timepicker:false,
+ //format:'H:i',
+});
+
 
 $(".modal").on("hidden.bs.modal", function(){
 
