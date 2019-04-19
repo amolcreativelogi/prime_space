@@ -310,5 +310,10 @@ Route::post('/frontend/getModuleList','Front\SearchPropertyController@getModuleL
 
 
 
+Route::get('/user/parkingdetails/{id?}','Front\HostController@ParkingDetails');
+Route::post('/user/DeleteRecord','Front\HostController@DeleteRecord');
+Route::get('/user/downloadDoc/{id?}','Front\HostController@downloadDoc');
+
+
 
 

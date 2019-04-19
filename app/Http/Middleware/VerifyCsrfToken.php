@@ -41,6 +41,7 @@ class VerifyCsrfToken extends Middleware
          'frontend/getPropertyMasters',
          'frontend/bookProperty',
          'frontend/saveProperty',
+         'user/DeteteRecord',
          'frontend/getModuleList'
     ];
 

@@ -102,7 +102,7 @@
                   <div class="row secondrow">
                       <div class="col-sm-12">
                           <div class="dl-content tablediv">
-                            <?php if($module_id == 1) { ?>
+                            <?php if($module_id == 2) { ?>
                             <table class="table table-bordered">
                             <thead>
                               <tr>
@@ -357,7 +357,7 @@ function  initMap() {
 
     // Set zoom level
     var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
-        this.setZoom(14);
+        this.setZoom(1);
         google.maps.event.removeListener(boundsListener);
     });
     

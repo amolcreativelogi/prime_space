@@ -31,3 +31,4 @@
           <li><a href="<?php echo URL::to('user/bookingProperties'); ?>"><img src="{{ URL::asset('public') }}/assets/front-design/images/order-history.png" alt="">transaction history</a></li>
         </ul>
       </div>
+

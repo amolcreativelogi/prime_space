@@ -26,8 +26,9 @@
         <td><?php echo ($plist->status == 1) ? 'Active' : 'Inactive'; ?></td>
         <td class="action">
           <a href="#" class="editprop"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-          <a href="#" class="viewprop"><i class="fa fa-eye" aria-hidden="true"></i></a>
-          <a href="#" class="deleteprop"><i class="fa fa-trash" aria-hidden="true"></i></a>
+          <a href="<?php echo URL::to('/user/parkingdetails/'.$plist->property_id.''); ?>" class="viewprop"><i class="fa fa-eye" aria-hidden="true"></i></a>
+          <a href="#" class="deleteprop" 
+          onclick="DeleteRecord('<?php echo $plist->property_id; ?>','prk_add_property','property_id');"><i class="fa fa-trash" aria-hidden="true"></i></a>
         </td>
       </tr>
     <?php } ?>
