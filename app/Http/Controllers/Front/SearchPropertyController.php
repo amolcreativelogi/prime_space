@@ -100,7 +100,7 @@ class SearchPropertyController extends Controller
           }
 
           //serch result for cheapest
-         $orderByRentPrice = !empty($carTypeWhere)?$carTypeWhere.' AND propRent.rent_amount':$carTypeWhere;
+          $orderByRentPrice = (!empty($carTypeWhere) && !empty($locationWhr))?',propRent.rent_amount':' ORDER BY propRent.rent_amount';//die;
 
 
          
