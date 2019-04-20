@@ -597,6 +597,13 @@ span.teating-div {position: absolute;left: 0;width: 100%;top: -4px;}
 .property-content h4 {font-family: Montserrat;font-style: normal;font-weight: 600;font-size: 18px;line-height: normal;color: #505050;}
 .property-content .firstrow {font-family: Helvetica Neue;font-size: 14px;line-height: 23px;letter-spacing: 0.05em;text-transform: uppercase;color: #505050;border-width: 1px 0;border-style: solid;border-color: #DBDEDF;padding: 22px 0;
   min-height: 72px;margin: 15px 0;}
+.property-content .book-amenties h4 { text-align: center; }
+.property-content .book-amenties ul { border-bottom: 1px solid #ddd; }
+.book-amenties .table {border: 0;}
+.book-amenties .table td {border: 0;padding: 5px;font-size: 15px;}
+.book-amenties .table td:nth-child(1) {text-align: right;}
+.book-amenties td:nth-child(2) {text-align: right;}
+
 .property-content .firstrow .col-sm-6 { margin-bottom:5px;}
 .property-content .firstrow .fa {font-size: 20px;margin-right: 5px;}
 .property-content .firstrow img {margin-right: 5px;width: 20px;transform: rotate(270deg);}
