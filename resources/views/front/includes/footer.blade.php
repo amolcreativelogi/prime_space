@@ -237,7 +237,7 @@
     <div class="foot-top">
       <div class="row">
         <div class="col-lg-3 col-md-3 col-sm-6">
-          <a href="" class="foot-logo"><img src="{{ URL::asset('public') }}/assets/front-design/images/psw-logo.png" alt=""></a>
+          <a href="<?php echo URL::to(''); ?>" class="foot-logo"><img src="{{ URL::asset('public') }}/assets/front-design/images/psw-logo.png" alt=""></a>
         </div> 
         <div class="col-lg-3 col-md-3 col-sm-6">
           <h4>Company</h4>
@@ -282,16 +282,16 @@
     <div class="foot-btm">
       <ul>
         <li><a href="<?php echo URL::to('refundPolicy'); ?>">Cancellation and Refund Policy</a></li>
-        <li><a href="">Terms</a></li>
+        <li><a href="javascript:void();">Terms</a></li>
         <li><a href="https://www.prymestory.com/public/assets/front-design/images/PrivacyPolicy.pdf" target="_blank">Privacy Statement</a></li>
       </ul>
       <div class="copyright">© 2019 Pryme Space, Inc.</div>
       <ul class="foot-social">
-        <li><a href=""><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-        <li><a href=""><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-        <li><a href=""><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
-        <li><a href=""><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-        <li><a href=""><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+        <li><a href="javascript:void();"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+        <li><a href="javascript:void();"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+        <li><a href="javascript:void();"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+        <li><a href="javascript:void();"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+        <li><a href="javascript:void();"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
       </ul>
     </div>
   </div>
