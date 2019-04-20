@@ -55,9 +55,10 @@
               if(isset($_SESSION['user']['is_user_login'])) { ?>
               <div class="afterloginbox">
                 <a href="<?php echo URL::to('messages'); ?>" class="head-msg"><i class="fa fa-envelope-o" aria-hidden="true"></i></a>
+                
                 <a href="<?php echo URL::to('notification'); ?>" class="head-notification"><i class="fa fa-bell" aria-hidden="true"></i><span class="not-count">20</span></a>
               <ul>
-                 <li class="dropdown"><a href="#" dropdown-toggle="" data-toggle="dropdown" aria-expanded="false"><img src="http://alkurn.info/html/Prymespace/images/test-author-03.jpg" alt=""><?php echo $_SESSION['user']['firstname']; ?> <span class="caret"></span></a>
+                 <li class="dropdown"><a href="#" dropdown-toggle="" data-toggle="dropdown" aria-expanded="false"><img src="{{ URL::asset('/') }}storage/app/<?php echo($_SESSION['user']['profile_pic']); ?>" alt=""><?php echo $_SESSION['user']['firstname']; ?> <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="<?php echo ($_SESSION['user']['user_type_permission'] == 'host') ?  URL::to('user/host') :  URL::to('user/customer'); ?>">dashboard</a></li>
                   <?php if($_SESSION['user']['user_type_id'] == 5) { 
