@@ -266,6 +266,7 @@ Route::get('/user/customer','Front\CustomerController@customerDashboard')->middl
 Route::get('/user/logout','Front\UserController@userlogout');
 Route::get('/user/bookingHistory','Front\CustomerController@bookingHistory')->middleware('UserAuth');
 Route::get('/user/orderHistory','Front\CustomerController@orderHistory')->middleware('UserAuth');
+Route::get('/user/bookingView','Front\CustomerController@bookingView')->middleware('UserAuth');
 
 Route::get('/user/switchtohost','Front\UserController@switchtohost');
 Route::get('/user/switchtocustomer','Front\UserController@switchtocustomer');
@@ -288,6 +289,7 @@ Route::get('/renter-faq','Front\PagesController@renter_faq');
 Route::get('/renter-faq','Front\PagesController@renter_faq');
 Route::get('/notification','Front\PagesController@notification');
 Route::get('/messages','Front\PagesController@messages');
+Route::get('/refundPolicy','Front\PagesController@refundPolicy');
 
 
 //Route to get masters details on add property form

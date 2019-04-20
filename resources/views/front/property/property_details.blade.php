@@ -172,7 +172,9 @@
         </button>
       </div>
       <div class="modal-body">
+        <?php if(isset($getPropertyImagesFloorMap->name)) { ?>
         <img src="<?php echo URL::to('/public/images/property-floor-map/'.$getPropertyImagesFloorMap->name.''); ?>" width="100">
+        <?php } ?>
       </div>
     </div>
   </div>

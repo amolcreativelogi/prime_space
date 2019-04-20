@@ -326,7 +326,13 @@
     <section class="getstarted">
       <div class="container">
         <h2>Get started</h2>
-        <a href="">Find a space</a><a href="#" data-toggle="modal" class="singupModal popuplink" data-target="#singupModal">List your space</a>
+        <a href="">Find a space</a>
+          <?php
+            if(isset($_SESSION['user']['is_user_login'])) { ?>
+               <!-- <a href="">Find a space</a> -->
+            <?php } else { ?>
+            <a href="#" data-toggle="modal" class="singupModal popuplink" data-target="#singupModal">List your space</a>
+          <?php } ?>
       </div>
     </section><!-- getstarted -->
 

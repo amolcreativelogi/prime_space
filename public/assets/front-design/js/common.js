@@ -11,7 +11,10 @@ $('#homeban-text').owlCarousel({
     loop:true,
     margin:0,
     nav:true,
-    animateIn: 'fadeIn',
+    autoplay:true,
+    autoplayTimeout:1000,
+    mouseDrag: true,
+    singleItem: true,
     slideSpeed: 300,
     paginationSpeed: 400,
     responsive:{
@@ -33,8 +36,10 @@ $('#whatabout').owlCarousel({
     margin:0,
     nav:true,
     autoplay:true,
-    autoplayTimeout:3000,
-    autoplayHoverPause:true,
+    autoplayTimeout:1000,
+    mouseDrag: true,
+    singleItem: true,
+    //autoplayHoverPause:true,
     responsive:{
         0:{
             items:1
@@ -52,6 +57,10 @@ $('#book-space').owlCarousel({
     loop:true,
     margin:30,
     nav:true,
+    autoplay:true,
+    autoplayTimeout:1000,
+    mouseDrag: true,
+    singleItem: true,
     responsive:{
         0:{
             items:1
@@ -88,7 +97,8 @@ $('#testimonial').owlCarousel({
     nav:true,
     slideSpeed: 300,
     paginationSpeed: 400,
-    autoPlay: true,
+    autoplay:true,
+    autoplayTimeout:1000,
     mouseDrag: true,
     singleItem: true,
     //animateIn: 'fadeIn',
@@ -272,6 +282,8 @@ $(function() {
     $('#' + $(this).val()).show(); 
   });
 });
+
+
 
 
 

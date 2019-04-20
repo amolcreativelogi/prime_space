@@ -593,7 +593,7 @@
 
                     masters['location_type_input'] += 
                             '<input type="radio" name="data[location_type]" id="'+v.location_type+'" value="'+v.location_type_id+'">'+
-                            '<label for="'+v.location_type+'">'+v.location_type+'</label>';
+                            '<span for="'+v.location_type+'">'+v.location_type+'</span>';
                    
                 });
                 masters['location_type_input'] += '</li>';
@@ -608,7 +608,7 @@
                 $.each(getAmenities, function(i, v) {
                     masters['amenities_input'] += 
                             '<li><input type="checkbox" name="data[amenities][]" id="'+v.amenity_name+'" value="'+v.amenity_id+'">'+
-                            '<label for="'+v.amenity_name+'"> <img src="<?php echo URL::to('/') ?>/public/images/amenity/'+v.amenity_image+'" width="50">'+v.amenity_name+'</label></li>';
+                            '<span for="'+v.amenity_name+'"> <img src="<?php echo URL::to('/') ?>/public/images/amenity/'+v.amenity_image+'" width="50">'+v.amenity_name+'</span></li>';
                    
                 });
                 masters['amenities_input'] += '';
@@ -761,10 +761,6 @@ $(".next").click(function(){
         "data[parking][rent_amount][4][]": { 
            required: true,
         },
-        "data[amenities][]": {
-            required: true,
-            minlength: 1
-         },
         "data[location_type]": {
             required: true,
             minlength: 1
@@ -773,10 +769,6 @@ $(".next").click(function(){
             required: true,
             minlength: 1
          },
-         "property_documents[]": { 
-           required: true,
-           extension: "jpg|jpeg|png"
-        },
         "units": { 
            required: true,
         },
@@ -835,17 +827,11 @@ $(".next").click(function(){
         "data[parking][rent_amount][4][]": {
           required: "Weekly Price is required",
         },
-        "data[amenities][]": {
-          required: "Amenities is required",
-        },
-        "data[location_type]": {
+         "data[location_type]": {
           required: "Location type is required",
         },
         "cancellation_policy_id": {
           required: "Cancellation Policy is required",
-        },
-        "property_documents[]": {
-          required: "Property document is required",
         },
         "units": {
           required: "Units is required",

@@ -118,7 +118,7 @@ function searchURL(){
     //default date time
     var fromdate = getCurrentDate();
     var todate =   getCurrentDate();
-    var fromtime = '00:00:01';
+    var fromtime = '00:00:01'; 
     var totime= '23:59:00';
     var activeTab = "daily";
     var duration_type_id = 2;
@@ -144,7 +144,7 @@ function searchURL(){
     var searchFormId=$("a.active").attr('href');
     var searchFormLand=$("#nav-tab1 a.active").attr('href');
     
-    var car_type_id = '1';
+    var car_type_id = '';
     var land_type_id =  '2';
     var location_type_id ='';
 
@@ -156,7 +156,7 @@ function searchURL(){
            location = $('#monthlyFrmlocation').val();
            latitude = $('#monthlyFrmLatitude').val(); 
            longitude = $('#monthlyFrmLongitude').val();
-           car_type_id = ( $('#car_type_id').val()) ?  $('#car_type_id').val() : '1';
+           car_type_id = ( $('#car_type_id').val()) ?  $('#car_type_id').val() : '';
            activeTab = "monthly";
            duration_type_id=3;
         } else if(searchFormId == '#daily'){
@@ -165,7 +165,7 @@ function searchURL(){
            location = $('#dailyFrmlocation').val();
            latitude = $('#dailyFrmLatitude').val(); 
            longitude = $('#dailyFrmLongitude').val();
-           car_type_id = ( $('#car_type_id').val()) ?  $('#car_type_id').val() : '1';
+           car_type_id = ( $('#car_type_id').val()) ?  $('#car_type_id').val() : '';
            activeTab = "daily";
            duration_type_id=2;
         }
@@ -181,7 +181,7 @@ function searchURL(){
            location = $('#hrlyFrmlocation').val();
            latitude = $('#hrlyFrmLatitude').val(); 
            longitude = $('#hrlyFrmLongitude').val();
-           car_type_id = ( $('#car_type_id').val()) ?  $('#car_type_id').val() : '1';
+           car_type_id = ( $('#car_type_id').val()) ?  $('#car_type_id').val() : '';
            activeTab = "hourly";
            duration_type_id=1;
         }else{
@@ -279,7 +279,7 @@ function topPrpertySearch()
 
     }
     //create url
-    var url = "<?php echo URL('/') ?>/searchproperty?module_id="+module_id+"&fromdate="+fromdate+"&todate="+todate+"&fromtime="+fromtime+"&totime="+totime+"&latitude="+latitude+"&longitude="+longitude+"&location="+location+"&car_type_id=1"+"&location_type_id="+location_type_id+"&land_type_id=2"+"&activeTab="+activeTab+"&duration_type_id="+duration_type_id+"&amenities="+amenities;
+    var url = "<?php echo URL('/') ?>/searchproperty?module_id="+module_id+"&fromdate="+fromdate+"&todate="+todate+"&fromtime="+fromtime+"&totime="+totime+"&latitude="+latitude+"&longitude="+longitude+"&location="+location+"&car_type_id="+"&location_type_id="+location_type_id+"&land_type_id=2"+"&activeTab="+activeTab+"&duration_type_id="+duration_type_id+"&amenities="+amenities;
     //redirect url
      window.location = url;
 }
