@@ -177,7 +177,7 @@
 
                             <div class="form-group text-center">
                               <ul class="social-login">
-                                <li><a class="google auth-link" href="#" title="Google"><i class="fa fa-google-plus" aria-hidden="true"></i>Google+</a></li>
+                                <li><a class="google auth-link" href="#" title="Google"><img src="{{ URL::asset('public') }}/assets/front-design/images/google-social.jpg" alt=""></a></li>
                                 <li><a class="facebook auth-link" href="#" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i>Facebook</a></li>
                               </ul>
                             </div>

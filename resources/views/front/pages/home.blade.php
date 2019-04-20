@@ -149,7 +149,7 @@
     </div>
   </section><!-- how-works -->
 
-  <section class="book-space">
+  <!-- <section class="book-space">
       <div class="container">
         <h2>Book a space that suits you</h2>
         <h5>Be inspired to search, book and use</h5>
@@ -222,57 +222,104 @@
           </div>
         </div>
       </div>
-    </section><!-- book-space -->
+    </section> --><!-- book-space -->
 
     <section class="testimonial">
       <div class="container">
-        <div id="testimonial" class="owl-carousel owl-theme">
-          <div class="item">
-            <div class="row">
-              <div class="col-lg-6 col-md-6 col-sm-12">
-                <div class="testimonial-img">
-                  <img src="{{ URL::asset('public') }}/assets/front-design/images/testimonial-img.jpg" alt="">
+        <div class="row">
+          <div class="col-lg-1 col-md-1 col-sm-12"></div>
+          <div class="col-lg-10 col-md-10 col-sm-12">
+            <div id="testimonial" class="owl-carousel owl-theme">
+              <div class="item">
+                <div class="row">
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="testimonial-img">
+                      <img src="{{ URL::asset('public') }}/assets/front-design/images/user-icon.jpg" alt="">
+                    </div>
+                  </div>
+                  <div class="col-lg-8 col-md-8 col-sm-12">
+                    <div class="testimonial-text">
+                      <p><img src="{{ URL::asset('public') }}/assets/front-design/images/quote-left.svg" alt="" class="quote-left">We live next to the Rose Parade course and used to stand outside with a parking sign early in the morning. Pryme Space made it easy to list my driveway and received reservations without me getting out of bed.<img src="{{ URL::asset('public') }}/assets/front-design/images/quote-right.svg" alt="" class="quote-right"></p>
+                      <span class="author-name">Matt W</span>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="col-lg-6 col-md-6 col-sm-12">
-                <div class="testimonial-text">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse mauris purus, lacinia sed lectus vitae, pharetra maximus odio. Vivamus bibendum erat ac lectus finibus posuere.</p>
-                  <span class="author-name">Brian Pohl</span>
+              <div class="item">
+                <div class="row">
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="testimonial-img">
+                      <img src="{{ URL::asset('public') }}/assets/front-design/images/user-icon.jpg" alt="">
+                    </div>
+                  </div>
+                  <div class="col-lg-8 col-md-8 col-sm-12">
+                    <div class="testimonial-text">
+                      <p><img src="{{ URL::asset('public') }}/assets/front-design/images/quote-left.svg" alt="" class="quote-left">With the Pryme Space app, I was able to locate and reserve a parking space as I’m driving to a concert within minutes. I didn’t have to go searching in the depths of downtown to find parking at a great value.<img src="{{ URL::asset('public') }}/assets/front-design/images/quote-right.svg" alt="" class="quote-right"></p>
+                      <span class="author-name">Robert Y</span>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
+              <div class="item">
+                <div class="row">
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="testimonial-img">
+                      <img src="{{ URL::asset('public') }}/assets/front-design/images/user-icon.jpg" alt="">
+                    </div>
+                  </div>
+                  <div class="col-lg-8 col-md-8 col-sm-12">
+                    <div class="testimonial-text">
+                      <p><img src="{{ URL::asset('public') }}/assets/front-design/images/quote-left.svg" alt="" class="quote-left">My land was going through a crop rotation, so instead of an empty parcel, Pryme Space helped us connect with an organization that was looking for a space for their military-style bootcamp obstacle course.<img src="{{ URL::asset('public') }}/assets/front-design/images/quote-right.svg" alt="" class="quote-right"></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="row">
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="testimonial-img">
+                      <img src="{{ URL::asset('public') }}/assets/front-design/images/user-icon.jpg" alt="">
+                    </div>
+                  </div>
+                  <div class="col-lg-8 col-md-8 col-sm-12">
+                    <div class="testimonial-text">
+                      <p><img src="{{ URL::asset('public') }}/assets/front-design/images/quote-left.svg" alt="" class="quote-left">We were able to find this gorgeous vineyard through Pryme Space and the owner was so responsive and accommodating. Messaging through the platform really helped.<img src="{{ URL::asset('public') }}/assets/front-design/images/quote-right.svg" alt="" class="quote-right"></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="row">
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="testimonial-img">
+                      <img src="{{ URL::asset('public') }}/assets/front-design/images/user-icon.jpg" alt="">
+                    </div>
+                  </div>
+                  <div class="col-lg-8 col-md-8 col-sm-12">
+                    <div class="testimonial-text">
+                      <p><img src="{{ URL::asset('public') }}/assets/front-design/images/quote-left.svg" alt="" class="quote-left">Our non profit organization had to reduce the administrative costs at our centrally located office in Downtown Los Angeles. Pryme Space and our landlord allowed us to list our extra offices that helped reduce our indirect costs significantly, providing more funds towards our programs.<img src="{{ URL::asset('public') }}/assets/front-design/images/quote-right.svg" alt="" class="quote-right"></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="row">
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="testimonial-img">
+                      <img src="{{ URL::asset('public') }}/assets/front-design/images/user-icon.jpg" alt="">
+                    </div>
+                  </div>
+                  <div class="col-lg-8 col-md-8 col-sm-12">
+                    <div class="testimonial-text">
+                      <p><img src="{{ URL::asset('public') }}/assets/front-design/images/quote-left.svg" alt="" class="quote-left">In search of a short term office rental, we didn’t want to pay for a membership fee for services that we didn’t need since we wanted to hold our CPR/First Aid classes. Pryme Space’s app showed me photos, floorplans, and upfront pricing. Before we knew it, we unlocked the office that had a smart lock and voila!<img src="{{ URL::asset('public') }}/assets/front-design/images/quote-right.svg" alt="" class="quote-right"></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
           </div>
-          <div class="item">
-            <div class="row">
-              <div class="col-lg-6 col-md-6 col-sm-12">
-                <div class="testimonial-img">
-                  <img src="{{ URL::asset('public') }}/assets/front-design/images/testimonial-img.jpg" alt="">
-                </div>
-              </div>
-              <div class="col-lg-6 col-md-6 col-sm-12">
-                <div class="testimonial-text">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse mauris purus, lacinia sed lectus vitae, pharetra maximus odio. Vivamus bibendum erat ac lectus finibus posuere.</p>
-                  <span class="author-name">Brian Pohl</span>
-                </div>
-              </div>
-            </div>
           </div>
-          <div class="item">
-            <div class="row">
-              <div class="col-lg-6 col-md-6 col-sm-12">
-                <div class="testimonial-img">
-                  <img src="{{ URL::asset('public') }}/assets/front-design/images/testimonial-img.jpg" alt="">
-                </div>
-              </div>
-              <div class="col-lg-6 col-md-6 col-sm-12">
-                <div class="testimonial-text">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse mauris purus, lacinia sed lectus vitae, pharetra maximus odio. Vivamus bibendum erat ac lectus finibus posuere.</p>
-                  <span class="author-name">Brian Pohl</span>
-                </div>
-              </div>
-            </div>
-          </div>
-      </div>
+          <div class="col-lg-1 col-md-1 col-sm-12"></div>
+        </div>
       </div>
     </section><!-- testimonial -->
 

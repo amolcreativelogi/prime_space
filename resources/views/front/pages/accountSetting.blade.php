@@ -10,21 +10,23 @@
 				<div class="col-lg-4 col-md-4 col-sm-4">
 					<ul class="nav nav-pills">
 					  <li class="nav-item">
-					    <a class="nav-link active" data-toggle="pill" href="#home">change password</a>
+					    <a class="nav-link active" data-toggle="pill" href="#astab-01">change password</a>
 					  </li>
 					  <li class="nav-item">
-					    <a class="nav-link" data-toggle="pill" href="#menu1">Menu 1</a>
+					    <a class="nav-link" data-toggle="pill" href="#astab-02">change user</a>
 					  </li>
 					  <li class="nav-item">
-					    <a class="nav-link" data-toggle="pill" href="#menu2">Menu 2</a>
+					    <a class="nav-link" data-toggle="pill" href="#astab-03">payment setup</a>
 					  </li>
 					</ul>
 				</div>
 				<div class="col-lg-8 col-md-8 col-sm-8">
 					<div class="tab-content">
-					  <div class="tab-pane container active" id="home">...</div>
-					  <div class="tab-pane container fade" id="menu1">...</div>
-					  <div class="tab-pane container fade" id="menu2">...</div>
+					  <div class="tab-pane container active" id="astab-01">
+					  	
+					  </div>
+					  <div class="tab-pane container fade" id="astab-02">...</div>
+					  <div class="tab-pane container fade" id="astab-03">...</div>
 					</div>
 				</div>
 			</div>

@@ -176,6 +176,10 @@ letter-spacing: 0.01em;}
 #testimonial.owl-carousel .testimonial-img { height: 150px;width: 150px;float: right;}
 #testimonial.owl-carousel .owl-item img {height: 100%;width: 100%;object-fit: cover;border-radius: 100%;border: 1px solid #ccc;padding: 3px;}
 #testimonial .testimonial-text { padding:0;}
+#testimonial .testimonial-text p { position: relative; }
+#testimonial.owl-carousel .owl-item p img {width: 20px;border: 0;border-radius: 0;display: inline-block;vertical-align: top;position: relative;top: -2px;right: 5px;}
+#testimonial.owl-carousel .owl-item p img.quote-right {right: 0;left: 5px;}
+
 #testimonial .author-name { font-weight: 600; }
 #testimonial .owl-nav { display: none; }
 #testimonial .owl-dots {position: absolute;left: 0;right: 0;bottom: -35px;padding-right: 20%;}
@@ -209,8 +213,8 @@ letter-spacing: 0.01em;}
 .site-form .subtitle {text-align: center;font-size: 16px;margin-bottom: 25px;}
 .site-form .form-group { min-height: auto; position: relative; margin-bottom: 14px;}
 /*.site-form .form-group label {position: absolute;background: #fff;top: -9px;left: 15px;padding: 0 5px;font-size: 15px;}*/
-.site-form .form-group input {height: 50px;border-radius: 3px;font-family: Helvetica Neue;font-size: 16px;line-height: normal;color: #303030;padding: 5px 10px;width: 100%;}
-.site-form .form-group.field-loginform-rememberme {min-height: 20px;}
+.site-form .form-group input {height: 40px;border-radius: 3px;font-family: Helvetica Neue;font-size: 16px;line-height: normal;color: #303030;padding: 5px 10px;width: 100%;}
+.site-form .form-group.field-loginform-rememberme {min-height:5px;}
 .site-form .form-group.field-loginform-rememberme label {position: relative;left: 0;}
 .site-form .form-group.field-loginform-rememberme input {width: auto;height: auto;}
 .site-form .form-group.password-reset {min-height: 20px;}
@@ -219,11 +223,13 @@ letter-spacing: 0.01em;}
 #change-password-form .bluebtn {width: 100%; cursor: pointer;}
 .site.login .alert-success {margin-top: 20px;}
 .social-login { padding: 0; margin: 0; }
-.social-login li { margin: 0 5px; display: inline-block; width: 30%;}
+.social-login li {margin: 0 5px; display: inline-block; width: 46%;vertical-align: top;}
 .social-login li a.auth-link { color: #fff; padding:14px 0; border-radius: 5px;}
 .social-login li a.auth-link:hover, .social-login li a.auth-link:focus { opacity: 0.9; text-decoration: none; }
 .social-login li a.auth-link .fa { margin-right: 10px; font-size: 20px; position: relative; top:1px;}
-.social-login li a.google { background: #df4f3f; }
+.formModal .social-login li a.auth-link.google {background: transparent;padding: 6px 5px;border: 1px solid #d0d0d0;
+  height: 50px;vertical-align: top;}
+.formModal .social-login li a.auth-link.google img {width: 100%;}
 .social-login li a.facebook { background: #3a5897; }
 .social-login li a.linkedin { background: #0077B5; }
 .acctype-group {}
@@ -325,7 +331,7 @@ span.teating-div {position: absolute;left: 0;width: 100%;top: -4px;}
 .add-property #msform .ad-col label.error {top: 22px;position: absolute;left: 93%;width: 300px;color: #f00;max-width: 300px;}
 .add-property #msform .custom-checkbox label.error:before, .add-property #msform .custom-radio label.error:before, .add-property #msform .ad-col label.error:before { border:0;}
 .add-property #msform .custom-checkbox label.error:after, .add-property #msform .custom-radio label.error:after, .add-property #msform .ad-col label.error:after { content:""; background:none;}
-.add-property #msform input {height: 50px; border-radius: 3px;font-family: Helvetica Neue;font-size: 16px;line-height: normal;color: #303030;padding: 5px 10px;width: 100%;border: 1px solid #ced4da; margin-bottom: 14px;}
+.add-property #msform input {height:40px; border-radius: 3px;font-family: Helvetica Neue;font-size: 16px;line-height: normal;color: #303030;padding: 5px 10px;width: 100%;border: 1px solid #ced4da; margin-bottom:10px;}
 .add-property #msform input[type="file"] {padding: 0;}
 .add-property #msform select {height: 50px; border-radius: 3px;font-family: Helvetica Neue;font-size: 16px;line-height: normal;color: #303030;padding: 5px 10px;width: 100%;border: 1px solid #ced4da; margin-bottom: 14px;}
 .add-property #msform select option {font-family: Helvetica Neue;font-size: 16px;line-height: normal;color: #303030;padding: 5px 10px;}
