@@ -1786,23 +1786,25 @@
                           <div class="tab-content">
                               <div class="tab-pane container active" id="LandProp01">
                                   <h4>Land Property 01</h4>
+                                  <div class="color-highlighted">
                                   <div class="row firstrow">
-                                  <div class="col-sm-4">
-                                    <div class="park-avail">
-                                      <div class="park-color available-land">06</div>
-                                      <div class="park-count">available land</div>
+                                    <div class="col-sm-4">
+                                      <div class="park-avail">
+                                        <div class="park-color available-parking"></div>
+                                        <div class="park-count">available parking (10)</div>
+                                      </div>
                                     </div>
-                                  </div>
-                                  <div class="col-sm-4">
-                                    <div class="park-avail">
-                                      <div class="park-color unavailable-land">04</div>
-                                      <div class="park-count">unavailable land</div>
+                                    <div class="col-sm-4">
+                                      <div class="park-avail">
+                                        <div class="park-color unavailable-parking"></div>
+                                        <div class="park-count">partially booked (10)</div>
+                                      </div>
                                     </div>
-                                  </div>
-                                  <div class="col-sm-4">
-                                    <div class="park-avail">
-                                      <div class="park-color largeduration-land">05</div>
-                                      <div class="park-count">Full Month Booked </div>
+                                    <div class="col-sm-4">
+                                      <div class="park-avail">
+                                        <div class="park-color largeduration-parking"></div>
+                                        <div class="park-count">Fully booked (10) </div>
+                                      </div>
                                     </div>
                                   </div>
                                 </div><br>
@@ -1816,26 +1818,28 @@
                               </div>
                               <div class="tab-pane container fade" id="LandProp02">
                                 <h4>Land Property 02</h4>
+                                <div class="color-highlighted">
                                 <div class="row firstrow">
                                   <div class="col-sm-4">
                                     <div class="park-avail">
-                                      <div class="park-color available-land">06</div>
-                                      <div class="park-count">available land</div>
+                                      <div class="park-color available-parking"></div>
+                                      <div class="park-count">available parking (10)</div>
                                     </div>
                                   </div>
                                   <div class="col-sm-4">
                                     <div class="park-avail">
-                                      <div class="park-color unavailable-land">04</div>
-                                      <div class="park-count">unavailable land</div>
+                                      <div class="park-color unavailable-parking"></div>
+                                      <div class="park-count">partially booked (10)</div>
                                     </div>
                                   </div>
                                   <div class="col-sm-4">
                                     <div class="park-avail">
-                                      <div class="park-color largeduration-land">05</div>
-                                      <div class="park-count">Full Month Booked </div>
+                                      <div class="park-color largeduration-parking"></div>
+                                      <div class="park-count">Fully booked (10) </div>
                                     </div>
                                   </div>
-                                </div><br>
+                                </div>
+                              </div><br>
                                 <div class="row secondrow">
                                   <div class="col-sm-12">
                                     <div class="land-img">
@@ -1846,26 +1850,28 @@
                               </div>
                               <div class="tab-pane container fade" id="LandProp03">
                                 <h4>Land Property 03</h4>
+                                <div class="color-highlighted">
                                 <div class="row firstrow">
                                   <div class="col-sm-4">
                                     <div class="park-avail">
-                                      <div class="park-color available-land">06</div>
-                                      <div class="park-count">available land</div>
+                                      <div class="park-color available-parking"></div>
+                                      <div class="park-count">available parking (10)</div>
                                     </div>
                                   </div>
                                   <div class="col-sm-4">
                                     <div class="park-avail">
-                                      <div class="park-color unavailable-land">04</div>
-                                      <div class="park-count">unavailable land</div>
+                                      <div class="park-color unavailable-parking"></div>
+                                      <div class="park-count">partially booked (10)</div>
                                     </div>
                                   </div>
                                   <div class="col-sm-4">
                                     <div class="park-avail">
-                                      <div class="park-color largeduration-land">05</div>
-                                      <div class="park-count">Full Month Booked </div>
+                                      <div class="park-color largeduration-parking"></div>
+                                      <div class="park-count">Fully booked (10) </div>
                                     </div>
                                   </div>
-                                </div><br>
+                                </div>
+                              </div><br>
                                 <div class="row secondrow">
                                   <div class="col-sm-12">
                                     <div class="land-img">
@@ -1898,6 +1904,7 @@
                             <div id="Parking01" class="tabcontent">
                               <div class="park-layout">
                               <div class="color-highlighted">
+                                <div class="color-highlighted">
                                 <div class="row firstrow">
                                   <div class="col-sm-4">
                                     <div class="park-avail">
@@ -1908,16 +1915,17 @@
                                   <div class="col-sm-4">
                                     <div class="park-avail">
                                       <div class="park-color unavailable-parking"></div>
-                                      <div class="park-count">booked parking (10)</div>
+                                      <div class="park-count">partially booked (10)</div>
                                     </div>
                                   </div>
                                   <div class="col-sm-4">
                                     <div class="park-avail">
                                       <div class="park-color largeduration-parking"></div>
-                                      <div class="park-count">Full Day (10) </div>
+                                      <div class="park-count">Fully booked (10) </div>
                                     </div>
                                   </div>
                                 </div>
+                              </div>
                               </div>
                             <div class="clear"></div>
                             <div class="row secondrow">

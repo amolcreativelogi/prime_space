@@ -219,7 +219,7 @@ letter-spacing: 0.01em;}
 .site-form .form-group.field-loginform-rememberme input {width: auto;height: auto;}
 .site-form .form-group.password-reset {min-height: 20px;}
 .site-form .form-group.password-reset a {color: #4d87e2;}
-.site-form .form-group .bluebtn { width: 100%;font-size: 16px; margin: 10px 0 0 0;}
+.site-form .form-group .bluebtn { width: 100%;font-size: 16px; margin: 10px 0 0 0; cursor: pointer;}
 #change-password-form .bluebtn {width: 100%; cursor: pointer;}
 .site.login .alert-success {margin-top: 20px;}
 .social-login { padding: 0; margin: 0; }
@@ -233,7 +233,7 @@ letter-spacing: 0.01em;}
 .social-login li a.facebook { background: #3a5897; }
 .social-login li a.linkedin { background: #0077B5; }
 .acctype-group {}
-.site-form .form-group.acctype-group label {position: relative;left: 0;top: 0;font-family: Montserrat;font-style: normal;
+.site-form .form-group.acctype-group label {position: relative;left: 0;top: 0;font-family:Montserrat;font-style: normal;
 font-weight: 600;font-size: 13px;line-height: normal;text-transform: uppercase;color: #303030;}
 .acctype-group ul {margin: 0;padding: 0;}
 .acctype-group ul li { display: inline-block; width: 49%; position: relative; }
@@ -247,6 +247,7 @@ font-weight: 600;font-size: 13px;line-height: normal;text-transform: uppercase;c
 .acctype-group [type="radio"]:checked + label:after {opacity: 1;-webkit-transform: scale(1);transform: scale(1);}
 #privacy_policy_check.error { margin-bottom: 55px;}
 #privacy_policy_check + label.error {position: absolute;left: 55px;right: 0;width: 400px;bottom: -5px;}
+.site-login.site-form { padding: 30px 0 20px 0;}
 
 .site-form .form-group.birthdategroup {padding: 18px 0 5px 0;}
 .site-form .form-group.birthdategroup label {font-family: Montserrat;font-style: normal;font-weight: 600;font-size: 13px;
@@ -484,7 +485,7 @@ span.teating-div {position: absolute;left: 0;width: 100%;top: -4px;}
 .aminities-collapse-div {width: 100%;margin: 5px 0 0 0;border: 1px solid #ccc;padding: 10px 10px 0 10px;}
 .aminities-collapse-div ul { padding:0;margin: 0;}
 .aminities-collapse-div ul li {width: 23%;display: inline-block;}
-.aminities-collapse-div ul li img {width: 22px;vertical-align: top;margin: -2px 10px 0 0;display: inline-block;}
+.aminities-collapse-div ul li img {width:25px; height: 25px;vertical-align: top;margin: -2px 10px 0 0;display: inline-block;}
 
 
 .ap-filter .nav-tabs {display: inline-block;border: 0;}
@@ -717,7 +718,7 @@ top: 100%;}
 .park-color.available-parking { background: #def2d6; }
 .park-color.unavailable-parking { background: #e7cac4; }
 .park-color.largeduration-parking {background: #f8f3d6; }
-.park-count {display: inline-block;text-transform: capitalize;font-size:15px;text-align: center;width: 70%;}
+.park-count {display: inline-block;text-transform: capitalize;font-size:15px;text-align: center;width:80%;}
 .available-land {background: #52741d;}
 .unavailable-land {background: #738740;}
 .largeduration-land {background: #9dab6e;}
@@ -1018,7 +1019,7 @@ background: #fff;border: 1px solid #ced4da;height: 50px;}
   cursor: pointer;}
 .msgbtm-sect .msg-send:hover, .msgbtm-sect .msg-send:focus { background: #3351BB;}
 
-.static-content {background: #fff;padding: 40px 40px 20px 40px; box-shadow: 0 0 5px #ccc;}
+.static-content {background: #fff;padding: 40px 40px 20px 40px; box-shadow: 0 0 5px #ccc;font-size: 16px;}
 
 /*view booking page*/
 .viewbooking {padding: 20px;background: #fff;box-shadow: 0 0 5px #ccc;border-radius: 3px;}
@@ -1041,7 +1042,7 @@ background: #fff;border: 1px solid #ced4da;height: 50px;}
 .reviewModal .blackbtn {background: #000;border: 0;color: #fff;padding: 5px 15px;display: inline-block;cursor: pointer;
   margin-top: 15px;}
 
-  
+
 
 
 
@@ -1051,8 +1052,8 @@ background: #fff;border: 1px solid #ced4da;height: 50px;}
 
 
 /*Responsive Start*/
-@media only screen and (max-width: 1499px) {
-
+@media only screen and (max-width: 1399px) {
+.dashcount-text { width: 66%;}
 }
 
 
