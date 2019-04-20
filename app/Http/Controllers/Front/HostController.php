@@ -103,4 +103,12 @@ class HostController extends Controller
         	['getBookingList'=>$getBookingList]
         );
 	}
+	public function transationHistory()
+	{
+		return view('front.host.transationHistory');
+	}
+	public function upcomingBooking()
+	{
+		return view('front.host.upcomingBooking');
+	}
 }

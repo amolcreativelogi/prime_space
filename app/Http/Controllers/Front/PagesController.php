@@ -46,4 +46,16 @@ class PagesController extends Controller
     {
     	return view('front.pages.renter_faq');		
 	}
+    public function notification()
+    {
+        return view('front.pages.notification');      
+    }
+    public function messages()
+    {
+        return view('front.pages.messages');      
+    }
+    public function accountSetting()
+    {
+        return view('front.pages.accountSetting');      
+    }
 }

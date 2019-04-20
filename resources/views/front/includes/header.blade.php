@@ -41,18 +41,22 @@
         <a href="#" data-toggle="modal" class="searchModal popuplink" data-target="#searchModal" onclick="getTopSerchModuleList()"><i class="fa fa-search" aria-hidden="true" ></i> Search</a>
          <nav class="navbar navbar-default pullright">
             <ul class="nav navbar-nav">
-              <li class="demandpark"><a href="#">Try on-demand parking</a></li>
-              <li class="dropdown"><a href="#" dropdown-toggle data-toggle="dropdown">Get started <span class="caret"></span></a>
-              <!-- <ul class="dropdown-menu">
-                <li><a href="#">Get started</a></li>
-                <li><a href="#">Get started</a></li>
-                <li><a href="#">Get started</a></li>
-              </ul> -->
-              </li>
+              <li class="demandpark"><a href="<?php echo URL::to('/searchproperty?module_id=2&fromdate=04.19.2019&todate=04.19.2019&fromtime=00:00:01&totime=23:59:00&latitude=&longitude=&location=&car_type_id=&location_type_id=&land_type_id=&activeTab=daily&duration_type_id=2'); ?>">Try on-demand parking</a></li>
+              
+              <!-- <li class="dropdown"><a href="#" dropdown-toggle" data-toggle="dropdown">Get started <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Get started</a></li>
+                  <li><a href="#">Get started</a></li>
+                  <li><a href="#">Get started</a></li>
+                </ul>
+              </li> -->
               <li><a href="#">Help</a></li>
               <?php
               if(isset($_SESSION['user']['is_user_login'])) { ?>
               <div class="afterloginbox">
+                <a href="<?php echo URL::to('messages'); ?>" class="head-msg"><i class="fa fa-envelope-o" aria-hidden="true"></i></a>
+                
+                <a href="<?php echo URL::to('notification'); ?>" class="head-notification"><i class="fa fa-bell" aria-hidden="true"></i><span class="not-count">20</span></a>
               <ul>
                  <li class="dropdown"><a href="#" dropdown-toggle="" data-toggle="dropdown" aria-expanded="false"><img src="{{ URL::asset('/') }}storage/app/<?php echo($_SESSION['user']['profile_pic']); ?>" alt=""><?php echo $_SESSION['user']['firstname']; ?> <span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -65,7 +69,7 @@
                   <li><a href="<?php echo URL::to('user/switchtocustomer'); ?>">Switch to Customer</a></li>
                    <?php } } ?>
                   <li><a href="<?php echo URL::to('user/editprofile/'.$_SESSION['user']['user_id']); ?>">edit profile</a></li>
-                  <li><a href="#">Account Setting </a></li>
+                  <li><a href="<?php echo URL::to('user/accountSetting'); ?>">Account Setting </a></li>
                   <li><a href="<?php echo URL::to('/user/logout'); ?>">logout</a></li>
                 </ul>
                 </li>

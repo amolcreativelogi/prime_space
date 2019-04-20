@@ -301,8 +301,7 @@ class BookingController extends Controller
       
       //get car details
       $data['getCarProperty'] =  DB::table('prk_add_property_rent')->select('duration_type','car_type','rent_amount', 'prk_car_type.car_type_id')->leftJoin('tbl_mstr_booking_duration_type', 'prk_add_property_rent.duration_type_id', '=', 'tbl_mstr_booking_duration_type.duration_type_id')->leftJoin('prk_car_type', 'prk_add_property_rent.car_type_id', '=', 'prk_car_type.car_type_id')->where('prk_add_property_rent.property_id', '=', $property_id)->where('prk_car_type.car_type_id', '=', $car_type_req)->where('duration_type', '=', strtolower($durationtype))->first();
-      
-      //Get user details 
+
       if(isset($_SESSION['user']['is_user_login'])) { 
       $userId = ($_SESSION['user']['user_id']);
       $data['user_details_get'] =  DB::table('prk_user_registrations')->select('*')->where('user_id', '=', $userId)->first();

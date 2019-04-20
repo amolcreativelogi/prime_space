@@ -70,7 +70,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>PHONE NUMBER</label>
-                                    <input type="text" class="form-control" placeholder="(__) __-___" value="<?php echo $user_details_get->contact_no; ?>">
+                                    <input type="text" class="form-control" placeholder="(_) _-___" value="<?php echo $user_details_get->contact_no; ?>">
                                 </div>
                             </div>
                         </div>

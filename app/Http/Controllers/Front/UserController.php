@@ -241,4 +241,15 @@ class UserController extends Controller
 		echo json_encode($data);
 		exit;
 	}
+
+
+	public function ForgotPassword(){
+
+		$data = array(
+			'access_token'=> Str::random(10),
+		);
+
+		$forgot_pass  = DB::table('prk_user_registrations')->where('email_id', $request->input('email_id'))->update($data);
+
+	}
 }
