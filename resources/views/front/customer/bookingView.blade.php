@@ -41,7 +41,7 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-        <div class="form-field">
+        <div class="form-field rating-field">
           <label>Rating</label>
           <div class="rating">
                 <input type="radio" id="star5-5" name="rating" value="5" />
@@ -55,7 +55,9 @@
                 <input type="radio" id="star1-5" name="rating" value="1" />
                 <label class = "full" for="star1-5" title="Sucks big time - 1 star"></label>
             </div>
+            <div class="clear"></div>
         </div>
+        <div class="clear"></div>
         <div class="form-field">
           <label>Review</label>
           <textarea cols="6" rows="6"></textarea>

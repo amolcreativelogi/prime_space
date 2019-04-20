@@ -1058,13 +1058,37 @@ background: #fff;border: 1px solid #ced4da;height: 50px;}
   display: inline-block;
   cursor: pointer;
 }
-.viewbookingText .reviewbtn:hover, .viewbookingText .reviewbtn:focus { background: #3351BB; color: #fff;border: 0; }
+.viewbookingText .reviewbtn:hover, .viewbookingText .reviewbtn:focus, .reviewModal .blackbtn:hover, .reviewModal .blackbtn:focus  { background: #3351BB; color: #fff;border: 0; }
 .reviewModal {}
 .reviewModal .modal-title {
   font-size: 20px;
 }
-.reviewModal label  {}
-
+.reviewModal label {
+  margin: 0;
+  font-size: 15px;
+}
+.reviewModal .rating-field label { float: left; }
+.reviewModal .rating {
+  margin: 0 0 20px 10px;
+}
+.reviewModal .rating > label {
+  color: #ddd;
+  float: right;
+  height: auto;
+  display: inline-block;
+}
+ 
+.reviewModal .rating .fa { color: #3351BB; }
+.reviewModal textarea { width: 100%; height: 100px; resize: none; }
+.reviewModal .blackbtn {
+  background: #000;
+  border: 0;
+  color: #fff;
+  padding: 5px 15px;
+  display: inline-block;
+  cursor: pointer;
+  margin-top: 15px;
+}
 
 
 
