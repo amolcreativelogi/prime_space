@@ -318,6 +318,7 @@ class BookingController extends Controller
 
     //function to calculate price 
     public function calculatePrice($fromtime, $totime, $fromdate, $todate, $durationtype, $initialPrice){
+
           $frm_date = DateTime::createFromFormat("m.d.Y" , $fromdate);
           $from_date = $frm_date->format('Y-m-d');
 
@@ -327,12 +328,12 @@ class BookingController extends Controller
           $datetime1 = new DateTime($to_date);
           $datetime2 = new DateTime($from_date);
           
-     
        if ($durationtype == 1){
         $to = \Carbon\Carbon::createFromFormat('H:s:i', $totime);
         $from = \Carbon\Carbon::createFromFormat('H:s:i', $fromtime); 
-        $diff_in_minutes = $from->diffInMinutes($to);
-        $finalPrice = $diff_in_minutes * $initialPrice;
+         $diff_in_minutes = $from->diffInMinutes($to);
+         $diff_in_minutes = round($diff_in_minutes / 60) + 1;
+         $finalPrice = $diff_in_minutes * $initialPrice;
         return $finalPrice;
       }
 
