@@ -253,7 +253,6 @@ Route::post('/userLogin','Front\UserController@userLogin');
 Route::post('/resetPassword','Front\UserController@resetPassword');
 Route::get('/user/editprofile/{id?}','Front\UserController@editprofile');
 Route::post('/updatesaveprofile/{id?}','Front\UserController@updatesaveprofile');
-Route::get('/user/accountSetting','Front\UserController@accountSetting');
 
 Route::get('/user/parkingProperties','Front\HostController@parkingProperties')->middleware('UserAuth');
 Route::get('/user/landProperties','Front\HostController@landProperties')->middleware('UserAuth');
@@ -267,6 +266,7 @@ Route::get('/user/logout','Front\UserController@userlogout');
 Route::get('/user/bookingHistory','Front\CustomerController@bookingHistory')->middleware('UserAuth');
 Route::get('/user/orderHistory','Front\CustomerController@orderHistory')->middleware('UserAuth');
 Route::get('/user/bookingView','Front\CustomerController@bookingView')->middleware('UserAuth');
+Route::get('/user/submitRating','Front\CustomerController@submitRating')->middleware('UserAuth');
 
 Route::get('/customer/bookingHistory','Front\CustomerController@bookingHistory')->middleware('UserAuth');
 Route::get('/customer/orderHistory','Front\CustomerController@orderHistory')->middleware('UserAuth');
@@ -277,7 +277,6 @@ Route::get('/user/switchtohost','Front\UserController@switchtohost');
 Route::get('/addproperty','Front\PropertyController@addProperty')->middleware('UserAuth');
 Route::get('/editparking','Front\PropertyController@editParking')->middleware('UserAuth');
 Route::get('/editland','Front\PropertyController@editLand')->middleware('UserAuth');
-
 
 //Pages
 Route::get('/faq','Front\PagesController@faq');
@@ -293,7 +292,10 @@ Route::get('/renter-faq','Front\PagesController@renter_faq');
 Route::get('/notification','Front\PagesController@notification');
 Route::get('/messages','Front\PagesController@messages');
 Route::get('/refundPolicy','Front\PagesController@refundPolicy');
-
+Route::get('/accountSetting','Front\PagesController@accountSetting');
+Route::get('/blogListing','Front\PagesController@blogListing');
+Route::get('/aboutUs','Front\PagesController@aboutUs');
+Route::get('/singleBlog','Front\PagesController@singleBlog');
 
 //Route to get masters details on add property form
 Route::post('/frontend/getPropertyMasters','Front\PropertyController@getPropertyMasters');

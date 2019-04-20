@@ -242,10 +242,10 @@
         <div class="col-lg-3 col-md-3 col-sm-6">
           <h4>Company</h4>
           <ul>
-            <li><a href="#">About Us</a></li>
+            <li><a href="<?php echo URL::to('aboutUs'); ?>">About Us</a></li>
             <li><a href="#">Mission</a></li>
             <li><a href="#">Vision</a></li>
-            <li><a href="#">Blog</a></li>
+            <li><a href="<?php echo URL::to('blogListing'); ?>">Blog</a></li>
             <li><a href="#">Press</a></li>
             <li><a href="<?php echo URL::to('faq'); ?>">FAQ's</a></li>
           </ul>
@@ -283,7 +283,7 @@
       <ul>
         <li><a href="<?php echo URL::to('refundPolicy'); ?>">Cancellation and Refund Policy</a></li>
         <li><a href="">Terms</a></li>
-        <li><a href="">Privacy Statement</a></li>
+        <li><a href="https://www.prymestory.com/public/assets/front-design/images/PrivacyPolicy.pdf" target="_blank">Privacy Statement</a></li>
       </ul>
       <div class="copyright">© 2019 Pryme Space, Inc.</div>
       <ul class="foot-social">

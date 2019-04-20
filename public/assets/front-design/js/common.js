@@ -589,7 +589,22 @@ function calculateGrandTotal() {
 }
 
 
+// Dashboard Menu Active
+var selector = '.dash-menu li';
 
+$(selector).on('click', function(){
+    $(selector).removeClass('active');
+    $(this).addClass('active');
+    return false;
+});
+
+
+// Checkbox click
+$(document).ready(function(){
+    $(".aminities-list li input").click(function(){
+      $(".aminities-list li input").toggleClass("selected");
+    });
+});
 
 
 

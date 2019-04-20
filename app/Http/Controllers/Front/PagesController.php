@@ -62,4 +62,16 @@ class PagesController extends Controller
     {
         return view('front.pages.refundPolicy');      
     }
+    public function blogListing()
+    {
+        return view('front.pages.blogListing');      
+    }
+    public function singleBlog()
+    {
+        return view('front.pages.singleBlog');      
+    }
+    public function aboutUs()
+    {
+        return view('front.pages.aboutUs');      
+    }
 }

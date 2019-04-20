@@ -40,6 +40,7 @@
                <th>To Date</th>
                <th>Amount</th>
                <th>Status</th>
+               <th class="action">Action</th>
              </tr>
            </thead>
            <tbody>
