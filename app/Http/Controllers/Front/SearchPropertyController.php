@@ -103,12 +103,12 @@ class SearchPropertyController extends Controller
           $carTypeWhere="";
           $carTypeSelect="";
           //if(!empty($car_type_id)){
-            $carTypeSelect=",propRent.rent_amount ";
+            $carTypeSelect=",propRent.rent_amount, propRent.car_type_id,propRent.duration_type_id";
             $carTypeJoin =" LEFT JOIN  ".$tbl_prefix."add_property_rent  as propRent
           ON propRent.property_id = addProperty.property_id ";
 
 
-          echo $car_type_id;
+         
            if($car_type_id == '') {
              $carTypeWhere =" AND propRent.status=1 AND propRent.is_deleted=0 AND rent_amount =  (SELECT min(rent_amount) from prk_add_property_rent where property_id = addProperty.property_id and duration_type_id = ".$duration_type_id.")  AND propRent.duration_type_id=".$duration_type_id;
            } else {
