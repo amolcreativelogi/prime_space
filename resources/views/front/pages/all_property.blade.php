@@ -38,7 +38,7 @@
 
                                 <select class="filter-select" id="location_type_id" name="location_type_id">
                                   <option value="">Location Type</option>
-                                  <?php foreach($getLocationType as $locationType) { ?>
+                                   <?php foreach($getLocationType as $locationType) { ?>
                                   <option <?php echo (Request::get("location_type_id")==$locationType->location_type_id)?"selected":"" ?> value="<?php echo $locationType->location_type_id; ?>"><?php echo $locationType->location_type; ?></option>  
                                   <?php } ?>
                                 </select>
@@ -382,7 +382,21 @@
 
                     <div class="tab-pane fade" id="cheapest" role="tabpanel" aria-labelledby="nav-profile-tab">
                         <div class="ps-count"><?= $no_of_prop ?> Properties</div>
-                      @foreach($searchResult['cheapest'] as $searchProp)
+
+
+                        <?php
+
+                        $price = array();
+                      foreach ($searchResult['closest'] as $key => $row)
+                      {
+                          $price[$key] = $row->rent_amount;
+                      }
+                      $getDate = array_multisort($price, SORT_ASC, $searchResult['closest']);
+
+                     
+                        ?>
+
+                      @foreach($searchResult['closest'] as $searchProp)
                             <div class="ps-box">
                             <div class="ps-img">
                             <?php if(isset($searchProp->image) && file_exists(public_path() . '/images/properties/' . $searchProp->image. '')) { ?>
