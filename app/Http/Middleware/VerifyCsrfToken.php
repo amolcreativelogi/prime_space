@@ -42,7 +42,8 @@ class VerifyCsrfToken extends Middleware
          'frontend/bookProperty',
          'frontend/saveProperty',
          'user/DeteteRecord',
-         'frontend/getModuleList'
+         'frontend/getModuleList',
+         'frontend/getAmenities'
     ];
 
      // public function handle($request, Closure $next)
