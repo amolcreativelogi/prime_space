@@ -593,7 +593,7 @@
 
                     masters['location_type_input'] += 
                             '<input type="radio" name="data[location_type]" id="'+v.location_type+'" value="'+v.location_type_id+'">'+
-                            '<label for="'+v.location_type+'">'+v.location_type+'</label>';
+                            '<span for="'+v.location_type+'">'+v.location_type+'</span>';
                    
                 });
                 masters['location_type_input'] += '</li>';
@@ -608,7 +608,7 @@
                 $.each(getAmenities, function(i, v) {
                     masters['amenities_input'] += 
                             '<li><input type="checkbox" name="data[amenities][]" id="'+v.amenity_name+'" value="'+v.amenity_id+'">'+
-                            '<label for="'+v.amenity_name+'"> <img src="<?php echo URL::to('/') ?>/public/images/amenity/'+v.amenity_image+'" width="50">'+v.amenity_name+'</label></li>';
+                            '<span for="'+v.amenity_name+'"> <img src="<?php echo URL::to('/') ?>/public/images/amenity/'+v.amenity_image+'" width="50">'+v.amenity_name+'</span></li>';
                    
                 });
                 masters['amenities_input'] += '';
