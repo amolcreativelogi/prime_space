@@ -286,6 +286,9 @@ line-height: normal;color: #303030;padding: 5px 10px;width: 100%;margin-bottom: 
 #searchModal .site-form input[type="button"] {height: 50px;border-radius: 3px;font-family: Helvetica Neue;font-size: 16px;line-height: normal;color: #303030;padding: 5px 10px;width: 100%;background: #3351BB;color: #fff;border: 0;cursor: pointer;}
 #searchModal .site-form input[type="button"]:hover, #searchModal .site-form input[type="button"]:focus {background:#333;}
 body.modalopen .modal {overflow-x: hidden;overflow-y: auto;}
+.updateprofileimg { text-align: center; }
+.updateprofileimg img {width: 120px;height: 120px;border-radius: 100%;margin-bottom: 10px;}
+.updateprofileimg .box.custom-fileinput {width: 192px;margin: 0 auto 40px;text-transform: capitalize;}
 
 
 
