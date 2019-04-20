@@ -321,7 +321,8 @@ Route::post('/frontend/getModuleList','Front\SearchPropertyController@getModuleL
 Route::get('/user/parkingdetails/{id?}','Front\HostController@ParkingDetails');
 Route::post('/user/DeleteRecord','Front\HostController@DeleteRecord');
 Route::get('/user/downloadDoc/{id?}','Front\HostController@downloadDoc');
-
+Route::get('/getForgotpass','Front\UserController@getForgotpass');
+Route::post('/submitForgotpass','Front\UserController@submitForgotpass');
 //Route to get amenity type list
 Route::post('/frontend/getAmenities','Front\SearchPropertyController@getAmenities');
 
