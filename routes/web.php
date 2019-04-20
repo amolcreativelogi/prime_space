@@ -253,7 +253,6 @@ Route::post('/userLogin','Front\UserController@userLogin');
 Route::post('/resetPassword','Front\UserController@resetPassword');
 Route::get('/user/editprofile/{id?}','Front\UserController@editprofile');
 Route::post('/updatesaveprofile/{id?}','Front\UserController@updatesaveprofile');
-Route::get('/user/accountSetting','Front\UserController@accountSetting');
 
 Route::get('/user/parkingProperties','Front\HostController@parkingProperties')->middleware('UserAuth');
 Route::get('/user/landProperties','Front\HostController@landProperties')->middleware('UserAuth');
@@ -275,7 +274,6 @@ Route::get('/addproperty','Front\PropertyController@addProperty')->middleware('U
 Route::get('/editparking','Front\PropertyController@editParking')->middleware('UserAuth');
 Route::get('/editland','Front\PropertyController@editLand')->middleware('UserAuth');
 
-
 //Pages
 Route::get('/faq','Front\PagesController@faq');
 Route::get('/general-faq','Front\PagesController@general_faq');
@@ -290,6 +288,7 @@ Route::get('/renter-faq','Front\PagesController@renter_faq');
 Route::get('/notification','Front\PagesController@notification');
 Route::get('/messages','Front\PagesController@messages');
 Route::get('/refundPolicy','Front\PagesController@refundPolicy');
+Route::get('/accountSetting','Front\PagesController@accountSetting');
 
 
 //Route to get masters details on add property form
