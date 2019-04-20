@@ -13,8 +13,20 @@
 <!--  <p class="subtitle">Please fill out the following fields to login:</p>-->
 
 <div class="site-form-box">
-<form id="update-profile" url="{{ URL::asset('updatesaveprofile') }}" method="post" novalidate="novalidate">
-  <div class="msg-gloabal"></div>
+<form  action="{{ URL::to('updatesaveprofile') }}" method="post" enctype="multipart/form-data">
+@if (\Session::has('success'))
+        <div class="alert alert-success alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {!! \Session::get('success') !!}
+        </div>
+      @endif
+      @if (\Session::has('error'))
+        <div class="alert alert-danger">
+            <ul>
+                <li>{!! \Session::get('error') !!}</li>
+            </ul>
+        </div>
+      @endif
   {!! csrf_field() !!}
 
   <div class="form-group field-updateprofileform-address required">
