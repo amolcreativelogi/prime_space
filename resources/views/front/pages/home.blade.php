@@ -33,6 +33,7 @@
                       <option value="<?php echo $category->module_manage_id ?>"><?php echo $category->module_manage_name ?></option>
                       <?php } ?>
                      </select>
+                     <span class="error from_date">test</span>
                      
                      
                   <input type="text" name="location" id="location" placeholder="Location" class="location" autocomplete="on" runat="server">
