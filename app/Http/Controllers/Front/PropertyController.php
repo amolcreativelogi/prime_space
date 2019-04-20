@@ -335,6 +335,7 @@ class PropertyController extends Controller
                   //Add Booking Durition
                   //exit;
                   $inserAmenitiesArr=[];
+                  if(isset($request['data']['amenities'])) {
                   foreach ($request['data']['amenities'] as $value) {
                                 # code...
                                 if(!empty($value)) {
@@ -350,7 +351,8 @@ class PropertyController extends Controller
                             }
                             $insertPropFloorData  = DB::table($tbl_prefix.'add_property_amenities')->insert($inserAmenitiesArr);
                             //print_r($propFloorDetails);die('in');
-                    }
+                   }
+                   }
                     
                    //Code for upload image, floor map and doc
                    if($request->hasfile('property_images'))

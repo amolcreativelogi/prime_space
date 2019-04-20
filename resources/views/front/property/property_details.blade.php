@@ -172,7 +172,9 @@
         </button>
       </div>
       <div class="modal-body">
+        <?php if(isset($getPropertyImagesFloorMap->name)) { ?>
         <img src="<?php echo URL::to('/public/images/property-floor-map/'.$getPropertyImagesFloorMap->name.''); ?>" width="100">
+        <?php } ?>
       </div>
     </div>
   </div>
@@ -260,19 +262,28 @@
                         <li><?php echo $image; ?><span><?php echo $amenities->amenity_name; ?>  </span></li> 
                         <?php } ?>
                     </ul>
+                    <h4>Booking Availability</h4>
+                    <table class="table table-bordered">
+                    <tbody>
+                      <?php foreach($days_time_availability as $dta) {
+                       ?>
+                      <tr>
+                        <td><?php echo $dta->days; ?></td>
+                        <td><?php echo $dta->start_time; ?></td>
+                        <td><?php echo $dta->end_time; ?></td>
+                      </tr>
+                    <?php } ?>
+                    </tbody>
+                  </table>
                 </div>
                 <hr>
                 <a href="" class="cont-host">contact host</a><br/>
                 <a href='<?php echo URL('/') ?>/bookNow?moduleid=<?php echo Request::get("module_id")."&propertyid=".Request::get("propertyid")."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="cont-host">Book now</a>
                  <hr>
-               
               </div><!-- pc-right -->
-
-
             </div>
           </div>
       </section><!-- property-content -->
-
   </div><!-- single-property -->
  <?php }?>
 </div><!-- site-content -->

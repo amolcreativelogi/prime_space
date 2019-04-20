@@ -175,7 +175,7 @@ $(function(){
 					required :"Password field is required",
 				 },
 				 privacy_policy_check:{
-					required :"Terms of service select is required",
+					required :"Please check terms of use & privacy policy",
 				 }
 			},
 		submitHandler: function(form) {
