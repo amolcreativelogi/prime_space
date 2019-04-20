@@ -77,6 +77,7 @@ class SearchPropertyController extends Controller
           $locationFields =",(3959 * acos( cos( radians($latitude) ) * cos( radians(addProperty.latitude ) ) * cos( radians( addProperty.longitude ) - radians($longitude) )+sin( radians(
                          $latitude) ) * sin( radians( addProperty.latitude ) ) ) ) as distance ";
              $locationWhr=' HAVING distance <= 10000000000.10686 ORDER BY distance ';//5 km
+
         }
 
 

@@ -106,6 +106,30 @@ $module_manage_id=(isset($_GET['module_id']) && !empty($_GET['module_id']))?$_GE
 <script type="text/javascript">
 function searchURL(){
 
+    if( $('#select-property-type').val() == '')
+    {
+        $('#select-property-type').css('border','1px solid red');
+        return false;
+    } else {
+        $('#select-property-type').css('border','1px solid #0000');
+    }
+
+    if( $('#location').val() == '')
+    {
+        $('#location').css('border','1px solid red');
+        return false;
+    } else {
+        $('#location').css('border','1px solid #0000');
+    }
+
+    if( $('#search_dates1').val() == '')
+    {
+        $('#search_dates1').css('border','1px solid red');
+        return false;
+    } else {
+        $('#search_dates1').css('border','1px solid #0000');
+    }
+
     //get amenity
     var amenity = [];
     $.each($("input[name='data[amenities][]']:checked"), function(){            
@@ -243,6 +267,31 @@ function searchURL(){
 
 function topPrpertySearch()
 {
+
+    if( $('#select-property-type-top').val() == '')
+    {
+        $('#select-property-type-top').css('border','1px solid red');
+        return false;
+    } else {
+        $('#select-property-type-top').css('border','1px solid #0000');
+    }
+
+    if( $('#location-top-search').val() == '')
+    {
+        $('#location-top-search').css('border','1px solid red');
+        return false;
+    } else {
+        $('#location-top-search').css('border','1px solid #0000');
+    }
+
+    if( $('#search_dates').val() == '')
+    {
+        $('#search_dates').css('border','1px solid red');
+        return false;
+    } else {
+        $('#search_dates').css('border','1px solid #0000');
+    }
+
     var module_id = ($('#select-property-type-top').val())?$('#select-property-type-top').val():'2';
 
     var amenities = '<?= Request::get('amenities')?>';

@@ -11,6 +11,7 @@ use DB;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ForgotPass;
+use App\Mail\EmailConfirmation;
 
 class UserController extends Controller
 {
@@ -54,6 +55,9 @@ class UserController extends Controller
 
 					$data = array('status' => true,
 								  'response' => array('msg' =>'Registered Successfully.'),'url' => '');
+
+					
+		            Mail::to($request->input('email_id'))->send(new EmailConfirmation);
 
 					// if($request->input('user_type_id') == 2)
 					// {

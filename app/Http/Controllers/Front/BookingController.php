@@ -62,7 +62,9 @@ class BookingController extends Controller
 
           $getPropertyImagesFloorMap =  DB::table($tbl_prefix.'add_property_files')->select('name','document_type_id','default_file')->where('property_id', '=', $property_id)->where('document_type_id', '=', 2)->first();
 
-          
+
+         $days_time_availability =  DB::table($tbl_prefix.'property_days_time_availability')->select('*')->where('property_id', '=', $property_id)->where('status', '=','1')->get();
+
          // // foreach($getPropertyrent as $rent)
          // // {
          // //     $arrCarRent = array_push($rent['car_type'], $rent);
@@ -73,6 +75,7 @@ class BookingController extends Controller
          // print_r($getPropertyType);
          // exit;
 
+<<<<<<< HEAD
           $bookingDataRatings = DB::table('tbl_property_bookings')->where('tbl_property_bookings.property_id', $property_id)
                             ->join('booking_ratings', 'tbl_property_bookings.booking_id', 'booking_ratings.booking_id')
                             ->join('prk_user_registrations', 'tbl_property_bookings.user_id', 'prk_user_registrations.user_id')
@@ -85,6 +88,11 @@ class BookingController extends Controller
 
 
           return view('front.property.property_details')->with(['calRating' => $calRating, 'bookingDataRatings' => $bookingDataRatings, 'getPropertyDetails'=>$getPropertyDetails,'getPropAmenities'=>$getPropAmenities,'getPropertyType'=>$getPropertyType,'getPropImages'=>$getPropImages,'getPropertyImagesFloorMap'=>$getPropertyImagesFloorMap,'getPropertyrent'=>$getPropertyrent,'getLandrent'=>$getLandrent,'module_id'=>$module_id,'land_type_id'=>$land_type_id,'unit_type_id'=>$unit_type_id]); 
+||||||| merged common ancestors
+          return view('front.property.property_details')->with(['getPropertyDetails'=>$getPropertyDetails,'getPropAmenities'=>$getPropAmenities,'getPropertyType'=>$getPropertyType,'getPropImages'=>$getPropImages,'getPropertyImagesFloorMap'=>$getPropertyImagesFloorMap,'getPropertyrent'=>$getPropertyrent,'getLandrent'=>$getLandrent,'module_id'=>$module_id,'land_type_id'=>$land_type_id,'unit_type_id'=>$unit_type_id]); 
+=======
+          return view('front.property.property_details')->with(['getPropertyDetails'=>$getPropertyDetails,'getPropAmenities'=>$getPropAmenities,'getPropertyType'=>$getPropertyType,'getPropImages'=>$getPropImages,'getPropertyImagesFloorMap'=>$getPropertyImagesFloorMap,'getPropertyrent'=>$getPropertyrent,'getLandrent'=>$getLandrent,'module_id'=>$module_id,'land_type_id'=>$land_type_id,'unit_type_id'=>$unit_type_id,'days_time_availability'=>$days_time_availability]); 
+>>>>>>> 5cf8cd1f111c2a9937f59a24edbbd83a02d91112
     
     }
 
