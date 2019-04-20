@@ -265,7 +265,7 @@
                 </div>
                 <hr>
                 <a href="" class="cont-host">contact host</a><br/>
-                <a href='<?php echo URL('/') ?>/bookNow?moduleid=<?php echo Request::get("module_id")."&propertyid=".Request::get("propertyid")."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="cont-host">Book now</a>
+                <a href='<?php echo URL('/') ?>/bookNow?moduleid=<?php echo Request::get("module_id")."&propertyid=".$searchProp->property_id."&car_type_id=".$searchProp->car_type_id."&duration_type_id=".$searchProp->duration_type_id."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="cont-host">Book now</a>
                  <hr>
                
               </div><!-- pc-right -->

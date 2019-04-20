@@ -76,7 +76,7 @@
 </div>
 </div>
 <hr>
-<div class="your-info">
+<div class="your-info" style="display:none;">
 <h3>Payment Method</h3>
 <div class="row">
 <div class="col-sm-12">
@@ -146,8 +146,11 @@ $image = 'No Image';
 </div>
 </div>
 </div>
+<div class="col-md-8 col-md-offset-2" style="top:-120px;">
+<div id="dropin-container"></div>
+<button id="submit-button">Request payment method</button>
 </div>
-
+</div>
 </div>
 </section>
 
@@ -162,10 +165,10 @@ $image = 'No Image';
 </button>
 </div>
 <div class="modal-body">
-<div class="thanksmsgbox">
-<i class="fa fa-smile-o" aria-hidden="true"></i>
-<h2>Thanks for your Booking</h2>
-</div> 
+          <div class="thanksmsgbox">
+                <i class="fa fa-smile-o" aria-hidden="true"></i>
+                <h2>Thanks for your Booking</h2>
+          </div> 
 </div>
 </div>
 </div>
@@ -175,39 +178,33 @@ $image = 'No Image';
 </div>
 
 <div class="container">
-<div class="row">
-<div class="col-md-8 col-md-offset-2">
-<div id="dropin-container"></div>
-<button id="submit-button">Request payment method</button>
-</div>
-</div>
 </div>
 
 @stop
 
 @section('script')
 
- <script>
-    var button = document.querySelector('#submit-button');
+<script>
+var button = document.querySelector('#submit-button');
 
-    braintree.dropin.create({
-      authorization: "{{ Braintree_ClientToken::generate() }}",
-      container: '#dropin-container'
-    }, function (createErr, instance) {
-      button.addEventListener('click', function () {
-        instance.requestPaymentMethod(function (err, payload) {
-            payload['amount'] = <?= $finalprice ?>;
-            payload['booking_id'] = <?= $booking_id ?>;
-          $.get('{{ route('payment.process') }}', {payload}, function (response) {
-            if (response.success) {
-              alert('Payment successfull!');
-            } else {
-              alert('Payment failed');
-            }
-          }, 'json');
-        });
-      });
-    });
-  </script>
+braintree.dropin.create({
+authorization: "{{ Braintree_ClientToken::generate() }}",
+container: '#dropin-container'
+}, function (createErr, instance) {
+button.addEventListener('click', function () {
+instance.requestPaymentMethod(function (err, payload) {
+payload['amount'] = <?= $finalprice ?>;
+payload['booking_id'] = <?= $booking_id ?>;
+$.get('{{ route('payment.process') }}', {payload}, function (response) {
+if (response.success) {
+alert('Payment successfull!');
+} else {
+alert('Payment failed');
+}
+}, 'json');
+});
+});
+});
+</script>
 
 @endsection

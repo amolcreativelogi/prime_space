@@ -331,4 +331,3 @@ Route::post('/frontend/getAmenities','Front\SearchPropertyController@getAmenitie
 
 
 
-
