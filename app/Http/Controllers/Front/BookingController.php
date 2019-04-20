@@ -65,17 +65,20 @@ class BookingController extends Controller
 
          $days_time_availability =  DB::table($tbl_prefix.'property_days_time_availability')->select('*')->where('property_id', '=', $property_id)->where('status', '=','1')->get();
 
-         // // foreach($getPropertyrent as $rent)
-         // // {
-         // //     $arrCarRent = array_push($rent['car_type'], $rent);
-           
-         // // }
- 
-         // echo '<pre>';
-         // print_r($getPropertyType);
-         // exit;
 
-          return view('front.property.property_details')->with(['getPropertyDetails'=>$getPropertyDetails,'getPropAmenities'=>$getPropAmenities,'getPropertyType'=>$getPropertyType,'getPropImages'=>$getPropImages,'getPropertyImagesFloorMap'=>$getPropertyImagesFloorMap,'getPropertyrent'=>$getPropertyrent,'getLandrent'=>$getLandrent,'module_id'=>$module_id,'land_type_id'=>$land_type_id,'unit_type_id'=>$unit_type_id,'days_time_availability'=>$days_time_availability]); 
+          $NOoffloor = DB::table('prk_add_property_floors')->selectRaw('count(*) as floor, sum(total_parking_spots) as spots')->where('prk_add_property_floors.is_deleted', '=', 0)->where('property_id', '=', $property_id)->first();
+
+           $parkingType = DB::table('prk_add_property_floors')->select(DB::raw("(GROUP_CONCAT(parking_type SEPARATOR ', ')) as `parking_type`"))->leftJoin('prk_parking_type', 'prk_parking_type.parking_type_id', '=', 'prk_add_property_floors.parking_type_id')->where('prk_add_property_floors.is_deleted', '=', 0)->where('property_id', '=', $property_id)->first();
+
+
+           // // foreach($getPropertyrent as $rent)
+           // // {
+           // //     $arrCarRent = array_push($rent['car_type'], $rent);
+             
+           // // }
+   
+
+          return view('front.property.property_details')->with(['getPropertyDetails'=>$getPropertyDetails,'getPropAmenities'=>$getPropAmenities,'getPropertyType'=>$getPropertyType,'getPropImages'=>$getPropImages,'getPropertyImagesFloorMap'=>$getPropertyImagesFloorMap,'getPropertyrent'=>$getPropertyrent,'getLandrent'=>$getLandrent,'module_id'=>$module_id,'land_type_id'=>$land_type_id,'unit_type_id'=>$unit_type_id,'days_time_availability'=>$days_time_availability,'NOoffloor'=>$NOoffloor,'parkingType'=>$parkingType]); 
     
     }
 

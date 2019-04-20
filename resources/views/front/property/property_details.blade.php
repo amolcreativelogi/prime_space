@@ -76,9 +76,9 @@
                   </table>
                 <?php } ?>
 
-                  <!-- <div class="col-sm-6"><i class="fa fa-server" aria-hidden="true"></i> Number of floor <strong>: 2 </strong></div>
-                  <div class="col-sm-6"><i class="fa fa-list" aria-hidden="true"></i> Total Parking Slots <strong>: 10</strong></div>
-                  <div class="col-sm-6"><i class="fa fa-car" aria-hidden="true"></i> Type of parking <strong>: Covered</strong></div> -->
+                  <div class="col-sm-6"><i class="fa fa-server" aria-hidden="true"></i> Number of floor <strong>: <?php echo ($NOoffloor) ? $NOoffloor->floor : ''; ?> </strong></div>
+                  <div class="col-sm-6"><i class="fa fa-list" aria-hidden="true"></i> Total Parking Slots <strong>: <?php echo ($NOoffloor) ? $NOoffloor->spots : ''; ?></strong></div>
+                  <div class="col-sm-12"><i class="fa fa-car" aria-hidden="true"></i> Type of parking <strong>: <?php echo ($parkingType->parking_type) ? $parkingType->parking_type : ''; ?></strong></div>
                 </div>
                 <div class="about-property">
                   <h4>About the space</h4>
@@ -324,11 +324,7 @@ function  initMap() {
         ['<?php echo $getPropertyDetails->location; ?>', <?php echo $getPropertyDetails->latitude; ?>,  <?php echo $getPropertyDetails->longitude; ?>]
     ];
    <?php } ?>
-
-   
-
-   // console.log(markers);
-                        
+    // console.log(markers);
     // Info window content
     // var infoWindowContent = [
     //     ['<div class="info_content">' +
@@ -340,7 +336,7 @@ function  initMap() {
     //     '<p>Mumbai.</p>' +
     //     '</div>']
     // ];
-        
+
     // Add multiple markers to map
     var infoWindow = new google.maps.InfoWindow(), marker, i;
     

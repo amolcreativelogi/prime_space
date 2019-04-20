@@ -16,14 +16,17 @@
             <!-- <option value="2">Parking</option>
             <option value="3">Land</option> -->
           </select>
+          <div class="error from_parkingtype1"></div>
          
           <input type="text" name="location-top-search" placeholder="Location" id="location-top-search" autocomplete="off" runat="server">
+          <div class="error from_location1"></div>
           <input type="hidden" id="city-top-search" name="city" />
           <input type="hidden" name="latitude" id="latitude-top-search">
           <input type="hidden" name="longitude" id="longitude-top-search">
         <!--   <input type="text" name="" placeholder="Dates" class="dates"> -->
           <div class="form-group date-group">
-              <input type="text" name="search_dates" placeholder="Dates" id="search_dates" class="dates">
+              <input type="text" name="search_dates1" placeholder="Dates" id="search_dates" class="dates">
+              <div class="error from_search_dates1"></div>
               <!--<input type="text" name="search_dates" placeholder="Dates" id="land-search_dates" class="dates" style="display:none">-->
           <!--<div class="date"><input type="text" class="form-control" placeholder="Dates" id="from"></div>-->
           </div>

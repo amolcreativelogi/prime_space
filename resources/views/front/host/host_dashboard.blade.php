@@ -12,7 +12,7 @@
             <div class="col-lg-3 col-md-3 col-sm-6">
                 <div class="dash-counterbox dash-properties">
                     <div class="dashcount-icon"><img src="{{ URL::asset('public') }}/assets/front-design/images/properties.svg" alt=""></div>
-                    <div class="dashcount-text"><span>100</span>Total properties</div>
+                    <div class="dashcount-text"><span><?php echo $totalProperties; ?></span>Total properties</div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6">
@@ -24,7 +24,7 @@
              <div class="col-lg-3 col-md-3 col-sm-6">
                 <div class="dash-counterbox dash-add-prop">
                     <div class="dashcount-icon"><img src="{{ URL::asset('public') }}/assets/front-design/images/total-booking.svg" alt=""></div>
-                    <div class="dashcount-text"><span>100</span>Total Booking</div>
+                    <div class="dashcount-text"><span><?php echo $totalBooking; ?></span>Total Booking</div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6">
@@ -2486,7 +2486,7 @@
         <div class="row third-row">
             <div class="col-sm-6">
                 <div class="dash-table">
-                    <div class="dashtable-head"><h3>latest properties</h3><a href="">view all</a></div>
+                    <div class="dashtable-head"><h3>latest properties</h3><a href="<?php echo URL::to('user/parkingProperties'); ?>">view all</a></div>
                     <table>
                         <thead>
                             <tr>
@@ -2498,48 +2498,26 @@
                             </tr>
                         </thead>
                         <tbody>
+                          <?php foreach($getParkingList as $parkList) {
+                           
+                           ?>
                             <tr>
-                                <td><a href="#">property one</a></td>
-                                <td>sadar</td>
-                                <td>parking</td>
-                                <td class="active">active</td>
-                                <td>16.04.19 (11.30)</td>
+                                <td><a href="#"><?php echo $parkList->name; ?></a></td>
+                                <td><?php echo $parkList->location; ?></td>
+                                <td>Parking</td>
+                                <!-- <td class="active"><?php echo $parkList->name; ?></td> -->
+                                <td><?php echo ($parkList->status == 1) ? 'Active' : 'Inactive'; ?></td>
+                                <td><?php echo date('d-m-Y H:i:s',strtotime($parkList->created_at)); ?></td>
                             </tr>
-                            <tr>
-                                <td><a href="#">property two</a></td>
-                                <td>sadar</td>
-                                <td>land</td>
-                                <td class="de-active">de-active</td>
-                                <td>16.04.19</td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">property three</a></td>
-                                <td>sadar</td>
-                                <td>parking</td>
-                                <td class="active">active</td>
-                                <td>16.04.19 (14.30)</td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">property four</a></td>
-                                <td>sadar</td>
-                                <td>land</td>
-                                <td class="de-active">de-active</td>
-                                <td>16.04.19</td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">property five</a></td>
-                                <td>sadar</td>
-                                <td>parking</td>
-                                <td class="de-active">de-active</td>
-                                <td>16.04.19 (16:10)</td>
-                            </tr>
+
+                          <?php } ?>
                         </tbody>
                     </table>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="dash-table">
-                    <div class="dashtable-head"><h3>my bookings</h3><a href="">view all</a></div>
+                    <div class="dashtable-head"><h3>my bookings</h3><a href="<?php echo URL::to('user/upcomingBooking'); ?>">view all</a></div>
                     <table>
                         <thead>
                             <tr>
@@ -2550,37 +2528,20 @@
                             </tr>
                         </thead>
                         <tbody>
+
+                          <?php foreach($getBookingList as $booking) { 
+
+                            ?>
                             <tr>
-                                <td>parking</td>
-                                <td><a href="#">john</a></td>
-                                <td class="de-active">de-active</td>
-                                <td>16.04.19 (15:30)</td>
+                                <td>Parking</td>
+                                <td><?php echo $booking->firstname; ?></td>
+                                <!-- <td class="de-active">de-active</td> -->
+                                <td><?php echo $booking->booking_status; ?></td>
+                                <td><?php echo $booking->start_time.' '.$booking->start_date; ?></td>
 
                             </tr>
-                            <tr>
-                                <td>land</td>
-                                <td><a href="#">bond</a></td>
-                                <td class="active">active</td>
-                                <td>16.04.19</td>
-                            </tr>
-                            <tr>
-                                <td>parking</td>
-                                <td><a href="#">james</a></td>
-                                <td class="active">active</td>
-                                <td>16.04.19 (11:20)</td>
-                            </tr>
-                            <tr>
-                                <td>land</td>
-                                <td><a href="#">bond</a></td>
-                                <td class="de-active">de-active</td>
-                                <td>16.04.19</td>
-                            </tr>
-                            <tr>
-                                <td>land</td>
-                                <td><a href="#">bond</a></td>
-                                <td class="active">active</td>
-                                <td>16.04.19</td>
-                            </tr> 
+                          <?php } ?>
+                         
                         </tbody>
                     </table>
                 </div>

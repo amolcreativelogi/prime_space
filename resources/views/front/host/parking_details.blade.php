@@ -253,8 +253,8 @@
                 </div>   
            </div> 
                   
-          <div class="col-lg-12 col-xs-12 admin-order-list"> 
-            <!-- <div id="mapCanvas1"></div> -->
+          <div class="col-lg-12 col-xs-12 admin-order-list" style="clear: both;"> 
+            <div id="mapCanvas1"></div>
            </div> 
               
           </div><!-- order-right -->
