@@ -45,6 +45,8 @@ class SearchPropertyController extends Controller
        $location_type_id = request()->location_type_id;
        $duration_type_id = request()->duration_type_id;
        $land_type_id = request()->land_type_id;
+       $resultClosest = '';
+       $resultCheapest = '';
 
        // time 
        $from_time = request()->fromtime; 
@@ -57,6 +59,15 @@ class SearchPropertyController extends Controller
 
        //get tbl prefix by module id
        $tbl_prefix=$this->getTablePrefix($module_id);
+
+       //amenities condition 
+       $amenities="";
+       if(!empty(request()->amenities)){
+        $arrOfAmenities = !empty(request()->amenities)?explode(',',request()->amenities):array();
+        $noOfAmenities = count($arrOfAmenities);
+        $amenities = " AND (SELECT count(property_id) as countOfAmenity FROM ".$tbl_prefix."add_property_amenities as pam WHERE pam.property_id = addProperty .property_id and `amenity_id` in (".request()->amenities.") AND status =1 AND is_deleted=0  having  countOfAmenity =".$noOfAmenities.")";
+
+       }
 
 
         // when location is not empty build query
@@ -100,7 +111,7 @@ class SearchPropertyController extends Controller
           }
 
           //serch result for cheapest
-          $orderByRentPrice = (!empty($carTypeWhere) && !empty($locationFields))?' HAVING distance <= 10000000000.10686 ORDER BY propRent.rent_amount':' ORDER BY propRent.rent_amount';//die;
+          $orderByRentPrice = (!empty($carTypeWhere) && !empty($locationWhr))?',propRent.rent_amount':' ORDER BY propRent.rent_amount';//die;
 
 
          
@@ -111,7 +122,7 @@ class SearchPropertyController extends Controller
           FROM ".$tbl_prefix."add_property AS addProperty
           ".$carTypeJoin."
           WHERE addProperty.module_manage_id =".$module_id."
-          AND addProperty.status = 1 AND addProperty.is_deleted = 0 AND addProperty.property_id IN(".$getValidPropIds.")".$carTypeWhere.$locationTypeWhere.$orderByRentPrice
+          AND addProperty.status = 1 AND addProperty.is_deleted = 0 AND addProperty.property_id IN(".$getValidPropIds.")".$amenities.$carTypeWhere.$locationTypeWhere.$locationWhr.$orderByRentPrice
 
          );
 
@@ -122,7 +133,8 @@ class SearchPropertyController extends Controller
           FROM ".$tbl_prefix."add_property AS addProperty
           ".$carTypeJoin."
           WHERE addProperty.module_manage_id =".$module_id."
-          AND addProperty.status = 1 AND addProperty.is_deleted = 0 AND addProperty.property_id IN(".$getValidPropIds.")".$carTypeWhere.$locationTypeWhere.$locationWhr
+          AND addProperty.status = 1 AND addProperty.is_deleted = 0 AND addProperty.property_id IN(".$getValidPropIds.")".$amenities.$carTypeWhere.$locationTypeWhere.$locationWhr
+
 
          );
 
@@ -155,7 +167,8 @@ class SearchPropertyController extends Controller
           ON propRent.property_id = addProperty.property_id
           ".$landTypeJoin."
           WHERE addProperty.module_manage_id =".$module_id.$landTypeWhere."
-          AND addProperty.status = 1 AND addProperty.is_deleted = 0 AND propRent.status=1 AND propRent.is_deleted=0 AND propRent.duration_type_id=".$duration_type_id." AND addProperty.property_id NOT IN(".$getValidPropIds.")");
+          AND addProperty.status = 1 AND addProperty.is_deleted = 0 AND propRent.status=1 AND propRent.is_deleted=0 AND propRent.duration_type_id=".$duration_type_id." AND addProperty.property_id NOT IN(".$getValidPropIds.")".$amenities
+);
 
           $resultClosest = '';
           $resultCheapest = '';
@@ -205,8 +218,22 @@ class SearchPropertyController extends Controller
         ->where([['is_deleted', '=', 0],
                 ['status', '=', 1]])->get();
 
+        //get amenities with its modules
+        $getAmenities = DB::table('tbl_mstr_amenities')
+        ->select(
+            'tbl_mstr_amenities.amenity_name',
+            'tbl_mstr_amenities.status',
+            'tbl_mstr_amenities.amenity_id',
+            'tbl_mstr_amenities.amenity_image'
+            )
+         ->leftJoin('tbl_mstr_amenities_with_category', 'tbl_mstr_amenities_with_category.amenity_id', '=', 'tbl_mstr_amenities.amenity_id')
+         ->leftJoin('tbl_module_manage', 'tbl_module_manage.module_manage_id', '=', 'tbl_mstr_amenities_with_category.module_manage_id')->where('tbl_mstr_amenities.is_deleted', '=', 0)
+        ->where('tbl_mstr_amenities_with_category.module_manage_id', '=', $module_id)
+        ->where('tbl_mstr_amenities_with_category.status', '=', 1)
+        ->get();
+
         return view('front.pages.all_property')->with(
-          ['getModuleCategories'=>$getModuleCategories,'searchArr'=>$searchArr,'searchResult'=>$searchResult,'no_of_prop'=>$no_of_prop,'getCarType'=>$getCarType,'getlandType'=>$getlandType,'getLocationType'=>$getLocationType]
+          ['getModuleCategories'=>$getModuleCategories,'searchArr'=>$searchArr,'searchResult'=>$searchResult,'no_of_prop'=>$no_of_prop,'getCarType'=>$getCarType,'getlandType'=>$getlandType,'getLocationType'=>$getLocationType,"getAmenities"=>$getAmenities]
         );
        // exit;
 
@@ -604,6 +631,49 @@ class SearchPropertyController extends Controller
     return json_encode($getModuleCategories);
   }
    
+  //get amenities with its modules
+   public function getAmenities(){
+
+       $module_id = request()->module_id;
+       $getAmenities = request()->amenities;
+       $arrAmenity = !empty($getAmenities)?explode(',',$getAmenities):array();
+        
+       //get amenities with its modules
+        $getAmenities = DB::table('tbl_mstr_amenities')
+        ->select(
+            'tbl_mstr_amenities.amenity_name',
+            'tbl_mstr_amenities.status',
+            'tbl_mstr_amenities.amenity_id',
+            'tbl_mstr_amenities.amenity_image'
+            )
+         ->leftJoin('tbl_mstr_amenities_with_category', 'tbl_mstr_amenities_with_category.amenity_id', '=', 'tbl_mstr_amenities.amenity_id')
+         ->leftJoin('tbl_module_manage', 'tbl_module_manage.module_manage_id', '=', 'tbl_mstr_amenities_with_category.module_manage_id')->where('tbl_mstr_amenities.is_deleted', '=', 0)
+        ->where('tbl_mstr_amenities_with_category.module_manage_id', '=', $module_id)
+        ->where('tbl_mstr_amenities_with_category.status', '=', 1)
+        ->get();
+
+
+        $amenityDiv ="";
+        if(!empty($getAmenities)){
+
+          foreach ($getAmenities as  $amenities) {
+
+            $checked= in_array($amenities->amenity_id,$arrAmenity)?"checked":"";
+
+            //image variable
+            $image="";
+            if (isset($amenities->amenity_image) && file_exists(public_path() . '/images/amenity/' . $amenities->amenity_image. '')) {
+                    $image = '<a target="_blank" href="'.url('/public/images/amenity/'.$amenities->amenity_image.'').'"><img src="'.url('/public/images/amenity/'.$amenities->amenity_image.'').'" width="50"></a>';
+            }
+
+            $amenityDiv.='<li><input type="checkbox" name="data[amenities][]" id="data[amenities][]" '.$checked.' value="'.$amenities->amenity_id.'"><label for="EV charging">'.$image.$amenities->amenity_name."</label></li>";
+                            
+          }
+
+        }
+        return  $amenityDiv;
+       
+  }
 
 
 

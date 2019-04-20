@@ -152,6 +152,13 @@ $(function(){
 				password: {
 					required: true,
 					minlength: 5,
+				},
+				password: {
+					required: true,
+					minlength: 5,
+				},
+				privacy_policy_check: {
+					required: true
 				}
 			},
 		messages: {
@@ -166,6 +173,9 @@ $(function(){
 				 },
 				 password:{
 					required :"Password field is required",
+				 },
+				 privacy_policy_check:{
+					required :"Terms of service select is required",
 				 }
 			},
 		submitHandler: function(form) {
@@ -203,14 +213,14 @@ $(function(){
 				$('#user_type_id-error').show().html(''); 
 			}
 
-
-			if($('#privacy_policy_check').is(":checked")){
-				lkForms('form-signup');
-				$('#terms-error').show().html(''); 
-				//$(window).scrollTop(0);
-			}else{
-				$('#terms-error').show().html('Terms of service select is required'); 
-			}
+			lkForms('form-signup');
+			// if($('#privacy_policy_check').is(":checked")){
+			// 	lkForms('form-signup');
+			// 	$('#terms-error').show().html(''); 
+			// 	//$(window).scrollTop(0);
+			// }else{
+			// 	$('#terms-error').show().html('Terms of service select is required'); 
+			// }
 			//form.submit();
 		  }
 	 });

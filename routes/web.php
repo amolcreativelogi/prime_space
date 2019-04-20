@@ -314,6 +314,9 @@ Route::get('/user/parkingdetails/{id?}','Front\HostController@ParkingDetails');
 Route::post('/user/DeleteRecord','Front\HostController@DeleteRecord');
 Route::get('/user/downloadDoc/{id?}','Front\HostController@downloadDoc');
 
+//Route to get amenity type list
+Route::post('/frontend/getAmenities','Front\SearchPropertyController@getAmenities');
+
 
 
 
