@@ -199,7 +199,7 @@ class BookingController extends Controller
     { 
         // Calulating the difference in timestamps 
         $diff = strtotime($date2) - strtotime($date1); 
-        // 24 * 60 * 60 = 86400 seconds 
+        // 24  60  60 = 86400 seconds 
         return abs(round($diff / 86400)) +1; 
     } 
 
@@ -216,7 +216,7 @@ class BookingController extends Controller
       $hours = floor($tmins/60);
               // Calulating the difference in timestamps 
       //$diff = strtotime($time2) - strtotime($time1); 
-        // 24 * 60 * 60 = 86400 seconds 
+        // 24  60  60 = 86400 seconds 
         return $hours; 
     } 
 
