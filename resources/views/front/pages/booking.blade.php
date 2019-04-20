@@ -30,17 +30,20 @@
                         <!--    <option>Both </option>-->
                         <!--</select>-->
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="col-md-8">
                                 <div class="form-group date-group">
+                                    
+                                    <div class="row">
+                                        <div class="col-md-4">
                                     <label>From</label>
-                                     <div class="date"><?php echo $fromdate; ?></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group date-group">
-                                    <label>To</label>
-                                    <div class="date"><?php echo $todate;?></div>
-                                  </div>
+                                    <input type="text" name="frm_date" value="<?php echo $fromdate; ?>" class="dates">
+                                    </div>
+                                    <div class="col-md-4">
+                                     <label>To</label>
+                                    <input type="text" name="to_date" value="<?php echo $todate;?>" class="dates">
+                                    </div>
+                                    </div>
+                                    
                             </div>
                         </div>
                     </div>
@@ -52,12 +55,14 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>FIRST NAME <span>*</span></label>
+                                    <!-- <input type="text" class="form-control" value="<?php //echo $_SESSION['user']['firstname']; ?>" > -->
                                     <input type="text" class="form-control" placeholder="FIRST NAME" value="<?php echo $user_details_get->firstname; ?>">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>LAST NAME <span>*</span></label>
+                                    <!-- <input type="text" class="form-control" value = "" > -->
                                     <input type="text" class="form-control" placeholder="LAST NAME" value="<?php echo $user_details_get->lastname; ?>">
                                 </div>
                             </div>
