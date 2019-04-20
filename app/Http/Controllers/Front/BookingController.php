@@ -9,7 +9,7 @@ use DB;
 use DateTime;
 use DateInterval;
 use DatePeriod;
-
+use App\PropertyBooking;
 
 $now = new DateTime();
 
@@ -199,7 +199,7 @@ class BookingController extends Controller
     { 
         // Calulating the difference in timestamps 
         $diff = strtotime($date2) - strtotime($date1); 
-        // 24 * 60 * 60 = 86400 seconds 
+        // 24  60  60 = 86400 seconds 
         return abs(round($diff / 86400)) +1; 
     } 
 
@@ -216,7 +216,7 @@ class BookingController extends Controller
       $hours = floor($tmins/60);
               // Calulating the difference in timestamps 
       //$diff = strtotime($time2) - strtotime($time1); 
-        // 24 * 60 * 60 = 86400 seconds 
+        // 24  60  60 = 86400 seconds 
         return $hours; 
     } 
 
@@ -311,8 +311,49 @@ class BookingController extends Controller
       
 
       $data['finalprice'] = $this->calculatePrice($fromtime, $totime, $fromdate, $todate, $durationtype, $initialPrice);
+      if (isset($_SESSION['user']['user_id'])) {
 
+        $module_id = request()->moduleid;
+        $property_id = request()->propertyid;
+        $durationtype = request()->duration_type_id;
+
+        $fromtime = request()->fromtime;
+        $totime = request()->totime;
+
+        $fromdate = request()->fromdate; 
+        $todate = request()->todate;  
+
+        $car_type_req = request()->car_type_id;
+       // dd($property_id);
+      $frm_date = DateTime::createFromFormat("m.d.Y" , $fromdate);
+      $from_date = $frm_date->format('Y-m-d');
+
+      $t_date = DateTime::createFromFormat("m.d.Y" , $todate);
+      $to_date = $t_date->format('Y-m-d');
+
+
+        $b_id = PropertyBooking::insertGetId([
+                'user_id' => $_SESSION['user']['user_id'], 
+                'property_id' => $property_id,
+                'module_manage_id' => $module_id,
+                'duration_type_id' => $durationtype,
+                'start_time' => $fromtime, 
+                'end_time' => $totime,
+                'start_date' => $from_date,
+                'end_date' => $to_date,
+                'booking_amount' => $data['finalprice'],
+                'booking_status' => 'Pending'
+              ]);
+
+        DB::table('booking_transactions')->insert([            
+          'user_id' => $_SESSION['user']['user_id'], 
+          'booking_id' => $b_id,
+          'amount' => $data['finalprice'],
+          'status_message' => 'Pending'
+        ]);
+      }
       //return view
+      $data['booking_id'] = $b_id;
       return view('front/pages/booking', $data);
     }
 
