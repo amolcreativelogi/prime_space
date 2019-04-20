@@ -197,9 +197,8 @@
       button.addEventListener('click', function () {
         instance.requestPaymentMethod(function (err, payload) {
             payload['amount'] = <?= $finalprice ?>;
+            payload['booking_id'] = <?= $booking_id ?>;
           $.get('{{ route('payment.process') }}', {payload}, function (response) {
-
-            console.log();
             if (response.success) {
               alert('Payment successfull!');
             } else {
