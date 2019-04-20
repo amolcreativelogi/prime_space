@@ -27,4 +27,13 @@ class CustomerController extends Controller
     {
         return view('front.customer.bookingView');
     }
+
+    function submitRating(Request $request){
+        DB::table('booking_ratings')->insert([
+            'user_id' => $_SESSION['user']['user_id'],
+            'booking_id' => 1,
+            'rating' => $request->starRating,
+            'review' => $request->ratingComment
+        ]);
+    }
 }
