@@ -200,7 +200,12 @@
                 <div class="property-review">
                   <h3>2 Reviews</h3>
                   <div class="rating">
-                      <?php $countUser = count($bookingDataRatings); ?>
+                      <?php 
+                        $countUser = count($bookingDataRatings);
+                        if ($countUser == 0) {
+                          $countUser = 1;
+                        }
+                      ?>
                       <?php for ($i=5; $i >= 1; $i--) { ?>
                           <?php if ($i <= ($calRating / $countUser)): ?>
                             <label style="color: #5500fe" class = "full" for="star<?= $i ?>-<?= $i ?>" title="Awesome - <?= $i ?> stars"></label>
@@ -295,7 +300,7 @@
                 </div>
                 <hr>
                 <a href="" class="cont-host">contact host</a><br/>
-                <a href='<?php echo URL('/') ?>/bookNow?moduleid=<?php echo Request::get("module_id")."&propertyid=".$searchProp->property_id."&car_type_id=".$searchProp->car_type_id."&duration_type_id=".$searchProp->duration_type_id."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="cont-host">Book now</a>
+                <!-- <a href='<?php //echo URL('/') ?>/bookNow?moduleid=<?php //echo Request::get("module_id")."&propertyid=".$searchProp->property_id."&car_type_id=".$searchProp->car_type_id."&duration_type_id=".$searchProp->duration_type_id."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="cont-host">Book now</a> -->
                  <hr>
               </div><!-- pc-right -->
             </div>
