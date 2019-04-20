@@ -289,6 +289,7 @@ Route::get('/notification','Front\PagesController@notification');
 Route::get('/messages','Front\PagesController@messages');
 Route::get('/refundPolicy','Front\PagesController@refundPolicy');
 Route::get('/accountSetting','Front\PagesController@accountSetting');
+Route::get('/blogListing','Front\PagesController@blogListing');
 
 
 //Route to get masters details on add property form

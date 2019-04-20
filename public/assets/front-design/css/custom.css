@@ -27,7 +27,7 @@ select option, select.form-control option {}
 .modal-backdrop.fade.show {opacity: 0.8 !important;}
 .pullright {float: right;}
 .pullleft {float: left;}
-.bluebtn {font-size: 13px;background: #4d88e5;color: #fff;text-transform: uppercase;padding: 12px 30px;display: inline-block;border-radius: 5px;transition: all 0.5s ease-in-out;border: 0;}
+.bluebtn {font-size: 13px;background: #4d88e5;color: #fff;text-transform: uppercase;padding:8px 30px;display: inline-block;border-radius: 5px;transition: all 0.5s ease-in-out;border: 0;}
 .bluebtn:hover, .bluebtn:focus {background: #333;transition: all 0.5s ease-in-out;color: #fff;text-decoration: none;  border: 0;}
 .whitebtn {font-size: 13px;background: #fff;color: #211f1f;text-transform: uppercase;padding: 12px 30px;display: inline-block;border-radius: 5px;transition: all 0.5s ease-in-out;}
 .whitebtn:hover, .whitebtn:focus {background: #211f1f;color: #fff;transition: all 0.5s ease-in;text-decoration: none;
@@ -247,7 +247,8 @@ font-weight: 600;font-size: 13px;line-height: normal;text-transform: uppercase;c
 .acctype-group [type="radio"]:checked + label:after {opacity: 1;-webkit-transform: scale(1);transform: scale(1);}
 #privacy_policy_check.error { margin-bottom: 55px;}
 #privacy_policy_check + label.error {position: absolute;left: 55px;right: 0;width: 400px;bottom: -5px;}
-.site-login.site-form { padding: 30px 0 20px 0;}
+.site-login.site-form {background: #fff;padding: 20px;box-shadow: 0 0 5px #ccc;border-radius: 5px;}
+.site-login.site-form .form-group input[type="file"]  { padding: 0; }
 
 .site-form .form-group.birthdategroup {padding: 18px 0 5px 0;}
 .site-form .form-group.birthdategroup label {font-family: Montserrat;font-style: normal;font-weight: 600;font-size: 13px;

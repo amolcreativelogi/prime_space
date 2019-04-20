@@ -69,7 +69,7 @@
                   <li><a href="<?php echo URL::to('user/switchtocustomer'); ?>">Switch to Customer</a></li>
                    <?php } } ?>
                   <li><a href="<?php echo URL::to('user/editprofile/'.$_SESSION['user']['user_id']); ?>">edit profile</a></li>
-                  <li><a href="<?php echo URL::to('user/accountSetting'); ?>">Account Setting </a></li>
+                  <li><a href="<?php echo URL::to('accountSetting'); ?>">Account Setting </a></li>
                   <li><a href="<?php echo URL::to('/user/logout'); ?>">logout</a></li>
                 </ul>
                 </li>
