@@ -187,27 +187,27 @@ $image = 'No Image';
 
 @section('script')
 
-<script>
-var button = document.querySelector('#submit-button');
+ <script>
+    var button = document.querySelector('#submit-button');
 
-braintree.dropin.create({
-authorization: "{{ Braintree_ClientToken::generate() }}",
-container: '#dropin-container'
-}, function (createErr, instance) {
-button.addEventListener('click', function () {
-instance.requestPaymentMethod(function (err, payload) {
-payload['amount'] = <?= $finalprice ?>;
-payload['booking_id'] = <?= $booking_id ?>;
-$.get('{{ route('payment.process') }}', {payload}, function (response) {
-if (response.success) {
-alert('Payment successfull!');
-} else {
-alert('Payment failed');
-}
-}, 'json');
-});
-});
-});
-</script>
+    braintree.dropin.create({
+      authorization: "{{ Braintree_ClientToken::generate() }}",
+      container: '#dropin-container'
+    }, function (createErr, instance) {
+      button.addEventListener('click', function () {
+        instance.requestPaymentMethod(function (err, payload) {
+            payload['amount'] = <?= $finalprice ?>;
+            payload['booking_id'] = <?= $booking_id ?>;
+          $.get('{{ route('payment.process') }}', {payload}, function (response) {
+            if (response.success) {
+              alert('Payment successfull!');
+            } else {
+              alert('Payment failed');
+            }
+          }, 'json');
+        });
+      });
+    });
+  </script>
 
 @endsection
