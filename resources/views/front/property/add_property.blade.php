@@ -736,10 +736,6 @@ $(".next").click(function(){
            required: true,
            extension: "jpg|jpeg|png"
         },
-        "property_map[]": { 
-           required: true,
-           extension: "jpg|jpeg|png"
-        },
         "data[parking][floor_name][]": { 
            required: true,
         },
@@ -813,9 +809,6 @@ $(".next").click(function(){
           required: "Description is required",
         },
         'property_images[]': {
-          required: "Property Images is required",
-        },
-        'property_map[]': {
           required: "Property Images is required",
         },
         'data[parking][floor_name][]': {

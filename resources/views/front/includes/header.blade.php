@@ -104,8 +104,16 @@ $module_manage_id=(isset($_GET['module_id']) && !empty($_GET['module_id']))?$_GE
 
 <script type="text/javascript">
 function searchURL(){
-    var module_id = ($('#select-property-type').val())?$('#select-property-type').val():'2';
 
+    //get amenity
+    var amenity = [];
+    $.each($("input[name='data[amenities][]']:checked"), function(){            
+        amenity.push($(this).val());
+    });
+    var amenities = amenity.join(",");
+    
+    //module id
+    var module_id = ($('#select-property-type').val())?$('#select-property-type').val():'2';
     //default date time
     var fromdate = getCurrentDate();
     var todate =   getCurrentDate();
@@ -226,7 +234,7 @@ function searchURL(){
 
     }
      //create url
-    var url = "<?php echo URL('/') ?>/searchproperty?module_id="+module_id+"&fromdate="+fromdate+"&todate="+todate+"&fromtime="+fromtime+"&totime="+totime+"&latitude="+latitude+"&longitude="+longitude+"&location="+location+"&car_type_id="+car_type_id+"&location_type_id="+location_type_id+"&land_type_id="+land_type_id+"&activeTab="+activeTab+"&duration_type_id="+duration_type_id;
+    var url = "<?php echo URL('/') ?>/searchproperty?module_id="+module_id+"&fromdate="+fromdate+"&todate="+todate+"&fromtime="+fromtime+"&totime="+totime+"&latitude="+latitude+"&longitude="+longitude+"&location="+location+"&car_type_id="+car_type_id+"&location_type_id="+location_type_id+"&land_type_id="+land_type_id+"&activeTab="+activeTab+"&duration_type_id="+duration_type_id+"&amenities="+amenities;
     //redirect url
     window.location = url;
    
@@ -235,6 +243,8 @@ function searchURL(){
 function topPrpertySearch()
 {
     var module_id = ($('#select-property-type-top').val())?$('#select-property-type-top').val():'2';
+
+    var amenities = '<?= Request::get('amenities')?>';
     fromdate = $('#from_date').val(); 
     var fromdate = getCurrentDate();
     var todate =   getCurrentDate();
@@ -268,7 +278,7 @@ function topPrpertySearch()
 
     }
     //create url
-    var url = "<?php echo URL('/') ?>/searchproperty?module_id="+module_id+"&fromdate="+fromdate+"&todate="+todate+"&fromtime="+fromtime+"&totime="+totime+"&latitude="+latitude+"&longitude="+longitude+"&location="+location+"&car_type_id=1"+"&location_type_id="+location_type_id+"&land_type_id=2"+"&activeTab="+activeTab+"&duration_type_id="+duration_type_id;
+    var url = "<?php echo URL('/') ?>/searchproperty?module_id="+module_id+"&fromdate="+fromdate+"&todate="+todate+"&fromtime="+fromtime+"&totime="+totime+"&latitude="+latitude+"&longitude="+longitude+"&location="+location+"&car_type_id=1"+"&location_type_id="+location_type_id+"&land_type_id=2"+"&activeTab="+activeTab+"&duration_type_id="+duration_type_id+"&amenities="+amenities;
     //redirect url
      window.location = url;
 }
