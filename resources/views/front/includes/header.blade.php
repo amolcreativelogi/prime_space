@@ -55,9 +55,10 @@
               if(isset($_SESSION['user']['is_user_login'])) { ?>
               <div class="afterloginbox">
                 <a href="<?php echo URL::to('messages'); ?>" class="head-msg"><i class="fa fa-envelope-o" aria-hidden="true"></i></a>
+                
                 <a href="<?php echo URL::to('notification'); ?>" class="head-notification"><i class="fa fa-bell" aria-hidden="true"></i><span class="not-count">20</span></a>
               <ul>
-                 <li class="dropdown"><a href="#" dropdown-toggle="" data-toggle="dropdown" aria-expanded="false"><img src="http://alkurn.info/html/Prymespace/images/test-author-03.jpg" alt=""><?php echo $_SESSION['user']['firstname']; ?> <span class="caret"></span></a>
+                 <li class="dropdown"><a href="#" dropdown-toggle="" data-toggle="dropdown" aria-expanded="false"><img src="{{ URL::asset('/') }}storage/app/<?php echo($_SESSION['user']['profile_pic']); ?>" alt=""><?php echo $_SESSION['user']['firstname']; ?> <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="<?php echo ($_SESSION['user']['user_type_permission'] == 'host') ?  URL::to('user/host') :  URL::to('user/customer'); ?>">dashboard</a></li>
                   <?php if($_SESSION['user']['user_type_id'] == 5) { 
@@ -104,8 +105,16 @@ $module_manage_id=(isset($_GET['module_id']) && !empty($_GET['module_id']))?$_GE
 
 <script type="text/javascript">
 function searchURL(){
-    var module_id = ($('#select-property-type').val())?$('#select-property-type').val():'2';
 
+    //get amenity
+    var amenity = [];
+    $.each($("input[name='data[amenities][]']:checked"), function(){            
+        amenity.push($(this).val());
+    });
+    var amenities = amenity.join(",");
+    
+    //module id
+    var module_id = ($('#select-property-type').val())?$('#select-property-type').val():'2';
     //default date time
     var fromdate = getCurrentDate();
     var todate =   getCurrentDate();
@@ -226,7 +235,7 @@ function searchURL(){
 
     }
      //create url
-    var url = "<?php echo URL('/') ?>/searchproperty?module_id="+module_id+"&fromdate="+fromdate+"&todate="+todate+"&fromtime="+fromtime+"&totime="+totime+"&latitude="+latitude+"&longitude="+longitude+"&location="+location+"&car_type_id="+car_type_id+"&location_type_id="+location_type_id+"&land_type_id="+land_type_id+"&activeTab="+activeTab+"&duration_type_id="+duration_type_id;
+    var url = "<?php echo URL('/') ?>/searchproperty?module_id="+module_id+"&fromdate="+fromdate+"&todate="+todate+"&fromtime="+fromtime+"&totime="+totime+"&latitude="+latitude+"&longitude="+longitude+"&location="+location+"&car_type_id="+car_type_id+"&location_type_id="+location_type_id+"&land_type_id="+land_type_id+"&activeTab="+activeTab+"&duration_type_id="+duration_type_id+"&amenities="+amenities;
     //redirect url
     window.location = url;
    
@@ -235,6 +244,8 @@ function searchURL(){
 function topPrpertySearch()
 {
     var module_id = ($('#select-property-type-top').val())?$('#select-property-type-top').val():'2';
+
+    var amenities = '<?= Request::get('amenities')?>';
     fromdate = $('#from_date').val(); 
     var fromdate = getCurrentDate();
     var todate =   getCurrentDate();
@@ -268,7 +279,7 @@ function topPrpertySearch()
 
     }
     //create url
-    var url = "<?php echo URL('/') ?>/searchproperty?module_id="+module_id+"&fromdate="+fromdate+"&todate="+todate+"&fromtime="+fromtime+"&totime="+totime+"&latitude="+latitude+"&longitude="+longitude+"&location="+location+"&car_type_id=1"+"&location_type_id="+location_type_id+"&land_type_id=2"+"&activeTab="+activeTab+"&duration_type_id="+duration_type_id;
+    var url = "<?php echo URL('/') ?>/searchproperty?module_id="+module_id+"&fromdate="+fromdate+"&todate="+todate+"&fromtime="+fromtime+"&totime="+totime+"&latitude="+latitude+"&longitude="+longitude+"&location="+location+"&car_type_id=1"+"&location_type_id="+location_type_id+"&land_type_id=2"+"&activeTab="+activeTab+"&duration_type_id="+duration_type_id+"&amenities="+amenities;
     //redirect url
      window.location = url;
 }

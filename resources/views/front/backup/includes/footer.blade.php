@@ -113,7 +113,7 @@
 
                     <div class="row">
                         <div class="col-sm-1">
-                            <input type="checkbox" id="privacy_policy_check"> <span class="checkmark"></span>
+                            <input type="checkbox" id="privacy_policy_check" name="privacy_policy_check"> <span class="checkmark"></span>
                         </div>
                         <div class="col-sm-11">
                             <label for="">
