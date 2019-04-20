@@ -296,7 +296,7 @@ class BookingController extends Controller
       $data['getPropImages'] = DB::table($tbl_prefix.'add_property_files')->select('name'
         )->where(['is_deleted'=>0,'status'=>1,'property_id'=>$property_id])->first();
       
-      //get property 
+      //get property  
       $data['getPropertyType'] =  DB::table('prk_add_property_floors')->select('parking_type','floor_name','total_parking_spots')->leftJoin('prk_parking_type', 'prk_add_property_floors.parking_type_id', '=', 'prk_parking_type.parking_type_id')->where('prk_add_property_floors.property_id', '=', $property_id)->first();
       
       //get car details
@@ -331,7 +331,7 @@ class BookingController extends Controller
        if ($durationtype == "hourly"){
         $to = \Carbon\Carbon::createFromFormat('H:s:i', $totime);
         $from = \Carbon\Carbon::createFromFormat('H:s:i', $fromtime); 
-        $diff_in_minutes = $to->diffInMinutes($from);
+        $diff_in_minutes = $from->diffInMinutes($to);
         $finalPrice = $diff_in_minutes * $initialPrice;
         return $finalPrice;
       }
