@@ -54,27 +54,27 @@ class MainController extends Controller
     public function checkLoginT()
     {
 
-    	//session_start();
-    	//$_SESSION['test'] = 'ss';
-  	  	//$request->session()->put('progress', '5%');
-  		//Session::put('progress', '5%');
-		// Session::save();
-    	//$value = session('key', 'default');
-    	//$request->session()->put('email', 'amol@gmail.com');
-    	//$data =  $_SESSION['test'];
-    	// $data = Session::all();
-    	//echo '<pre>';
+    	session_start();
+    	$_SESSION['test'] = 'ss';
+  	  	$request->session()->put('progress', '5%');
+  		Session::put('progress', '5%');
+		Session::save();
+    	$value = session('key', 'default');
+    	$request->session()->put('email', 'amol@gmail.com');
+    	$data =  $_SESSION['test'];
+    	$data = Session::all();
+    	echo '<pre>';
     	
-    	// echo Hash::make('amol');
-    	// if(Auth::attept($user_data))
-    	// {
-    	// 	echo 'success';
-    	// }
-    	// else
-    	// {
-    	// 	echo 'success';
-    	// }
-    	// print_r($user_data);
+    	echo Hash::make('amol');
+    	if(Auth::attept($user_data))
+    	{
+    		echo 'success';
+    	}
+    	else
+    	{
+    		echo 'success';
+    	}
+    	print_r($user_data);
     	print_r(Session::all());
     	exit;
     }

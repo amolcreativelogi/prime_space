@@ -50,6 +50,20 @@
                                 </select> -->
                             </nav>
                             
+
+                              <div id="parking-aminities">
+                                <ul class="aminities-list custom-checkbox" id="amenities_list">
+                                    <li><input type="checkbox" name="data[amenities][]" id="EV charging" value="59"><label for="EV charging"><img src="https://www.prymestory.com/public/images/amenity/ev charging.png" width="50"> EV charging </label></li>
+                                    <li><input type="checkbox" name="data[amenities][]" id="Water supply" value="58"><label for="Water supply"><img src="https://www.prymestory.com/public/images/amenity/water supply.svg" width="50">Water supply </label></li>
+                                    <li><input type="checkbox" name="data[amenities][]" id="Security" value="57"><label for="Security"><img src="https://www.prymestory.com/public/images/amenity/security.svg" width="50"> Security </label></li>
+                                    <li><input type="checkbox" name="data[amenities][]" id="Wifi" value="55"><label for="Wifi"><img src="https://www.prymestory.com/public/images/amenity/wifi.svg" width="50"> Wifi </label></li>
+                                    <li><input type="checkbox" name="data[amenities][]" id="Fire Extinguisher" value="61"><label for="Fire Extinguisher"><img src="https://www.prymestory.com/public/images/amenity/fire extinguisher.svg" width="50"> Fire Extinguisher </label></li>
+                                    <li><input type="checkbox" name="data[amenities][]" id="Wheelchair accesible" value="56"><label for="Wheelchair accesible"><img src="https://www.prymestory.com/public/images/amenity/wheelchaire.svg" width="50"> Wheelchair accesible </label></li>
+                                    <li><input type="checkbox" name="data[amenities][]" id="Roof" value="62"><label for="Roof"><img src="https://www.prymestory.com/public/images/amenity/roof.svg" width="50"> Roof </label></li>
+                                    <li><input type="checkbox" name="data[amenities][]" id="Locker Room" value="65"><label for="Locker Room"><img src="https://www.prymestory.com/public/images/amenity/locker romm.svg" width="50"> Locker Room </label></li>
+                                </li></ul>
+                            </div>
+
                             <div class="tab-content" id="nav-tabContent">
                             <div class="tab-pane fade show active" id="hourly" role="tabpanel" aria-labelledby="nav-home-tab">
                               <div id="hourly" class="tablist-container filterbox hourly" style="display: block;">
@@ -160,6 +174,8 @@
                 <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#land-weekly" role="tab" aria-controls="nav-profile" aria-selected="false">Weekly</a>
                 <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#land-monthly" role="tab" aria-controls="nav-contact" aria-selected="false">Monthly</a>
               </div>
+
+                <button data-toggle="collapse" data-target="#land-aminities" class="aminities-collapse"><i class="fa fa-bars" aria-hidden="true"></i></button>
               
               <select class="filter-select" name="land_type_id" id="land_type_id">
                           <option value="">Land Use for</option>
