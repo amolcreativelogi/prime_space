@@ -79,6 +79,7 @@ class SearchPropertyController extends Controller
              $locationWhr=' HAVING distance <= 10000000000.10686 ORDER BY distance ';//5 km
         }
 
+
         $searchResult=array();
 
         if($module_id==2){ //parking
@@ -101,20 +102,26 @@ class SearchPropertyController extends Controller
           $carTypeJoin="";
           $carTypeWhere="";
           $carTypeSelect="";
-          if(!empty($car_type_id)){
+          //if(!empty($car_type_id)){
             $carTypeSelect=",propRent.rent_amount ";
             $carTypeJoin =" LEFT JOIN  ".$tbl_prefix."add_property_rent  as propRent
           ON propRent.property_id = addProperty.property_id ";
 
-            $carTypeWhere =" AND propRent.status=1 AND propRent.is_deleted=0 AND propRent.car_type_id=".$car_type_id." AND propRent.duration_type_id=".$duration_type_id;
 
-          }
+          echo $car_type_id;
+           if($car_type_id == '') {
+             $carTypeWhere =" AND propRent.status=1 AND propRent.is_deleted=0 AND rent_amount =  (SELECT min(rent_amount) from prk_add_property_rent where property_id = addProperty.property_id and duration_type_id = ".$duration_type_id.")  AND propRent.duration_type_id=".$duration_type_id;
+           } else {
+              $carTypeWhere =" AND propRent.status=1 AND propRent.is_deleted=0 AND propRent.car_type_id=".$car_type_id." AND propRent.duration_type_id=".$duration_type_id;
+           }
+          //}
 
           //serch result for cheapest
           $orderByRentPrice = (!empty($carTypeWhere) && !empty($locationWhr))?',propRent.rent_amount':' ORDER BY propRent.rent_amount';//die;
 
 
-         
+       
+        
          //search result for cheapest
         $resultCheapest = DB::select("SELECT
           (SELECT name FROM ".$tbl_prefix."add_property_files papf WHERE papf.property_id = addProperty.property_id AND document_type_id =1 order by file_id limit 1 ) AS image,

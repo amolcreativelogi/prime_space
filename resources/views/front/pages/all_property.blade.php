@@ -22,9 +22,9 @@
                       <div class="prop-type">
                             <nav>
                                 <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#hourly" role="tab" aria-controls="nav-home" aria-selected="true">Hourly</a>
-                                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab"  href="#daily" role="tab" aria-controls="nav-profile" aria-selected="false">Daily</a>
-                                    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#monthly" role="tab" aria-controls="nav-contact" aria-selected="false">Monthly</a>
+                                    <a class="nav-item nav-link removeactive hourly active" id="nav-home-tab" data-toggle="tab" href="#hourly" role="tab" aria-controls="nav-home" aria-selected="true">Hourly</a>
+                                    <a class="nav-item nav-link removeactive daily" id="nav-profile-tab" data-toggle="tab"  href="#daily" role="tab" aria-controls="nav-profile" aria-selected="false">Daily</a>
+                                    <a class="nav-item nav-link removeactive monthly" id="nav-contact-tab" data-toggle="tab" href="#monthly" role="tab" aria-controls="nav-contact" aria-selected="false">Monthly</a>
                                 </div>
 
                                 
@@ -53,7 +53,7 @@
                             
 
                             <div class="tab-content" id="nav-tabContent">
-                            <div class="tab-pane fade show active" id="hourly" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <div class="tab-pane fade removeactive show active" id="hourly" role="tabpanel" aria-labelledby="nav-home-tab">
                               <div id="hourly" class="tablist-container filterbox hourly" style="display: block;">
             
                                 <form>
@@ -88,7 +88,7 @@
                                 </form>
                               </div>
                             </div>
-                            <div class="tab-pane fade" id="daily" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <div class="tab-pane fade removeactive" id="daily" role="tabpanel" aria-labelledby="nav-profile-tab">
                               <div id="daily" class="tablist-container filterbox daily">
                                 <form action="searchproperty/" method="get">
                                   <div class="form-group">
@@ -113,7 +113,7 @@
                                 </form>
                               </div>
                             </div>
-                            <div class="tab-pane fade" id="monthly" role="tabpanel" aria-labelledby="nav-contact-tab">
+                            <div class="tab-pane fade removeactive" id="monthly" role="tabpanel" aria-labelledby="nav-contact-tab">
                               <div id="monthly" class="tablist-container filterbox monthly">
                                 <form action="searchproperty/" method="get">
                                   <div class="form-group">
@@ -514,11 +514,12 @@ $mapperPointerCheapest =  json_encode($jsonCheapest);
 
 
 <script>
+$('.removeactive').removeClass('active show')
+$('.<?php echo $_GET['activeTab']; ?>, #<?php echo $_GET['activeTab']; ?>').addClass('active show')
+$('.<?php echo $_GET['activeTab']; ?>').trigger( "click" );
 
-  
-
-  function getAddress(id)
-  {
+function getAddress(id)
+ {
     var fromdest = $('#location-from-search').val();
     var to = $('#to_destination_'+id).val();
 

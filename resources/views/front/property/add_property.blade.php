@@ -761,10 +761,6 @@ $(".next").click(function(){
         "data[parking][rent_amount][4][]": { 
            required: true,
         },
-        "data[amenities][]": {
-            required: true,
-            minlength: 1
-         },
         "data[location_type]": {
             required: true,
             minlength: 1
@@ -773,10 +769,6 @@ $(".next").click(function(){
             required: true,
             minlength: 1
          },
-         "property_documents[]": { 
-           required: true,
-           extension: "jpg|jpeg|png"
-        },
         "units": { 
            required: true,
         },
@@ -835,17 +827,11 @@ $(".next").click(function(){
         "data[parking][rent_amount][4][]": {
           required: "Weekly Price is required",
         },
-        "data[amenities][]": {
-          required: "Amenities is required",
-        },
-        "data[location_type]": {
+         "data[location_type]": {
           required: "Location type is required",
         },
         "cancellation_policy_id": {
           required: "Cancellation Policy is required",
-        },
-        "property_documents[]": {
-          required: "Property document is required",
         },
         "units": {
           required: "Units is required",
