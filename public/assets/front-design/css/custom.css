@@ -602,7 +602,8 @@ span.teating-div {position: absolute;left: 0;width: 100%;top: -4px;}
 .book-amenties .table {border: 0;}
 .book-amenties .table td {border: 0;padding: 5px;font-size: 15px;}
 .book-amenties .table td:nth-child(1) {text-align: right;}
-.book-amenties td:nth-child(2) {text-align: right;}
+.book-amenties td:nth-child(2) {text-align: right; position: relative;}
+.book-amenties td:nth-child(2)::after {content: "-";position: absolute;right: -2px;}
 
 .property-content .firstrow .col-sm-6 { margin-bottom:5px;}
 .property-content .firstrow .fa {font-size: 20px;margin-right: 5px;}
