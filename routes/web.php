@@ -288,6 +288,7 @@ Route::get('/renter-faq','Front\PagesController@renter_faq');
 Route::get('/renter-faq','Front\PagesController@renter_faq');
 Route::get('/notification','Front\PagesController@notification');
 Route::get('/messages','Front\PagesController@messages');
+Route::get('/emailTemplate','Front\PagesController@emailTemplate');
 
 
 //Route to get masters details on add property form

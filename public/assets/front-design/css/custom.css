@@ -245,6 +245,9 @@ font-weight: 600;font-size: 13px;line-height: normal;text-transform: uppercase;c
   -webkit-transition: all 0.2s ease;transition: all 0.2s ease;cursor: pointer;}
 .acctype-group [type="radio"]:not(:checked) + label:after {opacity: 0;-webkit-transform: scale(0);transform: scale(0);}
 .acctype-group [type="radio"]:checked + label:after {opacity: 1;-webkit-transform: scale(1);transform: scale(1);}
+#privacy_policy_check.error { margin-bottom: 55px;}
+#privacy_policy_check + label.error {position: absolute;left: 55px;right: 0;width: 400px;bottom: -5px;}
+
 .site-form .form-group.birthdategroup {padding: 18px 0 5px 0;}
 .site-form .form-group.birthdategroup label {font-family: Montserrat;font-style: normal;font-weight: 600;font-size: 13px;
 line-height: normal;text-transform: uppercase;color: #303030;}
@@ -333,7 +336,7 @@ span.teating-div {position: absolute;left: 0;width: 100%;top: -4px;}
 .add-property #msform .custom-checkbox label.error:after, .add-property #msform .custom-radio label.error:after, .add-property #msform .ad-col label.error:after { content:""; background:none;}
 .add-property #msform input {height:40px; border-radius: 3px;font-family: Helvetica Neue;font-size: 16px;line-height: normal;color: #303030;padding: 5px 10px;width: 100%;border: 1px solid #ced4da; margin-bottom:10px;}
 .add-property #msform input[type="file"] {padding: 0;}
-.add-property #msform select {height: 50px; border-radius: 3px;font-family: Helvetica Neue;font-size: 16px;line-height: normal;color: #303030;padding: 5px 10px;width: 100%;border: 1px solid #ced4da; margin-bottom: 14px;}
+.add-property #msform select {height: 40px; border-radius: 3px;font-family: Helvetica Neue;font-size: 16px;line-height: normal;color: #303030;padding: 5px 10px;width: 100%;border: 1px solid #ced4da; margin-bottom: 14px;}
 .add-property #msform select option {font-family: Helvetica Neue;font-size: 16px;line-height: normal;color: #303030;padding: 5px 10px;}
 .add-property #msform textarea {height:105px;border-radius: 3px;font-family: Helvetica Neue;font-size: 16px;line-height: normal;color: #303030;padding: 5px 10px;width: 100%; resize: none;border: 1px solid #ced4da; margin-bottom: 14px;}
 .add-property #msform .action-button {width: 100px;background: #000;font-weight: normal;color: white;border: 0 none;border-radius: 1px;cursor: pointer;padding: 10px 5px;margin: 10px 5px;}
@@ -385,7 +388,7 @@ span.teating-div {position: absolute;left: 0;width: 100%;top: -4px;}
 .add-property #msform .box label.error { border: 0;}
 
 .add-property .form-field .table td, .add-property .form-field .table th { border: 0;padding:0 5px; }
-.add-property .form-field select { width: 100%; height: 50px !important;padding: 5px 10px;font-size: 16px;line-height: normal;color: #303030;}
+.add-property .form-field select { width: 100%; height: 40px !important;padding: 5px 10px;font-size: 16px;line-height: normal;color: #303030;}
 .add-property #msform input#addrow, .add-property #msform input#second-addrow {background: #000;color: #fff;width: 150px;  float: left;}
 .add-property #msform input.btn-danger { color: #fff; }
 .add-property .aminities-list { padding: 0; margin: 0; }
