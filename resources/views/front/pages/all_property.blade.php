@@ -10,7 +10,7 @@
           <div class="row">
               <div class="col-sm-2">
                   <div class="prop-type first-prop-type">
-                      <select id="select-property-type" class="select-property-type" name="module_manage_id">
+                      <select id="select-property-type" class="select-property-type" name="module_manage_id" onchange="getAmenities(this.value)">
                         <?php foreach($getModuleCategories as $category){ ?>
                             <option <?php if($category->module_manage_id == $searchArr['module_id']){ echo "selected";}?> value="<?php echo $category->module_manage_id ?>" class="property-type"><?php echo $category->module_manage_name ?></option>
                             <?php } ?>
@@ -26,6 +26,7 @@
                                     <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab"  href="#daily" role="tab" aria-controls="nav-profile" aria-selected="false">Daily</a>
                                     <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#monthly" role="tab" aria-controls="nav-contact" aria-selected="false">Monthly</a>
                                 </div>
+
                                 
                                 <select class="filter-select" id="car_type_id" name="car_type_id">
                                   <option value="">Car Type</option>
@@ -269,6 +270,26 @@
         </ul> -->
         
       </div>
+       <div id="parking-aminities" class="aminities-collapse-div">
+          <!--class custom-checkbox removed for now because its not allowing to check the checkbox -->
+          <ul class="aminities-list" id="amenities_list">
+            <?php $arrAmenity = !empty(Request::get('amenities'))?explode(',',Request::get('amenities')):array();
+            ?>
+            @foreach($getAmenities as $amenities )
+              <li><input type="checkbox" name="data[amenities][]" id="amenities" 
+                <?= (in_array($amenities->amenity_id,$arrAmenity))?'checked':''; ?> value="<?=  $amenities->amenity_id?>">
+                <label for="EV charging">
+                <?php 
+                if (isset($amenities->amenity_image) && file_exists(public_path() . '/images/amenity/' . $amenities->amenity_image. '')) {
+                      echo $image = '<a target="_blank" href="'.url('/public/images/amenity/'.$amenities->amenity_image.'').'"><img src="'.url('/public/images/amenity/'.$amenities->amenity_image.'').'" width="50"></a>';
+                  } ?> 
+
+                  <?= $amenities->amenity_name?></label>
+              </li>
+            @endforeach
+          </ul>
+      </div>
+
     </section><!-- ap-filter -->
 
     <section class="filter-result">
@@ -721,6 +742,29 @@ $(document).ready(function() {
         
     }
 });
+
+//get amenities on change of module change
+function getAmenities(module_id){
+  var url = '<?php echo url('/'); ?>'+'/frontend/getAmenities';
+  var amenities = '<?= Request::get('amenities');?>';
+  //alert(isDeleteChild);
+  $.ajax({
+  method: 'POST',
+  url: url,
+  data: {'module_id':module_id,'amenities':amenities,'_token':"{{ csrf_token() }}"}
+  })
+  .done(function(data) {
+    if(data != ''){
+      $("#amenities_list").html(data);
+    }else{
+      $("#amenities_list").html("");
+    }
+   
+  });
+        
+}
+
+
 </script> 
 
 <style>
