@@ -392,9 +392,7 @@
                           $price[$key] = $row->rent_amount;
                       }
                       $getDate = array_multisort($price, SORT_ASC, $searchResult['closest']);
-
-                     
-                        ?>
+                      ?>
 
                       @foreach($searchResult['closest'] as $searchProp)
                             <div class="ps-box">
@@ -524,6 +522,8 @@ foreach($searchResult['cheapest'] as $s)
 }
 
 $mapperPointerClosest =  json_encode($jsonClosest);
+
+
 $mapperPointerCheapest =  json_encode($jsonCheapest);
 
 ?>
@@ -571,15 +571,9 @@ function reloadMarkers() {
     alert(searchTabId);
     // Reset the markers array
     markers = [];
-    if(searchTabId == "#closest"){
-      // Call set markers to re-add markers
-      setMarkers('<?php echo $mapperPointerClosest;?>');
-    }else{
-      setMarkers('<?php echo $mapperPointerCheapest;?>');
-      
-    }
     
-
+    
+    setMarkers('<?php echo $mapperPointerClosest;?>');
 
 }
 
