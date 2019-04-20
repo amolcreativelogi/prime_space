@@ -21,7 +21,7 @@ body {
 /*body::-webkit-scrollbar {display: none;overflow-x: hidden; }*/
 a, a:hover, a:focus {transition: all 0.5s ease-in-out; outline:none !important; box-shadow:none !important;}
 input, input:hover, input:focus, .form-control:focus, .form-control:hover, button:hover, button:focus, .btn-primary:not(:disabled):not(.disabled).active:focus, .btn-primary:not(:disabled):not(.disabled):active:focus, .show > .btn-primary.dropdown-toggle:focus { border: 1px solid #dbdbdb;outline: none;box-shadow: none;}
-select, select.form-control {font-size: 14px;color: #424242;border: 1px solid #d8d5d5;height: 46px !important; border-radius: 0;-webkit-appearance: none;-moz-appearance: none;appearance: none;background: url(../images/down-arrow.png) no-repeat 96% center;}
+select, select.form-control {font-size: 14px;color: #424242;border: 1px solid #d8d5d5;height:40px !important; border-radius: 0;-webkit-appearance: none;-moz-appearance: none;appearance: none;background: url(../images/down-arrow.png) no-repeat 96% center;}
 select option, select.form-control option {}
 .fade { opacity: 1 !important;}
 .modal-backdrop.fade.show {opacity: 0.8 !important;}
@@ -336,7 +336,7 @@ span.teating-div {position: absolute;left: 0;width: 100%;top: -4px;}
 .add-property #msform .custom-checkbox label.error:after, .add-property #msform .custom-radio label.error:after, .add-property #msform .ad-col label.error:after { content:""; background:none;}
 .add-property #msform input {height:40px; border-radius: 3px;font-family: Helvetica Neue;font-size: 16px;line-height: normal;color: #303030;padding: 5px 10px;width: 100%;border: 1px solid #ced4da; margin-bottom:10px;}
 .add-property #msform input[type="file"] {padding: 0;}
-.add-property #msform select {height: 40px; border-radius: 3px;font-family: Helvetica Neue;font-size: 16px;line-height: normal;color: #303030;padding: 5px 10px;width: 100%;border: 1px solid #ced4da; margin-bottom: 14px;}
+.add-property #msform select {height: 40px; border-radius: 3px;font-family: Helvetica Neue;font-size: 16px;line-height: normal;color: #303030;padding: 5px 10px;width: 100%;border: 1px solid #ced4da; margin-bottom:10px;}
 .add-property #msform select option {font-family: Helvetica Neue;font-size: 16px;line-height: normal;color: #303030;padding: 5px 10px;}
 .add-property #msform textarea {height:105px;border-radius: 3px;font-family: Helvetica Neue;font-size: 16px;line-height: normal;color: #303030;padding: 5px 10px;width: 100%; resize: none;border: 1px solid #ced4da; margin-bottom: 14px;}
 .add-property #msform .action-button {width: 100px;background: #000;font-weight: normal;color: white;border: 0 none;border-radius: 1px;cursor: pointer;padding: 10px 5px;margin: 10px 5px;}
@@ -385,7 +385,7 @@ span.teating-div {position: absolute;left: 0;width: 100%;top: -4px;}
 .add-property .form-field table#tbl_rent_with_booking_duration_type tr td.booking_duration_type {max-width: 100%;
   width:94.5%;position: absolute;right: 0;float: right;left: 24%;}
 .add-property .form-field table#tbl_rent_with_booking_duration_type tr td.booking_duration_type #rent_with_booking_duration_type {width: 100%;}
-.add-property #msform .box label.error { border: 0;}
+.add-property #msform .box label.error { border: 0; top: 0;}
 
 .add-property .form-field .table td, .add-property .form-field .table th { border: 0;padding:0 5px; }
 .add-property .form-field select { width: 100%; height: 40px !important;padding: 5px 10px;font-size: 16px;line-height: normal;color: #303030;}
@@ -396,27 +396,27 @@ span.teating-div {position: absolute;left: 0;width: 100%;top: -4px;}
 .add-property .aminities-list li img {width: 22px;vertical-align: top;margin: -2px 10px 0 0;display: inline-block;}
 /*.aminities-list li label {position: relative;left: 0;top: 0;width: 100%;padding: 0 0 0 30px;}*/
 /*Custom Checkbox Start*/
-.custom-checkbox li {list-style: none;display: inline-block;text-align: left;font-size: 15px;
-  margin-bottom: 10px;}
-.custom-checkbox [type="checkbox"]:checked, .custom-checkbox [type="checkbox"]:not(:checked) {position: absolute;left: -9999px;}
-.custom-checkbox [type="checkbox"]:checked + label, .custom-checkbox [type="checkbox"]:not(:checked) + label {position: relative;padding-left: 28px;cursor: pointer;line-height: 20px; display: inline-block;color: #666;cursor: pointer; margin-right: 30px;}
-.custom-checkbox [type="checkbox"]:checked + label:before, .custom-checkbox [type="checkbox"]:not(:checked) + label:before {content: ''; position: absolute;left: 0;top: 0;width: 18px;height: 18px;border: 1px solid #ddd;background: #fff;cursor: pointer;}
-.custom-checkbox [type="checkbox"]:checked + label::after, .custom-checkbox [type="checkbox"]:not(:checked) + label::after {content: "\f00c";width: 12px;height: 12px;background: transparent; position: absolute;top: -2px;left: 2px;border-radius: 100%;-webkit-transition: all 0.2s ease;transition: all 0.2s ease;cursor: pointer;font-family:FontAwesome; color: #3351BB;}
-.custom-checkbox [type="checkbox"]:not(:checked) + label:after {opacity:0;-webkit-transform:scale(0);transform:scale(0);}
-.custom-checkbox [type="checkbox"]:checked + label:after {opacity: 1;-webkit-transform: scale(1);transform: scale(1);}
+.custom-checkbox li {list-style: none;display: inline-block;text-align: left;font-size: 15px;margin-bottom: 10px;position: relative;}
+.add-property #msform .custom-checkbox input { width: auto;height: auto;margin-right: 5px;}
+/*.custom-checkbox [type="checkbox"]:checked, .custom-checkbox [type="checkbox"]:not(:checked) {position: absolute;left: -9999px;}
+.custom-checkbox [type="checkbox"]:checked + span, .custom-checkbox [type="checkbox"]:not(:checked) + span {position: relative;padding-left: 28px;cursor: pointer;line-height: 20px; display: inline-block;color: #666;cursor: pointer; margin-right: 30px;}
+.custom-checkbox [type="checkbox"]:checked + span:before, .custom-checkbox [type="checkbox"]:not(:checked) + span:before {content: ''; position: absolute;left: 0;top: 0;width: 18px;height: 18px;border: 1px solid #ddd;background: #fff;cursor: pointer;}
+.custom-checkbox [type="checkbox"]:checked + span::after, .custom-checkbox [type="checkbox"]:not(:checked) + span::after {content: "\f00c";width: 12px;height: 12px;background: transparent; position: absolute;top: -2px;left: 2px;border-radius: 100%;-webkit-transition: all 0.2s ease;transition: all 0.2s ease;cursor: pointer;font-family:FontAwesome; color: #3351BB;}
+.custom-checkbox [type="checkbox"]:not(:checked) + span:after {opacity:0;-webkit-transform:scale(0);transform:scale(0);}
+.custom-checkbox [type="checkbox"]:checked + span:after {opacity: 1;-webkit-transform: scale(1);transform: scale(1);}*/
 /*Custom Checkbox End*/
 .custom-fileinput { position: relative; }
-.add-property .box.custom-fileinput label { position: absolute; left: 0; right: 0; top: 0; }
+.add-property .box.custom-fileinput span { position: absolute; left: 0; right: 0; top: 0; }
 .add-property .box.custom-fileinput label.error { border: 0; height: auto;}
 
-.ad-col [type="radio"]:checked, .ad-col [type="radio"]:not(:checked) {position: absolute;left: -9999px;}
-.ad-col [type="radio"]:checked + label, .ad-col [type="radio"]:not(:checked) + label {position: relative;padding-left: 28px;cursor: pointer;line-height: 20px; display: inline-block;color: #666;cursor: pointer;}
-.ad-col [type="radio"]:checked + label:before, .ad-col [type="radio"]:not(:checked) + label:before {content: ''; position: absolute;left: 0;top: 0;width: 18px;height: 18px;border: 1px solid #ddd;background: #fff;cursor: pointer;border-radius:100%;}
-.ad-col [type="radio"]:checked + label::after, .ad-col [type="radio"]:not(:checked) + label::after {content: "";
-	width: 12px;height: 12px;background: #3351BB;position: absolute;top: 3px;left: 3px;border-radius: 100%;-webkit-transition: all 0.2s ease;transition: all 0.2s ease;cursor: pointer;font-family: FontAwesome;color: #3351BB;}
-.hide-row .ad-col [type="radio"]:checked + label::after, .ad-col [type="radio"]:not(:checked) + label::after { background:#ddd;}
-.ad-col [type="radio"]:not(:checked) + label:after {opacity:0;-webkit-transform:scale(0);transform:scale(0);}
-.ad-col [type="radio"]:checked + label:after {opacity: 1;-webkit-transform: scale(1);transform: scale(1);}
+/*.ad-col [type="radio"]:checked, .ad-col [type="radio"]:not(:checked) {position: absolute;left: -9999px;}
+.ad-col [type="radio"]:checked + span, .ad-col [type="radio"]:not(:checked) + span {position: relative;padding-left: 28px;cursor: pointer;line-height: 20px; display: inline-block;color: #666;cursor: pointer;}
+.ad-col [type="radio"]:checked + span:before, .ad-col [type="radio"]:not(:checked) + span:before {content: ''; position: absolute;left: 0;top: 0;width: 18px;height: 18px;border: 1px solid #ddd;background: #fff;cursor: pointer;border-radius:100%;}
+.ad-col [type="radio"]:checked + span::after, .ad-col [type="radio"]:not(:checked) + span::after {content: "";
+	width: 12px;height: 12px;background: #3351BB;position: absolute;top: 3px;left: 3px;border-radius: 100%;-webkit-transition: all 0.2s ease;transition: all 0.2s ease;cursor: pointer;font-family: FontAwesome;color: #3351BB;}*/
+.hide-row .ad-col [type="radio"]:checked + span::after, .ad-col [type="radio"]:not(:checked) + span::after { background:#ddd;}
+.ad-col [type="radio"]:not(:checked) + span:after {opacity:0;-webkit-transform:scale(0);transform:scale(0);}
+.ad-col [type="radio"]:checked + span:after {opacity: 1;-webkit-transform: scale(1);transform: scale(1);}
 #cancellation-policy p {text-align: left;font-size: 15px;margin-bottom: 25px;}
 #cancellation-policy .ad-col {text-align: left;}
 /*#park-availabilty.exapnd { display:none !important;}*/
@@ -455,12 +455,14 @@ span.teating-div {position: absolute;left: 0;width: 100%;top: -4px;}
 /*Custom Radio Start*/
 .custom-radio { padding: 0;}
 .custom-radio li {list-style: none;display: inline-block;vertical-align: top;}
-.custom-radio [type="radio"]:checked, .custom-radio [type="radio"]:not(:checked) {position:absolute;left: -9999px;}
+.add-property #msform .custom-radio input {width: auto;height: auto;margin-right: 5px;}
+.add-property #msform .custom-radio span { margin-right: 20px;}
+/*.custom-radio [type="radio"]:checked, .custom-radio [type="radio"]:not(:checked) {position:absolute;left: -9999px;}
 .custom-radio [type="radio"]:checked + label, .custom-radio [type="radio"]:not(:checked) + label {position: relative;padding-left: 28px;cursor: pointer;line-height: 20px; display: inline-block;color: #666;cursor: pointer;margin-right: 30px;}
 .custom-radio [type="radio"]:checked + label:before, .custom-radio [type="radio"]:not(:checked) + label:before {content: ''; position: absolute;left: 0;top: 0;width: 18px;height: 18px;border: 1px solid #ddd;background: #fff;cursor:pointer;border-radius: 100%;}
 .custom-radio [type="radio"]:checked + label::after, .custom-radio [type="radio"]:not(:checked) + label::after {content: "";width: 10px;height: 10px;background: #3351BB;position: absolute;top: 4px;left: 4px;border-radius: 100%;-webkit-transition: all 0.2s ease;transition: all 0.2s ease;cursor: pointer;font-family: FontAwesome;color: #3351BB;}
 .custom-radio [type="radio"]:not(:checked) + label:after {opacity:0;-webkit-transform:scale(0);transform:scale(0);}
-.custom-radio [type="radio"]:checked + label:after {opacity: 1;-webkit-transform: scale(1);transform: scale(1);}
+.custom-radio [type="radio"]:checked + label:after {opacity: 1;-webkit-transform: scale(1);transform: scale(1);}*/
 /*Custom Radio End*/
 
 /*New All Properties*/
@@ -479,7 +481,7 @@ span.teating-div {position: absolute;left: 0;width: 100%;top: -4px;}
 .ap-filter .parking-slection nav > div a.nav-item.nav-link.active::after {content: "";width: 0;height: 2px;position: absolute;left: 0;right: 0;background: #3351BB;border: 0;bottom:6px;transition: all 0.5s ease-in-out;}
 .ap-filter .parking-slection nav > div a.nav-item.nav-link.active::after, .ap-filter .parking-slection nav > div a.nav-item.nav-link:hover::after {content: "";width: 90%;height: 2px;position: absolute;left: 0;right: 0;background: #3351BB;border: 0;bottom: 6px;transition: all 0.5s ease-in-out;margin: 0 auto;}
 .ap-filter .parking-slection .aminities-collapse {margin: 0;position: absolute;right: 0;top: 15px;background: #fff;cursor: pointer;border: 1px solid #ccc;}
-.aminities-collapse-div {width: 119%;margin: 5px 0 0 -175px;border: 1px solid #ccc;padding: 10px 10px 0 10px;}
+.aminities-collapse-div {width: 100%;margin: 5px 0 0 0;border: 1px solid #ccc;padding: 10px 10px 0 10px;}
 .aminities-collapse-div ul { padding:0;margin: 0;}
 .aminities-collapse-div ul li {width: 23%;display: inline-block;}
 .aminities-collapse-div ul li img {width: 22px;vertical-align: top;margin: -2px 10px 0 0;display: inline-block;}
@@ -825,7 +827,7 @@ top: 100%;}
 .cancellation-policy .tab-content ul { padding: 0; margin: 0; }
 .cancellation-policy .tab-content ul li {margin-bottom: 15px;}
 
-.dl-content table {border: 1px solid #ccc;margin: 0 10px;}
+.dl-content table {border: 1px solid #ccc;margin:0;}
 .dl-content thead {background: #ddd; border-bottom:1px solid #ccc;;}
 .dl-content table thead th {font-size: 16px;border-right: 1px solid #ccc;font-weight: normal;text-transform: capitalize;
 	padding: 5px 10px;}
@@ -1015,6 +1017,54 @@ background: #fff;border: 1px solid #ced4da;height: 50px;}
 .msgbtm-sect .msg-send {background: #000;width: 100%;height: 50px;color: #fff;text-transform: uppercase;font-size: 15px;
   cursor: pointer;}
 .msgbtm-sect .msg-send:hover, .msgbtm-sect .msg-send:focus { background: #3351BB;}
+
+.static-content {background: #fff;padding: 40px 40px 20px 40px; box-shadow: 0 0 5px #ccc;}
+
+/*view booking page*/
+.viewbooking {
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0 0 5px #ccc;
+  border-radius: 3px;
+}
+.viewbookingImg {
+  width: 100%;
+  height: 250px;
+  border: 1px solid #ccc;
+  padding: 3px;
+}
+.viewbookingImg img { width: 100%; height: 100%; object-fit: cover; }
+.viewbookingText {}
+.viewbookingText h3 {
+  font-size: 22px;
+  text-transform: capitalize;
+  font-weight: 600;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+  padding: 0 0 10px 0;
+}
+.viewbookingText h5 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+.viewbookingText .bookingstatus {
+  font-size: 15px;margin-bottom: 5px;
+}
+.viewbookingText .reviewbtn {
+  background: #000;
+  border: 0;
+  color: #fff;
+  padding: 5px 15px;
+  display: inline-block;
+  cursor: pointer;
+}
+.viewbookingText .reviewbtn:hover, .viewbookingText .reviewbtn:focus { background: #3351BB; color: #fff;border: 0; }
+.reviewModal {}
+.reviewModal .modal-title {
+  font-size: 20px;
+}
+.reviewModal label  {}
+
 
 
 

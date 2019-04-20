@@ -40,6 +40,7 @@
                     <th>From Date</th>
                     <th>To Date</th>
                     <th>Status </th>
+                    <th>Action </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -50,6 +51,9 @@
                <td>04.08.19</td>
                <td>04.12.19</td>
                <td class="completed">Completed</td>
+               <td class="action">
+                  <a href="<?php echo URL::to('bookingView'); ?>" class="viewprop"><i class="fa fa-eye" aria-hidden="true"></i></a>
+               </td>
              </tr>
              <tr>
                <td>Property two</td>
@@ -58,6 +62,9 @@
                <td>04.08.19</td>
                <td>04.12.19</td>
                <td class="pending">pending</td>
+               <td class="action">
+                  <a href="<?php echo URL::to('bookingView'); ?>" class="viewprop"><i class="fa fa-eye" aria-hidden="true"></i></a>
+               </td>
              </tr>
              <tr>
                <td>Property three</td>
@@ -66,6 +73,9 @@
                <td>04.08.19</td>
                <td>04.12.19</td>
                <td class="completed">Completed</td>
+               <td class="action">
+                  <a href="<?php echo URL::to('bookingView'); ?>" class="viewprop"><i class="fa fa-eye" aria-hidden="true"></i></a>
+               </td>
              </tr>
              <tr>
                <td>Property four</td>
@@ -74,6 +84,9 @@
                <td>04.08.19</td>
                <td>04.12.19</td>
                <td class="pending">pending</td>
+               <td class="action">
+                  <a href="<?php echo URL::to('bookingView'); ?>" class="viewprop"><i class="fa fa-eye" aria-hidden="true"></i></a>
+               </td>
              </tr>
              <tr>
                <td>Property five</td>
@@ -82,6 +95,9 @@
                <td>04.08.19</td>
                <td>04.12.19</td>
                <td class="pending">pending</td>
+               <td class="action">
+                  <a href="<?php echo URL::to('bookingView'); ?>" class="viewprop"><i class="fa fa-eye" aria-hidden="true"></i></a>
+               </td>
              </tr>
            </tbody>
           </table>

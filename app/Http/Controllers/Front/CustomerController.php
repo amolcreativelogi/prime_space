@@ -23,4 +23,8 @@ class CustomerController extends Controller
     {
     	return view('front.customer.orderHistory');
 	}
+    public function bookingView()
+    {
+        return view('front.customer.bookingView');
+    }
 }

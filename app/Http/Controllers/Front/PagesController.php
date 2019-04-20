@@ -58,8 +58,8 @@ class PagesController extends Controller
     {
         return view('front.pages.accountSetting');      
     }
-    public function accountSetting()
+    public function refundPolicy()
     {
-        return view('front.pages.emailTemplate');      
+        return view('front.pages.refundPolicy');      
     }
 }

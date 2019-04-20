@@ -278,6 +278,7 @@
     </div>
     <div class="foot-btm">
       <ul>
+        <li><a href="<?php echo URL::to('refundPolicy'); ?>">Cancellation and Refund Policy</a></li>
         <li><a href="">Terms</a></li>
         <li><a href="">Privacy Statement</a></li>
       </ul>
