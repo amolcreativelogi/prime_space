@@ -32,73 +32,32 @@
           </div>
 
           <table class="table table-striped viewparking">
-                <thead>
-                  <tr>
-                    <th>Property name</th>
-                    <th>Properety Type</th>
-                    <th>Host Name</th>
-                    <th>From Date</th>
-                    <th>To Date</th>
-                    <th>Status </th>
-                    <th>Action </th>
-                  </tr>
-                </thead>
-                <tbody>
-             <tr>
-               <td>Property one</td>
-               <td>parking</td>
-               <td><a href="">john</a></td>
-               <td>04.08.19</td>
-               <td>04.12.19</td>
-               <td class="completed">Completed</td>
-               <td class="action">
-                  <a href="<?php echo URL::to('user/bookingView'); ?>" class="viewprop"><i class="fa fa-eye" aria-hidden="true"></i></a>
-               </td>
-             </tr>
-             <tr>
-               <td>Property two</td>
-               <td>land</td>
-               <td><a href="">james</a></td>
-               <td>04.08.19</td>
-               <td>04.12.19</td>
-               <td class="pending">pending</td>
-               <td class="action">
-                  <a href="<?php echo URL::to('user/bookingView'); ?>" class="viewprop"><i class="fa fa-eye" aria-hidden="true"></i></a>
-               </td>
-             </tr>
-             <tr>
-               <td>Property three</td>
-               <td>land</td>
-               <td><a href="">john</a></td>
-               <td>04.08.19</td>
-               <td>04.12.19</td>
-               <td class="completed">Completed</td>
-               <td class="action">
-                  <a href="<?php echo URL::to('user/bookingView'); ?>" class="viewprop"><i class="fa fa-eye" aria-hidden="true"></i></a>
-               </td>
-             </tr>
-             <tr>
-               <td>Property four</td>
-               <td>parking</td>
-               <td><a href="">james</a></td>
-               <td>04.08.19</td>
-               <td>04.12.19</td>
-               <td class="pending">pending</td>
-               <td class="action">
-                  <a href="<?php echo URL::to('user/bookingView'); ?>" class="viewprop"><i class="fa fa-eye" aria-hidden="true"></i></a>
-               </td>
-             </tr>
-             <tr>
-               <td>Property five</td>
-               <td>parking</td>
-               <td><a href="">john</a></td>
-               <td>04.08.19</td>
-               <td>04.12.19</td>
-               <td class="pending">pending</td>
-               <td class="action">
-                  <a href="<?php echo URL::to('user/bookingView'); ?>" class="viewprop"><i class="fa fa-eye" aria-hidden="true"></i></a>
-               </td>
-             </tr>
+            <thead>
+              <tr>
+                <th>Property name</th>
+                <th>Properety Type</th>
+                <th>Host Name</th>
+                <th>From Date</th>
+                <th>To Date</th>
+                <th>Status </th>
+                <th>Action </th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php foreach ($bookingDatas as $key => $bookingData): ?>
+                <tr>
+                   <td>{{$bookingData->name}}</td>
+                   <td>parking</td>
+                   <td><a href="">john</a></td>
+                   <td>04.08.19</td>
+                   <td>04.12.19</td>
+                   <td class="completed">Completed</td>
+                   <td class="action">
+                      <a href="<?php echo URL::to('user/bookingView'); ?>/{{$bookingData->booking_id}}" class="viewprop"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                   </td>
+                 </tr>
+              <?php endforeach ?>
+             
            </tbody>
           </table>
     </div>

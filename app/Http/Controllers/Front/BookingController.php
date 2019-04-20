@@ -73,7 +73,18 @@ class BookingController extends Controller
          // print_r($getPropertyType);
          // exit;
 
-          return view('front.property.property_details')->with(['getPropertyDetails'=>$getPropertyDetails,'getPropAmenities'=>$getPropAmenities,'getPropertyType'=>$getPropertyType,'getPropImages'=>$getPropImages,'getPropertyImagesFloorMap'=>$getPropertyImagesFloorMap,'getPropertyrent'=>$getPropertyrent,'getLandrent'=>$getLandrent,'module_id'=>$module_id,'land_type_id'=>$land_type_id,'unit_type_id'=>$unit_type_id]); 
+          $bookingDataRatings = DB::table('tbl_property_bookings')->where('tbl_property_bookings.property_id', $property_id)
+                            ->join('booking_ratings', 'tbl_property_bookings.booking_id', 'booking_ratings.booking_id')
+                            ->join('prk_user_registrations', 'tbl_property_bookings.user_id', 'prk_user_registrations.user_id')
+                            ->join('prk_add_property', 'prk_add_property.property_id', 'tbl_property_bookings.property_id')
+                            ->select('prk_user_registrations.*', 'prk_add_property.*', 'booking_ratings.created_at as rating_date', 'booking_ratings.review', 'booking_ratings.rating')->get();
+
+          $calRating = DB::table('tbl_property_bookings')->where('tbl_property_bookings.property_id', $property_id)
+                            ->join('booking_ratings', 'tbl_property_bookings.booking_id', 'booking_ratings.booking_id')
+                            ->sum('booking_ratings.rating');      
+
+
+          return view('front.property.property_details')->with(['calRating' => $calRating, 'bookingDataRatings' => $bookingDataRatings, 'getPropertyDetails'=>$getPropertyDetails,'getPropAmenities'=>$getPropAmenities,'getPropertyType'=>$getPropertyType,'getPropImages'=>$getPropImages,'getPropertyImagesFloorMap'=>$getPropertyImagesFloorMap,'getPropertyrent'=>$getPropertyrent,'getLandrent'=>$getLandrent,'module_id'=>$module_id,'land_type_id'=>$land_type_id,'unit_type_id'=>$unit_type_id]); 
     
     }
 

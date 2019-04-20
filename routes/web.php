@@ -266,7 +266,7 @@ Route::get('/user/customer','Front\CustomerController@customerDashboard')->middl
 Route::get('/user/logout','Front\UserController@userlogout');
 Route::get('/user/bookingHistory','Front\CustomerController@bookingHistory')->middleware('UserAuth');
 Route::get('/user/orderHistory','Front\CustomerController@orderHistory')->middleware('UserAuth');
-Route::get('/user/bookingView','Front\CustomerController@bookingView')->middleware('UserAuth');
+Route::get('/user/bookingView/{id}','Front\CustomerController@bookingView')->middleware('UserAuth');
 Route::get('/user/submitRating','Front\CustomerController@submitRating')->middleware('UserAuth');
 
 Route::get('/user/switchtohost','Front\UserController@switchtohost');
