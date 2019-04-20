@@ -120,9 +120,7 @@ class SearchPropertyController extends Controller
           $orderByRentPrice = (!empty($carTypeWhere) && !empty($locationWhr))?',propRent.rent_amount':' ORDER BY propRent.rent_amount';//die;
 
 
-       
-        
-         //search result for cheapest
+        //search result for cheapest
         $resultCheapest = DB::select("SELECT
           (SELECT name FROM ".$tbl_prefix."add_property_files papf WHERE papf.property_id = addProperty.property_id AND document_type_id =1 order by file_id limit 1 ) AS image,
           addProperty.latitude,addProperty.longitude,addProperty.location,addProperty.module_manage_id,addProperty.name,addProperty.status,addProperty.property_id ".$locationFields.$carTypeSelect." 
@@ -130,7 +128,6 @@ class SearchPropertyController extends Controller
           ".$carTypeJoin."
           WHERE addProperty.module_manage_id =".$module_id."
           AND addProperty.status = 1 AND addProperty.is_deleted = 0 AND addProperty.property_id IN(".$getValidPropIds.")".$amenities.$carTypeWhere.$locationTypeWhere.$locationWhr.$orderByRentPrice
-
          );
 
           //search result for closest
