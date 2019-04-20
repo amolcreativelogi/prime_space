@@ -10,11 +10,11 @@
           <div class="col-lg-6 col-md-6 col-sm-12 blogDiv">
             <div class="blogbox">
               <div class="blog-img">
-                <a href=""><img src="{{ URL::asset('public') }}/assets/front-design/images/homebanner1.jpg" title="" alt=""></a>
+                <a href="<?php echo URL::to('singleBlog'); ?>"><img src="{{ URL::asset('public') }}/assets/front-design/images/homebanner1.jpg" title="" alt=""></a>
                 <div class="blogdate">21 <span>apr</span></div>
               </div>
               <div class="blog-content">
-                <h3><a href="">Blog for parking property</a></h3>
+                <h3><a href="<?php echo URL::to('singleBlog'); ?>">Blog for parking property</a></h3>
                 <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout ...</p>
               </div>
             </div><!-- blogbox -->
@@ -22,11 +22,11 @@
           <div class="col-lg-6 col-md-6 col-sm-12 blogDiv">
             <div class="blogbox">
               <div class="blog-img">
-                <a href=""><img src="{{ URL::asset('public') }}/assets/front-design/images/homebanner1.jpg" title="" alt=""></a>
+                <a href="<?php echo URL::to('singleBlog'); ?>"><img src="{{ URL::asset('public') }}/assets/front-design/images/homebanner1.jpg" title="" alt=""></a>
                 <div class="blogdate">21 <span>apr</span></div>
               </div>
               <div class="blog-content">
-                <h3><a href="">Blog for parking property</a></h3>
+                <h3><a href="<?php echo URL::to('singleBlog'); ?>">Blog for parking property</a></h3>
                 <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout ...</p>
               </div>
             </div><!-- blogbox -->
@@ -34,11 +34,11 @@
           <div class="col-lg-6 col-md-6 col-sm-12 blogDiv">
             <div class="blogbox">
               <div class="blog-img">
-                <a href=""><img src="{{ URL::asset('public') }}/assets/front-design/images/homebanner1.jpg" title="" alt=""></a>
+                <a href="<?php echo URL::to('singleBlog'); ?>"><img src="{{ URL::asset('public') }}/assets/front-design/images/homebanner1.jpg" title="" alt=""></a>
                 <div class="blogdate">21 <span>apr</span></div>
               </div>
               <div class="blog-content">
-                <h3><a href="">Blog for parking property</a></h3>
+                <h3><a href="<?php echo URL::to('singleBlog'); ?>">Blog for parking property</a></h3>
                 <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout ...</p>
               </div>
             </div><!-- blogbox -->
@@ -46,11 +46,11 @@
           <div class="col-lg-6 col-md-6 col-sm-12 blogDiv">
             <div class="blogbox">
               <div class="blog-img">
-                <a href=""><img src="{{ URL::asset('public') }}/assets/front-design/images/homebanner1.jpg" title="" alt=""></a>
+                <a href="<?php echo URL::to('singleBlog'); ?>"><img src="{{ URL::asset('public') }}/assets/front-design/images/homebanner1.jpg" title="" alt=""></a>
                 <div class="blogdate">21 <span>apr</span></div>
               </div>
               <div class="blog-content">
-                <h3><a href="">Blog for parking property</a></h3>
+                <h3><a href="<?php echo URL::to('singleBlog'); ?>">Blog for parking property</a></h3>
                 <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout ...</p>
               </div>
             </div><!-- blogbox -->
@@ -58,11 +58,11 @@
           <div class="col-lg-6 col-md-6 col-sm-12 blogDiv">
             <div class="blogbox">
               <div class="blog-img">
-                <a href=""><img src="{{ URL::asset('public') }}/assets/front-design/images/homebanner1.jpg" title="" alt=""></a>
+                <a href="<?php echo URL::to('singleBlog'); ?>"><img src="{{ URL::asset('public') }}/assets/front-design/images/homebanner1.jpg" title="" alt=""></a>
                 <div class="blogdate">21 <span>apr</span></div>
               </div>
               <div class="blog-content">
-                <h3><a href="">Blog for parking property</a></h3>
+                <h3><a href="<?php echo URL::to('singleBlog'); ?>">Blog for parking property</a></h3>
                 <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout ...</p>
               </div>
             </div><!-- blogbox -->
@@ -70,11 +70,11 @@
           <div class="col-lg-6 col-md-6 col-sm-12 blogDiv">
             <div class="blogbox">
               <div class="blog-img">
-                <a href=""><img src="{{ URL::asset('public') }}/assets/front-design/images/homebanner1.jpg" title="" alt=""></a>
+                <a href="<?php echo URL::to('singleBlog'); ?>"><img src="{{ URL::asset('public') }}/assets/front-design/images/homebanner1.jpg" title="" alt=""></a>
                 <div class="blogdate">21 <span>apr</span></div>
               </div>
               <div class="blog-content">
-                <h3><a href="">Blog for parking property</a></h3>
+                <h3><a href="<?php echo URL::to('singleBlog'); ?>">Blog for parking property</a></h3>
                 <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout ...</p>
               </div>
             </div><!-- blogbox -->

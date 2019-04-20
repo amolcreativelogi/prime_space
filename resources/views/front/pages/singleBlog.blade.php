@@ -2,93 +2,20 @@
 @section('content')
 <div class="site-content">
 
-<section class="blog-listing">
+<section class="single-blog">
     <div class="container">
-      <h2>Blog Listing</h2>
-      <div class="bloglist">
-        <div class="row">
-          <div class="col-lg-6 col-md-6 col-sm-12 blogDiv">
-            <div class="blogbox">
-              <div class="blog-img">
-                <a href=""><img src="{{ URL::asset('public') }}/assets/front-design/images/homebanner1.jpg" title="" alt=""></a>
-                <div class="blogdate">21 <span>apr</span></div>
-              </div>
-              <div class="blog-content">
-                <h3><a href="">Blog for parking property</a></h3>
-                <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout ...</p>
-              </div>
-            </div><!-- blogbox -->
-          </div><!-- blogDiv -->
-          <div class="col-lg-6 col-md-6 col-sm-12 blogDiv">
-            <div class="blogbox">
-              <div class="blog-img">
-                <a href=""><img src="{{ URL::asset('public') }}/assets/front-design/images/homebanner1.jpg" title="" alt=""></a>
-                <div class="blogdate">21 <span>apr</span></div>
-              </div>
-              <div class="blog-content">
-                <h3><a href="">Blog for parking property</a></h3>
-                <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout ...</p>
-              </div>
-            </div><!-- blogbox -->
-          </div><!-- blogDiv -->
-          <div class="col-lg-6 col-md-6 col-sm-12 blogDiv">
-            <div class="blogbox">
-              <div class="blog-img">
-                <a href=""><img src="{{ URL::asset('public') }}/assets/front-design/images/homebanner1.jpg" title="" alt=""></a>
-                <div class="blogdate">21 <span>apr</span></div>
-              </div>
-              <div class="blog-content">
-                <h3><a href="">Blog for parking property</a></h3>
-                <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout ...</p>
-              </div>
-            </div><!-- blogbox -->
-          </div><!-- blogDiv -->
-          <div class="col-lg-6 col-md-6 col-sm-12 blogDiv">
-            <div class="blogbox">
-              <div class="blog-img">
-                <a href=""><img src="{{ URL::asset('public') }}/assets/front-design/images/homebanner1.jpg" title="" alt=""></a>
-                <div class="blogdate">21 <span>apr</span></div>
-              </div>
-              <div class="blog-content">
-                <h3><a href="">Blog for parking property</a></h3>
-                <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout ...</p>
-              </div>
-            </div><!-- blogbox -->
-          </div><!-- blogDiv -->
-          <div class="col-lg-6 col-md-6 col-sm-12 blogDiv">
-            <div class="blogbox">
-              <div class="blog-img">
-                <a href=""><img src="{{ URL::asset('public') }}/assets/front-design/images/homebanner1.jpg" title="" alt=""></a>
-                <div class="blogdate">21 <span>apr</span></div>
-              </div>
-              <div class="blog-content">
-                <h3><a href="">Blog for parking property</a></h3>
-                <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout ...</p>
-              </div>
-            </div><!-- blogbox -->
-          </div><!-- blogDiv -->
-          <div class="col-lg-6 col-md-6 col-sm-12 blogDiv">
-            <div class="blogbox">
-              <div class="blog-img">
-                <a href=""><img src="{{ URL::asset('public') }}/assets/front-design/images/homebanner1.jpg" title="" alt=""></a>
-                <div class="blogdate">21 <span>apr</span></div>
-              </div>
-              <div class="blog-content">
-                <h3><a href="">Blog for parking property</a></h3>
-                <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout ...</p>
-              </div>
-            </div><!-- blogbox -->
-          </div><!-- blogDiv -->
-          <div class="col-sm-12 custom-pagination">
-             <ul class="pagination">
-              <li class="page-item disabled prev"><a class="page-link" href="#">&laquo;</a></li>
-              <li class="page-item"><a class="page-link active" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item next"><a class="page-link " href="#">&raquo;</a></li>
-            </ul> 
-          </div>
-        </div>
+      <h2>Blog for parking property</h2>
+      <div class="blogdate">april, 21, 2019 </div>
+      <div class="singleblog-img">
+        <img src="{{ URL::asset('public') }}/assets/front-design/images/homebanner1.jpg" title="" alt="">
+      </div>
+      <div class="singleblog-content">
+        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose .</p>
+        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</p>
+        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose .</p>
+        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</p>
+        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose .</p>
+        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</p>
       </div>
     </div>
 </section>
