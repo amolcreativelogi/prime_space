@@ -253,15 +253,20 @@ Route::post('/userLogin','Front\UserController@userLogin');
 Route::post('/resetPassword','Front\UserController@resetPassword');
 Route::get('/user/editprofile/{id?}','Front\UserController@editprofile');
 Route::post('/updatesaveprofile/{id?}','Front\UserController@updatesaveprofile');
-
+Route::get('/user/accountSetting','Front\UserController@accountSetting');
 
 Route::get('/user/parkingProperties','Front\HostController@parkingProperties')->middleware('UserAuth');
 Route::get('/user/landProperties','Front\HostController@landProperties')->middleware('UserAuth');
 Route::get('/user/bookingProperties','Front\HostController@bookingProperties')->middleware('UserAuth');
+Route::get('/user/transationHistory','Front\HostController@transationHistory')->middleware('UserAuth');
+Route::get('/user/upcomingBooking','Front\HostController@upcomingBooking')->middleware('UserAuth');
 
 Route::get('/user/host','Front\HostController@hostDashboard')->middleware('UserAuth');
 Route::get('/user/customer','Front\CustomerController@customerDashboard')->middleware('UserAuth');
 Route::get('/user/logout','Front\UserController@userlogout');
+Route::get('/user/bookingHistory','Front\CustomerController@bookingHistory')->middleware('UserAuth');
+Route::get('/user/orderHistory','Front\CustomerController@orderHistory')->middleware('UserAuth');
+Route::get('/user/bookingView','Front\CustomerController@bookingView')->middleware('UserAuth');
 
 Route::get('/user/switchtohost','Front\UserController@switchtohost');
 Route::get('/user/switchtocustomer','Front\UserController@switchtocustomer');
@@ -281,6 +286,11 @@ Route::get('/payments-faq','Front\PagesController@payments_faq');
 Route::get('/pricing-faq','Front\PagesController@pricing_faq');
 Route::get('/refund-faq','Front\PagesController@refund_faq');
 Route::get('/renter-faq','Front\PagesController@renter_faq');
+Route::get('/renter-faq','Front\PagesController@renter_faq');
+Route::get('/notification','Front\PagesController@notification');
+Route::get('/messages','Front\PagesController@messages');
+Route::get('/refundPolicy','Front\PagesController@refundPolicy');
+
 
 //Route to get masters details on add property form
 Route::post('/frontend/getPropertyMasters','Front\PropertyController@getPropertyMasters');

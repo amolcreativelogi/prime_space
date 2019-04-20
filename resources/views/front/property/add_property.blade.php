@@ -129,7 +129,7 @@
                   </select>
               </td>
 
-              <td class="col-sm-6">
+              <td class="col-sm-7">
                 <table id="rent_with_booking_duration_type">
                   <!-- <tr>
                     <td class="col-sm-3">
@@ -299,8 +299,8 @@
       </div>
       <div class="ad-col col-sm-3">
         <div class="form-group date-group">
-              <input type="text" name="from_hours_time[sunday]" placeholder="Time" id="sunday-from" class="dates" >
-              <input type="text" name="to_hours_time[sunday]" placeholder="Time" id="sunday-to" class="dates"> 
+              <input type="text" name="from_hours_time[sunday]" placeholder="From Time" id="sunday-from" class="dates" >
+              <input type="text" name="to_hours_time[sunday]" placeholder="To Time" id="sunday-to" class="dates"> 
         </div>
       </div>
     </div><!--ad-row-->
@@ -322,8 +322,8 @@
       </div>
       <div class="ad-col col-sm-3">
         <div class="form-group date-group">
-              <input type="text" name="from_hours_time[monday]" placeholder="Time" id="monday-from" class="dates">
-              <input type="text" name="to_hours_time[monday]" placeholder="Time" id="monday-to" class="dates"> 
+              <input type="text" name="from_hours_time[monday]" placeholder="From Time" id="monday-from" class="dates">
+              <input type="text" name="to_hours_time[monday]" placeholder="To Time" id="monday-to" class="dates"> 
         </div>
       </div>
     </div><!--ad-row-->
@@ -345,8 +345,8 @@
       </div>
       <div class="ad-col col-sm-3">
         <div class="form-group date-group">
-              <input type="text" name="from_hours_time[tuesday]" placeholder="Time" id="tuesday-from" class="dates">
-              <input type="text" name="to_hours_time[tuesday]" placeholder="Time" id="tuesday-to" class="dates"> 
+              <input type="text" name="from_hours_time[tuesday]" placeholder="From Time" id="tuesday-from" class="dates">
+              <input type="text" name="to_hours_time[tuesday]" placeholder="To Time" id="tuesday-to" class="dates"> 
         </div>
       </div>
     </div><!--ad-row-->
@@ -368,8 +368,8 @@
       </div>
       <div class="ad-col col-sm-3">
         <div class="form-group date-group">
-              <input type="text" name="from_hours_time[wednesday]" placeholder="Time" id="wednesday-from" class="dates">
-              <input type="text" name="to_hours_time[wednesday]" placeholder="Time" id="wednesday-to" class="dates"> 
+              <input type="text" name="from_hours_time[wednesday]" placeholder="From Time" id="wednesday-from" class="dates">
+              <input type="text" name="to_hours_time[wednesday]" placeholder="To Time" id="wednesday-to" class="dates"> 
         </div>
       </div>
     </div><!--ad-row-->
@@ -390,8 +390,8 @@
       </div>
       <div class="ad-col col-sm-3">
         <div class="form-group date-group">
-              <input type="text" name="from_hours_time[thursday]" placeholder="Time" id="thursday-from" class="dates">
-              <input type="text" name="to_hours_time[thursday]" placeholder="Time" id="thursday-to" class="dates"> 
+              <input type="text" name="from_hours_time[thursday]" placeholder="From Time" id="thursday-from" class="dates">
+              <input type="text" name="to_hours_time[thursday]" placeholder="To Time" id="thursday-to" class="dates"> 
         </div>
       </div>
     </div><!--ad-row-->
@@ -412,8 +412,8 @@
       </div>
       <div class="ad-col col-sm-3">
         <div class="form-group date-group">
-              <input type="text" name="from_hours_time[friday]" placeholder="Time" id="friday-from" class="dates">
-              <input type="text" name="to_hours_time[friday]" placeholder="Time" id="friday-to" class="dates"> 
+              <input type="text" name="from_hours_time[friday]" placeholder="From Time" id="friday-from" class="dates">
+              <input type="text" name="to_hours_time[friday]" placeholder="To Time" id="friday-to" class="dates"> 
         </div>
       </div>
     </div><!--ad-row-->
@@ -434,8 +434,8 @@
       </div>
       <div class="ad-col col-sm-3">
         <div class="form-group date-group">
-              <input type="text" name="from_hours_time[saturday]" placeholder="Time" id="saturday-from" class="dates">
-              <input type="text" name="to_hours_time[saturday]" placeholder="Time" id="saturday-to" class="dates"> 
+              <input type="text" name="from_hours_time[saturday]" placeholder="From Time" id="saturday-from" class="dates">
+              <input type="text" name="to_hours_time[saturday]" placeholder="To Time" id="saturday-to" class="dates"> 
         </div>
       </div>
     </div><!--ad-row-->
@@ -476,8 +476,12 @@
 
   <fieldset>
   <h2 class="fs-title">Documents</h2>
-  <div class="box">
-    <input type="file" name="property_documents[]" multiple id="property-documents"/>
+  <div>
+    <!-- <input type="file" name="property_documents[]" multiple id="property-documents"/> -->
+    <div class="box custom-fileinput">
+    <input type="file" name="property_documents[]" id="property-documents" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple  />
+    <label for="property-documents"><span></span> <strong>Choose Property Documents</strong></label>
+  </div>
    <!--  class="inputfile inputfile-6" data-multiple-caption="{count} files selected" style="display: none;"  <label for="property-documents"><span></span> <strong>Choose Property Documents</strong></label> -->
   </div>
   <input type="button" name="previous" class="previous action-button" value="Previous" />
@@ -491,8 +495,8 @@
   <h3 class="fs-subtitle"><div class="success-property-msg">Thank you for adding. Please wait for Admin approval.</div></h3>
   </div>
 
-  <input type="button" name="previous" class="previous action-button" value="Previous" />
-  <input type="submit" name="submit" class="submit action-button" value="Submit" />
+  <input type="button" name="previous" class="previous last-action-button action-button" value="Previous" />
+  <input type="submit" name="submit" class="submit last-action-button action-button" value="Submit" />
   </fieldset>
 
   </form>
@@ -589,7 +593,7 @@
 
                     masters['location_type_input'] += 
                             '<input type="radio" name="data[location_type]" id="'+v.location_type+'" value="'+v.location_type_id+'">'+
-                            '<label for="'+v.location_type+'">'+v.location_type+'</label>';
+                            '<span for="'+v.location_type+'">'+v.location_type+'</span>';
                    
                 });
                 masters['location_type_input'] += '</li>';
@@ -600,14 +604,14 @@
 
                //if booking duration type array is not blank for selected module
               if(getAmenities.length !== 0){
-                masters['amenities_input'] ='<li>';
+                masters['amenities_input'] ='';
                 $.each(getAmenities, function(i, v) {
                     masters['amenities_input'] += 
-                            '<input type="checkbox" name="data[amenities][]" id="'+v.amenity_name+'" value="'+v.amenity_id+'">'+
-                            '<label for="'+v.amenity_name+'">'+v.amenity_name+' <img src="<?php echo URL::to('/') ?>/public/images/amenity/'+v.amenity_image+'" width="50"></label>';
+                            '<li><input type="checkbox" name="data[amenities][]" id="'+v.amenity_name+'" value="'+v.amenity_id+'">'+
+                            '<span for="'+v.amenity_name+'"> <img src="<?php echo URL::to('/') ?>/public/images/amenity/'+v.amenity_image+'" width="50">'+v.amenity_name+'</span></li>';
                    
                 });
-                masters['amenities_input'] += '</li>';
+                masters['amenities_input'] += '';
                
                 $('#amenities_list').html(masters['amenities_input']);
                 //alert(masters['amenities_input']);
@@ -933,6 +937,11 @@ $(".previous").click(function(){
 });
 
 $('#msform').on('submit', function(e){
+
+
+    $(".success-property").addClass("test");
+
+
     e.preventDefault();
     var formData = new FormData($(this)[0]);            
     var request = $.ajax({
@@ -945,7 +954,15 @@ $('#msform').on('submit', function(e){
         processData: false,
         success: function(data){ 
             if(data.status == 200)
-            {   
+            { 
+                if($(".success-property").hasClass('test'))
+                {
+                   $(".last-action-button").hide();
+                   $(".success-property").removeClass("test");
+                }
+
+                    
+
             $('.fs-subtitle').html(data.response['msg']);
             $('.loader').css('display','none');
             $('.success-property').show();  

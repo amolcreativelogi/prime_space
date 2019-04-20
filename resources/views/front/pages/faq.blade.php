@@ -23,7 +23,6 @@
 <div class="tab-content">
   <div id="general-faq" class="tab-pane fade in active">
     <div id="general" role="tablist" aria-multiselectable="true"> 
-      
       <div class="card">
       <div class="card-header" role="tab" id="questionOne">
       <h5 class="card-title">
@@ -124,7 +123,7 @@
             <li>Pryme Space is an easy to use, all-in-one platform, for hosts to list and earn extra income for their space and for users to find spaces that saves them valuable time and effort.</li>
           </ul>
 
-          <h6>Largest database of spaces</h6>
+          <h6>Largest collection of spaces</h6>
           <ul>
             <li>We provide free or low-cost visibility of spaces to users worldwide, and quick and seamless cash flow to hosts by integrating IoT into our platform to create and connect smart cities and regions</li>
           </ul>
@@ -144,24 +143,305 @@
       </div>
   </div><!-- #general-faq -->
   <div id="host-faq" class="tab-pane fade">
-    <h3>Menu 1</h3>
-    <p>Some content in menu 1.</p>
+    <div class="card">
+      <div class="card-header" role="tab" id="questionOne">
+      <h5 class="card-title">
+      <a data-toggle="collapse" data-parent="#faq" href="#answerOne" aria-expanded="true" aria-controls="answerOne">
+      What happens if I don’t accept a booking request?
+      </a>
+      </h5>
+      </div>
+      <div id="answerOne" class="collapse show" role="tabcard" aria-labelledby="questionOne">
+      <div class="card-body">
+        <p>You can decline a booking request, but should do so within 24 hours. The amount of time it takes you to respond is factored into your response rate. We track your response rate to ensure reliability of our platform and community.</p>
+      </div>
+      </div>
+      </div>
+
+      <div class="card">
+      <div class="card-header" role="tab" id="questionTwo">
+      <h5 class="card-title">
+      <a class="collapsed" data-toggle="collapse" data-parent="#faq" href="#answerTwo" aria-expanded="false" aria-controls="answerTwo">
+        Can I list multiple categories of spaces?
+      </a>
+      </h5>
+      </div>
+      <div id="answerTwo" class="collapse" role="tabcard" aria-labelledby="questionTwo">
+      <div class="card-body">
+        <p>Absolutely! You can list as many as you want.</p>
+      </div>
+      </div>
+      </div>
+
+      <div class="card">
+      <div class="card-header" role="tab" id="questionThree">
+      <h5 class="card-title">
+      <a class="collapsed" data-toggle="collapse" data-parent="#faq" href="#answerThree" aria-expanded="true" aria-controls="answerThree">
+        Can I rent out my driveway?
+      </a>
+      </h5>
+      </div>
+      <div id="answerThree" class="collapse in" role="tabcard" aria-labelledby="questionThree">
+      <div class="card-body">
+          <p>Yes! Start today by clicking <a href="#" data-toggle="modal"  data-target="#singupModal">here</a>.</p>
+      </div>
+      </div>
+      </div>
+
+      <div class="card">
+      <div class="card-header" role="tab" id="questionFour">
+      <h5 class="card-title">
+      <a class="collapsed" data-toggle="collapse" data-parent="#faq" href="#answerFour" aria-expanded="true" aria-controls="answerFour">
+          When will I get paid?
+      </a>
+      </h5>
+      </div>
+      <div id="answerFour" class="collapse in" role="tabcard" aria-labelledby="questionFour">
+      <div class="card-body">
+          <p>Host payouts will be deposited into the bank account they have on file with us via ACH transfer (direct deposit) and are processed within 7 days of the start of the reservation.</p>
+      </div>
+      </div>
+      </div>
+
+      <div class="card">
+      <div class="card-header" role="tab" id="questionFive">
+      <h5 class="card-title">
+      <a class="collapsed" data-toggle="collapse" data-parent="#faq" href="#answerFive" aria-expanded="true" aria-controls="answerFive">
+          Does Pryme Space provide any tax information like a Form 1099-K?
+      </a>
+      </h5>
+      </div>
+      <div id="answerFive" class="collapse in" role="tabcard" aria-labelledby="questionFive">
+      <div class="card-body">
+          <p>The US Internal Revenue Service (IRS) requires US companies that process payments, including Pryme Space, to report gross earnings for all US users who earn over $20,000 and have 200+ transactions in the calendar year. If you exceed both IRS thresholds in a calendar year, Pryme Space will issue you a Form 1099-K. If Pryme Space withholds income tax from your earnings, they will also send a form indicating how much was withheld.</p>
+      </div>
+      </div>
+      </div>
   </div><!-- #host-faq -->
   <div id="renter-faq" class="tab-pane fade">
-    <h3>Menu 2</h3>
-    <p>Some content in menu 2.</p>
+     <div class="card">
+      <div class="card-header" role="tab" id="questionOne">
+      <h5 class="card-title">
+      <a data-toggle="collapse" data-parent="#faq" href="#answerOne" aria-expanded="true" aria-controls="answerOne">
+      What type of spaces can I find on Pryme Space?
+      </a>
+      </h5>
+      </div>
+      <div id="answerOne" class="collapse show" role="tabcard" aria-labelledby="questionOne">
+      <div class="card-body">
+        <p>You can find <strong>Parking</strong>, <strong>Land</strong>, <strong>Industrial</strong>, <strong>Storage</strong>, <strong>Office</strong> and <strong>Event</strong> spaces.</p>
+      </div>
+      </div>
+      </div>
+
+      <div class="card">
+      <div class="card-header" role="tab" id="questionTwo">
+      <h5 class="card-title">
+      <a class="collapsed" data-toggle="collapse" data-parent="#faq" href="#answerTwo" aria-expanded="false" aria-controls="answerTwo">
+        How can I update my booking?
+      </a>
+      </h5>
+      </div>
+      <div id="answerTwo" class="collapse" role="tabcard" aria-labelledby="questionTwo">
+      <div class="card-body">
+        <p>Update a booking by navigating to your <strong>reservations</strong>. Click the appropriate listing. </p>
+      </div>
+      </div>
+      </div>
+
+      <div class="card">
+      <div class="card-header" role="tab" id="questionThree">
+      <h5 class="card-title">
+      <a class="collapsed" data-toggle="collapse" data-parent="#faq" href="#answerThree" aria-expanded="true" aria-controls="answerThree">
+        How can I cancel my confirmed booking?
+      </a>
+      </h5>
+      </div>
+      <div id="answerThree" class="collapse in" role="tabcard" aria-labelledby="questionThree">
+      <div class="card-body">
+          <p>To cancel a booking, navigate to your <strong>reservations</strong>. Click the appropriate listing and select cancel. Refund will be disbursed based on the host’s <strong>cancellation policy</strong>.</p>
+      </div>
+      </div>
+      </div>
+
+      <div class="card">
+      <div class="card-header" role="tab" id="questionFour">
+      <h5 class="card-title">
+      <a class="collapsed" data-toggle="collapse" data-parent="#faq" href="#answerFour" aria-expanded="true" aria-controls="answerFour">
+          Can I book multiple categories of space?
+      </a>
+      </h5>
+      </div>
+      <div id="answerFour" class="collapse in" role="tabcard" aria-labelledby="questionFour">
+      <div class="card-body">
+          <p>Of course. <a href="#" data-toggle="modal"  data-target="#singupModal">here</a> are the types of spaces that are available.</p>
+      </div>
+      </div>
+      </div>
   </div><!-- #renter-faq -->
   <div id="pricing-faq" class="tab-pane fade">
-    <h3>Menu 2</h3>
-    <p>Some content in menu 2.</p>
+    <div class="card">
+      <div class="card-header" role="tab" id="questionOne">
+      <h5 class="card-title">
+      <a data-toggle="collapse" data-parent="#faq" href="#answerOne" aria-expanded="true" aria-controls="answerOne">
+      What types of payments does Pryme Space allow?
+      </a>
+      </h5>
+      </div>
+      <div id="answerOne" class="collapse show" role="tabcard" aria-labelledby="questionOne">
+      <div class="card-body">
+        <p>Payments can be made via all major credit cards, PayPal, Venmo, ApplePay, and GooglePay. </p>
+      </div>
+      </div>
+      </div>
+
+      <div class="card">
+      <div class="card-header" role="tab" id="questionTwo">
+      <h5 class="card-title">
+      <a class="collapsed" data-toggle="collapse" data-parent="#faq" href="#answerTwo" aria-expanded="false" aria-controls="answerTwo">
+        How much fees does Pryme Space charge for booking?
+      </a>
+      </h5>
+      </div>
+      <div id="answerTwo" class="collapse" role="tabcard" aria-labelledby="questionTwo">
+      <div class="card-body">
+        <p>For on demand parking, Pryme Space charges a 10-15% service fee and a $0.99 fee per transaction.</p>
+        <p>For all other spaces, Pryme Space charges a 10-20% service fee on all reservations.</p>
+      </div>
+      </div>
+      </div>
+
+      <div class="card">
+      <div class="card-header" role="tab" id="questionThree">
+      <h5 class="card-title">
+      <a class="collapsed" data-toggle="collapse" data-parent="#faq" href="#answerThree" aria-expanded="true" aria-controls="answerThree">
+        When will I be charged for booking?
+      </a>
+      </h5>
+      </div>
+      <div id="answerThree" class="collapse in" role="tabcard" aria-labelledby="questionThree">
+      <div class="card-body">
+          <p>For on-demand parking, your payment will be on hold until you arrive at your parking space. Once you confirm your parking space, you’ll be charged for the entire amount of your reservation. If you run over your time some spaces may charge a premium for additional time, unless you extend your reservation before your expiration.</p>
+          <p>For all other spaces, your payment will be charged in full as soon as the booking request has been accepted by the host. At that point, the Pryme Space <strong>cancellation policy</strong> takes effect. </p>
+      </div>
+      </div>
+      </div>
   </div><!-- #pricing-faq -->
   <div id="payments-faq" class="tab-pane fade">
-    <h3>Menu 2</h3>
-    <p>Some content in menu 2.</p>
+    <div class="card">
+      <div class="card-header" role="tab" id="questionOne">
+      <h5 class="card-title">
+      <a data-toggle="collapse" data-parent="#faq" href="#answerOne" aria-expanded="true" aria-controls="answerOne">
+      What types of payments does Pryme Space allow?
+      </a>
+      </h5>
+      </div>
+      <div id="answerOne" class="collapse show" role="tabcard" aria-labelledby="questionOne">
+      <div class="card-body">
+        <p>Payments can be made via all major credit cards, PayPal, Venmo, ApplePay, and GooglePay. </p>
+      </div>
+      </div>
+      </div>
+
+      <div class="card">
+      <div class="card-header" role="tab" id="questionTwo">
+      <h5 class="card-title">
+      <a class="collapsed" data-toggle="collapse" data-parent="#faq" href="#answerTwo" aria-expanded="false" aria-controls="answerTwo">
+        How much fees does Pryme Space charge for booking?
+      </a>
+      </h5>
+      </div>
+      <div id="answerTwo" class="collapse" role="tabcard" aria-labelledby="questionTwo">
+      <div class="card-body">
+        <p>For on demand parking, Pryme Space charges a 10-15% service fee and a $0.99 fee per transaction.</p>
+        <p>For all other spaces, Pryme Space charges a 10-20% service fee on all reservations.</p>
+      </div>
+      </div>
+      </div>
+
+      <div class="card">
+      <div class="card-header" role="tab" id="questionThree">
+      <h5 class="card-title">
+      <a class="collapsed" data-toggle="collapse" data-parent="#faq" href="#answerThree" aria-expanded="true" aria-controls="answerThree">
+        When will I be charged for booking?
+      </a>
+      </h5>
+      </div>
+      <div id="answerThree" class="collapse in" role="tabcard" aria-labelledby="questionThree">
+      <div class="card-body">
+          <p>For on-demand parking, your payment will be on hold until you arrive at your parking space. Once you confirm your parking space, you’ll be charged for the entire amount of your reservation. If you run over your time some spaces may charge a premium for additional time, unless you extend your reservation before your expiration.</p>
+          <p>For all other spaces, your payment will be charged in full as soon as the booking request has been accepted by the host. At that point, the Pryme Space <strong>cancellation policy</strong> takes effect. </p>
+      </div>
+      </div>
+      </div>
   </div><!-- #payments-faq -->
   <div id="other-faq" class="tab-pane fade">
-    <h3>Menu 2</h3>
-    <p>Some content in menu 2.</p>
+    <div class="card">
+      <div class="card-header" role="tab" id="questionOne">
+      <h5 class="card-title">
+      <a data-toggle="collapse" data-parent="#faq" href="#answerOne" aria-expanded="true" aria-controls="answerOne">
+      Does Pryme Space offer insurance coverage?
+      </a>
+      </h5>
+      </div>
+      <div id="answerOne" class="collapse show" role="tabcard" aria-labelledby="questionOne">
+      <div class="card-body">
+        <p>Our insurance program provides primary liability coverage for up to $1,000,000 per occurrence in the event of a third-party claim of bodily injury or property damage related to a booking. This coverage is subject to a $1,000,000 cap per listing location, and certain conditions, limitations, and exclusions may apply.  Insurance will only act as the primary insurance coverage for incidents related to an Pryme Space rental, but it's available to hosts regardless of their other insurance arrangements.</p>
+      </div>
+      </div>
+      </div>
+
+      <div class="card">
+      <div class="card-header" role="tab" id="questionTwo">
+      <h5 class="card-title">
+      <a class="collapsed" data-toggle="collapse" data-parent="#faq" href="#answerTwo" aria-expanded="false" aria-controls="answerTwo">
+        How do parking sensors work?
+      </a>
+      </h5>
+      </div>
+      <div id="answerTwo" class="collapse" role="tabcard" aria-labelledby="questionTwo">
+      <div class="card-body">
+        <p>The sensor integrates with the Pryme Space platform and allows us to determine when, where, and how long someone is parked in your space(s). </p>
+      </div>
+      </div>
+      </div>
+
+      <div class="card">
+      <div class="card-header" role="tab" id="questionThree">
+      <h5 class="card-title">
+      <a class="collapsed" data-toggle="collapse" data-parent="#faq" href="#answerThree" aria-expanded="true" aria-controls="answerThree">
+        Do I need to install parking sensors myself?
+      </a>
+      </h5>
+      </div>
+      <div id="answerThree" class="collapse in" role="tabcard" aria-labelledby="questionThree">
+      <div class="card-body">
+          <p>No, we will do that for you!</p>
+      </div>
+      </div>
+      </div>
+
+      <div class="card">
+      <div class="card-header" role="tab" id="questionFour">
+      <h5 class="card-title">
+      <a class="collapsed" data-toggle="collapse" data-parent="#faq" href="#answerFour" aria-expanded="true" aria-controls="answerFour">
+          What other services does Pryme Space offer?
+      </a>
+      </h5>
+      </div>
+      <div id="answerFour" class="collapse in" role="tabcard" aria-labelledby="questionFour">
+      <div class="card-body">
+          <p>We offer a-la-carte services that can enhance your listing(s).</p>
+          <ul>
+            <li>In the near future we are planning to offer virtual tour services for your space.</li>
+            <li>We can provide photography services to enhance your listings appeal.</li>
+            <li>Paid-premium listing to bring more visibility to your space(s).</li>
+            <li>Vendor recommendations </li>
+          </ul>
+
+      </div>
+      </div>
+      </div>
   </div><!-- #other-faq -->
 </div>
 

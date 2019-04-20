@@ -177,7 +177,7 @@
 
                             <div class="form-group text-center">
                               <ul class="social-login">
-                                <li><a class="google auth-link" href="#" title="Google"><i class="fa fa-google-plus" aria-hidden="true"></i>Google+</a></li>
+                                <li><a class="google auth-link" href="#" title="Google"><img src="{{ URL::asset('public') }}/assets/front-design/images/google-social.jpg" alt=""></a></li>
                                 <li><a class="facebook auth-link" href="#" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i>Facebook</a></li>
                               </ul>
                             </div>
@@ -251,7 +251,12 @@
           <h4>Hosts</h4>
           <ul>
             <li><a href="#">Benefits for Hosting with Us</a></li>
-            <li><a href="#">Become a Host</a></li>
+            <?php
+            if(isset($_SESSION['user']['is_user_login'])) { ?>
+               <!-- <a href="">Find a space</a> -->
+            <?php } else { ?>
+            <li><a href="#" data-toggle="modal" class="singupModal popuplink" data-target="#singupModal">Become a Host</a></li>
+            <?php } ?>
             <li><a href="<?php echo URL::to('host-faq'); ?>">Host FAQ's </a></li>
             <li><a href="#">Community</a></li>
           </ul>
@@ -260,7 +265,12 @@
           <h4>Renter</h4>
           <ul>
             <li><a href="#">Benefits for Renting with Us</a></li>
-            <li><a href="#">Become a Renter</a></li>
+             <?php
+            if(isset($_SESSION['user']['is_user_login'])) { ?>
+               <!-- <a href="">Find a space</a> -->
+            <?php } else { ?>
+            <li><a href="#" data-toggle="modal" class="singupModal popuplink" data-target="#singupModal">Become a Renter</a></li>
+            <?php } ?>
             <li><a href="<?php echo URL::to('renter-faq'); ?>">Renter FAQ's </a></li>
           </ul>
         </div>
@@ -268,6 +278,7 @@
     </div>
     <div class="foot-btm">
       <ul>
+        <li><a href="<?php echo URL::to('refundPolicy'); ?>">Cancellation and Refund Policy</a></li>
         <li><a href="">Terms</a></li>
         <li><a href="">Privacy Statement</a></li>
       </ul>
