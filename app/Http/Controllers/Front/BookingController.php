@@ -319,14 +319,14 @@ class BookingController extends Controller
     //function to calculate price 
     public function calculatePrice($fromtime, $totime, $fromdate, $todate, $durationtype, $initialPrice){
 
-          $frm_date = DateTime::createFromFormat("m.d.Y" , $fromdate);
-          $from_date = $frm_date->format('Y-m-d');
+      $frm_date = DateTime::createFromFormat("m.d.Y" , $fromdate);
+      $from_date = $frm_date->format('Y-m-d');
 
-          $t_date = DateTime::createFromFormat("m.d.Y" , $todate);
-          $to_date = $t_date->format('Y-m-d');
+      $t_date = DateTime::createFromFormat("m.d.Y" , $todate);
+      $to_date = $t_date->format('Y-m-d');
 
-          $datetime1 = new DateTime($to_date);
-          $datetime2 = new DateTime($from_date);
+      $datetime1 = new DateTime($to_date);
+      $datetime2 = new DateTime($from_date);
           
        if ($durationtype == 1){
         $to = \Carbon\Carbon::createFromFormat('H:s:i', $totime);
@@ -338,25 +338,35 @@ class BookingController extends Controller
       }
 
       else if ($durationtype == 2){
-        
-        $interval = $datetime2->diff($datetime1)->format('%m');
+        $interval = $datetime2->diff($datetime1)->format('%d');
         $finalPrice = $interval * $initialPrice;
         return $finalPrice;
       }
 
       else if ($durationtype == 4){
-        $this->datediffInWeeks($datetime1, $datetime2);
-        $finalPrice = $finalWeek* $initialPrice;
+
+        $interval = $datetime2->diff($datetime1)->format('%d')/7;
+        if ($interval > (int)$interval) {
+          $interval = (int)$interval + 1;
+        }
+        $finalPrice = $interval * $initialPrice;
+        return $finalPrice;
       }
 
       else if ($durationtype == 3){
-        $year1 = $datetime2->format('y');
-        $year2 = $datetime1->format('y');
-        $month1 = $datetime2->format('m');
-        $month2 = $datetime1->format('m');
-        $diff = (($year1 - $year2) * 12) + ($month1 - $month2);
-        $finalPrice = $diff * $initialPrice;
+        // $year1 = $datetime2->format('y');
+        // $year2 = $datetime1->format('y');
+        // $month1 = $datetime2->format('m');
+        // $month2 = $datetime1->format('m');
+
+        $interval = $datetime2->diff($datetime1)->format('%m');
+        $finalPrice = $interval * $initialPrice;
         return $finalPrice;
+
+
+        // $diff = (($year1 - $year2) * 12) + ($month1 - $month2);
+        // $finalPrice = $diff * $initialPrice;
+        // return $finalPrice;
 
       }
 
