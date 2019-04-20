@@ -1,12 +1,8 @@
 @component('mail::message')
-# Introduction
+Your password has been changed successfully. If you have not made this password change, please contact the Pryme Space support team immidiately.
 
-The body of your message.
-
-@component('mail::button', ['url' => ''])
-Button Text
+@component('mail::button', ['url' => URL::to('/')])
+Contact Us
 @endcomponent
 
-Thanks,<br>
-{{ config('app.name') }}
 @endcomponent

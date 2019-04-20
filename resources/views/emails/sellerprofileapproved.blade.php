@@ -1,12 +1,10 @@
 @component('mail::message')
-# Introduction
+Congratulations! Your Profile has been approved by the Admin. 
+Now you can access the website Pryme Space and can post your properties to sell or rent.
 
-The body of your message.
-
-@component('mail::button', ['url' => ''])
-Button Text
+Please login to post your property.
+@component('mail::button', ['url' => URL::to('/')])
+Login
 @endcomponent
 
-Thanks,<br>
-{{ config('app.name') }}
 @endcomponent

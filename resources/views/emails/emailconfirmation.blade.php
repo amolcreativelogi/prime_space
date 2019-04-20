@@ -1,10 +1,8 @@
 @component('mail::message')
-# Introduction
+Thank you for registering with Pryme Space. We request you to please click on the below link or copy paste in your browser to verify your email address.
 
-The body of your message.
-
-@component('mail::button', ['url' => ''])
-Button Text
+@component('mail::button', ['url' => URL::to('/')])
+Verify
 @endcomponent
 
 Thanks,<br>
