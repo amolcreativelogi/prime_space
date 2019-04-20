@@ -312,8 +312,8 @@ body.modalopen .modal {overflow-x: hidden;overflow-y: auto;}
 .prop-view a:hover, .prop-view a:focus { background: #333; }
 .custom-pagination .pagination { display: inline-block; width: 100%; }
 .custom-pagination .pagination li { display: inline-block; }
-.custom-pagination .pagination li a, .custom-pagination .pagination li span { border:0;color: #333; }
-.custom-pagination .pagination li.next a, .custom-pagination .pagination li.prev a, .custom-pagination .pagination li.next span, .custom-pagination .pagination li.prev span {font-size: 25px;padding: 0;width: 32px;height: 32px;  background: #3c78ab;color: #fff;border-radius: 2px;line-height: 1.3;display: inline-block;}
+.custom-pagination .pagination li a, .custom-pagination .pagination li span { border:0;color: #333; font-size: 15px;padding: 5px; }
+.custom-pagination .pagination li.next a, .custom-pagination .pagination li.prev a, .custom-pagination .pagination li.next span, .custom-pagination .pagination li.prev span {font-size: 25px;padding: 0;width: 32px;height: 32px;  background: #3c78ab;color: #fff;border-radius: 2px;line-height: 1.1;display: inline-block;}
 .custom-pagination .pagination > .active > a {background: #3c78ab33;color: #3c78ab; }
 .favoritediv {position: absolute;right: 16px;top: 12px;font-size: 22px;}
 .property-box-text {position: relative;padding: 10px 0 19px 0;}
@@ -967,10 +967,10 @@ top: 100%;}
 /*Dashboard Filter*/
 .dashfilter {background: #fff;margin-bottom: 20px;padding: 10px;box-shadow: 0 0 5px #ccc;}
 .dashfilter select {width: 20%;display: inline-block;margin-right: 10px;font-size: 16px;padding: 5px 10px;text-transform: capitalize;}
-.dashfilter .date {position: relative;width: 20%; display: inline-block;margin-right: 10px;height: 46px;vertical-align: top;}
+.dashfilter .date {position: relative;width: 20%; display: inline-block;margin-right: 10px;height:40px;vertical-align: top;}
 .dashfilter .date input {height: 100%;width: 100%;padding: 5px 10px; font-size: 16px;}
 .dashfilter .date::before {content: "\f133";font-family: FontAwesome;color: #3351BB;font-size: 18px;position: absolute;
-  right: 10px;top: 10px;}
+  right: 10px;top:7px;}
 .dashfilter .filtersearch {background: #000;height: 45px;vertical-align: top;border: 0;width: 150px;color: #fff;  text-transform: uppercase;font-size: 16px;}
 .paid, .completed { color: green }
 .pending { color: #ff0000; }
@@ -1029,6 +1029,9 @@ background: #fff;border: 1px solid #ced4da;height: 50px;}
 .msgbtm-sect .msg-send:hover, .msgbtm-sect .msg-send:focus { background: #3351BB;}
 
 .static-content {background: #fff;padding: 40px 40px 20px 40px; box-shadow: 0 0 5px #ccc;font-size: 16px;}
+.aboutpage {}
+.aboutpage h2 {text-align: center;font-size: 26px;margin-bottom: 15px;}
+.aboutpage h3 {text-align: center;font-size: 25px;color: #9f9e9e;margin-bottom: 20px;}
 
 /*view booking page*/
 .viewbooking {padding: 20px;background: #fff;box-shadow: 0 0 5px #ccc;border-radius: 3px;}
@@ -1067,7 +1070,26 @@ background: #fff;border: 1px solid #ced4da;height: 50px;}
 .acc-set-page .switchuser img {width: 50px;margin: 0 10px;}
 .acc-set-page .switchuser .fa {}
 
- 
+/*Blog Listing*/
+.blog-listing { padding: 30px 0;}
+.blog-listing h2 {font-family: Montserrat;font-style: normal;font-weight: 600;font-size: 30px;line-height: normal;
+color: #262626;margin: 0px 0 20px 0;text-align: center;text-transform: capitalize;}
+.blogbox {border: 1px solid #ccc;border-radius: 5px; margin-bottom: 30px; overflow: hidden;}
+.blog-img { width: 100%; height: 280px; position: relative;overflow: hidden; }
+.blog-img img { width: 100%; height: 100%; object-fit: cover; transform: scale(1);transition: all 0.5s ease-in-out; }
+.blog-img img:hover, .blog-img img:focus {transform: scale(1.1);transition: all 0.5s ease-in-out;}
+.blog-img .blogdate {position:absolute;top:0;left:0;background:#000;color: #fff;padding: 5px 10px;text-align: center;}
+.blog-img .blogdate span {display: block;text-transform: uppercase;border-top: 2px solid #fff;}
+.blog-content { padding: 10px;font-size: 16px;}
+.blog-content h3 {font-size: 22px;}
+.blog-content h3 a { color: #333; }
+.blog-content h3 a:hover, .blog-content h3 a:focus {color: #5500fe; text-decoration: none; }
+.custom-pagination {text-align: center;}
+/*.custom-pagination ul { padding: 0; margin: 0; }
+.custom-pagination ul a {}
+.custom-pagination ul a.active {}
+.custom-pagination ul a.prev, .custom-pagination ul a.next {}*/
+
 
 
 
