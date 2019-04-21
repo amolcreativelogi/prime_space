@@ -4,6 +4,7 @@
 <?php use \App\Http\Controllers\Front\SearchPropertyController;//echo print_r($_GET); die;//echo '<pre>'; print_r($searchResult); echo '</pre>'?>
 <div class="site-content">
 
+
 <div class="all-properties">
     <section class="ap-filter">
       <div class="container">
@@ -479,7 +480,7 @@
     </section><!-- filter-result -->
 
 </div><!-- all-properties -->
- 
+
 </div><!-- site-content -->
  <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -502,6 +503,7 @@
             </div>
 
         </div>
+
 </div>
 
 
@@ -533,10 +535,7 @@ foreach($searchResult['cheapest'] as $s)
 }
 
 $mapperPointerClosest =  json_encode($jsonClosest);
-
-
 $mapperPointerCheapest =  json_encode($jsonCheapest);
-
 ?>
 
 
@@ -550,12 +549,11 @@ function getAddress(id)
  {
     var fromdest = $('#location-from-search').val();
     var to = $('#to_destination_'+id).val();
-
     url = 'https://www.google.com/maps/dir/'+fromdest+'/'+to+'';
-    window.open(url, '_blank');
-
-  }
-
+    window.open(url,"Get Gdirections","width=900,height=650,150,status=0,")
+    // $("#forecast_embed").attr("src",url); 
+    // window.open(url, '_blank');
+}
 //var jsonRes = <?php $searchResult; ?>;
 // var as = JSON.parse(jsonRes);
 // alert(as);

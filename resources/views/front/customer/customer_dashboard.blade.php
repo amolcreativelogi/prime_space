@@ -12,7 +12,7 @@
      		<div class="col-lg-4 col-md-4 col-sm-6">
                 <div class="dash-counterbox dash-add-prop">
                     <div class="dashcount-icon"><img src="{{ URL::asset('public') }}/assets/front-design/images/total-booking.svg" alt=""></div>
-                    <div class="dashcount-text"><span><?php echo ($totalBooking) ? $totalBooking : ''; ?></span>My Booking</div>
+                    <div class="dashcount-text"><span><?php echo ($totalBooking) ? $totalBooking : 0; ?></span>My Booking</div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-6">

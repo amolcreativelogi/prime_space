@@ -12,7 +12,7 @@
             <div class="col-lg-3 col-md-3 col-sm-6">
                 <div class="dash-counterbox dash-properties">
                     <div class="dashcount-icon"><img src="{{ URL::asset('public') }}/assets/front-design/images/properties.svg" alt=""></div>
-                    <div class="dashcount-text"><span><?php echo $totalProperties; ?></span>Total properties</div>
+                    <div class="dashcount-text"><span><?php echo ($totalProperties) ? $totalProperties : 0; ?></span>Total properties</div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6">
@@ -24,7 +24,7 @@
              <div class="col-lg-3 col-md-3 col-sm-6">
                 <div class="dash-counterbox dash-add-prop">
                     <div class="dashcount-icon"><img src="{{ URL::asset('public') }}/assets/front-design/images/total-booking.svg" alt=""></div>
-                    <div class="dashcount-text"><span><?php echo $totalBooking; ?></span>Total Booking</div>
+                    <div class="dashcount-text"><span><?php echo ($totalBooking) ? $totalBooking : 0; ?></span>Total Booking</div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6">

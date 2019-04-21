@@ -118,33 +118,13 @@ class HostController extends Controller
 	}
 
 	public function bookingProperties()
-	{
-
-		$getBookingList = DB::table('tbl_property_bookings')->select('*')->rightJoin('prk_add_property', 'prk_add_property.property_id', '=', 'tbl_property_bookings.property_id')->leftJoin('prk_user_registrations', 'prk_user_registrations.user_id', '=', 'tbl_property_bookings.user_id')->where('tbl_property_bookings.is_deleted', '=', 0)->where('prk_add_property.user_id', '=', $_SESSION['user']['user_id'])->get();
-
-		 // $getBookingList = DB::table('tbl_property_bookings')->select('*')->leftJoin('prk_user_registrations', 'prk_user_registrations.user_id', '=', 'tbl_property_bookings.user_id')->where('tbl_property_bookings.is_deleted', '=', 0)->where('tbl_property_bookings.user_id', '=', $_SESSION['user']['user_id'])->get();
-		return view('front.host.bookinglist')->with(
-        	['getBookingList'=>$getBookingList]
-        );
-	}
-	public function transationHistory()
 	{	
-		$gettransationList = DB::table('booking_transactions')->select('*')->leftJoin('tbl_property_bookings', 'booking_transactions.booking_id', '=', 'tbl_property_bookings.booking_id')->leftJoin('prk_add_property', 'tbl_property_bookings.property_id', '=', 'prk_add_property.property_id')->where('prk_add_property.user_id', '=', $_SESSION['user']['user_id'])->get();
 
-		// echo '<pre>';
-		// print_r($gettransationList);
-		// exit;
-		return view('front.host.transationHistory')->with(
-        	['gettransationList'=>$gettransationList]
-        );
-	}
-	public function upcomingBooking()
-	{
 	   $frm_date = request()->up_search_from_date;
 	   if($frm_date) {
        $frm_date = DateTime::createFromFormat("m.d.Y" , $frm_date);
        $from_date = $frm_date->format('Y-m-d');
-   		}
+   	   }
    		
    		$to_date = request()->up_search_to_date;
    		if($to_date) {
@@ -153,18 +133,90 @@ class HostController extends Controller
 	    }
 
       $parking_type = request()->parking_type;
- 
-		$query = DB::table('tbl_property_bookings')->select('*')->leftJoin('prk_add_property', 'prk_add_property.property_id', '=', 'tbl_property_bookings.property_id')->leftJoin('prk_user_registrations', 'prk_user_registrations.user_id', '=', 'tbl_property_bookings.user_id')->where('tbl_property_bookings.start_date', '>', date('Y-m-d'))->where('tbl_property_bookings.is_deleted', '=', 0)->where('prk_add_property.user_id', '=', $_SESSION['user']['user_id']);
 
+		$query = DB::table('tbl_property_bookings')->select('*')->rightJoin('prk_add_property', 'prk_add_property.property_id', '=', 'tbl_property_bookings.property_id')->leftJoin('prk_user_registrations', 'prk_user_registrations.user_id', '=', 'tbl_property_bookings.user_id')->where('tbl_property_bookings.is_deleted', '=', 0)->where('prk_add_property.user_id', '=', $_SESSION['user']['user_id']);
 
 		if($parking_type) {
+
 	    $query->where('tbl_property_bookings.module_manage_id', '=', $parking_type);
 		}
-
-		//$query->whereBetween('created_at',[$start,$end]);
+		if($frm_date && $to_date) {
+		$query->whereBetween('start_date',[$from_date,$to_date]);
+		}
 
 		$getBookingList = $query->get();
 
+		 // $getBookingList = DB::table('tbl_property_bookings')->select('*')->leftJoin('prk_user_registrations', 'prk_user_registrations.user_id', '=', 'tbl_property_bookings.user_id')->where('tbl_property_bookings.is_deleted', '=', 0)->where('tbl_property_bookings.user_id', '=', $_SESSION['user']['user_id'])->get();
+		return view('front.host.bookinglist')->with(
+        	['getBookingList'=>$getBookingList]
+        );
+	}
+	public function transationHistory()
+	{	
+	   $frm_date = request()->up_search_from_date;
+	   if($frm_date) {
+       $frm_date = DateTime::createFromFormat("m.d.Y" , $frm_date);
+       $from_date = $frm_date->format('Y-m-d');
+   	   }
+   		
+   		$to_date = request()->up_search_to_date;
+   		if($to_date) {
+	       $to_date = DateTime::createFromFormat("m.d.Y" , $to_date);
+	       $to_date = $to_date->format('Y-m-d');
+	    }
+
+     	$parking_type = request()->parking_type;
+     	$booking_status = request()->payment_status;
+
+		$query = DB::table('booking_transactions')->select('*')->leftJoin('tbl_property_bookings', 'booking_transactions.booking_id', '=', 'tbl_property_bookings.booking_id')->leftJoin('prk_add_property', 'tbl_property_bookings.property_id', '=', 'prk_add_property.property_id')->where('prk_add_property.user_id', '=', $_SESSION['user']['user_id']);
+
+		if($parking_type) 
+		{	
+	   	 	$query->where('prk_add_property.module_manage_id', '=', $parking_type);
+		}
+		if($booking_status) 
+		{	
+	   	 	$query->where('tbl_property_bookings.booking_status', '=', $booking_status);
+		}
+		if($frm_date && $to_date) 
+		{	
+			$query->whereBetween('start_date',[$from_date,$to_date]);
+		}
+		$gettransationList = $query->get();
+		
+		return view('front.host.transationHistory')->with(
+        	['gettransationList'=>$gettransationList]
+        );
+	}
+	public function upcomingBooking()
+	{	
+
+	   $frm_date = request()->up_search_from_date;
+	   if($frm_date) {
+       $frm_date = DateTime::createFromFormat("m.d.Y" , $frm_date);
+       $from_date = $frm_date->format('Y-m-d');
+   	   }
+   		
+   		$to_date = request()->up_search_to_date;
+   		if($to_date) {
+	       $to_date = DateTime::createFromFormat("m.d.Y" , $to_date);
+	       $to_date = $to_date->format('Y-m-d');
+	    }
+
+      $parking_type = request()->parking_type;
+
+
+		$query = DB::table('tbl_property_bookings')->select('*')->leftJoin('prk_add_property', 'prk_add_property.property_id', '=', 'tbl_property_bookings.property_id')->leftJoin('prk_user_registrations', 'prk_user_registrations.user_id', '=', 'tbl_property_bookings.user_id')->where('tbl_property_bookings.start_date', '>', date('Y-m-d'))->where('tbl_property_bookings.is_deleted', '=', 0)->where('prk_add_property.user_id', '=', $_SESSION['user']['user_id']);
+
+		if($parking_type) {
+
+	    $query->where('tbl_property_bookings.module_manage_id', '=', $parking_type);
+		}
+		if($frm_date && $to_date) {
+		$query->whereBetween('start_date',[$from_date,$to_date]);
+		}
+
+		$getBookingList = $query->get();
 		return view('front.host.upcomingBooking')->with(
         	['getBookingList'=>$getBookingList]
         );

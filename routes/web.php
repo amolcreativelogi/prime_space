@@ -261,7 +261,7 @@ Route::get('/user/transationHistory','Front\HostController@transationHistory')->
 Route::get('/user/upcomingBooking','Front\HostController@upcomingBooking')->middleware('UserAuth');
 
 Route::get('/user/host','Front\HostController@hostDashboard')->middleware('UserAuth');
-Route::get('/customer/customer','Front\CustomerController@customerDashboard')->middleware('UserAuth');
+Route::get('/user/customer','Front\CustomerController@customerDashboard')->middleware('UserAuth');
 Route::get('/user/logout','Front\UserController@userlogout');
 Route::get('/user/bookingHistory','Front\CustomerController@bookingHistory')->middleware('UserAuth');
 Route::get('/user/orderHistory','Front\CustomerController@orderHistory')->middleware('UserAuth');
