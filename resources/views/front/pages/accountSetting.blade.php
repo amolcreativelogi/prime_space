@@ -24,13 +24,37 @@
 				<div class="col-lg-5 col-md-5 col-sm-12">
 					<div class="tab-content">
 					  <div class="tab-pane container active" id="astab-01">
-					  	<h3>change password</h3>
-					  	<form class="site-form">
-					  		<div class="form-group">
-					  			<input type="password" name="" class="form-control" placeholder="New Password">
+
+						@if (\Session::has('success'))
+										<div class="alert alert-success alert-dismissible">
+												<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+												{!! \Session::get('success') !!}
+										</div>
+									@endif
+									@if (\Session::has('error'))
+										<div class="alert alert-danger">
+												<ul>
+														<li>{!! \Session::get('error') !!}</li>
+												</ul>
+										</div>
+									@endif
+									@if ($errors->has('password'))
+								<div class="alert alert-danger">
+												<ul>
+														<li>{{ $errors->first('password') }}</li>
+												</ul>
+								</div>
+                                @endif
+					  	<form action="{{URL::to('user/submitnewpassword')}}" method="post" class="site-form">
+							{{csrf_field()}}
+							<div class="form-group">
+					  			<input type="password" name="current_pass" class="form-control" placeholder="Old Password">
 					  		</div>
 					  		<div class="form-group">
-					  			<input type="password" name="" class="form-control" placeholder="Confirm Password">
+					  			<input type="password" name="password" class="form-control" placeholder="New Password">
+					  		</div>
+					  		<div class="form-group">
+					  			<input type="password" name="password_confirmation" class="form-control" placeholder="Confirm Password">
 					  		</div>
 					  		<div class="form-group">
 					  		<button type="submit" class="bluebtn" name="login-button">submit</button>

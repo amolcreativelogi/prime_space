@@ -9,7 +9,7 @@ use DB;
 use DateTime;
 use DateInterval;
 use DatePeriod;
-
+use App\PropertyBooking;
 
 $now = new DateTime();
 
@@ -78,10 +78,23 @@ class BookingController extends Controller
            // // }
    
 
-          return view('front.property.property_details')->with(['getPropertyDetails'=>$getPropertyDetails,'getPropAmenities'=>$getPropAmenities,'getPropertyType'=>$getPropertyType,'getPropImages'=>$getPropImages,'getPropertyImagesFloorMap'=>$getPropertyImagesFloorMap,'getPropertyrent'=>$getPropertyrent,'getLandrent'=>$getLandrent,'module_id'=>$module_id,'land_type_id'=>$land_type_id,'unit_type_id'=>$unit_type_id,'days_time_availability'=>$days_time_availability,'NOoffloor'=>$NOoffloor,'parkingType'=>$parkingType]); 
-    
-    }
+          
 
+          $bookingDataRatings = DB::table('tbl_property_bookings')->where('tbl_property_bookings.property_id', $property_id)
+                            ->join('booking_ratings', 'tbl_property_bookings.booking_id', 'booking_ratings.booking_id')
+                            ->join('prk_user_registrations', 'tbl_property_bookings.user_id', 'prk_user_registrations.user_id')
+                            ->join('prk_add_property', 'prk_add_property.property_id', 'tbl_property_bookings.property_id')
+                            ->select('prk_user_registrations.*', 'prk_add_property.*', 'booking_ratings.created_at as rating_date', 'booking_ratings.review', 'booking_ratings.rating')->get();
+
+          $calRating = DB::table('tbl_property_bookings')->where('tbl_property_bookings.property_id', $property_id)
+                            ->join('booking_ratings', 'tbl_property_bookings.booking_id', 'booking_ratings.booking_id')
+                            ->sum('booking_ratings.rating');      
+
+
+          // return view('front.property.property_details')->with(['calRating' => $calRating, 'bookingDataRatings' => $bookingDataRatings, 'getPropertyDetails'=>$getPropertyDetails,'getPropAmenities'=>$getPropAmenities,'getPropertyType'=>$getPropertyType,'getPropImages'=>$getPropImages,'getPropertyImagesFloorMap'=>$getPropertyImagesFloorMap,'getPropertyrent'=>$getPropertyrent,'getLandrent'=>$getLandrent,'module_id'=>$module_id,'land_type_id'=>$land_type_id,'unit_type_id'=>$unit_type_id]); 
+
+          return view('front.property.property_details')->with(['calRating' => $calRating, 'bookingDataRatings' => $bookingDataRatings, 'days_time_availability' => $days_time_availability, 'getPropertyDetails'=>$getPropertyDetails,'getPropAmenities'=>$getPropAmenities,'getPropertyType'=>$getPropertyType,'getPropImages'=>$getPropImages,'getPropertyImagesFloorMap'=>$getPropertyImagesFloorMap,'getPropertyrent'=>$getPropertyrent,'getLandrent'=>$getLandrent,'module_id'=>$module_id,'land_type_id'=>$land_type_id,'unit_type_id'=>$unit_type_id]); 
+    }
 
     public function bookProperty()
     {
@@ -204,7 +217,7 @@ class BookingController extends Controller
     { 
         // Calulating the difference in timestamps 
         $diff = strtotime($date2) - strtotime($date1); 
-        // 24 * 60 * 60 = 86400 seconds 
+        // 24  60  60 = 86400 seconds 
         return abs(round($diff / 86400)) +1; 
     } 
 
@@ -221,7 +234,7 @@ class BookingController extends Controller
       $hours = floor($tmins/60);
               // Calulating the difference in timestamps 
       //$diff = strtotime($time2) - strtotime($time1); 
-        // 24 * 60 * 60 = 86400 seconds 
+        // 24  60  60 = 86400 seconds 
         return $hours; 
     } 
 
@@ -316,51 +329,103 @@ class BookingController extends Controller
       
 
       $data['finalprice'] = $this->calculatePrice($fromtime, $totime, $fromdate, $todate, $durationtype, $initialPrice);
+      if (isset($_SESSION['user']['user_id'])) {
 
+        $module_id = request()->moduleid;
+        $property_id = request()->propertyid;
+        $durationtype = request()->duration_type_id;
+
+        $fromtime = request()->fromtime;
+        $totime = request()->totime;
+
+        $fromdate = request()->fromdate; 
+        $todate = request()->todate;  
+
+        $car_type_req = request()->car_type_id;
+       // dd($property_id);
+      $frm_date = DateTime::createFromFormat("m.d.Y" , $fromdate);
+      $from_date = $frm_date->format('Y-m-d');
+
+      $t_date = DateTime::createFromFormat("m.d.Y" , $todate);
+      $to_date = $t_date->format('Y-m-d');
+
+
+        $b_id = PropertyBooking::insertGetId([
+                'user_id' => $_SESSION['user']['user_id'], 
+                'property_id' => $property_id,
+                'module_manage_id' => $module_id,
+                'duration_type_id' => $durationtype,
+                'start_time' => $fromtime, 
+                'end_time' => $totime,
+                'start_date' => $from_date,
+                'end_date' => $to_date,
+                'booking_amount' => $data['finalprice'],
+                'booking_status' => 'Pending'
+              ]);
+
+        DB::table('booking_transactions')->insert([            
+          'user_id' => $_SESSION['user']['user_id'], 
+          'booking_id' => $b_id,
+          'amount' => $data['finalprice'],
+          'status_message' => 'Pending'
+        ]);
+      }
       //return view
+      $data['booking_id'] = $b_id;
       return view('front/pages/booking', $data);
     }
 
     //function to calculate price 
     public function calculatePrice($fromtime, $totime, $fromdate, $todate, $durationtype, $initialPrice){
-          $frm_date = DateTime::createFromFormat("m.d.Y" , $fromdate);
-          $from_date = $frm_date->format('Y-m-d');
 
-          $t_date = DateTime::createFromFormat("m.d.Y" , $todate);
-          $to_date = $t_date->format('Y-m-d');
+      $frm_date = DateTime::createFromFormat("m.d.Y" , $fromdate);
+      $from_date = $frm_date->format('Y-m-d');
 
-          $datetime1 = new DateTime($to_date);
-          $datetime2 = new DateTime($from_date);
+      $t_date = DateTime::createFromFormat("m.d.Y" , $todate);
+      $to_date = $t_date->format('Y-m-d');
+
+      $datetime1 = new DateTime($to_date);
+      $datetime2 = new DateTime($from_date);
           
-     
        if ($durationtype == 1){
         $to = \Carbon\Carbon::createFromFormat('H:s:i', $totime);
         $from = \Carbon\Carbon::createFromFormat('H:s:i', $fromtime); 
-        $diff_in_minutes = $from->diffInMinutes($to);
-        $finalPrice = $diff_in_minutes * $initialPrice;
+         $diff_in_minutes = $from->diffInMinutes($to);
+         $diff_in_minutes = round($diff_in_minutes / 60) + 1;
+         $finalPrice = $diff_in_minutes * $initialPrice;
         return $finalPrice;
       }
 
       else if ($durationtype == 2){
-        
-        $interval = $datetime2->diff($datetime1)->format('%m');
+        $interval = $datetime2->diff($datetime1)->format('%d');
         $finalPrice = $interval * $initialPrice;
         return $finalPrice;
       }
 
       else if ($durationtype == 4){
-        $this->datediffInWeeks($datetime1, $datetime2);
-        $finalPrice = $finalWeek* $initialPrice;
+
+        $interval = $datetime2->diff($datetime1)->format('%d')/7;
+        if ($interval > (int)$interval) {
+          $interval = (int)$interval + 1;
+        }
+        $finalPrice = $interval * $initialPrice;
+        return $finalPrice;
       }
 
       else if ($durationtype == 3){
-        $year1 = $datetime2->format('y');
-        $year2 = $datetime1->format('y');
-        $month1 = $datetime2->format('m');
-        $month2 = $datetime1->format('m');
-        $diff = (($year1 - $year2) * 12) + ($month1 - $month2);
-        $finalPrice = $diff * $initialPrice;
+        // $year1 = $datetime2->format('y');
+        // $year2 = $datetime1->format('y');
+        // $month1 = $datetime2->format('m');
+        // $month2 = $datetime1->format('m');
+
+        $interval = $datetime2->diff($datetime1)->format('%m');
+        $finalPrice = $interval * $initialPrice;
         return $finalPrice;
+
+
+        // $diff = (($year1 - $year2) * 12) + ($month1 - $month2);
+        // $finalPrice = $diff * $initialPrice;
+        // return $finalPrice;
 
       }
 

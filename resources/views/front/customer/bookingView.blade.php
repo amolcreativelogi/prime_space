@@ -17,11 +17,14 @@
               </div>
               <div class="col-lg-8 col-md-7 col-sm-12">
                   <div class="viewbookingText">
-                    <h3>Property name</h3>
+                    <h3>{{$bookingData->name}}</h3>
                     <h5><strong>Booking Date/Time :-</strong> 20.04.19 15:10</h5>
                     <div class="bookingstatus"><strong>Booking Status :- Booking Running</strong></div>
                     <h5><strong>Message to Host :-</strong> <a href="">Jimmy</a></h5>
-                    <button type="button" class="reviewbtn" data-toggle="modal" data-target="#reviewModal">Write a Review</button>
+                    <?php if ($bookingData->end_date < Date('Y-m-d')): ?>
+                      <button type="button" class="reviewbtn" data-toggle="modal" data-target="#reviewModal">Write a Review</button>
+                      
+                    <?php endif ?>
                   </div>
               </div>
             </div>
@@ -80,7 +83,7 @@
     var storeRating;
     function ratingRiveing(rating){storeRating = rating;}
     $(".blackbtn").click(function(){
-      $.get("{{ URL::to('/user/submitRating') }}", {starRating: storeRating, ratingComment: $("#ratingComment").val()}, function(res){
+      $.get("{{ URL::to('/user/submitRating') }}", {starRating: storeRating, ratingComment: $("#ratingComment").val(), booking_id:<?php echo  $bookingData->booking_id ?> }, function(res){
         console.log(res)
       })
     })

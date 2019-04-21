@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SendMailable extends Mailable
+class PropertyBookedSuccess extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -28,6 +28,6 @@ class SendMailable extends Mailable
      */
     public function build()
     {
-         return $this->view('admin.emails.name');
+        return $this->markdown('emails.propertybookedsuccess');
     }
 }

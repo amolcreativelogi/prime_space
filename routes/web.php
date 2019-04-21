@@ -253,6 +253,9 @@ Route::post('/userLogin','Front\UserController@userLogin');
 Route::post('/resetPassword','Front\UserController@resetPassword');
 Route::get('/user/editprofile/{id?}','Front\UserController@editprofile');
 Route::post('/updatesaveprofile/{id?}','Front\UserController@updatesaveprofile');
+Route::get('/user/accountSetting','Front\UserController@accountSetting');
+Route::post('/user/submitnewpassword','Front\UserController@submitNewPassword');
+Route::get('/payment/queryget','Front\PaymentController@queryTransaction');
 
 Route::get('/user/parkingProperties','Front\HostController@parkingProperties')->middleware('UserAuth');
 Route::get('/user/landProperties','Front\HostController@landProperties')->middleware('UserAuth');
@@ -265,7 +268,7 @@ Route::get('/user/customer','Front\CustomerController@customerDashboard')->middl
 Route::get('/user/logout','Front\UserController@userlogout');
 Route::get('/user/bookingHistory','Front\CustomerController@bookingHistory')->middleware('UserAuth');
 Route::get('/user/orderHistory','Front\CustomerController@orderHistory')->middleware('UserAuth');
-Route::get('/user/bookingView','Front\CustomerController@bookingView')->middleware('UserAuth');
+Route::get('/user/bookingView/{id}','Front\CustomerController@bookingView')->middleware('UserAuth');
 Route::get('/user/submitRating','Front\CustomerController@submitRating')->middleware('UserAuth');
 
 Route::get('/customer/bookingHistory','Front\CustomerController@bookingHistory')->middleware('UserAuth');
@@ -308,7 +311,7 @@ Route::get('/searchproperty/{module_id?}','Front\SearchPropertyController@SeachP
 
 
 Route::get('/bookNow','Front\BookingController@bookNow');
-
+Route::get('/payment/process', 'Front\PaymentController@process')->name('payment.process');
 
 //Route to load single property
 Route::get('/propertydetails/{module_id?}/{property_id?}','Front\BookingController@propertyDetails');
@@ -332,7 +335,6 @@ Route::get('/getForgotpass','Front\UserController@getForgotpass');
 Route::post('/submitForgotpass','Front\UserController@submitForgotpass');
 //Route to get amenity type list
 Route::post('/frontend/getAmenities','Front\SearchPropertyController@getAmenities');
-
 
 
 

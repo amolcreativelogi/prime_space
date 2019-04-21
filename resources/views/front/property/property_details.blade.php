@@ -200,7 +200,20 @@
                 <div class="property-review">
                   <h3>2 Reviews</h3>
                   <div class="rating">
-                      <input type="radio" id="star5-5" name="rating" value="5" />
+                      <?php 
+                        $countUser = count($bookingDataRatings);
+                        if ($countUser == 0) {
+                          $countUser = 1;
+                        }
+                      ?>
+                      <?php for ($i=5; $i >= 1; $i--) { ?>
+                          <?php if ($i <= ($calRating / $countUser)): ?>
+                            <label style="color: #5500fe" class = "full" for="star<?= $i ?>-<?= $i ?>" title="Awesome - <?= $i ?> stars"></label>
+                          <?php else: ?>
+                            <label class = "full" for="star1-1" title="Awesome - 1 stars"></label>
+                          <?php endif ?>
+                      <?php } ?>
+                     <!--  <input type="radio" id="star5-5" name="rating" value="5" />
                       <label class = "full" for="star5-5" title="Awesome - 5 stars"></label>
                       <input type="radio" id="star4-5" name="rating" value="4" />
                       <label class = "full" for="star4-5" title="Pretty good - 4 stars"></label>
@@ -209,19 +222,28 @@
                       <input type="radio" id="star2-5" name="rating" value="2" />
                       <label class = "full" for="star2-5" title="Kinda bad - 2 stars"></label>
                       <input type="radio" id="star1-5" name="rating" value="1" />
-                      <label class = "full" for="star1-5" title="Sucks big time - 1 star"></label>
+                      <label class = "full" for="star1-5" title="Sucks big time - 1 star"></label> -->
                   </div>
                   <div class="clear"></div>
+                  <?php foreach ($bookingDataRatings as $key => $bookingDataRating):?>
+                    
                   <div class="reviewbox">
                     <div class="reviewer-img"><img src="{{ URL::asset('public') }}/assets/front-design/images/user-icon.jpg" alt=""></div>
-                    <div class="reviewer-info"><h4>Ivan</h4><span>March 2019</span></div>
-                    <div class="reviewer-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque quam lectus, faucibus in elit et, vehicula convallis est. Morbi lacinia, arcu vel venenatis rhoncus, arcu lorem tincidunt magna, ut sollicitudin dui massa in urna...<a href="">Read more</a></div>
+                    <div class="reviewer-info"><h4>{{$bookingDataRating->firstname}} {{$bookingDataRating->lastname}}</h4><span>{{$bookingDataRating->rating_date}}</span>
+                    <!-- {{$bookingDataRating->rating}} -->
+                    <div class="rating">
+                      <?php for ($i=5; $i >= 1; $i--) { ?>
+                          <?php if ($i <= $bookingDataRating->rating): ?>
+                            <label style="color: #5500fe" class = "full" for="star<?= $i ?>-<?= $i ?>" title="Awesome - <?= $i ?> stars"></label>
+                          <?php else: ?>
+                            <label class = "full" for="star1-1" title="Awesome - 1 stars"></label>
+                          <?php endif ?>
+                      <?php } ?>
                   </div>
-                  <div class="reviewbox">
-                    <div class="reviewer-img"><img src="images/user-icon.jpg" alt=""></div>
-                    <div class="reviewer-info"><h4>Ivan</h4><span>March 2019</span></div>
-                    <div class="reviewer-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque quam lectus, faucibus in elit et, vehicula convallis est. Morbi lacinia, arcu vel venenatis rhoncus, arcu lorem tincidunt magna, ut sollicitudin dui massa in urna...<a href="">Read more</a></div>
+                  </div> 
+                    <div class="reviewer-content">{{$bookingDataRating->review}}<!--<a href="">Read more</a> --></div>
                   </div>
+                  <?php endforeach ?>
                   <div class="rentedby">
                     <div class="row">
                       <div class="col-sm-6">
@@ -278,7 +300,7 @@
                 </div>
                 <hr>
                 <a href="" class="cont-host">contact host</a><br/>
-                <a href='<?php echo URL('/') ?>/bookNow?moduleid=<?php echo Request::get("module_id")."&propertyid=".Request::get("propertyid")."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="cont-host">Book now</a>
+                <!-- <a href='<?php //echo URL('/') ?>/bookNow?moduleid=<?php //echo Request::get("module_id")."&propertyid=".$searchProp->property_id."&car_type_id=".$searchProp->car_type_id."&duration_type_id=".$searchProp->duration_type_id."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="cont-host">Book now</a> -->
                  <hr>
               </div><!-- pc-right -->
             </div>
