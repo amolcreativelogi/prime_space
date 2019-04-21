@@ -24,7 +24,8 @@ class PaymentController extends Controller
 		]
 	    ]);
 	    if ($status->success) {
-	    	$b_id = PropertyBooking::where('booking_id', $payload['booking_id'])->where('user_id',  $_SESSION['user']['user_id'])->update(['booking_status' => 'approved']);
+			$b_id = PropertyBooking::where('booking_id', $payload['booking_id'])->where('user_id',  $_SESSION['user']['user_id'])->update(['booking_status' => 'approved']);
+			
 
             DB::table('booking_transactions')->where('booking_id',$payload['booking_id'])->where('user_id',  $_SESSION['user']['user_id'])->update(['status_message'=>'success']);
 	    }else{
@@ -34,4 +35,14 @@ class PaymentController extends Controller
 	    }
 	    return response()->json($status);
 	}
+
+
+	// public function queryTransaction(){
+
+	// 	$tabel = DB::table('tbl_property_bookings')->join('prk_user_registrations','tbl_property_bookings.user_id','prk_user_registrations.user_id')
+	// 					->join('prk_add_property_amenities','tbl_mstr_amenities.amenity_id','prk_add_property_amenities.amenity_id')->get();
+	// 	echo '<pre>';
+	// 	print_r($tabel);
+		
+	// }
 }
