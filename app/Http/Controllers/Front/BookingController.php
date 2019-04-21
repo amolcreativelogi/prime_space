@@ -309,6 +309,8 @@ class BookingController extends Controller
       $data['fromdate'] = request()->fromdate;  
       $data['todate'] = request()->todate;  
 
+
+
       
       //get property images
       $data['getPropImages'] = DB::table($tbl_prefix.'add_property_files')->select('name'
@@ -329,7 +331,9 @@ class BookingController extends Controller
       
 
       $data['finalprice'] = $this->calculatePrice($fromtime, $totime, $fromdate, $todate, $durationtype, $initialPrice);
+
       if (isset($_SESSION['user']['user_id'])) {
+
 
         $module_id = request()->moduleid;
         $property_id = request()->propertyid;
@@ -343,6 +347,7 @@ class BookingController extends Controller
 
         $car_type_req = request()->car_type_id;
        // dd($property_id);
+
       $frm_date = DateTime::createFromFormat("m.d.Y" , $fromdate);
       $from_date = $frm_date->format('Y-m-d');
 
@@ -388,8 +393,10 @@ class BookingController extends Controller
       $datetime2 = new DateTime($from_date);
           
        if ($durationtype == 1){
-        $to = \Carbon\Carbon::createFromFormat('H:s:i', $totime);
-        $from = \Carbon\Carbon::createFromFormat('H:s:i', $fromtime); 
+
+        $to = \Carbon\Carbon::createFromFormat('H:s', $totime);
+        
+        $from = \Carbon\Carbon::createFromFormat('H:s', $fromtime); 
          $diff_in_minutes = $from->diffInMinutes($to);
          $diff_in_minutes = round($diff_in_minutes / 60) + 1;
          $finalPrice = $diff_in_minutes * $initialPrice;
