@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Pryme Space</title>
+ <link rel="shortcut icon" href="https://www.prymestory.com/public/assets/front-design/images/favicon.png">
+<link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
+<link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('public') }}/assets/front-design/css/custom.css">
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('public') }}/assets/front-design/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('public') }}/assets/front-design/css/animate.css">
