@@ -299,6 +299,7 @@ Route::get('/accountSetting','Front\PagesController@accountSetting');
 Route::get('/blogListing','Front\PagesController@blogListing');
 Route::get('/aboutUs','Front\PagesController@aboutUs');
 Route::get('/singleBlog','Front\PagesController@singleBlog');
+Route::get('/terms','Front\PagesController@terms');
 
 //Route to get masters details on add property form
 Route::post('/frontend/getPropertyMasters','Front\PropertyController@getPropertyMasters');
