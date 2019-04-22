@@ -1,5 +1,6 @@
-@extends('front/layouts.default')
+	@extends('front/layouts.default')
 @section('content')
+
 
 <div class="site-content">
 <section class="bookingform">

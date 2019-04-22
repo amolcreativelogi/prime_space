@@ -10,6 +10,7 @@ use DateTime;
 use DateInterval;
 use DatePeriod;
 use App\PropertyBooking;
+//use App\Braintree_ClientToken;
 
 $now = new DateTime();
 
@@ -93,7 +94,7 @@ class BookingController extends Controller
 
           // return view('front.property.property_details')->with(['calRating' => $calRating, 'bookingDataRatings' => $bookingDataRatings, 'getPropertyDetails'=>$getPropertyDetails,'getPropAmenities'=>$getPropAmenities,'getPropertyType'=>$getPropertyType,'getPropImages'=>$getPropImages,'getPropertyImagesFloorMap'=>$getPropertyImagesFloorMap,'getPropertyrent'=>$getPropertyrent,'getLandrent'=>$getLandrent,'module_id'=>$module_id,'land_type_id'=>$land_type_id,'unit_type_id'=>$unit_type_id]); 
 
-          return view('front.property.property_details')->with(['calRating' => $calRating, 'bookingDataRatings' => $bookingDataRatings, 'days_time_availability' => $days_time_availability, 'getPropertyDetails'=>$getPropertyDetails,'getPropAmenities'=>$getPropAmenities,'getPropertyType'=>$getPropertyType,'getPropImages'=>$getPropImages,'getPropertyImagesFloorMap'=>$getPropertyImagesFloorMap,'getPropertyrent'=>$getPropertyrent,'getLandrent'=>$getLandrent,'module_id'=>$module_id,'land_type_id'=>$land_type_id,'unit_type_id'=>$unit_type_id]); 
+          return view('front.property.property_details')->with(['calRating' => $calRating, 'bookingDataRatings' => $bookingDataRatings, 'days_time_availability' => $days_time_availability, 'getPropertyDetails'=>$getPropertyDetails,'getPropAmenities'=>$getPropAmenities,'getPropertyType'=>$getPropertyType,'getPropImages'=>$getPropImages,'getPropertyImagesFloorMap'=>$getPropertyImagesFloorMap,'getPropertyrent'=>$getPropertyrent,'getLandrent'=>$getLandrent,'module_id'=>$module_id,'land_type_id'=>$land_type_id,'unit_type_id'=>$unit_type_id,'NOoffloor'=>$NOoffloor,'parkingType'=>$parkingType]); 
     }
 
     public function bookProperty()
@@ -332,6 +333,7 @@ class BookingController extends Controller
 
       $data['finalprice'] = $this->calculatePrice($fromtime, $totime, $fromdate, $todate, $durationtype, $initialPrice);
 
+      //$b_id = array();
       if (isset($_SESSION['user']['user_id'])) {
 
 
@@ -374,9 +376,12 @@ class BookingController extends Controller
           'amount' => $data['finalprice'],
           'status_message' => 'Pending'
         ]);
+        $data['booking_id'] = $b_id;
+      } else {
+        $data['booking_id'] = '';
       }
       //return view
-      $data['booking_id'] = $b_id;
+      
       return view('front/pages/booking', $data);
     }
 

@@ -278,7 +278,7 @@ Route::get('/user/switchtohost','Front\UserController@switchtohost');
 Route::get('/user/switchtocustomer','Front\UserController@switchtocustomer');
 Route::get('/user/switchtohost','Front\UserController@switchtohost');
 Route::get('/addproperty','Front\PropertyController@addProperty')->middleware('UserAuth');
-Route::get('/editparking','Front\PropertyController@editParking')->middleware('UserAuth');
+Route::get('/user/editparking/{id}','Front\PropertyController@editParking')->middleware('UserAuth');
 Route::get('/editland','Front\PropertyController@editLand')->middleware('UserAuth');
 
 //Pages
@@ -310,6 +310,10 @@ Route::post('/frontend/saveProperty','Front\PropertyController@saveProperty');
 //Route to Search Property
 Route::get('/searchproperty/{module_id?}','Front\SearchPropertyController@SeachProperty');
 
+// Route::get('/bookNow', function() {
+//     Artisan::call('cache:clear');
+//     return "Cache is cleared";
+// });
 
 Route::get('/bookNow','Front\BookingController@bookNow');
 Route::get('/payment/process', 'Front\PaymentController@process')->name('payment.process');

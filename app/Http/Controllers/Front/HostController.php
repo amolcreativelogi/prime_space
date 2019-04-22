@@ -206,7 +206,7 @@ class HostController extends Controller
       $parking_type = request()->parking_type;
 
 
-		$query = DB::table('tbl_property_bookings')->select('*')->leftJoin('prk_add_property', 'prk_add_property.property_id', '=', 'tbl_property_bookings.property_id')->leftJoin('prk_user_registrations', 'prk_user_registrations.user_id', '=', 'tbl_property_bookings.user_id')->where('tbl_property_bookings.start_date', '>', date('Y-m-d'))->where('tbl_property_bookings.is_deleted', '=', 0)->where('prk_add_property.user_id', '=', $_SESSION['user']['user_id']);
+		$query = DB::table('tbl_property_bookings')->select('*')->leftJoin('prk_add_property', 'prk_add_property.property_id', '=', 'tbl_property_bookings.property_id')->leftJoin('prk_user_registrations', 'prk_user_registrations.user_id', '=', 'tbl_property_bookings.user_id')->where('tbl_property_bookings.start_date', '>=', date('Y-m-d'))->where('tbl_property_bookings.is_deleted', '=', 0)->where('prk_add_property.user_id', '=', $_SESSION['user']['user_id']);
 
 		if($parking_type) {
 

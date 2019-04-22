@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Model;
 
-use App\Mail\PropertyApprovedAdmin;
 
 use DB;
 
@@ -111,7 +110,6 @@ class ParkingController extends Controller
 		if($result)
 		{
 			$getParkingList = DB::table('prk_add_property')->select('email_id','property_id')->leftJoin('prk_user_registrations', 'prk_user_registrations.user_id', '=', 'prk_add_property.user_id')->where('prk_add_property.property_id', '=', $request->input('property_id'))->first();
-			Mail::to($getParkingList->email_id)->send(new PropertyApprovedAdmin);
 			echo 200;
 		} else {
 			echo 100;

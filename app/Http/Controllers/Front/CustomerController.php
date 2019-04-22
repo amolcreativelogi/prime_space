@@ -25,7 +25,8 @@ class CustomerController extends Controller
 	public function bookingHistory()
     {
         $bookingDatas = DB::table('tbl_property_bookings')
-                            ->join('prk_add_property', 'prk_add_property.property_id', 'tbl_property_bookings.property_id')->get();
+                            ->join('prk_add_property', 'prk_add_property.property_id', 'tbl_property_bookings.property_id') ->join('prk_user_registrations', 'prk_user_registrations.user_id', 'prk_add_property.user_id')->get();
+        
     	return view('front.customer.bookingHistory', compact('bookingDatas', $bookingDatas));
 	}
 	public function orderHistory()
