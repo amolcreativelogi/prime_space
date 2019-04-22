@@ -74,4 +74,8 @@ class PagesController extends Controller
     {
         return view('front.pages.aboutUs');      
     }
+    public function terms()
+    {
+        return view('front.pages.terms');      
+    }
 }

@@ -31,9 +31,15 @@
               <div class="row">
                 <div class="col-sm-3"></div>
                 <div class="col-sm-6">
-                  <div class="form-group field-updateprofileform-address required">
-                    <label class="control-label">Profile Image</label>
-                    <input type="file" class="form-control" name="profile_pic">
+                  <div class="form-group field-updateprofileform-address required updateprofileimg">
+                    <!-- <label class="control-label">Profile Image</label> -->
+                    <img id="blah" src="{{ URL::asset('public') }}/assets/front-design/images/user-icon.jpg" title="" alt="">
+                     <div class="box custom-fileinput">
+                        <input type="file" name="profile-img" id="profile-img" class="inputfile inputfile-6" onchange="readURL(this);" />
+                        <label for="profile-img"><strong>Choose profile picture</strong></label>
+                      </div>
+                    <!-- <input type='file' onchange="readURL(this);" /> -->
+                    <!-- <input type="file" class="form-control" name="profile_pic"> -->
                   </div>
                 </div>
                 <div class="col-sm-3"></div>
