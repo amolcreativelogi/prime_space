@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Model;
 
+
 use DB;
 
 class ParkingController extends Controller
@@ -108,6 +109,7 @@ class ParkingController extends Controller
 		$result  = DB::table('prk_add_property')->where('property_id', $request->input('property_id'))->update($data);
 		if($result)
 		{
+			$getParkingList = DB::table('prk_add_property')->select('email_id','property_id')->leftJoin('prk_user_registrations', 'prk_user_registrations.user_id', '=', 'prk_add_property.user_id')->where('prk_add_property.property_id', '=', $request->input('property_id'))->first();
 			echo 200;
 		} else {
 			echo 100;

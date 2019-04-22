@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ app()->getLocale() }}">
 <head>
 <meta charset="UTF-8">
 <title>Pryme Space</title>
@@ -15,7 +15,7 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2oRAljHGZArBeQc5OXY0MI5BBoQproWY&libraries=places"></script>
 
 <script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/jquery-1.11.3.min.js"></script>
-
+<script src="https://js.braintreegateway.com/web/dropin/1.8.1/js/dropin.min.js"></script>
 <script src="{{ URL::asset('public') }}/assets/front-design/js/jquery.validate.min.js"></script>
 
 
@@ -41,20 +41,24 @@
         <a href="#" data-toggle="modal" class="searchModal popuplink" data-target="#searchModal" onclick="getTopSerchModuleList()"><i class="fa fa-search" aria-hidden="true" ></i> Search</a>
          <nav class="navbar navbar-default pullright">
             <ul class="nav navbar-nav">
-              <li class="demandpark"><a href="#">Try on-demand parking</a></li>
-              <li class="dropdown"><a href="#" dropdown-toggle data-toggle="dropdown">Get started <span class="caret"></span></a>
-              <!-- <ul class="dropdown-menu">
-                <li><a href="#">Get started</a></li>
-                <li><a href="#">Get started</a></li>
-                <li><a href="#">Get started</a></li>
-              </ul> -->
-              </li>
+              <li class="demandpark"><a href="<?php echo URL::to('/searchproperty?module_id=2&fromdate=04.19.2019&todate=04.19.2019&fromtime=00:00:01&totime=23:59:00&latitude=&longitude=&location=&car_type_id=&location_type_id=&land_type_id=&activeTab=daily&duration_type_id=2'); ?>">Try on-demand parking</a></li>
+              
+              <!-- <li class="dropdown"><a href="#" dropdown-toggle" data-toggle="dropdown">Get started <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Get started</a></li>
+                  <li><a href="#">Get started</a></li>
+                  <li><a href="#">Get started</a></li>
+                </ul>
+              </li> -->
               <li><a href="#">Help</a></li>
               <?php
               if(isset($_SESSION['user']['is_user_login'])) { ?>
               <div class="afterloginbox">
+                <a href="<?php echo URL::to('messages'); ?>" class="head-msg"><i class="fa fa-envelope-o" aria-hidden="true"></i></a>
+                
+                <a href="<?php echo URL::to('notification'); ?>" class="head-notification"><i class="fa fa-bell" aria-hidden="true"></i><span class="not-count">20</span></a>
               <ul>
-                 <li class="dropdown"><a href="#" dropdown-toggle="" data-toggle="dropdown" aria-expanded="false"><img src="http://alkurn.info/html/Prymespace/images/test-author-03.jpg" alt=""><?php echo $_SESSION['user']['firstname']; ?> <span class="caret"></span></a>
+                 <li class="dropdown"><a href="#" dropdown-toggle="" data-toggle="dropdown" aria-expanded="false"><img src="{{ URL::asset('/') }}storage/app/<?php echo($_SESSION['user']['profile_pic']); ?>" alt=""><?php echo $_SESSION['user']['firstname']; ?> <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="<?php echo ($_SESSION['user']['user_type_permission'] == 'host') ?  URL::to('user/host') :  URL::to('user/customer'); ?>">dashboard</a></li>
                   <?php if($_SESSION['user']['user_type_id'] == 5) { 
@@ -65,7 +69,7 @@
                   <li><a href="<?php echo URL::to('user/switchtocustomer'); ?>">Switch to Customer</a></li>
                    <?php } } ?>
                   <li><a href="<?php echo URL::to('user/editprofile/'.$_SESSION['user']['user_id']); ?>">edit profile</a></li>
-                  <li><a href="#">Account Setting </a></li>
+                  <li><a href="<?php echo URL::to('accountSetting'); ?>">Account Setting </a></li>
                   <li><a href="<?php echo URL::to('/user/logout'); ?>">logout</a></li>
                 </ul>
                 </li>
@@ -102,6 +106,44 @@ $module_manage_id=(isset($_GET['module_id']) && !empty($_GET['module_id']))?$_GE
 <script type="text/javascript">
 function searchURL(){
 
+    if( $('#select-property-type').val() == '')
+    {   
+        $('.from_parkingtype').css('margin-top','-12px');
+        $('.from_parkingtype').css('margin-bottom',' 5px');
+        $('.from_parkingtype').html('Please select parking type');
+        //$('#select-property-type').css('border','1px solid red');
+        return false;
+    } else {
+       $('.from_parkingtype').css('margin-top','0px');
+       $('.from_parkingtype').css('margin-bottom','0px');
+       $('.from_parkingtype').html('');
+       // $('#select-property-type').css('border','1px solid #0000');
+    }
+
+    if( $('#location').val() == '')
+    {
+        $('.from_location').css('margin-top','-12px');
+        $('.from_location').css('margin-bottom',' 5px');
+        $('.from_location').html('Please select location');
+        return false;
+    } else {
+        $('.from_location').css('margin-top','0px');
+        $('.from_location').css('margin-bottom','0px');
+        $('.from_location').html('');
+    }
+
+    if( $('#search_dates1').val() == '')
+    {   
+        $('.from_search_dates').css('margin-top','-12px');
+        $('.from_search_dates').css('margin-bottom',' 5px');
+        $('.from_search_dates').html('Please select date');
+        return false;
+    } else {
+        $('.from_search_dates').css('margin-top','0px');
+        $('.from_search_dates').css('margin-bottom','0px');
+        $('.from_search_dates').html('');
+    }
+
     //get amenity
     var amenity = [];
     $.each($("input[name='data[amenities][]']:checked"), function(){            
@@ -114,7 +156,7 @@ function searchURL(){
     //default date time
     var fromdate = getCurrentDate();
     var todate =   getCurrentDate();
-    var fromtime = '00:00:01';
+    var fromtime = '00:00:01'; 
     var totime= '23:59:00';
     var activeTab = "daily";
     var duration_type_id = 2;
@@ -140,32 +182,112 @@ function searchURL(){
     var searchFormId=$("a.active").attr('href');
     var searchFormLand=$("#nav-tab1 a.active").attr('href');
     
-    var car_type_id = '1';
+    var car_type_id = '';
     var land_type_id =  '2';
     var location_type_id ='';
 
     if(module_id == 2) {
         location_type_id = ( $('#location_type_id').val()) ?  $('#location_type_id').val() : '';
         if(searchFormId == '#monthly'){
+
+          if( $('#monthlyFrmlocation').val() == '')
+           {   
+              $('.from_parkingtypem').html('Please select location');
+              //$('#select-property-type').css('border','1px solid red');
+              return false;
+           } else {
+             $('.from_parkingtypem').html('');
+             // $('#select-property-type').css('border','1px solid #0000');
+           }
+
+           if( $('#monthly_from').val() == '')
+           { 
+              $('.from_datem').html('Please select from date');
+              return false;
+           } else {
+              $('.from_datem').html('');
+           }
+
+           if( $('#monthly_to').val() == '')
+           {   
+              $('.from_todate_datesm').html('Please select to date');
+              return false;
+           } else {
+              $('.from_todate_datesm').html('');
+           }
            fromdate = $('#monthly_from').val(); 
            todate =   $('#monthly_to').val();
            location = $('#monthlyFrmlocation').val();
            latitude = $('#monthlyFrmLatitude').val(); 
            longitude = $('#monthlyFrmLongitude').val();
-           car_type_id = ( $('#car_type_id').val()) ?  $('#car_type_id').val() : '1';
+           car_type_id = ( $('#car_type_id').val()) ?  $('#car_type_id').val() : '';
            activeTab = "monthly";
            duration_type_id=3;
         } else if(searchFormId == '#daily'){
+
+           if( $('#dailyFrmlocation').val() == '')
+           {   
+              $('.from_parkingtyped').html('Please select location');
+              //$('#select-property-type').css('border','1px solid red');
+              return false;
+           } else {
+             $('.from_parkingtyped').html('');
+             // $('#select-property-type').css('border','1px solid #0000');
+           }
+
+           if( $('#from').val() == '')
+           { 
+              $('.from_dated').html('Please select from date');
+              return false;
+           } else {
+              $('.from_dated').html('');
+           }
+
+           if( $('#to').val() == '')
+           {   
+              $('.from_todate_datesd').html('Please select to date');
+              return false;
+           } else {
+              $('.from_todate_datesd').html('');
+           }
+
            fromdate = $('#from').val(); 
            todate =   $('#to').val();
            location = $('#dailyFrmlocation').val();
            latitude = $('#dailyFrmLatitude').val(); 
            longitude = $('#dailyFrmLongitude').val();
-           car_type_id = ( $('#car_type_id').val()) ?  $('#car_type_id').val() : '1';
+           car_type_id = ( $('#car_type_id').val()) ?  $('#car_type_id').val() : '';
            activeTab = "daily";
            duration_type_id=2;
         }
         else if(searchFormId == '#hourly'){
+
+          if( $('#hrlyFrmlocation').val() == '')
+          {   
+              $('.from_parkingtypeh').html('Please select location');
+              //$('#select-property-type').css('border','1px solid red');
+              return false;
+          } else {
+             $('.from_parkingtypeh').html('');
+             // $('#select-property-type').css('border','1px solid #0000');
+          }
+
+          if( $('#from_date').val() == '')
+          { 
+              $('.from_dateh').html('Please select from date');
+              return false;
+          } else {
+              $('.from_dateh').html('');
+          }
+
+           if( $('#to_date').val() == '')
+           {   
+              $('.from_todate_datesh').html('Please select to date');
+              return false;
+           } else {
+              $('.from_todate_datesh').html('');
+           }
+           
            var str = $('#from_date').val();
            var from_date = str.split(' ');
            var str1 = $('#to_date').val();
@@ -177,7 +299,7 @@ function searchURL(){
            location = $('#hrlyFrmlocation').val();
            latitude = $('#hrlyFrmLatitude').val(); 
            longitude = $('#hrlyFrmLongitude').val();
-           car_type_id = ( $('#car_type_id').val()) ?  $('#car_type_id').val() : '1';
+           car_type_id = ( $('#car_type_id').val()) ?  $('#car_type_id').val() : '';
            activeTab = "hourly";
            duration_type_id=1;
         }else{
@@ -239,6 +361,46 @@ function searchURL(){
 
 function topPrpertySearch()
 {
+    if( $('#select-property-type-top').val() == '')
+    {
+        $('.from_parkingtype1').css('margin-top','-12px');
+        $('.from_parkingtype1').css('margin-bottom',' 5px');
+        $('.from_parkingtype1').html('Please select parking type');
+        //$('#select-property-type').css('border','1px solid red');
+        return false;
+    } else {
+       $('.from_parkingtype1').css('margin-top','0px');
+       $('.from_parkingtype1').css('margin-bottom','0px');
+       $('.from_parkingtype1').html('');
+       // $('#select-property-type').css('border','1px solid #0000');
+    }
+
+    if( $('#location-top-search').val() == '')
+    {
+         $('.from_location1').css('margin-top','-12px');
+        $('.from_location1').css('margin-bottom',' 5px');
+        $('.from_location1').html('Please select location');
+        return false;
+    } else {
+        $('.from_location1').css('margin-top','0px');
+        $('.from_location1').css('margin-bottom','0px');
+        $('.from_location1').html('');
+    }
+
+    if( $('#search_dates').val() == '')
+    {
+        $('.from_search_dates1').css('margin-top','-12px');
+        $('.from_search_dates1').css('margin-bottom',' 5px');
+        $('.from_search_dates1').html('Please select date');
+        //$('#select-property-type').css('border','1px solid red');
+        return false;
+    } else {
+       $('.from_search_dates1').css('margin-top','0px');
+       $('.from_search_dates1').css('margin-bottom','0px');
+       $('.from_search_dates1').html('');
+       // $('#select-property-type').css('border','1px solid #0000');
+    }
+
     var module_id = ($('#select-property-type-top').val())?$('#select-property-type-top').val():'2';
 
     var amenities = '<?= Request::get('amenities')?>';
@@ -275,7 +437,7 @@ function topPrpertySearch()
 
     }
     //create url
-    var url = "<?php echo URL('/') ?>/searchproperty?module_id="+module_id+"&fromdate="+fromdate+"&todate="+todate+"&fromtime="+fromtime+"&totime="+totime+"&latitude="+latitude+"&longitude="+longitude+"&location="+location+"&car_type_id=1"+"&location_type_id="+location_type_id+"&land_type_id=2"+"&activeTab="+activeTab+"&duration_type_id="+duration_type_id+"&amenities="+amenities;
+    var url = "<?php echo URL('/') ?>/searchproperty?module_id="+module_id+"&fromdate="+fromdate+"&todate="+todate+"&fromtime="+fromtime+"&totime="+totime+"&latitude="+latitude+"&longitude="+longitude+"&location="+location+"&car_type_id="+"&location_type_id="+location_type_id+"&land_type_id=2"+"&activeTab="+activeTab+"&duration_type_id="+duration_type_id+"&amenities="+amenities;
     //redirect url
      window.location = url;
 }

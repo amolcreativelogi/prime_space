@@ -9,7 +9,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\URL;
 use DB;
 
-use Mail; 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ForgotPass;
+use App\Mail\EmailConfirmation;
+use App\Mail\ChangePassword;
 
 class UserController extends Controller
 {
@@ -54,6 +57,9 @@ class UserController extends Controller
 					$data = array('status' => true,
 								  'response' => array('msg' =>'Registered Successfully.'),'url' => '');
 
+					
+		            //Mail::to($request->input('email_id'))->send(new EmailConfirmation);
+
 					// if($request->input('user_type_id') == 2)
 					// {
 					// 		$data = array('status' => true,
@@ -97,7 +103,8 @@ class UserController extends Controller
 
 	public function userLogin(Request $request)
 	{
-	
+		
+       
 		$getuserLogin = DB::table('prk_user_registrations')->select('user_id','user_type_id','default_user_type','status','firstname','is_deleted','profile_pic')->where('is_deleted', '=', 0)->where('email_id', '=', $request->input('email_id'))->where('password', '=', md5($request->input('password')))->first();
 		$array = array();
     	if($getuserLogin)
@@ -137,21 +144,40 @@ class UserController extends Controller
 	//forgot password
 	public function resetPassword(Request $request)
 	{	
-		$getuserDetails = DB::table('prk_user_registrations')->select('user_id','user_type_id','default_user_type','status')->where('email_id', '=', $request->input('email_id'))->first();
-		if($getuserDetails)
-		{
-			//forgot password link send on email
-			$data = array('status' => true,
-						  'response' =>  array('msg' =>'An email has been sent to the registered email address. Follow the instruction in the email to reset your password.'),'url' => '');	
+		
+		$data = array(
+			'access_token'=> str_random(32),
+		);
+
+		$forgot_pass  = DB::table('prk_user_registrations')->where('email_id', $request->input('email_id'))->update($data);
+		if($forgot_pass){
+		 $mail_to = $request->input('email_id');
+		 //Mail::to($mail_to)->send(new ForgotPass($data));
+		 $data = array('status' => true,
+		 'response' =>  array('msg' =>'An email has been sent to the registered email address. Follow the instruction in the email to reset your password.'),'url' => '');	
 		}
-		else
+        else
 		{
 			$data = array('status' => false,
-						  'response' =>  array('msg' =>'Invalid email id.'),'url' => '');	
+						  'response' =>  array('msg' =>'Email Address Does Not Exist.'),'url' => '');	
 		}
 		echo json_encode($data);
 		exit;
 	}
+
+	public function getForgotpass(){
+		return view('front.pages.getforgotpass');
+	}
+
+	public function submitForgotpass(Request $request){
+		$request->validate([ 'password' => ['required', 'string', 'min:6', 'confirmed']]);
+		$success_password  = DB::table('prk_user_registrations')->where('access_token', $request->input('access_token'))->update(['password'=>md5($request->input('password'))]);
+		if ($success_password){
+			return back()->with('success', 'Your Password Has Been Changed Successfully.');
+		}
+	}
+
+
 
 	public function userlogout()
 	{
@@ -189,17 +215,25 @@ class UserController extends Controller
 	}
 
 	public function updatesaveprofile(Request $request)
-	{
-		 $image = $request->file('profile_pic');
-		 if($image)
+	{	 
+		if( $request->file('profile_pic')){
+			$image = $request->file('profile_pic')->store('userprofile');
+			$result  = DB::table('prk_user_registrations')->where('user_id', $request->input('user_id'))->update(['profile_pic' => $image]);
+			$_SESSION['user']['profile_pic'] = $image;
+		}
+
+
+		/* if($image)
 		 {
-		 $imagename = strtolower(trim($request->input('firstname'))).'.'.$image->getClientOriginalExtension();
-		 $destinationPath = public_path('/images/user-profile');
-		 $amenities_image = $image->move($destinationPath,$imagename);
+		 //$imagename = strtolower(trim($request->input('firstname'))).'.'.$image->getClientOriginalExtension();
+		 //$destinationPath = public_path('/images/user-profile');
+		 //$amenities_image = $image->move($destinationPath,$imagename);
 		 $image = $imagename;
 		 } else {
 			$image = $request->input('edit_profile_pic');
-		 }
+		 }*/
+
+
 		$data = array(
 					'firstname'=>$request->input('firstname'),
 					'lastname'=>$request->input('lastname'),
@@ -208,8 +242,7 @@ class UserController extends Controller
 					'zipcode'=>$request->input('zipcode'),
 					'city'=>$request->input('city'),
 					'user_latitude'=>$request->input('latitude'),
-					'user_longitude'=>$request->input('longitude'),
-					'profile_pic'=>$image
+					'user_longitude'=>$request->input('longitude')
     				 );
 
 		$result  = DB::table('prk_user_registrations')->where('user_id', $request->input('user_id'))->update($data);
@@ -220,16 +253,46 @@ class UserController extends Controller
 		{
 			$_SESSION['user']['firstname'] = $request->input('firstname');
 			$_SESSION['user']['profile_pic'] = $image;
+			return back()->with(['success' => "Your profile has been updated successfully."]);
 			//forgot password link send on email
-			$data = array('status' => true,
-						  'response' =>  array('msg' =>'Your profile has been updated successfully.'),'url' => '');	
+			//$data = array('status' => true,
+			//			  'response' =>  array('msg' =>'Your profile has been updated successfully.'),'url' => '');	
 		}
 		else
 		{
-			$data = array('status' => false,
-						  'response' =>  array('msg' =>'Your profile not has been updated.'),'url' => '');	
+			return back()->with(['success' => "Your profile not has been updated."]);
+			//$data = array('status' => false,
+			//			  'response' =>  array('msg' =>'Your profile not has been updated.'),'url' => '');	
 		}
 		echo json_encode($data);
 		exit;
 	}
+
+
+	public function accountSetting(){
+		return view('front.pages.accountSetting');
+	}
+
+	public function submitNewPassword(Request $request){
+
+
+		 $user_id = $_SESSION['user']['user_id'];
+		$oldPass = md5($request->input('current_pass'));
+		$result  = DB::table('prk_user_registrations')->where('user_id', $user_id)->where('password', $oldPass)->first();
+		if ($result == NULL){
+			return back()->with('error',"Current Password Does'nt Match");
+		}
+		
+
+		$request->validate([ 'password' => ['required', 'string', 'min:6', 'confirmed']]);
+
+		$data = array('password'=>md5($request->input('confirm_password')));
+
+		$update  = DB::table('prk_user_registrations')->where('user_id', $user_id)->update($data);
+		if($update){
+			//Mail::to($result->email_id)->send(new ChangePassword);
+			return back()->with('success', 'Your password has been changed successfully.');
+		}
+	}
+
 }

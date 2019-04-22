@@ -10,6 +10,7 @@ use Intervention\Image\Facades\Image;
 //validation file
 use App\Http\Requests\Frontend\PropertyRequest;
 
+
 class PropertyController extends Controller
 {
     public function addProperty($module_manage_id = NULL)
@@ -335,6 +336,7 @@ class PropertyController extends Controller
                   //Add Booking Durition
                   //exit;
                   $inserAmenitiesArr=[];
+                  if(isset($request['data']['amenities'])) {
                   foreach ($request['data']['amenities'] as $value) {
                                 # code...
                                 if(!empty($value)) {
@@ -350,7 +352,8 @@ class PropertyController extends Controller
                             }
                             $insertPropFloorData  = DB::table($tbl_prefix.'add_property_amenities')->insert($inserAmenitiesArr);
                             //print_r($propFloorDetails);die('in');
-                    }
+                   }
+                   }
                     
                    //Code for upload image, floor map and doc
                    if($request->hasfile('property_images'))
@@ -505,6 +508,7 @@ class PropertyController extends Controller
                       'response' => array('msg' =>'Thank you for adding Land. Please wait for Admin approval.')); 
             //echo 4;exit;  
         }
+        $getParkingList = DB::table('prk_add_property')->select('email_id','property_id')->leftJoin('prk_user_registrations', 'prk_user_registrations.user_id', '=', 'prk_add_property.user_id')->where('prk_add_property.property_id', '=', $propertyId)->first();
         echo json_encode($data);
          //echo '{code:200,msg:success}';
     }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Model;
 
+
 use DB;
 
 class BookingController extends Controller

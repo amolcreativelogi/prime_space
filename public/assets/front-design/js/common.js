@@ -11,7 +11,10 @@ $('#homeban-text').owlCarousel({
     loop:true,
     margin:0,
     nav:true,
-    animateIn: 'fadeIn',
+    autoplay:true,
+    autoplayTimeout:1000,
+    mouseDrag: true,
+    singleItem: true,
     slideSpeed: 300,
     paginationSpeed: 400,
     responsive:{
@@ -33,8 +36,10 @@ $('#whatabout').owlCarousel({
     margin:0,
     nav:true,
     autoplay:true,
-    autoplayTimeout:3000,
-    autoplayHoverPause:true,
+    autoplayTimeout:1000,
+    mouseDrag: true,
+    singleItem: true,
+    //autoplayHoverPause:true,
     responsive:{
         0:{
             items:1
@@ -52,6 +57,10 @@ $('#book-space').owlCarousel({
     loop:true,
     margin:30,
     nav:true,
+    autoplay:true,
+    autoplayTimeout:1000,
+    mouseDrag: true,
+    singleItem: true,
     responsive:{
         0:{
             items:1
@@ -88,7 +97,8 @@ $('#testimonial').owlCarousel({
     nav:true,
     slideSpeed: 300,
     paginationSpeed: 400,
-    autoPlay: true,
+    autoplay:true,
+    autoplayTimeout:1000,
     mouseDrag: true,
     singleItem: true,
     //animateIn: 'fadeIn',
@@ -275,6 +285,8 @@ $(function() {
 
 
 
+
+
 $(function() {
   $('.select-property-type').change(function(){
     $('.parking-slection').hide();
@@ -356,6 +368,11 @@ $(function () {
 });
 
 
+// Add property last button hide
+
+
+
+
 $(function() {
 $("#sunday-checkbox").click(function(){
  $(".sunday-row").toggleClass("hide-row");
@@ -364,10 +381,10 @@ $("#sunday-sethrs").click(function(){
  $("#sunday-from").toggleClass("open");
  $("#sunday-to").toggleClass("open");
 });
-$("#sunday-allday").click(function(){
- $("#sunday-from").toggleClass("open");
- $("#sunday-to").toggleClass("open");
-});
+// $("#sunday-allday").click(function(){
+//  $("#sunday-from").toggleClass("open");
+//  $("#sunday-to").toggleClass("open");
+// });
 
 $("#monday-checkbox").click(function(){
  $(".monday-row").toggleClass("hide-row");
@@ -376,10 +393,10 @@ $("#monday-sethrs").click(function(){
  $("#monday-from").toggleClass("open");
  $("#monday-to").toggleClass("open");
 });
-$("#monday-allday").click(function(){
- $("#monday-from").toggleClass("open");
- $("#monday-to").toggleClass("open");
-});
+// $("#monday-allday").click(function(){
+//  $("#monday-from").toggleClass("open");
+//  $("#monday-to").toggleClass("open");
+// });
 
 $("#tuesday-checkbox").click(function(){
  $(".tuesday-row").toggleClass("hide-row");
@@ -388,10 +405,10 @@ $("#tuesday-sethrs").click(function(){
  $("#tuesday-from").toggleClass("open");
  $("#tuesday-to").toggleClass("open");
 });
-$("#tuesday-allday").click(function(){
- $("#tuesday-from").toggleClass("open");
- $("#tuesday-to").toggleClass("open");
-});
+// $("#tuesday-allday").click(function(){
+//  $("#tuesday-from").toggleClass("open");
+//  $("#tuesday-to").toggleClass("open");
+// });
 
 $("#wednesday-checkbox").click(function(){
  $(".wednesday-row").toggleClass("hide-row");
@@ -400,10 +417,10 @@ $("#wednesday-sethrs").click(function(){
  $("#wednesday-from").toggleClass("open");
  $("#wednesday-to").toggleClass("open");
 });
-$("#wednesday-allday").click(function(){
- $("#wednesday-from").toggleClass("open");
- $("#wednesday-to").toggleClass("open");
-});
+// $("#wednesday-allday").click(function(){
+//  $("#wednesday-from").toggleClass("open");
+//  $("#wednesday-to").toggleClass("open");
+// });
 
 $("#thursday-checkbox").click(function(){
  $(".thursday-row").toggleClass("hide-row");
@@ -412,10 +429,10 @@ $("#thursday-sethrs").click(function(){
  $("#thursday-from").toggleClass("open");
  $("#thursday-to").toggleClass("open");
 });
-$("#thursday-allday").click(function(){
- $("#thursday-from").toggleClass("open");
- $("#thursday-to").toggleClass("open");
-});
+// $("#thursday-allday").click(function(){
+//  $("#thursday-from").toggleClass("open");
+//  $("#thursday-to").toggleClass("open");
+// });
 
 $("#friday-checkbox").click(function(){
  $(".friday-row").toggleClass("hide-row");
@@ -424,10 +441,10 @@ $("#friday-sethrs").click(function(){
  $("#friday-from").toggleClass("open");
  $("#friday-to").toggleClass("open");
 });
-$("#friday-allday").click(function(){
- $("#friday-from").toggleClass("open");
- $("#friday-to").toggleClass("open");
-});
+// $("#friday-allday").click(function(){
+//  $("#friday-from").toggleClass("open");
+//  $("#friday-to").toggleClass("open");
+// });
 
 $("#saturday-checkbox").click(function(){
  $(".saturday-row").toggleClass("hide-row");
@@ -436,10 +453,10 @@ $("#saturday-sethrs").click(function(){
  $("#saturday-from").toggleClass("open");
  $("#saturday-to").toggleClass("open");
 });
-$("#saturday-allday").click(function(){
- $("#saturday-from").toggleClass("open");
- $("#saturday-to").toggleClass("open");
-});
+// $("#saturday-allday").click(function(){
+//  $("#saturday-from").toggleClass("open");
+//  $("#saturday-to").toggleClass("open");
+// });
 
 });
 
@@ -572,7 +589,22 @@ function calculateGrandTotal() {
 }
 
 
+// Dashboard Menu Active
+var selector = '.dash-menu li';
 
+$(selector).on('click', function(){
+    $(selector).removeClass('active');
+    $(this).addClass('active');
+    return false;
+});
+
+
+// Checkbox click
+$(document).ready(function(){
+    $(".aminities-list li input").click(function(){
+      $(".aminities-list li input").toggleClass("selected");
+    });
+});
 
 
 
