@@ -10,7 +10,6 @@ use Intervention\Image\Facades\Image;
 //validation file
 use App\Http\Requests\Frontend\PropertyRequest;
 
-use App\Mail\PropertyAddedSuccess;
 
 class PropertyController extends Controller
 {
@@ -510,7 +509,6 @@ class PropertyController extends Controller
             //echo 4;exit;  
         }
         $getParkingList = DB::table('prk_add_property')->select('email_id','property_id')->leftJoin('prk_user_registrations', 'prk_user_registrations.user_id', '=', 'prk_add_property.user_id')->where('prk_add_property.property_id', '=', $propertyId)->first();
-        Mail::to($getParkingList->email_id)->send(new PropertyAddedSuccess);
         echo json_encode($data);
          //echo '{code:200,msg:success}';
     }

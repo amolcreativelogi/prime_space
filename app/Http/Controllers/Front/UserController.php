@@ -58,7 +58,7 @@ class UserController extends Controller
 								  'response' => array('msg' =>'Registered Successfully.'),'url' => '');
 
 					
-		            Mail::to($request->input('email_id'))->send(new EmailConfirmation);
+		            //Mail::to($request->input('email_id'))->send(new EmailConfirmation);
 
 					// if($request->input('user_type_id') == 2)
 					// {
@@ -103,7 +103,8 @@ class UserController extends Controller
 
 	public function userLogin(Request $request)
 	{
-	
+		
+       
 		$getuserLogin = DB::table('prk_user_registrations')->select('user_id','user_type_id','default_user_type','status','firstname','is_deleted','profile_pic')->where('is_deleted', '=', 0)->where('email_id', '=', $request->input('email_id'))->where('password', '=', md5($request->input('password')))->first();
 		$array = array();
     	if($getuserLogin)
@@ -151,7 +152,7 @@ class UserController extends Controller
 		$forgot_pass  = DB::table('prk_user_registrations')->where('email_id', $request->input('email_id'))->update($data);
 		if($forgot_pass){
 		 $mail_to = $request->input('email_id');
-		 Mail::to($mail_to)->send(new ForgotPass($data));
+		 //Mail::to($mail_to)->send(new ForgotPass($data));
 		 $data = array('status' => true,
 		 'response' =>  array('msg' =>'An email has been sent to the registered email address. Follow the instruction in the email to reset your password.'),'url' => '');	
 		}
@@ -289,7 +290,7 @@ class UserController extends Controller
 
 		$update  = DB::table('prk_user_registrations')->where('user_id', $user_id)->update($data);
 		if($update){
-			Mail::to($result->email_id)->send(new ChangePassword);
+			//Mail::to($result->email_id)->send(new ChangePassword);
 			return back()->with('success', 'Your password has been changed successfully.');
 		}
 	}

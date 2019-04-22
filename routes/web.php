@@ -309,6 +309,10 @@ Route::post('/frontend/saveProperty','Front\PropertyController@saveProperty');
 //Route to Search Property
 Route::get('/searchproperty/{module_id?}','Front\SearchPropertyController@SeachProperty');
 
+// Route::get('/bookNow', function() {
+//     Artisan::call('cache:clear');
+//     return "Cache is cleared";
+// });
 
 Route::get('/bookNow','Front\BookingController@bookNow');
 Route::get('/payment/process', 'Front\PaymentController@process')->name('payment.process');
