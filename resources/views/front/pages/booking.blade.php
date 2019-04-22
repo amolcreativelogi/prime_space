@@ -76,6 +76,10 @@
 </div>
 </div>
 <hr>
+<div class="paymentbox">
+	<div id="dropin-container"></div>
+	<button id="submit-button">Request payment method</button>
+</div>
 <div class="your-info" style="display:none;">
 <h3>Payment Method</h3>
 <div class="row">
@@ -93,6 +97,7 @@
 <input type="text" class="form-control" placeholder="Month" > /
 <input type="text" class="form-control" placeholder="Year" >
 </div>
+
 </div>
 <div class="col-sm-4">
 <div class="form-group">
@@ -147,8 +152,8 @@ $image = 'No Image';
 </div>
 </div>
 <div class="col-md-8 col-md-offset-2" style="top:-120px;">
-<div id="dropin-container"></div>
-<button id="submit-button">Request payment method</button>
+<!-- <div id="dropin-container"></div>
+<button id="submit-button">Request payment method</button> -->
 </div>
 </div>
 </div>
