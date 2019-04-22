@@ -27,37 +27,30 @@
                 <div id="ep01" class="tab-pane fade in active">
                     <div class="stepbox">
                       <h3>Property Information</h3>
-                      <input type="text" name="data[property_name]" id="property_name" placeholder="Property Name ">
-                      <select id="select-property-type" name="module_manage_id" class="type" onchange="getProprtyMasters(this.value)">
-                        <option value="">Select Property</option>
-                        <option value="2">Parking</option>
-                        <option value="3">Land</option>
-                        <option value="4">Industry</option>
-                        <option value="5">Developement</option>
+                      <input type="text" name="data[property_name]" id="property_name" placeholder="Property Name" value="<?php echo (isset($parking->name)) ? $parking->name : ''; ?>">
+                      <select id="select-property-type" name="module_manage_id" class="type" >
+                        <option value="2" selected="selected">Parking</option>
                       </select>
                               
-                      <input type="text" name="data[location]" id="location-property" placeholder="Location" autocomplete="off">
-                      <input type="text" name="data[zip_code]" id="zip_code" placeholder="Enter Property Zip Code">
-                      <textarea placeholder="Property description" name="data[property_description]" id="property_description" cols="6"></textarea>
+                      <input type="text" name="data[location]" id="location-property" placeholder="Location" autocomplete="off" value="<?php echo (isset($parking->location)) ? $parking->location : ''; ?>">
+
+                      <input type="hidden" id="city-property" name="city">
+                      <input type="hidden" name="data[latitude]" id="latitude-property" value="<?php echo (isset($parking->latitude)) ? $parking->latitude : ''; ?>">
+                      <input type="hidden" name="data[longitude]" id="longitude-property" value="<?php echo (isset($parking->latitude)) ? $parking->latitude : ''; ?>">
+
+                      <input type="text" name="data[zip_code]" id="zip_code" placeholder="Enter Property Zip Code" value="<?php echo (isset($parking->zip_code)) ? $parking->zip_code : ''; ?>">
+                      <textarea placeholder="Property description" name="data[property_description]" id="property_description" cols="6"><?php echo (isset($parking->description)) ? $parking->description : ''; ?></textarea>
                       <div class="box">
-                        <input type="file" name="" id="" multiple="" >
+                        <input type="file" name="property_images[]" multiple="" >
                         <div class="row">
+
+                          <?php foreach($getPropertyImages as $pimage) { ?>
                           <div class="column">
-                          	<img src="{{ URL::asset('public') }}/assets/front-design/images/discoverpsace01.jpg" alt="">
+                          	<img src="<?php echo URL::asset('public/images/properties/'.$pimage->name.''); ?>" alt="">
                             <a href=""><i class="fa fa-times-circle" aria-hidden="true"></i></a>
                           </div>
-                          <div class="column">
-                            <img src="{{ URL::asset('public') }}/assets/front-design/images/discoverpsace01.jpg" alt="">
-                            <a href=""><i class="fa fa-times-circle" aria-hidden="true"></i></a>
-                          </div>
-                          <div class="column">
-                            <img src="{{ URL::asset('public') }}/assets/front-design/images/discoverpsace01.jpg" alt="">
-                            <a href=""><i class="fa fa-times-circle" aria-hidden="true"></i></a>
-                          </div>
-                          <div class="column">
-                            <img src="{{ URL::asset('public') }}/assets/front-design/images/discoverpsace01.jpg" alt="">
-                            <a href=""><i class="fa fa-times-circle" aria-hidden="true"></i></a>
-                          </div>
+                          <?php } ?>
+                          
                         </div>
 
                       </div>
@@ -70,12 +63,14 @@
                     <div class="stepbox">
                         <h3>Property Floor Map</h3>
                         <div class="box">
-                          <input type="file" name="" id="" multiple="" >
+                          <input type="file" name="property_map[]" id="" multiple="" >
                           <div class="row">
-                            <div class="column">
-                            	<img src="{{ URL::asset('public') }}/assets/front-design/images/floormap.jpg" alt="">
-                              <a href=""><i class="fa fa-times-circle" aria-hidden="true"></i></a>
-                            </div>
+                            <?php foreach($getPropertyFloorMap as $floorMap) { ?>
+                              <div class="column">
+                                <img src="<?php echo URL::asset('public/images/property-floor-map/'.$floorMap->name.''); ?>" alt="">
+                                <a href=""><i class="fa fa-times-circle" aria-hidden="true"></i></a>
+                              </div>
+                              <?php } ?>
                           </div>
                         </div>
                         <input type="button" name="next" class="next action-button" value="Save">
@@ -89,26 +84,33 @@
                       <label>Enter Property Floors Parking spots</label>
 						  <table id="myTable" class=" table order-list1">
 						    <tbody>
+
+
+                    <?php foreach($getAddParkingSpot as $spot) {  ?>
 						        <tr>
 						            <td class="col-sm-4">
-						                <input type="text" name="" placeholder="Enter floor name">
+						               <input type="text" name="data[parking][floor_name][]" placeholder="Enter floor name" value="<?php echo (isset($spot->floor_name)) ? $spot->floor_name : ''; ?>">
 						            </td>
 						            <td class="col-sm-4">
-						                <select>
-						                  <option>Parking Type </option>
-						                  <option>Self </option>
-						                  <option>Valet </option>
-						                  <option>Reserved </option>
-						                  <option>Handicap </option>
-						                </select>
+						               <select name="data[parking][parking_type_id][]">
+                           <option value="">Parking Type</option>
+                          @if(!empty($getParkingType))
+                            @foreach($getParkingType as $parkingType)
+                              <option value="<?= $parkingType->parking_type_id?>" <?php echo ($spot->parking_type_id == $parkingType->parking_type_id) ? 'selected' : ''; ?>><?= $parkingType->parking_type ?></option>
+                            @endForEach
+                          @endIf
+                          </select>
 						            </td>
 						            <td class="col-sm-3">
-						                <input type="text" name="" placeholder="Total Parking spots ">
+						                <input type="text" name="data[parking][total_parking_spots][]" placeholder="Total Parking spots" value="<?php echo (isset($spot->total_parking_spots)) ? $spot->total_parking_spots : ''; ?>">
 						            </td>
 						            <td class="col-sm-2"><a class="deleteRow"></a>
-
 						            </td>
 						        </tr>
+                    <?php } ?>
+
+
+
 						    </tbody>
 						    <tfoot>
 						        <tr>
@@ -126,26 +128,28 @@
 						    <tbody>
 						        <tr>
 						            <td class="col-sm-3">
-						              <select>
-						                  <option>Car Type</option>
-						                  <option>Hatchback  </option>
-						                  <option>Sedan  </option>
-						                  <option>MPV  </option>
-						                  <option>SUV </option>
-						                  <option>Crossover </option>
-						                  <option>Coupe  </option>
-						                  <option>Convertibl </option>
-						                </select>
+						             <select name="data[parking][car_type_id][]">
+                         <option value="">Car Type</option>
+                        @if(!empty($getCarType))
+                          @foreach($getCarType as $carType)
+                            <option value="<?= $carType->car_type_id?>"><?= $carType->car_type?></option>
+                          @endForEach
+                        @endIf
+                        </select>
 						            </td>
+                        <?php foreach($getPropertyRent as $rent) { ?>
 						            <td class="col-sm-3">
-						                <input type="text" name="" placeholder="Hourly Price">
+						                <input type="hidden" name="data[parking][duration_type_id][<?php echo  $rent->duration_type_id; ?>][]" value="<?php echo  $rent->rent_amount; ?>">
+                            <input type="text" name="data[parking][rent_amount][<?php echo  $rent->duration_type_id; ?>][]" value="<?php echo  $rent->rent_amount; ?>" placeholder="HourlyPrice">
 						            </td>
+                      <?php } ?>
+						           <!-- <td class="col-sm-3">
+                        <input type="hidden" name="data[parking][duration_type_id][2][]" value="2">
+                        <input type="text" name="data[parking][rent_amount][2][]" placeholder="DailyPrice"></td>
 						            <td class="col-sm-3">
-						                <input type="text" name="" placeholder="Daily Price">
-						            </td>
-						            <td class="col-sm-3">
-						                <input type="text" name="" placeholder="Monthly Price">
-						            </td>
+                          <input type="hidden" name="data[parking][duration_type_id][3][]" value="3"><input type="text" name="data[parking][rent_amount][3][]" placeholder="MonthlyPrice">
+                        </td> -->
+
 						            <td class="col-sm-2"><a class="deleteRow"></a>
 
 						            </td>
@@ -170,20 +174,21 @@
                   <div class="stepbox">
                     <h3>Amenities and Other</h3>
                     <ul class="aminities-list custom-checkbox" id="amenities_list"><li>
-                      <input type="checkbox" name="data[amenities][]" id="EV charging" value="59">
-                      <label for="EV charging"><img src="https://www.prymestory.com/public/images/amenity/ev charging.png" alt=""> EV charging  </label>
-                      <input type="checkbox" name="data[amenities][]" id="Water supply" value="58"><label for="Water supply"><img src="https://www.prymestory.com/public/images/amenity/water supply.svg" width="50"> Water supply </label>
-                      <input type="checkbox" name="data[amenities][]" id="Security" value="57"><label for="Security"><img src="https://www.prymestory.com/public/images/amenity/security.svg" width="50"> Security </label>
-                      <input type="checkbox" name="data[amenities][]" id="Wifi" value="55"><label for="Wifi"><img src="https://www.prymestory.com/public/images/amenity/wifi.svg" width="50"> Wifi </label>
-                      <input type="checkbox" name="data[amenities][]" id="Fire Extinguisher" value="61"><label for="Fire Extinguisher"><img src="https://www.prymestory.com/public/images/amenity/fire extinguisher.svg" width="50"> Fire Extinguisher </label>
-                      <input type="checkbox" name="data[amenities][]" id="Wheelchair accesible" value="56"><label for="Wheelchair accesible"><img src="https://www.prymestory.com/public/images/amenity/wheelchaire.svg" width="50"> Wheelchair accesible </label>
+
+                      <?php foreach($getAmenities as $anm) { ?>
+                      <input type="checkbox" name="data[amenities][]" value="<?php echo $anm->amenity_id; ?>">
+                      <label><img src="<?php echo URL::to('public/images/amenity/'.$anm->amenity_name.''); ?>" alt=""> EV charging  </label>
+                      <?php } ?>
+
+
                     </li></ul>
                     <hr>
                     <h3>Location Type</h3>
                     <ul class="custom-radio" id="locationtypes"><li>
-                      <input type="radio" name="data[location_type]" id="Covered" value="1"><label for="Covered">Covered</label>
-                      <input type="radio" name="data[location_type]" id="Uncovered" value="2"><label for="Uncovered">Uncovered</label>
-                      <input type="radio" name="data[location_type]" id="Both" value="3"><label for="Both">Both</label></li></ul>
+                      <?php foreach($getLocationTypes as $loctype) { ?>
+                      <input type="radio" name="data[location_type]" id="<?php echo $loctype->location_type; ?>" value="<?php echo $loctype->location_type_id; ?>"><label for="<?php echo $loctype->location_type; ?>"><?php echo $loctype->location_type; ?></label>
+                      <?php } ?>
+                       </li></ul>
                      <input type="button" name="next" class="next action-button" value="Save">
                      <div class="clear"></div>
                   </div><!-- stepbox -->
@@ -361,7 +366,18 @@
                 <div id="ep06" class="tab-pane fade">
                   <div class="stepbox">
                     <h3>Set your cancellation policy</h3>
-                    <div class="box" id="get_cancellation_policy"><div class="row"><div class="col-sm-3"><div class="ad-col"><input type="radio" name="cancellation_policy_id" id="8" value="8"><label for="8">Moderate</label></div></div><div class="col-sm-9"><p>Before 24 hrs – No fees/ Charges</p></div></div><div class="row"><div class="col-sm-3"><div class="ad-col"><input type="radio" name="cancellation_policy_id" id="9" value="9"><label for="9">Strict</label></div></div><div class="col-sm-9"><p>Before 23 hrs – No fees/ Charges</p></div></div><div class="row"><div class="col-sm-3"><div class="ad-col"><input type="radio" name="cancellation_policy_id" id="13" value="13"><label for="13">Super Strict</label></div></div><div class="col-sm-9"><p>Before 23.59 – 25% Charges</p></div></div></div>
+                    <div class="box" id="get_cancellation_policy">
+                     
+                      <?php foreach($getcancellationpolicies as $policy) { ?>
+                      <div class="row">
+                        <div class="col-sm-3">
+                        <div class="ad-col"><input type="radio" name="cancellation_policy_id" id="<?php echo $policy->cancellation_policy_id; ?>" value="<?php echo $policy->cancellation_policy_id; ?>"><label for="<?php echo $policy->cancellation_policy_id; ?>"><?php echo $policy->cancellation_type; ?></label>
+                        </div>
+                      </div>
+                      <div class="col-sm-9"><p><?php echo $policy->cancellation_policy_text; ?></p></div></div>
+                    <?php } ?>
+
+                     </div>
                     <tfoot>
                    <input type="button" name="next" class="next action-button" value="Save">
                      <div class="clear"></div>
