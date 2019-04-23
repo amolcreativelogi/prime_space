@@ -1,85 +1,105 @@
 <?php 
+
 namespace App\Http\Controllers\Admin;
-use App\Models\Tbl_cms_pages as Tbl_cms_pages;
+
+use App\Models\tbl_blogs as tbl_blogs;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Hash;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Model;
-use App\Http\Requests\CmsPagesRequest;
+use App\Http\Requests\BlogRequest;
 
 use DB;
-class CmsPagesController extends Controller {
+
+class BlogsController extends Controller {
+
     //List cms pages
     public function index()
       { 
        
-        $data['tbl_cms_pagess'] = Tbl_cms_pages::all();
-        return view('admin/cms_pages/index',$data);
+        $data['blogs'] = Tbl_blogs::all();
+        return view('admin/blog/index',$data);
       }
+
     //load add/edit cms page form
     public function add($cms_page_id = NULL)
       { 
-        $getCMSPages = DB::table('tbl_cms_pages')->where('id', '=', $cms_page_id)->first();
-        return view('admin.cms_pages.add')->with('editCMSPage', $getCMSPages); 
+        $editBlogs = DB::table('tbl_blogs')->where('id', '=', $cms_page_id)->first();
+        return view('admin.blog.add')->with('editBlogs', $editBlogs); 
         
       }
-    //save cms page content to database
-    public function saveCmsPage(CmsPagesRequest $request)
-    { 
 
+    //save cms page content to database
+    public function saveBlog(BlogRequest $request)
+    { 
       
-      if(!$request->input('cms_page_id')) {
+      //store blog image
+       $image = $request->file('image');
+       if($image)
+       {
+       $imagename = strtolower(trim($request->input('title'))).'.'.$image->getClientOriginalExtension();
+       $destinationPath = public_path('/images/blogs');
+       $amenities_image = $image->move($destinationPath,$imagename);
+       $image = $imagename;
+       } else {
+        $image = $request->input('edit_blog_image');
+       }
+
+      if(!$request->input('blog_id')) {
             //Add new record
-            $duplicateEntry = DB::table('tbl_cms_pages')->where('title', '=', $request->input('title'))->where('is_deleted', '=', 0)->count();
+            $duplicateEntry = DB::table('tbl_blogs')->where('title', '=', $request->input('title'))->where('is_deleted', '=', 0)->count();
             if($duplicateEntry == 0) {
                 $data = array(
                         'title'=>$request->input('title'),
-                        'url_keyword'=>$this->clean($request->input('title')),
+                        'image'=>$image,
+                        'short_description'=>$request->input('short_description'),
                         'description'=>$request->input('description'),
                         'status'=>$request->input('status'),
                         'created_by'=>'1',
                         'modified_by'=>'1'
                        );
-                $result  = DB::table('tbl_cms_pages')->insert($data);
+                $result  = DB::table('tbl_blogs')->insert($data);
                 if($result)
                 {
                   return redirect()->back()->withSuccess('Record has been saved successfully');
                 }
             }  else {
  
-              return redirect()->back()->withWarning('CMS Page already exists');
+              return redirect()->back()->withWarning('Blog title already exists');
             }
         } else {
-            $duplicateEntry = DB::table('tbl_cms_pages')->where('title', '=', $request->input('title'))->where('is_deleted', '=', 0)->where('id', '!=', $request->input('cms_page_id'))->count();
+            $duplicateEntry = DB::table('tbl_blogs')->where('title', '=', $request->input('title'))->where('is_deleted', '=', 0)->where('id', '!=', $request->input('blog_id'))->count();
             if($duplicateEntry == 0) {
               //Update new record
               $data = array(
                       'title'=>$request->input('title'),
-                      'url_keyword'=>$this->clean($request->input('title')),
+                      'image'=>$image,
+                      'short_description'=>$request->input('short_description'),
                       'description'=>$request->input('description'),
                       'status'=>$request->input('status'),
                       'created_by'=>'1',
                       'modified_by'=>'1'
                      );
-            $result  = DB::table('tbl_cms_pages')->where('id', $request->input('cms_page_id'))->update($data);
+            $result  = DB::table('tbl_blogs')->where('id', $request->input('blog_id'))->update($data);
               if($result)
               {
                 return redirect()->back()->withSuccess('Record has been updated successfully');
               } else {
-                return redirect('admin/cmspages/add');
+                return redirect('admin/blogs/add');
               }
             }  else {
  
-              return redirect()->back()->withWarning('CMS Page already exists');
+              return redirect()->back()->withWarning('Blog title already exists');
             }
         }
     }
+
     //get cms page list
-    public function getCMSPages()
+    public function getBlogs()
     { 
-      $sort = array('cms_pages','status');
+    $sort = array('blogs','status');
     $myll = $_POST['start'];
     $offset = $_POST['length'];
     if(isset($_POST['order'][0])){
@@ -87,11 +107,14 @@ class CmsPagesController extends Controller {
     $title=$orrd['column'];
     $order=$orrd['dir'];
     }
-    $getCMSPagesTotalRecord = DB::table('tbl_cms_pages')->select('title','status','id')->where('is_deleted', '=', 0)->get()->count();
-    $query = DB::table('tbl_cms_pages')->select('title','status','id')->where('is_deleted', '=', 0);
+
+    $getBlogsTotalRecord = DB::table('tbl_blogs')->select('title','status','id')->where('is_deleted', '=', 0)->get()->count();
+
+    $query = DB::table('tbl_blogs')->select('title','status','id')->where('is_deleted', '=', 0);
     if($_POST['search']['value']) {
       $query->where('title', 'like', '%' .  $_POST['search']['value'] . '%');
     }
+
     if($offset!= -1) {
         $query->skip($myll)->take($offset);
     }
@@ -101,35 +124,35 @@ class CmsPagesController extends Controller {
         else{
           $query->orderBy('id','desc');
         }
-    $getCMSPages = $query->get();
+    $getBlogs = $query->get();
       $data = array();
       $data = array();
       $no = $_POST['start'];
-      // $total_rec = array_pop($getCarType);
-      //$total_rec = array_pop($list);
       $sr = 1;
-      foreach ($getCMSPages as $cmsPages) {
+      foreach ($getBlogs as $blogs) {
             $no++;
             $row = array();
             //$row[] = $sr++;
-            $row[] = $cmsPages->title;
-            $row[] = ($cmsPages->status == 1) ? 'Active' : 'Inactive';
-             $row[] ='<a href="'.url('admin/cmspages/add/'.$cmsPages->id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$cmsPages->id.','."'tbl_cms_pages'".','."'id'".');"><i class="fa fa-trash-o"></i></button>';
+            $row[] = $blogs->title;
+            $row[] = ($blogs->status == 1) ? 'Active' : 'Inactive';
+             $row[] ='<a href="'.url('admin/blogs/add/'.$blogs->id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$blogs->id.','."'tbl_blogs'".','."'id'".');"><i class="fa fa-trash-o"></i></button>';
             $data[] = $row;
           }
         $output = array(
                         "draw" => $_POST['draw'],
-                        "recordsTotal" => $getCMSPagesTotalRecord,
-                        "recordsFiltered" => $getCMSPagesTotalRecord,
+                        "recordsTotal" => $getBlogsTotalRecord,
+                        "recordsFiltered" => $getBlogsTotalRecord,
                         "data" => $data,
       );
       echo json_encode($output);
     }
+
  //clean and create url keyword from cms page title
   function clean($string) {
      $string = strtolower(str_replace(' ', '-', $string)); // Replaces all spaces with hyphens.
      return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
   }
+
 //upload ckeditor image
   public function uploadImage(Request $request) {
     $CKEditor = $request->input('CKEditor');
@@ -140,8 +163,8 @@ class CmsPagesController extends Controller {
       if ($file->isValid()) {
         $filename =rand(1000,9999).$file->getClientOriginalName();
         //public_path('/images/amenity')
-        $file->move(public_path().'/images/cms-pages', $filename);
-        $url = url('public/images/cms-pages/' . $filename);
+        $file->move(public_path().'/images/blogs', $filename);
+        $url = url('public/images/blogs/' . $filename);
       } else {
         $message = 'An error occurred while uploading the file.';
       }
@@ -150,6 +173,7 @@ class CmsPagesController extends Controller {
     }
     return '<script>window.parent.CKEDITOR.tools.callFunction('.$funcNum.', "'.$url.'", "'.$message.'")</script>';
 }
+
 //Delete record
  function DeteteRecord()
   {
@@ -164,11 +188,21 @@ class CmsPagesController extends Controller {
           echo '{"code":"100"}';
       }
   }
+
   //load add/edit cms page form
-  public function loadCmsPage($cms_page_urlkey = NULL)
+  public function listBlogs()
   { 
-    $getCMSPageData = DB::table('tbl_cms_pages')->where('url_keyword', '=', $cms_page_urlkey)->first();
-    return view('admin.cms_pages.view')->with('getCMSPageData', $getCMSPageData); 
+    $getBlogs = Tbl_blogs::all();
+    return view('admin.blog.list')->with('getBlogs', $getBlogs); 
     
   }
+
+  //load add/edit cms page form
+  public function loadBlogPage($blog_id = NULL)
+  { 
+    $getBlogPageData = DB::table('tbl_blogs')->where('id', '=', $blog_id)->first();
+    return view('admin.blog.view')->with('getBlogPageData', $getBlogPageData); 
+    
+  }
+
 }

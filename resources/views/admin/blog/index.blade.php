@@ -3,30 +3,36 @@
 <div id="content">
 
     <div class="page-header">
+      @if(Session::has('message'))
+        <div class="alert alert-success">
+            <strong><span class="glyphicon glyphicon-ok"></span>{{  Session::get('message') }}</strong>
+        </div>
+      @endif
     <div class="container-fluid">
-     <div class="pull-right"><a href="<?php echo url('admin/addLocationType'); ?>" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Add New"><i class="fa fa-plus"></i></a>
+     <div class="pull-right"><a href="{{Request::root()}}/admin/blogs/add" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Add New"><i class="fa fa-plus"></i></a>
       </div>
-       <div class="pull-right">
+      <div class="pull-right">
       <button type="button" id="button-filter-clear" class="btn btn-success pull-right">Clear</button>
       </div>
-      <h3>Location Type</h3>
+      <h3>Blogs</h3>
     </div>
   </div>
+   
 
   <div class="container-fluid"> 
-        <div class="panel panel-default">
+
+<div class="panel panel-default">
 
  <div class="panel-heading">
         <h3 class="panel-title"><i class="fa fa-bar-chart"></i>
-         Location Type list</h3>
+         Blog List</h3>
       </div>
     <div class="panel-body">       
    <div class="table-responsive">
           <table id="example" class="table table-striped">
             <thead>
               <tr>
-              <!-- <td>Module Category</td> -->  
-              <td>Location Type</td>
+              <td>Title</td>
               <td>Status</td>
               <td>Action</td>
               </tr>
@@ -51,8 +57,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-getdatatableRecord('#example','<?php echo url('admin/getLocationTypes'); ?>');
+getdatatableRecord('#example','<?php echo url('admin/blogs/getBlogs'); ?>');
 });
 </script> 
 @stop
-

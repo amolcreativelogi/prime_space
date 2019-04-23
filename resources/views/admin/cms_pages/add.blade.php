@@ -5,7 +5,7 @@
     <div class="container-fluid">
       <div class="pull-right">
         <a href="{{Request::root()}}/admin/cmspages" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="Back"><i class="fa fa-reply"></i></a></div>
-      <h1> Car Type</h1>
+      <h1> CMS Page </h1>
     </div>
   </div>
   <div class="container-fluid">
@@ -14,7 +14,7 @@
         <h3 class="panel-title"><i class="fa fa-pencil"></i> Add CMS Page</h3>
       </div>
       <div class="panel-body">
-        <form action="{{Request::root()}}/admin/cmspages/add_post" method="post" enctype="multipart/form-data" id="form-user" class="form-horizontal">
+        <form action="{{Request::root()}}/admin/cmspages/saveCmsPage" method="post" enctype="multipart/form-data" id="form-user" class="form-horizontal">
 
            @if(session('success') || session('warning'))
             <div class="form-group">

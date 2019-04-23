@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CMSPageRequest extends FormRequest
+class BlogRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,6 +25,8 @@ class CMSPageRequest extends FormRequest
     {
         return [
             'title' => 'required',
+            'image' => 'required',
+            'short_description' => 'required',
             'description' => 'required'
             
             
@@ -35,6 +37,8 @@ class CMSPageRequest extends FormRequest
     {
         return [
             'title.required' => 'Title field is required',
+            'image.required' => 'Image field is required',
+            'short_description.required' => 'Short Description field is required',
             'description.required' => 'Description field is required'
             
         ];
