@@ -665,11 +665,11 @@ class MasterController extends Controller
 
 		    //Add new record
 		 	//check duplicate entry
-		    $duplicateEntry = DB::table('tbl_mstr_location_type')->where('location_type', '=', $request->input('location_type'))->where('module_manage_id', '=', $request->input('module_manage_id'))->where('is_deleted', '=', 0)->count();
+		    $duplicateEntry = DB::table('tbl_mstr_location_type')->where('location_type', '=', $request->input('location_type'))->where('is_deleted', '=', 0)->count();
 				if($duplicateEntry == 0) {
 			    	$data = array(
 		    					'location_type'=>$request->input('location_type'),
-		    					'module_manage_id'=>$request->input('module_manage_id'),
+		    					'module_manage_id'=>2,
 		    					'status'=>$request->input('status'),
 		    					'created_by'=>'1',
 		    					'modified_by'=>'1'
@@ -687,12 +687,12 @@ class MasterController extends Controller
 		    } else {
 
 		    	//check duplicate entry
-		    	$duplicateEntry = DB::table('tbl_mstr_location_type')->where('location_type', '=', $request->input('location_type'))->where('module_manage_id', '=', $request->input('module_manage_id'))->where('location_type_id', '!=', $request->input('id'))->where('is_deleted', '=', 0)->count();
+		    	$duplicateEntry = DB::table('tbl_mstr_location_type')->where('location_type', '=', $request->input('location_type'))->where('location_type_id', '!=', $request->input('id'))->where('is_deleted', '=', 0)->count();
 				if($duplicateEntry == 0) {
 			    		//Update new record
 		    		$data = array(
 		    					'location_type'=>$request->input('location_type'),
-		    					'module_manage_id'=>$request->input('module_manage_id'),
+		    					'module_manage_id'=>2,
 		    					'status'=>$request->input('status'),
 		    					'created_by'=>'1',
 		    					'modified_by'=>'1'
@@ -760,7 +760,7 @@ class MasterController extends Controller
 	      	  $no++;
 	          $row = array();
 	          //$row[] = $sr++;
-	          $row[] = $locationType->module_manage_name;
+	          /*$row[] = $locationType->module_manage_name;*/
 	          $row[] = $locationType->location_type;
 	          $row[] = ($locationType->status == 1) ? 'Active' : 'Inactive';
 	           $row[] ='<a href="'.url('admin/addLocationType/'.$locationType->location_type_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$locationType->location_type_id.','."'tbl_mstr_location_type'".','."'location_type_id'".');"><i class="fa fa-trash-o"></i></button>';

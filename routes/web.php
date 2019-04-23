@@ -340,5 +340,36 @@ Route::post('/submitForgotpass','Front\UserController@submitForgotpass');
 //Route to get amenity type list
 Route::post('/frontend/getAmenities','Front\SearchPropertyController@getAmenities');
 
+// routes for cms_pages.
+/*Route::group(array('prefix' => 'tbl_cms_pages'), function()
+{*/
+Route::post('/admin/cmspages/getCMSPages', 'Admin\CmsPagesController@getCMSPages');
+Route::get('/admin/cmspages', 'Admin\CmsPagesController@index');
+Route::get('/admin/cmspages/add/{id?}', 'Admin\CmsPagesController@add');
+Route::post('/admin/cmspages/saveCmsPage', 'Admin\CmsPagesController@saveCmsPage');
+Route::get('/admin/cmspages/delete/{id}', 'Admin\CmsPagesController@delete');
+Route::post('upload_image','Admin\CmsPagesController@uploadImage')->name('upload');
+Route::get('/cmspage/{urlkey}', 'Admin\CmsPagesController@loadCmsPage');
+//});
+// end of tbl_cms_pages routes
+
+
+// routes for blogs.
+/*Route::group(array('prefix' => 'tbl_cms_pages'), function()
+{*/
+Route::post('/admin/blogs/getBlogs', 'Admin\BlogsController@getBlogs');
+Route::get('/admin/blogs', 'Admin\BlogsController@index');
+Route::get('/admin/blogs/add/{id?}', 'Admin\BlogsController@add');
+Route::post('/admin/blogs/saveBlog', 'Admin\BlogsController@saveBlog');
+Route::get('/admin/blogs/delete/{id}', 'Admin\BlogsController@delete');
+Route::post('upload_image','Admin\BlogsController@uploadImage')->name('upload');
+Route::get('/blogs/{id}', 'Admin\BlogsController@loadBlogPage');
+Route::get('/blogs', 'Admin\BlogsController@listBlogs');
+//});
+// end of tbl_cms_pages routes
+
+
+
+
 
 
