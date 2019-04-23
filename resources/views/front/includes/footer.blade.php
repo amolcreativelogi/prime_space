@@ -282,7 +282,13 @@
     <div class="foot-btm">
       <ul>
         <li><a href="<?php echo URL::to('refundPolicy'); ?>">Cancellation and Refund Policy</a></li>
+<<<<<<< HEAD
         <li><a href="javascript:void();">Terms</a></li>
+||||||| merged common ancestors
+        <li><a href="">Terms</a></li>
+=======
+        <li><a href="https://www.prymestory.com/public/assets/front-design/images/Terms-and-Conditions.pdf" target="_blank">Terms</a></li>
+>>>>>>> 3db2cd8a51b65dfb4ca10b940bc428099ad82f44
         <li><a href="https://www.prymestory.com/public/assets/front-design/images/PrivacyPolicy.pdf" target="_blank">Privacy Statement</a></li>
       </ul>
       <div class="copyright">© 2019 Pryme Space, Inc.</div>

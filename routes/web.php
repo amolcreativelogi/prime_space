@@ -278,7 +278,7 @@ Route::get('/user/switchtohost','Front\UserController@switchtohost');
 Route::get('/user/switchtocustomer','Front\UserController@switchtocustomer');
 Route::get('/user/switchtohost','Front\UserController@switchtohost');
 Route::get('/addproperty','Front\PropertyController@addProperty')->middleware('UserAuth');
-Route::get('/editparking','Front\PropertyController@editParking')->middleware('UserAuth');
+Route::get('/user/editparking/{id}','Front\PropertyController@editParking')->middleware('UserAuth');
 Route::get('/editland','Front\PropertyController@editLand')->middleware('UserAuth');
 
 //Pages
@@ -299,6 +299,7 @@ Route::get('/accountSetting','Front\PagesController@accountSetting');
 Route::get('/blogListing','Front\PagesController@blogListing');
 Route::get('/aboutUs','Front\PagesController@aboutUs');
 Route::get('/singleBlog','Front\PagesController@singleBlog');
+Route::get('/terms','Front\PagesController@terms');
 
 //Route to get masters details on add property form
 Route::post('/frontend/getPropertyMasters','Front\PropertyController@getPropertyMasters');
