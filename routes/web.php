@@ -317,6 +317,19 @@ Route::get('/user/downloadDoc/{id?}','Front\HostController@downloadDoc');
 //Route to get amenity type list
 Route::post('/frontend/getAmenities','Front\SearchPropertyController@getAmenities');
 
+// routes for tbl_cms_pages.
+/*Route::group(array('prefix' => 'tbl_cms_pages'), function()
+{*/
+Route::post('/admin/cmspages/getCMSPages', 'Admin\CmsPagesController@getCMSPages');
+Route::get('/admin/cmspages', 'Admin\CmsPagesController@index');
+Route::get('/admin/cmspages/add/{id?}', 'Admin\CmsPagesController@add');
+Route::post('/admin/cmspages/add_post', 'Admin\CmsPagesController@addPost');
+Route::get('/admin/cmspages/delete/{id}', 'Admin\CmsPagesController@delete');
+Route::post('upload_image','Admin\CmsPagesController@uploadImage')->name('upload');
+Route::get('/cmspage/{urlkey}', 'Admin\CmsPagesController@loadCmsPage');
+//});
+// end of tbl_cms_pages routes
+
 
 
 

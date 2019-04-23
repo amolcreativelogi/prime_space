@@ -134,7 +134,7 @@ function DeleteRecordWithChild(id,parentTable,tbid,isDeleteChild,childTable)
   <ul class="collapse">
     <!-- <li><a href="{{ URL::asset('admin/amenityCategoriesExecute') }}/">Amenity Categories</a></li> -->
     <li><a href="{{ URL::asset('admin/amenitiesExecute') }}/">Amenities</a></li>
-    <li><a href="{{ URL::asset('admin/locationTypeExecute') }}/">Location Type</a></li>
+    
     <li><a href="{{ URL::asset('admin/bookingDurationTypeExecute') }}/">Booking Duration Type</a></li>
     <li><a href="{{ URL::asset('admin/documentTypeExecute') }}/">Document Type</a></li>
     <li><a href="{{ URL::asset('admin/unitTypeExecute') }}/">Unit Type</a></li>
@@ -147,8 +147,8 @@ function DeleteRecordWithChild(id,parentTable,tbid,isDeleteChild,childTable)
   <ul class="collapse">
    <li><a href="{{ URL::asset('admin/carTypeExecute') }}/">Car Type</a></li>
    <li><a href="{{ URL::asset('admin/parkingTypeExecute') }}/">Parking Type</a></li>
-
    <li><a href="{{ URL::asset('admin/parkingList') }}/">Parking List</a></li>
+   <li><a href="{{ URL::asset('admin/locationTypeExecute') }}/">Location Type</a></li>
   </ul>
 </li>
 
@@ -175,6 +175,12 @@ function DeleteRecordWithChild(id,parentTable,tbid,isDeleteChild,childTable)
     <li><a href="{{ URL::asset('admin/allParkingBooking') }}/">All Parking Booking</a></li>
     <li><a href="{{ URL::asset('admin/allLandBooking') }}/">All Land Booking</a></li>
   </ul>
+</li>
+
+<li><a class="parent" ><i class="fa fa-shopping-cart fa-fw"></i> <span>CMS Pages</span></a>
+   <ul class="collapse">
+      <li><a href="{{ URL::asset('admin/cmspages')}}/">All Pages</a></li>
+   </ul>
 </li>
 
 <li id="wallet" style="display: none;"><a class="parent"><i class="fa fa-money fa-fw"></i> <span>Wallet</span></a>
