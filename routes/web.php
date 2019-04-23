@@ -350,7 +350,9 @@ Route::get('/admin/cmspages/add/{id?}', 'Admin\CmsPagesController@add');
 Route::post('/admin/cmspages/saveCmsPage', 'Admin\CmsPagesController@saveCmsPage');
 Route::get('/admin/cmspages/delete/{id}', 'Admin\CmsPagesController@delete');
 Route::post('upload_image','Admin\CmsPagesController@uploadImage')->name('upload');
-Route::get('/cmspage/{urlkey}', 'Admin\CmsPagesController@loadCmsPage');
+
+
+Route::get('/pages/{urlkey}', 'Front\CmsPagesController@loadCmsPage');
 //});
 // end of tbl_cms_pages routes
 
