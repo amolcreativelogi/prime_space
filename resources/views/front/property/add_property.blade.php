@@ -809,7 +809,7 @@ $(".next").click(function(){
           required: "Description is required",
         },
         'property_images[]': {
-          required: "Property Images is required",
+          required: "Property Images are required",
         },
         'data[parking][floor_name][]': {
           required: "floor name is required",

@@ -389,7 +389,11 @@
                   <div class="stepbox">
                     <h3>Documents</h3>
                     <div class="box">
-                      <input type="file" name="property_documents[]" multiple="" id="property-documents">
+                      <!-- <input type="file" name="property_documents[]" multiple="" id="property-documents"> -->
+                      <div class="box custom-fileinput">
+                        <input type="file" name=property-documents" id="property-documents" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple  />
+                        <label for="property-documents"><span></span> <strong>Choose Property Documents</strong></label>
+                      </div>
                     </div>
                     <input type="button" name="next" class="next action-button" value="Save">
                      <div class="clear"></div>

@@ -248,7 +248,7 @@
                   </div>
                 </div><br>
                 <div class="book-amenties">
-                    <h4>Amenties</h4>
+                    <h4>Amenities</h4>
                     <ul>
                         <?php foreach($getPropAmenities as $amenities) {
                           if (isset($amenities->amenity_image) && file_exists(public_path() . '/images/amenity/' . $amenities->amenity_image. '')) {

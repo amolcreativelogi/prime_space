@@ -374,8 +374,16 @@ span.teating-div {position: absolute;left: 0;width: 100%;top: -4px;}
 .add-property .form-field table#tbl_rent_with_booking_duration_type tr.duration_price_input td:last-child {	width: 32%;	float: left;}
 .add-property .form-field table#tbl_rent_with_booking_duration_type tr.duration_price_input td {}
 .add-property .form-field table#tbl_rent_with_booking_duration_type tr td { width: 22%;float: left;max-width: 22%;}
-.add-property .form-field table#tbl_rent_with_booking_duration_type tr td.col-sm-7 {margin: 0;max-width: unset;
-  width: 94.5%;position: absolute;left: 24%;}
+/*.add-property .form-field table#tbl_rent_with_booking_duration_type tr td.col-sm-7 {margin: 0;max-width: unset;
+  width: 94.5%;position: absolute;left: 24%;}*/
+.add-property .form-field table#tbl_rent_with_booking_duration_type tr td.col-sm-3 { position: relative; }
+.add-property .form-field table#tbl_rent_with_booking_duration_type tr td.col-sm-3:nth-child(1):before { content: ""; }
+.add-property .form-field table#tbl_rent_with_booking_duration_type tr td.col-sm-3::before {content: "$";  position: absolute;left: 15px;top: 6px;color: #9e9e9e;}
+.add-property .form-field table#tbl_rent_with_booking_duration_type tr td.col-sm-3 input {padding: 0 0 0 25px;}
+.add-property .form-field table#tbl_rent_with_booking_duration_type tr td.col-sm-7 { width: 100%;max-width: unset;}
+.add-property .form-field table#tbl_rent_with_booking_duration_type tr td.col-sm-7 .col-sm-3 {width: auto;max-width: unset;position: relative;}
+.add-property .form-field table#tbl_rent_with_booking_duration_type tr td.col-sm-7 .col-sm-3::before {content: "$";  position: absolute;left: 15px;top: 6px;color: #9e9e9e;}
+.add-property .form-field table#tbl_rent_with_booking_duration_type tr td.col-sm-7 .col-sm-3 input {width: 180px;padding: 0 0 0 25px;}
 .add-property .form-field table#tbl_rent_with_booking_duration_type tr td.col-sm-7 + .col-sm-2 {position: absolute;
   right: 0;}
 .add-property .form-field table#tbl_rent_with_booking_duration_type tr td.col-sm-7 .col-sm-3 { margin: 0;}
@@ -447,7 +455,7 @@ span.teating-div {position: absolute;left: 0;width: 100%;top: -4px;}
 .add-property .box .hide-row .ad-col label {pointer-events: none;margin:0;}
 .add-property .box .ad-col .date-group {margin:0;}
 .add-property #msform .ad-col .date-group input {width: 48%;display: inline-block;border: 0;margin: 0;display: none;
-  font-size: 14px;padding: 5px 5px;background: url(../images/down-arrow.png) no-repeat 96% center;}
+  font-size: 14px;padding: 5px 5px;background: url(../images/down-arrow.png) no-repeat 96% center;cursor: pointer;}
 .add-property #msform .ad-col .date-group input.open {display: inline-block;}
 /*.add-property #msform .hide-row .ad-col .date-group input {display:none;}*/
  .tour-avail .custom-radio { text-align:center !important;}
@@ -503,7 +511,7 @@ span.teating-div {position: absolute;left: 0;width: 100%;top: -4px;}
 .ap-filter .filterbox .form-group .region::before {content: "\f041";font-family: FontAwesome;color: #3351BB;font-size: 25px;position: absolute;left: 10px;top:12px;}
 .ap-filter .filterbox .form-group .date { position: relative;background: #FFFFFF;border: 1px solid #DBDEDF;border-radius: 3px; height: 50px;padding: 9px 10px 9px 40px; }
 .ap-filter .filterbox .form-group .date::before {content: "\f133";font-family: FontAwesome;color: #3351BB;font-size: 18px;position: absolute;left: 10px;top: 12px;}
-.ap-filter .prop-type select.filter-select, .ap-filter select.filter-select {float: left;width:165px;padding: 5px 10px;height: 50px !important;margin-right: 10px;}
+.ap-filter .prop-type select.filter-select, .ap-filter select.filter-select {float: left;width:190px;padding: 5px 10px;height: 50px !important;margin-right: 10px;}
 .ap-filter .col-sm-10 {padding-left: 0;}
 
 .ap-filter .filterbox .form-group { margin-right: 2px;width:40%;vertical-align: top;margin: 0;}
@@ -1050,6 +1058,17 @@ background: #fff;border: 1px solid #ced4da;height: 50px;}
 .reviewModal textarea { width: 100%; height: 100px; resize: none; }
 .reviewModal .blackbtn {background: #000;border: 0;color: #fff;padding: 5px 15px;display: inline-block;cursor: pointer;
   margin-top: 15px;}
+
+
+/*Property View Page form Dashboard*/
+.dl-content .single-property { background: #fff; box-shadow: 0 0 5px #ccc; padding: 15px; }
+.dl-content .single-property h4 { text-transform: capitalize; }
+.dl-content .single-property .book-amenties li img {width: 25px;}
+.dl-content .single-property .property-location {margin: 45px 0 0 0;}
+.dl-content .single-property .property-location .firstrow {padding: 12px 0 8px 0;min-height: 72px;margin: 15px 0;}
+.dl-content .single-property .property-location .book-amenties { border: 0; }
+.dl-content .property-content .firstrow img.floor_map {width: 100%;display: block;transform: rotate(0deg);border: 1px solid #ddd;padding: 3px;margin: 5px 0 0 0;}
+/*.dl-content .single-property .owl-theme .owl-nav { display: block; }*/
 
 
 
