@@ -16,17 +16,14 @@
             <!-- <option value="2">Parking</option>
             <option value="3">Land</option> -->
           </select>
-          <div class="error from_parkingtype1"></div>
          
           <input type="text" name="location-top-search" placeholder="Location" id="location-top-search" autocomplete="off" runat="server">
-          <div class="error from_location1"></div>
           <input type="hidden" id="city-top-search" name="city" />
           <input type="hidden" name="latitude" id="latitude-top-search">
           <input type="hidden" name="longitude" id="longitude-top-search">
         <!--   <input type="text" name="" placeholder="Dates" class="dates"> -->
           <div class="form-group date-group">
-              <input type="text" name="search_dates1" placeholder="Dates" id="search_dates" class="dates">
-              <div class="error from_search_dates1"></div>
+              <input type="text" name="search_dates" placeholder="Dates" id="search_dates" class="dates">
               <!--<input type="text" name="search_dates" placeholder="Dates" id="land-search_dates" class="dates" style="display:none">-->
           <!--<div class="date"><input type="text" class="form-control" placeholder="Dates" id="from"></div>-->
           </div>
@@ -237,15 +234,15 @@
     <div class="foot-top">
       <div class="row">
         <div class="col-lg-3 col-md-3 col-sm-6">
-          <a href="<?php echo URL::to(''); ?>" class="foot-logo"><img src="{{ URL::asset('public') }}/assets/front-design/images/psw-logo.png" alt=""></a>
+          <a href="" class="foot-logo"><img src="{{ URL::asset('public') }}/assets/front-design/images/psw-logo.png" alt=""></a>
         </div> 
         <div class="col-lg-3 col-md-3 col-sm-6">
           <h4>Company</h4>
           <ul>
-            <li><a href="<?php echo URL::to('aboutUs'); ?>">About Us</a></li>
+            <li><a href="#">About Us</a></li>
             <li><a href="#">Mission</a></li>
             <li><a href="#">Vision</a></li>
-            <li><a href="<?php echo URL::to('blogListing'); ?>">Blog</a></li>
+            <li><a href="#">Blog</a></li>
             <li><a href="#">Press</a></li>
             <li><a href="<?php echo URL::to('faq'); ?>">FAQ's</a></li>
           </ul>
@@ -282,22 +279,16 @@
     <div class="foot-btm">
       <ul>
         <li><a href="<?php echo URL::to('refundPolicy'); ?>">Cancellation and Refund Policy</a></li>
-<<<<<<< HEAD
-        <li><a href="javascript:void();">Terms</a></li>
-||||||| merged common ancestors
         <li><a href="">Terms</a></li>
-=======
-        <li><a href="https://www.prymestory.com/public/assets/front-design/images/Terms-and-Conditions.pdf" target="_blank">Terms</a></li>
->>>>>>> 3db2cd8a51b65dfb4ca10b940bc428099ad82f44
-        <li><a href="https://www.prymestory.com/public/assets/front-design/images/PrivacyPolicy.pdf" target="_blank">Privacy Statement</a></li>
+        <li><a href="">Privacy Statement</a></li>
       </ul>
       <div class="copyright">© 2019 Pryme Space, Inc.</div>
       <ul class="foot-social">
-        <li><a href="javascript:void();"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-        <li><a href="javascript:void();"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-        <li><a href="javascript:void();"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
-        <li><a href="javascript:void();"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-        <li><a href="javascript:void();"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+        <li><a href=""><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+        <li><a href=""><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+        <li><a href=""><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+        <li><a href=""><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+        <li><a href=""><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
       </ul>
     </div>
   </div>

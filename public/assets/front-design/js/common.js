@@ -505,7 +505,7 @@ document.querySelector("#today2").valueAsDate = new Date();
 $(document).ready(function () {
     var counter = 0;
 
-    $("#addrow").on("click", function () {
+    $("#edit-addrow").on("click", function () {
         var newRow = $("<tr>");
         var cols = "";
 
@@ -540,7 +540,7 @@ function calculateGrandTotal() {
     $("table.order-list").find('input[name^="price"]').each(function () {
         grandTotal += +$(this).val();
     });
-    $("#grandtotal").text(grandTotal.toFixed(2));
+    $("#edit-grandtotal").text(grandTotal.toFixed(2));
 }
 
 
@@ -605,23 +605,6 @@ $(document).ready(function(){
       $(".aminities-list li input").toggleClass("selected");
     });
 });
-
-
-// Profile Image Update
-function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    $('#blah')
-                        .attr('src', e.target.result)
-                        .width(120)
-                        .height(120);
-                };
-
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
 
 
 

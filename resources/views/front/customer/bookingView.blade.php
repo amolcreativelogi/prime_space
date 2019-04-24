@@ -17,14 +17,11 @@
               </div>
               <div class="col-lg-8 col-md-7 col-sm-12">
                   <div class="viewbookingText">
-                    <h3>{{$bookingData->name}}</h3>
+                    <h3>Property name</h3>
                     <h5><strong>Booking Date/Time :-</strong> 20.04.19 15:10</h5>
                     <div class="bookingstatus"><strong>Booking Status :- Booking Running</strong></div>
                     <h5><strong>Message to Host :-</strong> <a href="">Jimmy</a></h5>
-                    <?php if ($bookingData->end_date < Date('Y-m-d')): ?>
-                      <button type="button" class="reviewbtn" data-toggle="modal" data-target="#reviewModal">Write a Review</button>
-                      
-                    <?php endif ?>
+                    <button type="button" class="reviewbtn" data-toggle="modal" data-target="#reviewModal">Write a Review</button>
                   </div>
               </div>
             </div>
@@ -47,15 +44,15 @@
         <div class="form-field rating-field">
           <label>Rating</label>
           <div class="rating">
-                <input type="radio" id="star5-5" name="rating" value="5" onclick="ratingRiveing(5)" />
+                <input type="radio" id="star5-5" name="rating" value="5" />
                 <label class = "full" for="star5-5" title="Awesome - 5 stars"></label>
-                <input type="radio" id="star4-5" name="rating" value="4" onclick="ratingRiveing(4)" />
+                <input type="radio" id="star4-5" name="rating" value="4" />
                 <label class = "full" for="star4-5" title="Pretty good - 4 stars"></label>
-                <input type="radio" id="star3-5" name="rating" value="3" onclick="ratingRiveing(3)" />
+                <input type="radio" id="star3-5" name="rating" value="3" />
                 <label class = "full" for="star3-5" title="Meh - 3 stars"></label>
-                <input type="radio" id="star2-5" name="rating" value="2" onclick="ratingRiveing(2)" />
+                <input type="radio" id="star2-5" name="rating" value="2" />
                 <label class = "full" for="star2-5" title="Kinda bad - 2 stars"></label>
-                <input type="radio" id="star1-5" name="rating" value="1" onclick="ratingRiveing(1)" />
+                <input type="radio" id="star1-5" name="rating" value="1" />
                 <label class = "full" for="star1-5" title="Sucks big time - 1 star"></label>
             </div>
             <div class="clear"></div>
@@ -63,7 +60,7 @@
         <div class="clear"></div>
         <div class="form-field">
           <label>Review</label>
-          <textarea cols="6" rows="6" id="ratingComment"></textarea>
+          <textarea cols="6" rows="6"></textarea>
         </div>
         <div class="form-field">
           <input type="button" class="blackbtn" value="Submit" name="">
@@ -76,17 +73,5 @@
 <!-- Modal End -->
 
 </div>
-
 @stop
-@section('script')
-  <script type="text/javascript">
-    var storeRating;
-    function ratingRiveing(rating){storeRating = rating;}
-    $(".blackbtn").click(function(){
-      $.get("{{ URL::to('/user/submitRating') }}", {starRating: storeRating, ratingComment: $("#ratingComment").val(), booking_id:<?php echo  $bookingData->booking_id ?> }, function(res){
-        console.log(res)
-      })
-    })
-  </script>
-@endsection
 

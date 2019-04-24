@@ -172,8 +172,6 @@
                     </thead>
                     <tbody>
                       <?php foreach($getPropertyDoc as $pdoc) { 
-
-
                         $imagepath = URL::to('/public/images/property-documents/'.$pdoc->name.'');
                         ?>
                       <tr>
@@ -223,25 +221,12 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <?php 
-                        $docformat = array("DOC", "txt", "DOCX", "pdf","doc", "txt", "docx", "pdf");
-                        foreach($getPropertyImagesFloorMap as $pmap) { 
-                        $ext = pathinfo($pmap->name, PATHINFO_EXTENSION);
-                        if(in_array($ext, $docformat))
-                        {
-                        ?>
-                        <tr>
-                        <td><a href="<?php echo URL::to('/user/downloadDoc/'.$pdoc->file_id.'') ?>">Download Doc</a></td>
-                        <!-- <td><?php echo $pmap->document_type_id; ?></td> -->
-                        <td><?php echo ($pmap->default_file == 1) ? 'Active': 'Inactive'; ?></td>
-                        </tr>
-                        <?php } else { ?>
-                       <tr>
+                      <?php foreach($getPropertyImagesFloorMap as $pmap) { ?>
+                      <tr>
                         <td><img src="<?php echo URL::to('/public/images/property-floor-map/'.$pmap->name.''); ?>" width="100"></td>
                         <!-- <td><?php echo $pmap->document_type_id; ?></td> -->
                         <td><?php echo ($pmap->default_file == 1) ? 'Active': 'Inactive'; ?></td>
                       </tr>
-                    <?php } ?>
                     <?php } ?>
                     </tbody>
                   </table>
@@ -253,7 +238,7 @@
                 </div>   
            </div> 
                   
-          <div class="col-lg-12 col-xs-12 admin-order-list" style="clear: both;"> 
+          <div class="col-lg-12 col-xs-12 admin-order-list"> 
             <div id="mapCanvas1"></div>
            </div> 
               
