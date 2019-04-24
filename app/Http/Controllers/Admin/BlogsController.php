@@ -192,8 +192,8 @@ class BlogsController extends Controller {
   //load add/edit cms page form
   public function listBlogs()
   { 
-    $getBlogs = Tbl_blogs::all();
-    return view('admin.blog.list')->with('getBlogs', $getBlogs); 
+    $getBlogs = DB::table('tbl_blogs')->orderBy('id', 'desc')->get();//Tbl_blogs::all();
+    return view('front.blog.list')->with('getBlogs', $getBlogs); 
     
   }
 
@@ -201,7 +201,7 @@ class BlogsController extends Controller {
   public function loadBlogPage($blog_id = NULL)
   { 
     $getBlogPageData = DB::table('tbl_blogs')->where('id', '=', $blog_id)->first();
-    return view('admin.blog.view')->with('getBlogPageData', $getBlogPageData); 
+    return view('front.blog.view')->with('getBlogPageData', $getBlogPageData); 
     
   }
 

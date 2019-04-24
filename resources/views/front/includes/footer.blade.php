@@ -242,10 +242,10 @@
         <div class="col-lg-3 col-md-3 col-sm-6">
           <h4>Company</h4>
           <ul>
-            <li><a href="<?php echo URL::to('aboutUs'); ?>">About Us</a></li>
+            <li><a href="<?php echo URL::to('pages/about-us'); ?>">About Us</a></li>
             <li><a href="#">Mission</a></li>
             <li><a href="#">Vision</a></li>
-            <li><a href="<?php echo URL::to('blogListing'); ?>">Blog</a></li>
+            <li><a href="<?php echo URL::to('blogs'); ?>">Blog</a></li>
             <li><a href="#">Press</a></li>
             <li><a href="<?php echo URL::to('faq'); ?>">FAQ's</a></li>
           </ul>
