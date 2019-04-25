@@ -14,6 +14,10 @@ session_start();
 /*Route::get('/', function () {
     return view('front/pages/home');
 });*/
+Route::get('/connectStripAccount','Front\PaymentController@connectStripAccount');
+Route::post('/make_payment', 'Front\PaymentController@make_payment')->name('make_payment.post')->middleware('UserAuth');;
+Route::get('/user/autoPayToHost','Front\PaymentController@autoPayToHost');
+
 
 Route::get('/','Front\HomeController@Home');
 
@@ -251,11 +255,12 @@ Route::get('/admin/mail','Admin\UsersController@mail');
 Route::post('/userRegistration','Front\UserController@userRegistration');
 Route::post('/userLogin','Front\UserController@userLogin');
 Route::post('/resetPassword','Front\UserController@resetPassword');
-Route::get('/user/editprofile/{id?}','Front\UserController@editprofile');
-Route::post('/updatesaveprofile/{id?}','Front\UserController@updatesaveprofile');
-Route::get('/user/accountSetting','Front\UserController@accountSetting');
-Route::post('/user/submitnewpassword','Front\UserController@submitNewPassword');
-Route::get('/payment/queryget','Front\PaymentController@queryTransaction');
+Route::get('/user/editprofile/{id?}','Front\UserController@editprofile')->middleware('UserAuth');
+Route::post('/updatesaveprofile/{id?}','Front\UserController@updatesaveprofile')->middleware('UserAuth');
+Route::get('/user/accountSetting','Front\UserController@accountSetting')->middleware('UserAuth');
+Route::post('/user/submitnewpassword','Front\UserController@submitNewPassword')->middleware('UserAuth');
+//Route::get('/payment/queryget','Front\PaymentController@queryTransaction');
+
 
 Route::get('/user/parkingProperties','Front\HostController@parkingProperties')->middleware('UserAuth');
 Route::get('/user/landProperties','Front\HostController@landProperties')->middleware('UserAuth');

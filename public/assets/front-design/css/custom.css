@@ -1104,7 +1104,7 @@ color: #262626;margin: 0px 0 20px 0;text-align: center;text-transform: capitaliz
 .paymentbox { width: 410px; margin: 0 auto;}
 .paymentbox #submit-button {background: #000;border: 0;margin-bottom: 30px;color: #fff;padding: 8px 15px;font-size: 16px;cursor: pointer;text-transform: capitalize;}
 .paymentbox #submit-button:hover, .paymentbox #submit-button:focus { background: #3351BB;}
-.paymentbox .braintree-sheet__content--form .braintree-form__field-group .braintree-form__field .braintree-form__hosted-field { height: 40px; }
+/*.paymentbox .braintree-sheet__content--form .braintree-form__field-group .braintree-form__field .braintree-form__hosted-field { height: 40px; }*/
 
 
 @media screen and (-webkit-min-device-pixel-ratio:0) { 

@@ -2562,4 +2562,12 @@
 </div>
 
 @stop
+@section('script')
+  
+<script type="text/javascript">
+  $.get("{{URL::to('/user/autoPayToHost')}}", function(res){
+    console.log(res)
+  })
+</script>
+@endsection
 

@@ -8,6 +8,13 @@
      @include('front/includes.customer_side_menu')
 
      <div class="col-lg-10 col-md-9 col-sm-12 dl-content dash-content">
+        
+            @if (Session::has('success'))
+                <div class="alert alert-success text-center">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                    <p>{{ Session::get('success') }}</p>
+                </div>
+            @endif
      	<div class="row firstrow">
      		<div class="col-lg-4 col-md-4 col-sm-6">
                 <div class="dash-counterbox dash-add-prop">

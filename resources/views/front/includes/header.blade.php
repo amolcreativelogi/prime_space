@@ -18,7 +18,7 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2oRAljHGZArBeQc5OXY0MI5BBoQproWY&libraries=places"></script>
 
 <script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/jquery-1.11.3.min.js"></script>
-<script src="https://js.braintreegateway.com/web/dropin/1.8.1/js/dropin.min.js"></script>
+<!-- <script src="https://js.braintreegateway.com/web/dropin/1.8.1/js/dropin.min.js"></script> -->
 <script src="{{ URL::asset('public') }}/assets/front-design/js/jquery.validate.min.js"></script>
 
 

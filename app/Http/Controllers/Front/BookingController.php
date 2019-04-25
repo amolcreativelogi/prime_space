@@ -369,11 +369,16 @@ class BookingController extends Controller
                 'booking_amount' => $data['finalprice'],
                 'booking_status' => 'Pending'
               ]);
-
+        $amount = DB::table('booking_transactions')->orderBy('txn_id', 'DESC')->first();
+        if($amount == null){
+          $amount = 0;
+        }else{
+          $amount = $amount->amount + $data['finalprice'];
+        }
         DB::table('booking_transactions')->insert([            
           'user_id' => $_SESSION['user']['user_id'], 
           'booking_id' => $b_id,
-          'amount' => $data['finalprice'],
+          'credit' => $data['finalprice'],
           'status_message' => 'Pending'
         ]);
         $data['booking_id'] = $b_id;
