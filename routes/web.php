@@ -376,3 +376,17 @@ Route::get('/blogs', 'Admin\BlogsController@listBlogs');
 
 
 
+
+Auth::routes();
+
+Route::get('tests', 'MessageController@tests');
+
+Route::get('/homeMessage', 'HomeController@index');
+
+
+Route::get('message/{id}', 'MessageController@chatHistory')->name('message.read');
+
+Route::group(['prefix'=>'ajax', 'as'=>'ajax::'], function() {
+   Route::post('message/send', 'MessageController@ajaxSendMessage')->name('message.new');
+   Route::delete('message/delete/{id}', 'MessageController@ajaxDeleteMessage')->name('message.delete');
+});

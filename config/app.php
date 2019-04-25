@@ -181,6 +181,8 @@ return [
         *CK editor 
         */
         Unisharp\Ckeditor\ServiceProvider::class,
+        //messaging provider
+        Nahid\Talk\TalkServiceProvider::class,
         
 
 
@@ -232,6 +234,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Talk'      => Nahid\Talk\Facades\Talk::class,
 
     ],
 
