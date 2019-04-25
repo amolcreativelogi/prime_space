@@ -40,6 +40,7 @@ class VerifyCsrfToken extends Middleware
          'admin/Host_Users',
          'admin/cmspages/getCMSPages',
          'admin/blogs/getBlogs',
+         'admin/faqs/getFaqCategories',
          'frontend/getPropertyMasters',
          'frontend/bookProperty',
          'frontend/saveProperty',

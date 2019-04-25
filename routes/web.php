@@ -369,7 +369,18 @@ Route::post('upload_image','Admin\BlogsController@uploadImage')->name('upload');
 Route::get('/blogs/{id}', 'Admin\BlogsController@loadBlogPage');
 Route::get('/blogs', 'Admin\BlogsController@listBlogs');
 //});
-// end of tbl_cms_pages routes
+// end of blogs routes
+
+
+Route::post('/admin/faqs/getFaqCategories', 'Admin\FaqsCategoryController@getFaqCategories');
+Route::get('/admin/faqs/categories', 'Admin\FaqsCategoryController@index');
+Route::get('/admin/faqs/categories/add/{id?}', 'Admin\FaqsCategoryController@add');
+Route::post('/admin/faqs/saveFaqsCategory', 'Admin\FaqsCategoryController@saveFaqsCategory');
+Route::post('/admin/faqs/DeleteFaqCategory','Admin\FaqsCategoryController@DeleteFaqCategory');
+Route::get('/admin/faqs/updateCategorySequence', 'Admin\FaqsCategoryController@updateCategorySequence');
+Route::post('/admin/faqs/saveFaqsCategorySequece', 'Admin\FaqsCategoryController@saveFaqsCategorySequece');
+Route::get('/faqs/{id}', 'Admin\FaqsCategoryController@loadBlogPage');
+Route::get('/faq', 'Admin\FaqsCategoryController@listFaqs');
 
 
 
