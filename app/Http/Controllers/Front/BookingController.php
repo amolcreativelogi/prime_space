@@ -282,8 +282,7 @@ class BookingController extends Controller
 
       $data['getPropAmenities'] = DB::table('tbl_mstr_amenities as amnty')->select('amnty.amenity_name',
       'amnty.status','amnty.amenity_image',
-      'amnty.amenity_id'
-    )
+      'amnty.amenity_id')
      ->leftJoin($tbl_prefix.'add_property_amenities as propAmnty', 'propAmnty.amenity_id', '=', 'amnty.amenity_id')
      ->where(['amnty.is_deleted'=>0,'amnty.status'=>1,'propAmnty.property_id'=>$property_id])->get();
       
@@ -312,7 +311,54 @@ class BookingController extends Controller
 
       $data['finalprice'] = $this->calculatePrice($fromtime, $totime, $fromdate, $todate, $durationtype, $initialPrice);
 
-      //return view
+      
+      if (isset($_SESSION['user']['user_id'])) {
+
+
+        $module_id = request()->moduleid;
+        $property_id = request()->propertyid;
+        $durationtype = request()->duration_type_id;
+
+        $fromtime = request()->fromtime;
+        $totime = request()->totime;
+
+        $fromdate = request()->fromdate; 
+        $todate = request()->todate;  
+
+        $car_type_req = request()->car_type_id;
+
+      $frm_date = DateTime::createFromFormat("m.d.Y" , $fromdate);
+      $from_date = $frm_date->format('Y-m-d');
+
+      $t_date = DateTime::createFromFormat("m.d.Y" , $todate);
+      $to_date = $t_date->format('Y-m-d');
+
+
+        $b_id = PropertyBooking::insertGetId([
+                'user_id' => $_SESSION['user']['user_id'], 
+                'property_id' => $property_id,
+                'module_manage_id' => $module_id,
+                'duration_type_id' => $durationtype,
+                'start_time' => $fromtime, 
+                'end_time' => $totime,
+                'start_date' => $from_date,
+                'end_date' => $to_date,
+                'booking_amount' => $data['finalprice'],
+                'booking_status' => 'Pending'
+              ]);
+        $amount = DB::table('booking_transactions')->orderBy('txn_id', 'DESC')->first();
+        if($amount == null){
+          $amount = 0;
+        }else{
+          $amount = $amount->amount + $data['finalprice'];
+        }
+        DB::table('booking_transactions')->insert([            
+          'user_id' => $_SESSION['user']['user_id'], 
+          'booking_id' => $b_id,
+          'credit' => $data['finalprice'],
+          'status_message' => 'Pending'
+        ]);
+      } 
       return view('front/pages/booking', $data);
     }
 

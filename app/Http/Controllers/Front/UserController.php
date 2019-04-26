@@ -97,8 +97,10 @@ class UserController extends Controller
 
 	public function userLogin(Request $request)
 	{
+		
+       
+		$getuserLogin = DB::table('prk_user_registrations')->select('user_id','user_type_id','default_user_type','status','firstname','is_deleted','profile_pic', 'is_payment_setup', 'email_id')->where('is_deleted', '=', 0)->where('email_id', '=', $request->input('email_id'))->where('password', '=', md5($request->input('password')))->first();
 	
-		$getuserLogin = DB::table('prk_user_registrations')->select('user_id','user_type_id','default_user_type','status','firstname','is_deleted','profile_pic')->where('is_deleted', '=', 0)->where('email_id', '=', $request->input('email_id'))->where('password', '=', md5($request->input('password')))->first();
 		$array = array();
     	if($getuserLogin)
     	{
@@ -115,6 +117,8 @@ class UserController extends Controller
     		$_SESSION['user']['user_type_id'] = $getuserLogin->user_type_id;
     		$_SESSION['user']['default_user_type'] = $getuserLogin->default_user_type;
     		$_SESSION['user']['profile_pic'] = $getuserLogin->profile_pic;
+    		$_SESSION['user']['is_payment_setup'] =  $getuserLogin->is_payment_setup;
+    		$_SESSION['user']['email_id'] =  $getuserLogin->email_id;
     		if($getuserLogin->default_user_type == 2)
     		{
     			$_SESSION['user']['user_type_permission'] = 'host';

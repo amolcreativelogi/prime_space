@@ -381,10 +381,10 @@ $("#sunday-sethrs").click(function(){
  $("#sunday-from").toggleClass("open");
  $("#sunday-to").toggleClass("open");
 });
-// $("#sunday-allday").click(function(){
-//  $("#sunday-from").toggleClass("open");
-//  $("#sunday-to").toggleClass("open");
-// });
+$("#sunday-allday").click(function(){
+ $("#sunday-from").removeClass("open");
+ $("#sunday-to").removeClass("open");
+});
 
 $("#monday-checkbox").click(function(){
  $(".monday-row").toggleClass("hide-row");
@@ -393,10 +393,10 @@ $("#monday-sethrs").click(function(){
  $("#monday-from").toggleClass("open");
  $("#monday-to").toggleClass("open");
 });
-// $("#monday-allday").click(function(){
-//  $("#monday-from").toggleClass("open");
-//  $("#monday-to").toggleClass("open");
-// });
+$("#monday-allday").click(function(){
+ $("#monday-from").removeClass("open");
+ $("#monday-to").removeClass("open");
+});
 
 $("#tuesday-checkbox").click(function(){
  $(".tuesday-row").toggleClass("hide-row");
@@ -405,10 +405,10 @@ $("#tuesday-sethrs").click(function(){
  $("#tuesday-from").toggleClass("open");
  $("#tuesday-to").toggleClass("open");
 });
-// $("#tuesday-allday").click(function(){
-//  $("#tuesday-from").toggleClass("open");
-//  $("#tuesday-to").toggleClass("open");
-// });
+$("#tuesday-allday").click(function(){
+ $("#tuesday-from").removeClass("open");
+ $("#tuesday-to").removeClass("open");
+});
 
 $("#wednesday-checkbox").click(function(){
  $(".wednesday-row").toggleClass("hide-row");
@@ -417,10 +417,10 @@ $("#wednesday-sethrs").click(function(){
  $("#wednesday-from").toggleClass("open");
  $("#wednesday-to").toggleClass("open");
 });
-// $("#wednesday-allday").click(function(){
-//  $("#wednesday-from").toggleClass("open");
-//  $("#wednesday-to").toggleClass("open");
-// });
+$("#wednesday-allday").click(function(){
+ $("#wednesday-from").removeClass("open");
+ $("#wednesday-to").removeClass("open");
+});
 
 $("#thursday-checkbox").click(function(){
  $(".thursday-row").toggleClass("hide-row");
@@ -429,10 +429,10 @@ $("#thursday-sethrs").click(function(){
  $("#thursday-from").toggleClass("open");
  $("#thursday-to").toggleClass("open");
 });
-// $("#thursday-allday").click(function(){
-//  $("#thursday-from").toggleClass("open");
-//  $("#thursday-to").toggleClass("open");
-// });
+$("#thursday-allday").click(function(){
+ $("#thursday-from").removeClass("open");
+ $("#thursday-to").removeClass("open");
+});
 
 $("#friday-checkbox").click(function(){
  $(".friday-row").toggleClass("hide-row");
@@ -441,10 +441,10 @@ $("#friday-sethrs").click(function(){
  $("#friday-from").toggleClass("open");
  $("#friday-to").toggleClass("open");
 });
-// $("#friday-allday").click(function(){
-//  $("#friday-from").toggleClass("open");
-//  $("#friday-to").toggleClass("open");
-// });
+$("#friday-allday").click(function(){
+ $("#friday-from").removeClass("open");
+ $("#friday-to").removeClass("open");
+});
 
 $("#saturday-checkbox").click(function(){
  $(".saturday-row").toggleClass("hide-row");
@@ -453,10 +453,10 @@ $("#saturday-sethrs").click(function(){
  $("#saturday-from").toggleClass("open");
  $("#saturday-to").toggleClass("open");
 });
-// $("#saturday-allday").click(function(){
-//  $("#saturday-from").toggleClass("open");
-//  $("#saturday-to").toggleClass("open");
-// });
+$("#saturday-allday").click(function(){
+ $("#saturday-from").removeClass("open");
+ $("#saturday-to").removeClass("open");
+});
 
 });
 
@@ -588,6 +588,76 @@ function calculateGrandTotal() {
     $("#second-grandtotal").text(grandTotal.toFixed(3));
 }
 
+
+
+
+
+
+
+
+
+
+// Add row for Car Parking Price in Edit Property
+$(document).ready(function () {
+    var counter = 0;
+
+    $("#edit-second-addrow").on("click", function () {
+        var newRow = $("<tr class='row'>");
+        var cols = "";
+
+        cols += '<td class="col-sm-3"><select><option>Car Type</option><option>Hatchback</option><option>Sedan</option><option>MPV</option><option>SUV </option><option>Crossover </option><option>Coupe</option><option>Convertibl </option></select></td>';
+        cols += '<td class="col-sm-3"><input type="text" class="form-control" placeholder="Hourly Price" name="mail' + counter + '"/></td>';
+        cols += '<td class="col-sm-3"><input type="text" class="form-control" placeholder="Daily Price" name="phone' + counter + '"/></td>';
+        cols += '<td class="col-sm-3"><input type="text" class="form-control" placeholder="Monthly  Price" name="phone' + counter + '"/></td>';
+
+        cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
+        newRow.append(cols);
+        $("table.order-list").append(newRow);
+        counter++;
+    });
+
+
+
+    $("table.order-list").on("click", ".ibtnDel", function (event) {
+        $(this).closest("tr").remove();       
+        counter -= 1
+    });
+
+
+});
+
+
+
+function calculateRow(row) {
+    var price = +row.find('input[name^="price"]').val();
+
+}
+
+function calculateGrandTotal() {
+    var grandTotal = 0;
+    $("table.order-list").find('input[name^="price"]').each(function () {
+        grandTotal += +$(this).val();
+    });
+    $("#edit-second-grandtotal").text(grandTotal.toFixed(3));
+}
+
+
+// Dashboard Menu Active
+var selector = '.dash-menu li';
+
+$(selector).on('click', function(){
+    $(selector).removeClass('active');
+    $(this).addClass('active');
+    return false;
+});
+
+
+// Checkbox click
+$(document).ready(function(){
+    $(".aminities-list li input").click(function(){
+      $(".aminities-list li input").toggleClass("selected");
+    });
+});
 
 
 
