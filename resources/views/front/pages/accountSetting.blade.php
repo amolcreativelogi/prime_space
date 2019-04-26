@@ -54,7 +54,7 @@
 					  			<input type="password" name="password" class="form-control" placeholder="New Password">
 					  		</div>
 					  		<div class="form-group">
-					  			<input type="password" name="password_confirmation" class="form-control" placeholder="Confirm Password">
+					  			<input type="password" name="password_confirmation" class="form-control" placeholder="Confirm New Password">
 					  		</div>
 					  		<div class="form-group">
 					  		<button type="submit" class="bluebtn" name="login-button">submit</button>

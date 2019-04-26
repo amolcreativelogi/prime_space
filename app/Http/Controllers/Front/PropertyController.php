@@ -10,7 +10,6 @@ use Intervention\Image\Facades\Image;
 //validation file
 use App\Http\Requests\Frontend\PropertyRequest;
 
-
 class PropertyController extends Controller
 {
     public function addProperty($module_manage_id = NULL)
@@ -59,80 +58,21 @@ class PropertyController extends Controller
         
     }
 
-    public function editParking($property_id)
+    public function editParking()
     {
-        $propertyDetails =  DB::table('prk_add_property')->select('*')->where('prk_add_property.property_id', '=', $property_id)->first();
-
-       $getPropertyImages =  DB::table('prk_add_property_files')->select('name','document_type_id','default_file')->where('property_id', '=', $property_id)->where('document_type_id', '=', 1)->get();
-
-       $getPropertyFloorMap =  DB::table('prk_add_property_files')->select('name','document_type_id','default_file')->where('property_id', '=', $property_id)->where('document_type_id', '=', 2)->get();
-
-         $getParkingType = DB::table('prk_parking_type')
-        ->select('status','parking_type','parking_type_id')
-        ->where([['is_deleted', '=', 0],
-                ['status', '=', 1]])->get();
-
-         $getCarType = DB::table('prk_car_type')
-        ->select('status','car_type','car_type_id')
-        ->where([['is_deleted', '=', 0],
-                ['status', '=', 1]])->get();
-
-        $getAddParkingSpot =  DB::table('prk_add_property_floors')->select('*')->where('property_id', '=', $property_id)->get();
-
-         $getPropertyRent =  DB::table('prk_add_property_rent')->select('*')->where('property_id', '=', $property_id)->get();
-
-         $getAmenities = DB::table('tbl_mstr_amenities')
-        ->select(
-            'tbl_mstr_amenities.amenity_name',
-            'tbl_mstr_amenities.status',
-            'tbl_mstr_amenities.amenity_id',
-            'tbl_mstr_amenities.amenity_image'
-            )
-         ->leftJoin('tbl_mstr_amenities_with_category', 'tbl_mstr_amenities_with_category.amenity_id', '=', 'tbl_mstr_amenities.amenity_id')
-         ->leftJoin('tbl_module_manage', 'tbl_module_manage.module_manage_id', '=', 'tbl_mstr_amenities_with_category.module_manage_id')->where('tbl_mstr_amenities.is_deleted', '=', 0)
-        ->where('tbl_mstr_amenities_with_category.module_manage_id', '=', 2)
-        ->where('tbl_mstr_amenities_with_category.status', '=', 1)
-        ->get();
-
-        $getLocationTypes = DB::table('tbl_mstr_location_type')->select('tbl_mstr_location_type.location_type',
-            'tbl_mstr_location_type.status',
-            'tbl_mstr_location_type.location_type_id'
-            )
-         ->leftJoin('tbl_mstr_location_type_with_module', 'tbl_mstr_location_type_with_module.location_type_id', '=', 'tbl_mstr_location_type.location_type_id')
-         ->leftJoin('tbl_module_manage', 'tbl_module_manage.module_manage_id', '=', 'tbl_mstr_location_type_with_module.module_manage_id')
-         ->where('tbl_mstr_location_type_with_module.is_deleted', '=', 0)
-         ->where('tbl_mstr_location_type_with_module.module_manage_id', '=', 2)
-         ->where('tbl_mstr_location_type_with_module.status', '=', 1)
-         ->get();
-
-          //get amenities with its modules
-        $getcancellationpolicies = DB::table('tbl_mstr_cancellation_policies as tcp')
-        ->select(
-            'tcp.cancellation_policy_id',
-            'cancellation_policy_text',
-            'cancellation_percentage',
-            'cancellation_type'
-            )
-         ->leftJoin('tbl_mstr_cancellation_type as tca', 'tca.cancellation_type_id', '=', 'tcp.cancellation_type_id')
-        ->where('tcp.module_manage_id', '=', 2)
-        ->where('tca.status', '=', 1)
-        ->where('tca.is_deleted', '=', 0)
-        ->get();
-
-
-        return view('front.property.edit_parking')->with(['parking'=>$propertyDetails,'getPropertyImages'=>$getPropertyImages,'getPropertyFloorMap'=>$getPropertyFloorMap,'getParkingType'=>$getParkingType,'getAddParkingSpot'=>$getAddParkingSpot,'getCarType'=>$getCarType,'getPropertyRent'=>$getPropertyRent,'getAmenities'=>$getAmenities,'getLocationTypes'=>$getLocationTypes,'getcancellationpolicies'=>$getcancellationpolicies]);
+        return view('front.property.edit_parking');
     }
 
      public function editLand()
     {
-
-
         return view('front.property.edit_land');
     }
     
 
-    public function getPropertyMasters()
+     public function getPropertyMasters()
     {
+
+
         $module_manage_id = $_POST['module_manage_id'];
         //echo json_encode($module_manage_id);
         //die;
@@ -395,7 +335,6 @@ class PropertyController extends Controller
                   //Add Booking Durition
                   //exit;
                   $inserAmenitiesArr=[];
-                  if(isset($request['data']['amenities'])) {
                   foreach ($request['data']['amenities'] as $value) {
                                 # code...
                                 if(!empty($value)) {
@@ -411,8 +350,7 @@ class PropertyController extends Controller
                             }
                             $insertPropFloorData  = DB::table($tbl_prefix.'add_property_amenities')->insert($inserAmenitiesArr);
                             //print_r($propFloorDetails);die('in');
-                   }
-                   }
+                    }
                     
                    //Code for upload image, floor map and doc
                    if($request->hasfile('property_images'))
@@ -567,7 +505,6 @@ class PropertyController extends Controller
                       'response' => array('msg' =>'Thank you for adding Land. Please wait for Admin approval.')); 
             //echo 4;exit;  
         }
-        $getParkingList = DB::table('prk_add_property')->select('email_id','property_id')->leftJoin('prk_user_registrations', 'prk_user_registrations.user_id', '=', 'prk_add_property.user_id')->where('prk_add_property.property_id', '=', $propertyId)->first();
         echo json_encode($data);
          //echo '{code:200,msg:success}';
     }

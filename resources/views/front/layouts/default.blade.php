@@ -6,6 +6,4 @@
 
 
 @include('front/includes.footer')
-
-	@yield('script')
     

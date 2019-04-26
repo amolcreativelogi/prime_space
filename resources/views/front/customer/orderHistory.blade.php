@@ -40,20 +40,49 @@
                <th>To Date</th>
                <th>Amount</th>
                <th>Status</th>
-              <!--  <th class="action">Action</th> -->
              </tr>
            </thead>
            <tbody>
-             <?php foreach($gettransationList as $gtranlist) { ?>
              <tr>
-               <td><?php echo $gtranlist->name; ?></td>
+               <td>Property one</td>
                <td>parking</td>
-               <td><?php echo $gtranlist->name; ?></td>
-               <td><?php echo $gtranlist->start_date; ?></td>
-               <td><?php echo $gtranlist->booking_amount; ?></td>
-               <td><?php echo $gtranlist->booking_status; ?></td>
+               <td>04.08.19</td>
+               <td>04.12.19</td>
+               <td>$200</td>
+               <td class="paid">paid</td>
              </tr>
-            <?php } ?>
+             <tr>
+               <td>Property two</td>
+               <td>land</td>
+               <td>04.08.19</td>
+               <td>04.12.19</td>
+               <td>$200</td>
+               <td class="pending">pending</td>
+             </tr>
+             <tr>
+               <td>Property three</td>
+               <td>land</td>
+               <td>04.08.19</td>
+               <td>04.12.19</td>
+               <td>$200</td>
+               <td class="paid">paid</td>
+             </tr>
+             <tr>
+               <td>Property four</td>
+               <td>parking</td>
+               <td>04.08.19</td>
+               <td>04.12.19</td>
+               <td>$200</td>
+               <td class="pending">pending</td>
+             </tr>
+             <tr>
+               <td>Property five</td>
+               <td>parking</td>
+               <td>04.08.19</td>
+               <td>04.12.19</td>
+               <td>$200</td>
+               <td class="paid">paid</td>
+             </tr>
            </tbody>
          </table>
     </div>

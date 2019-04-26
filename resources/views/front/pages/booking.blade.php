@@ -1,26 +1,24 @@
-	@extends('front/layouts.default')
+@extends('front/layouts.default')
 @section('content')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
-
- 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <style type="text/css">
-        .panel-title {
-        display: inline;
-        font-weight: bold;
-        }
-        .display-table {
-            display: table;
-        }
-        .display-tr {
-            display: table-row;
-        }
-        .display-td {
-            display: table-cell;
-            vertical-align: middle;
-            width: 61%;
-        }
-    </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style type="text/css">
+    .panel-title {
+    display: inline;
+    font-weight: bold;
+    }
+    .display-table {
+        display: table;
+    }
+    .display-tr {
+        display: table-row;
+    }
+    .display-td {
+        display: table-cell;
+        vertical-align: middle;
+        width: 61%;
+    }
+</style>
 
 <div class="site-content">
 <section class="bookingform">
@@ -173,64 +171,8 @@
     </div>
 </div>
 
-
-
-
-
-
-<!-- <div class="paymentbox">
-	<div id="dropin-container"></div>
-	<button id="submit-button">Request payment method</button>
-</div> -->
-<!-- <div class="your-info" style="display:none;">
-<h3>Payment Method</h3>
-<div class="row">
-<div class="col-sm-12">
-<div class="form-group">
-<label>YOUR CARD NUMBER <span>*</span></label>
-<input type="text" class="form-control" placeholder="Your Card Number" >
-</div>
-</div>
-<div class="col-sm-12">
-<div class="row">
-<div class="col-sm-8">
-<div class="form-group cardexp-group">
-<label>EXPIRATION DATE (MM/YYYY)</label>
-<input type="text" class="form-control" placeholder="Month" > /
-<input type="text" class="form-control" placeholder="Year" >
-</div>
-
-</div>
-<div class="col-sm-4">
-<div class="form-group">
-<label>CVV</label>
-<input type="text" class="form-control" placeholder="CVV" > 
-</div>
-</div>
-</div>
-
-</div>
-<div class="col-sm-6">
-<div class="form-group">
-<label>POSTAL CODE <span>*</span></label>
-<input type="text" class="form-control" placeholder="Postal code" >
-</div>
-</div>
-<div class="col-sm-6"></div>
-<div class="col-sm-6">
-<div class="form-group">
-<input type="checkbox" name="">Save payment method
-</div>
-</div>
-<div class="col-sm-6"></div>
-<hr>
-<div class="col-sm-6"><h4>Your Order Total</h4></div>
-<div class="col-sm-6"><h2>$<?php echo $finalprice;?></h2></div>
-<div class="col-sm-6"><input type="button" value="submit" onclick="searchURL()" data-toggle="modal" data-target="#thanksModal"></div>
-</div>
-</div> -->
 <?php } else {?>
-<a href="#" data-toggle="modal" class="book-signup" data-target="#loginModal">Please sign-in to book your property</a>
+    <a href="#" data-toggle="modal" class="book-signup" data-target="#loginModal">Please sign-in to book your property</a>
 <?php }?>
 </div>
 <div class="col-sm-4">
@@ -263,25 +205,25 @@ $image = 'No Image';
 
 <!-- thanksModal start -->
 <div class="modal fade formModal" id="thanksModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-<div class="modal-dialog" role="document">
-<div class="modal-content">
-<div class="modal-header">
-<!--<h5 class="modal-title" id="exampleModalLabel">Find a space</h5>-->
-<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
-</button>
-</div>
-<div class="modal-body">
-          <div class="thanksmsgbox">
-                <i class="fa fa-smile-o" aria-hidden="true"></i>
-                <h2>Thanks for your Booking</h2>
-          </div> 
-</div>
-</div>
-</div>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!--<h5 class="modal-title" id="exampleModalLabel">Find a space</h5>-->
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="thanksmsgbox">
+            <i class="fa fa-smile-o" aria-hidden="true"></i>
+            <h2>Thanks for your Booking</h2>
+        </div>  
+      </div>
+    </div>
+  </div>
 </div>
 <!-- thanksModal end -->
-
+    
 </div>
 
 
