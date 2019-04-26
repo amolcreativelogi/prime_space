@@ -7,11 +7,13 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Requests\BlogRequest;
 
 use DB;
+use Session;
 
 class BlogsController extends Controller {
 
@@ -32,68 +34,98 @@ class BlogsController extends Controller {
       }
 
     //save cms page content to database
-    public function saveBlog(BlogRequest $request)
+    public function saveBlog(Request $request)
     { 
       
-      //store blog image
-       $image = $request->file('image');
-       if($image)
-       {
-       $imagename = strtolower(trim($request->input('title'))).'.'.$image->getClientOriginalExtension();
-       $destinationPath = public_path('/images/blogs');
-       $amenities_image = $image->move($destinationPath,$imagename);
-       $image = $imagename;
-       } else {
-        $image = $request->input('edit_blog_image');
-       }
+      $rules =array();
+      $rules =  [
+            'title' => 'required',
+            'image' => 'required',
+            'short_description' => 'required',
+            'description' => 'required'
+       ];
+       //if image is alredy exist in db
+      if(!empty($request->input('edit_blog_image'))){
+      
+          unset($rules['image']);
+      }else{
+          $rules['image']='required';
+        
+      }
+       $validator = Validator::make($request->all(), $rules);
+        
+       if($validator->fails()) {
+           return redirect()->back()->withErrors($validator->errors());
+       }else{
 
-      if(!$request->input('blog_id')) {
-            //Add new record
-            $duplicateEntry = DB::table('tbl_blogs')->where('title', '=', $request->input('title'))->where('is_deleted', '=', 0)->count();
-            if($duplicateEntry == 0) {
-                $data = array(
-                        'title'=>$request->input('title'),
-                        'image'=>$image,
-                        'short_description'=>$request->input('short_description'),
-                        'description'=>$request->input('description'),
-                        'status'=>$request->input('status'),
-                        'created_by'=>'1',
-                        'modified_by'=>'1'
-                       );
-                $result  = DB::table('tbl_blogs')->insert($data);
-                if($result)
-                {
-                  return redirect()->back()->withSuccess('Record has been saved successfully');
+          //store blog image
+           $image = $request->file('image');
+           if($image)
+           {
+            $ext = $image->getClientOriginalExtension();
+            //if not image
+            if(!in_array($ext, ['jpg','png','png'])){
+              return redirect()->back()->withWarning('Uploaded file should be image');
+            }
+             $imagename = strtolower(trim($request->input('title'))).'.'.$image->getClientOriginalExtension();
+              $destinationPath = public_path('/images/blogs');
+              $amenities_image = $image->move($destinationPath,$imagename);
+              $image = $imagename;
+            
+           } else {
+              $image = $request->input('edit_blog_image');
+           }
+
+         
+          if(!$request->input('blog_id')) {
+                //Add new record
+                $duplicateEntry = DB::table('tbl_blogs')->where('title', '=', $request->input('title'))->where('is_deleted', '=', 0)->count();
+                if($duplicateEntry == 0) {
+                    $data = array(
+                            'title'=>$request->input('title'),
+                            'image'=>$image,
+                            'short_description'=>$request->input('short_description'),
+                            'description'=>$request->input('description'),
+                            'status'=>$request->input('status'),
+                            'created_by'=>'1',
+                            'modified_by'=>'1'
+                           );
+                    $result  = DB::table('tbl_blogs')->insert($data);
+                    if($result)
+                    {
+                      return redirect()->back()->withSuccess('Record has been saved successfully');
+                    }
+                }  else {
+     
+                  return redirect()->back()->withWarning('Blog title already exists');
                 }
-            }  else {
- 
-              return redirect()->back()->withWarning('Blog title already exists');
+            } else {
+                $duplicateEntry = DB::table('tbl_blogs')->where('title', '=', $request->input('title'))->where('is_deleted', '=', 0)->where('id', '!=', $request->input('blog_id'))->count();
+                if($duplicateEntry == 0) {
+                  //Update new record
+                  $data = array(
+                          'title'=>$request->input('title'),
+                          'image'=>$image,
+                          'short_description'=>$request->input('short_description'),
+                          'description'=>$request->input('description'),
+                          'status'=>$request->input('status'),
+                          'created_by'=>'1',
+                          'modified_by'=>'1'
+                         );
+                $result  = DB::table('tbl_blogs')->where('id', $request->input('blog_id'))->update($data);
+                  if($result)
+                  {
+                    return redirect()->back()->withSuccess('Record has been updated successfully');
+                  } else {
+                    return redirect('admin/blogs/add');
+                  }
+                }  else {
+     
+                  return redirect()->back()->withWarning('Blog title already exists');
+                }
             }
-        } else {
-            $duplicateEntry = DB::table('tbl_blogs')->where('title', '=', $request->input('title'))->where('is_deleted', '=', 0)->where('id', '!=', $request->input('blog_id'))->count();
-            if($duplicateEntry == 0) {
-              //Update new record
-              $data = array(
-                      'title'=>$request->input('title'),
-                      'image'=>$image,
-                      'short_description'=>$request->input('short_description'),
-                      'description'=>$request->input('description'),
-                      'status'=>$request->input('status'),
-                      'created_by'=>'1',
-                      'modified_by'=>'1'
-                     );
-            $result  = DB::table('tbl_blogs')->where('id', $request->input('blog_id'))->update($data);
-              if($result)
-              {
-                return redirect()->back()->withSuccess('Record has been updated successfully');
-              } else {
-                return redirect('admin/blogs/add');
-              }
-            }  else {
- 
-              return redirect()->back()->withWarning('Blog title already exists');
-            }
-        }
+       }
+        //print_r($rules);die;
     }
 
     //get cms page list
@@ -192,7 +224,7 @@ class BlogsController extends Controller {
   //load add/edit cms page form
   public function listBlogs()
   { 
-    $getBlogs = DB::table('tbl_blogs')->orderBy('id', 'desc')->get();//Tbl_blogs::all();
+    $getBlogs = DB::table('tbl_blogs')->where(['is_deleted'=> 0,'status'=>1])->orderby('id','desc')->get();
     return view('front.blog.list')->with('getBlogs', $getBlogs); 
     
   }
@@ -200,9 +232,11 @@ class BlogsController extends Controller {
   //load add/edit cms page form
   public function loadBlogPage($blog_id = NULL)
   { 
-    $getBlogPageData = DB::table('tbl_blogs')->where('id', '=', $blog_id)->first();
-    return view('front.blog.view')->with('getBlogPageData', $getBlogPageData); 
+    $getBlogPageData = DB::table('tbl_blogs')->where('id', '=', $blog_id)
+    ->where(['is_deleted'=> 0,'status'=>1])->first();
+    return view('admin.blog.view')->with('getBlogPageData', $getBlogPageData); 
     
   }
+
 
 }

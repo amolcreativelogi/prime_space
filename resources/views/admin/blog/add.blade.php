@@ -58,7 +58,7 @@
              </div>
            </div>
          <?php }?>
-          <div class="form-group">
+          <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-username"> Short Description </label>
             <div class="col-sm-10">
              
@@ -71,7 +71,7 @@
              </div>
            
           </div>
-          <div class="form-group">
+          <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-username"> Description </label>
             <div class="col-sm-10">
              
