@@ -371,7 +371,7 @@ Route::get('/blogs', 'Admin\BlogsController@listBlogs');
 //});
 // end of blogs routes
 
-
+//Route for FAQ Categories
 Route::post('/admin/faqs/getFaqCategories', 'Admin\FaqsCategoryController@getFaqCategories');
 Route::get('/admin/faqs/categories', 'Admin\FaqsCategoryController@index');
 Route::get('/admin/faqs/categories/add/{id?}', 'Admin\FaqsCategoryController@add');
@@ -379,8 +379,21 @@ Route::post('/admin/faqs/saveFaqsCategory', 'Admin\FaqsCategoryController@saveFa
 Route::post('/admin/faqs/DeleteFaqCategory','Admin\FaqsCategoryController@DeleteFaqCategory');
 Route::get('/admin/faqs/updateCategorySequence', 'Admin\FaqsCategoryController@updateCategorySequence');
 Route::post('/admin/faqs/saveFaqsCategorySequece', 'Admin\FaqsCategoryController@saveFaqsCategorySequece');
-Route::get('/faqs/{id}', 'Admin\FaqsCategoryController@loadBlogPage');
-Route::get('/faq', 'Admin\FaqsCategoryController@listFaqs');
+
+//Route for FAQ's
+Route::get('/admin/faq', 'Admin\FaqsController@index');
+Route::get('/admin/faq/add/{id?}', 'Admin\FaqsController@add');
+Route::post('/admin/faq/saveFaq', 'Admin\FaqsController@saveFaq');
+Route::get('/admin/faq/edit/{id?}', 'Admin\FaqsController@edit');
+Route::post('/admin/faq/editFaq', 'Admin\FaqsController@editFaq');
+Route::get('/admin/faq/delete/{faq_id}/{category_id}', 'Admin\FaqsController@delete');
+Route::post('upload_image','Admin\FaqsController@uploadImage')->name('upload');
+Route::post('/admin/faq/getFaqs', 'Admin\FaqsController@getFaqs');
+Route::get('/admin/faq/list/{category_id?}', 'Admin\FaqsController@getAllFaqList');
+Route::get('/admin/faq/updateFaqSequence', 'Admin\FaqsController@updateFaqSequence');
+Route::post('/admin/faq/saveFaqSequece', 'Admin\FaqsController@saveFaqSequece');
+//Route::post('/admin/faq/list', 'Admin\FaqsController@list');
+
 
 
 
