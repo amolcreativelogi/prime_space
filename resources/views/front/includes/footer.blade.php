@@ -69,7 +69,7 @@
                       </div>
                       <div class="form-group birthdategroup">
                          <label>Birthday</label>
-                         <p>To sign up, you must be 18 or older. People won’t see your birthday</p>
+                         <p>To sign up, you must be 18 or older. Your birthday will not be shared.</p>
                          <div class="birthdaygroup">
                           <select class="month" name="dob_month" id="dob_month">
                             <option value="">Select Month</option>
@@ -118,7 +118,7 @@
                         </div>
                         <div class="col-sm-11">
                             <label for="">
-                                By continuing you are confirming that you have read and agree to the <a href="#">Terms of Service</a> &amp; <a href="#">Privacy Policy</a>.
+                                By continuing you are confirming that you have read and agree to the <a href="https://www.prymestory.com/public/assets/front-design/images/Terms-and-Conditions.pdf" target="_blank">Terms of Service</a> &amp; <a href="public/assets/front-design/images/PrivacyPolicy.pdf" target="_blank">Privacy Policy</a>.
                             </label>
                             <div id="terms-error" class="error" for="terms-error"></div>
                         </div>
@@ -239,10 +239,10 @@
         <div class="col-lg-3 col-md-3 col-sm-6">
           <h4>Company</h4>
           <ul>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Mission</a></li>
-            <li><a href="#">Vision</a></li>
-            <li><a href="#">Blog</a></li>
+            <li><a href="<?php echo URL::to('pages/about-us'); ?>">About Us</a></li>
+            <li><a href="<?php echo URL::to('pages/mission'); ?>">Mission</a></li>
+            <li><a href="<?php echo URL::to('pages/vision'); ?>">Vision</a></li>
+            <li><a href="<?php echo URL::to('blogs'); ?>">Blog</a></li>
             <li><a href="#">Press</a></li>
             <li><a href="<?php echo URL::to('faq'); ?>">FAQ's</a></li>
           </ul>
@@ -250,7 +250,7 @@
         <div class="col-lg-3 col-md-3 col-sm-6">
           <h4>Hosts</h4>
           <ul>
-            <li><a href="#">Benefits for Hosting with Us</a></li>
+            <li><a href="<?php echo URL::to('pages/benefits-for-hosting-with-us'); ?>">Benefits for Hosting with Us</a></li>
             <?php
             if(isset($_SESSION['user']['is_user_login'])) { ?>
                <!-- <a href="">Find a space</a> -->
@@ -258,13 +258,13 @@
             <li><a href="#" data-toggle="modal" class="singupModal popuplink" data-target="#singupModal">Become a Host</a></li>
             <?php } ?>
             <li><a href="<?php echo URL::to('host-faq'); ?>">Host FAQ's </a></li>
-            <li><a href="#">Community</a></li>
+            <li><a href="<?php echo URL::to('pages/community'); ?>">Community</a></li>
           </ul>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-6">
           <h4>Renter</h4>
           <ul>
-            <li><a href="#">Benefits for Renting with Us</a></li>
+            <li><a href="<?php echo URL::to('pages/benefits-for-renting-with-us'); ?>">Benefits for Renting with Us</a></li>
              <?php
             if(isset($_SESSION['user']['is_user_login'])) { ?>
                <!-- <a href="">Find a space</a> -->

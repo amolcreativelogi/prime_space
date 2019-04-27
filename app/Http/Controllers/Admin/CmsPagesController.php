@@ -57,7 +57,7 @@ class CmsPagesController extends Controller {
               //Update new record
               $data = array(
                       'title'=>$request->input('title'),
-                      'url_keyword'=>$this->clean($request->input('title')),
+                      //'url_keyword'=>$this->clean($request->input('title')),
                       'description'=>$request->input('description'),
                       'status'=>$request->input('status'),
                       'created_by'=>'1',
@@ -114,7 +114,9 @@ class CmsPagesController extends Controller {
             //$row[] = $sr++;
             $row[] = $cmsPages->title;
             $row[] = ($cmsPages->status == 1) ? 'Active' : 'Inactive';
-             $row[] ='<a href="'.url('admin/cmspages/add/'.$cmsPages->id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$cmsPages->id.','."'tbl_cms_pages'".','."'id'".');"><i class="fa fa-trash-o"></i></button>';
+             $row[] ='<a href="'.url('admin/cmspages/add/'.$cmsPages->id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>';
+
+               // <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$cmsPages->id.','."'tbl_cms_pages'".','."'id'".');"><i class="fa fa-trash-o"></i></button>
             $data[] = $row;
           }
         $output = array(

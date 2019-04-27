@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Pryme Space</title>
+<link rel="stylesheet" type="text/css" href="css/custom.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/animate.css">
+<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700" rel="stylesheet"> 
+</head>
+<body>
+
+<header class="site-header">
+    <div class="container">
+    <div class="row">
+      <div class="col-lg-3 col-md-4 col-sm-12 logodiv">
+        <a href="index.html" class="logo"><img src="images/psw-logo.png" alt=""></a>
+      </div>
+      <div class="col-lg-9 col-md-8 col-sm-12 menudiv">
+        <a href="#" data-toggle="modal" class="searchModal popuplink" data-target="#searchModal"><i class="fa fa-search" aria-hidden="true"></i> Search</a>
+         <nav class="navbar navbar-default pullright">
+            <ul class="nav navbar-nav">
+              <li class="demandpark"><a href="all-property.html">Try on-demand parking</a></li>
+              <li class="dropdown"><a href="#" dropdown-toggle" data-toggle="dropdown">Get started <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Get started</a></li>
+                <li><a href="#">Get started</a></li>
+                <li><a href="#">Get started</a></li>
+              </ul>
+              </li>
+              <li><a href="#">Help</a></li>
+              <!-- <li><a href="#" data-toggle="modal" class="singupModal popuplink" data-target="#singupModal">Sign up</a></li>
+              <li><a href="#" data-toggle="modal" class="loginModal popuplink" data-target="#loginModal">Log in</a></li> -->
+            </ul>
+            <!-- After login menu start here -->
+          <div class="afterloginbox">
+            <ul>
+               <li class="dropdown"><a href="#" dropdown-toggle" data-toggle="dropdown"><img src="images/test-author-03.jpg" alt=""> John <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">dashboard</a></li>
+                <li><a href="#">Switch to User</a></li>
+                <li><a href="#">edit profile</a></li>
+                <li><a href="#">Account Setting </a></li>
+                <li><a href="#">logout</a></li>
+              </ul>
+              </li>
+            </ul>
+          </div>
+          <!-- After login menu End here -->
+        </nav>
+        
+      </div>
+  </div>
+</div>
+</header><!-- site-header -->
+
+<!-- searchModal start -->
+<div class="modal fade formModal" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Find a space</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="site-signup site-form">
+      <form>
+        <select>
+          <option>Choose a category</option>
+          <option>Choose a category</option>
+          <option>Choose a category</option>
+        </select>
+        <input type="text" name="" placeholder="Location" class="location">
+        <input type="text" name="" placeholder="Dates" class="dates">
+        <input type="button" name=""  value="Search">
+      </form>              
+    </div>  
+      </div>
+    </div>
+  </div>
+</div>
+<!-- searchModal end -->
+
+
+<!-- singupModal start -->
+<div class="modal fade formModal" id="singupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Sign up</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="site-signup site-form">
+                    <form id="form-signup" action="/site/signup" method="post">
+                      <input type="hidden" name="_csrf-frontend" value="">
+                      <div class="form-group field-signupform-email required">
+                          <input type="text" id="signupform-email" class="form-control" name="SignupForm[email]" aria-required="true" placeholder="Email Address">
+                      </div>
+                      <div class="form-group field-signupform-first_name required has-error">
+                          <input type="text" id="signupform-first_name" class="form-control" name="SignupForm[first_name]" autofocus="" aria-required="true" aria-invalid="true" placeholder="First Name">
+                      </div>
+                      <div class="form-group field-signupform-last_name required">
+                          <input type="text" id="signupform-last_name" class="form-control" name="SignupForm[last_name]" autofocus="" aria-required="true" placeholder="Last Name">
+                      </div>
+                      <div class="form-group field-signupform-password required">
+                          <input type="password" id="signupform-password" class="form-control" name="SignupForm[password]" aria-required="true" placeholder="Create a password">
+                      </div>
+                      <div class="form-group birthdategroup">
+                         <label>Birthday</label>
+                         <p>To sign up, you must be 18 or older. People won’t see your birthday</p>
+                         <div class="birthdaygroup">
+                          <select class="month">
+                            <option>January</option>
+                            <option>February</option>
+                            <option>March</option>
+                          </select>
+                          <select class="day">
+                            <option>01</option>
+                            <option>02</option>
+                            <option>03</option>
+                          </select>
+                          <select class="year">
+                            <option>1980</option>
+                            <option>1981</option>
+                            <option>1982</option>
+                          </select>
+                         </div>
+                      </div>
+                      <div class="form-group acctype-group">
+                          <label class="control-label" for="signupform-confirm_password">account type</label>
+                          <ul>
+                            <li>
+                              <input type="radio" name="acctype" id="host">
+                              <label for="host">Host</label>
+                            </li>
+                            <li>
+                              <input type="radio" name="acctype" id="user">
+                              <label for="user">User</label>
+                            </li>
+                          </ul>
+                      </div>
+
+                    <div class="row">
+                        <div class="col-sm-1">
+                            <input type="checkbox" id="privacy_policy_check"> <span class="checkmark"></span>
+                        </div>
+                        <div class="col-sm-11">
+                            <label for="">
+                                By continuing you are confirming that you have read and agree to the <a href="#">Terms of Service</a> &amp; <a href="#">Privacy Policy</a>.
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="bluebtn" name="signup-button">Sign up</button>                    
+                    </div>
+
+                    <div class="form-group password-reset text-center">
+                        Already have a Prymespace account? <a href="#" data-toggle="modal" data-target="#loginModal" class="loginModal popuplink">Log in</a>.
+                    </div>
+                    </form>                
+      </div>  
+      </div>
+    </div>
+  </div>
+</div>
+<!-- singupModal end -->
+
+<!-- loginModal start -->
+<div class="modal fade formModal" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Log in to continue</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="site-signup site-form">
+                   <form id="login-form" action="/site/login" method="post">
+                            <input type="hidden" name="_csrf-frontend" value="">
+                            <div class="form-group field-loginform-email required has-error">
+                                <input type="text" id="loginform-email" class="form-control" name="LoginForm[email]" autofocus="" aria-required="true" aria-invalid="true" placeholder="Email Address">
+                            </div>
+                            <div class="form-group field-loginform-password required has-error">
+                                <input type="password" id="loginform-password" class="form-control" name="LoginForm[password]" aria-required="true" aria-invalid="true" placeholder="Password">
+                            </div>
+                            <div class="form-group field-loginform-rememberme">
+                              <div class="checkbox">
+                                  <label for="loginform-rememberme">
+                                  <input type="hidden" name="LoginForm[rememberMe]" value="0"><input type="checkbox" id="loginform-rememberme" name="LoginForm[rememberMe]" value="1" checked="">
+                                  Remember Me
+                                  </label>
+                              </div>
+                            </div>
+                            <div class="form-group text-center">
+                                <button type="submit" class="bluebtn" name="login-button">Login</button>
+                            </div>
+
+                            <div class="form-group text-center">
+                              <ul class="social-login">
+                                <li><a class="google auth-link" href="#" title="Google"><i class="fa fa-google" aria-hidden="true"></i>Google</a></li>
+                                <li><a class="facebook auth-link" href="#" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i>Facebook</a></li>
+                                <li><a class="linkedin auth-link" href="#" title="Linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i>Linkedin</a></li>
+                              </ul>
+                            </div>
+
+                            <a href="#" data-toggle="modal" data-target="#resetpassModal" class="forgotlink">Forgot password?</a>
+
+                            <div class="form-group password-reset text-center" >
+                                Don’t have a Prymespace account? <a href="#" data-toggle="modal" data-target="#singupModal" class="singupModal popuplink">Sign up</a>.
+                            </div>
+
+                        </form>              
+      </div>  
+      </div>
+    </div>
+  </div>
+</div>
+<!-- loginModal end -->
+
+<!-- resetpassModal start -->
+<div class="modal fade formModal" id="resetpassModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Reset password request</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="site-signup site-form">
+      <form id="request-password-reset-form" action="/site/request-password-reset" method="post">
+        <input type="hidden" name="_csrf-frontend">
+        <div class="form-group field-passwordresetrequestform-email">
+          <input type="text" id="passwordresetrequestform-email" class="form-control" name="PasswordResetRequestForm[email]" autofocus="" aria-required="true" aria-invalid="true" placeholder="Email Address">
+        </div>
+        <div class="form-group">
+          <button type="submit" class="bluebtn">Send</button>                            
+        </div>
+      </form>             
+    </div>  
+      </div>
+    </div>
+  </div>
+</div>
+<!-- loginModal end -->
+
+<div class="site-content">
+
+<section class="dashboard-layout host-dash">
+    <div class="row">
+
+      <div class="col-lg-2 col-md-3 col-sm-12 dl-sidebar">
+        <ul class="dash-menu">
+          
+         <!--  <li><a href="">Upcoming Booking </a></li>
+          <li><a href="">Newly add Properties</a></li>
+          <li><a href="">Upcoming Booking </a></li>
+          <li><a href="">Newly add Properties</a></li>
+          <li><a href="">Upcoming Booking </a></li> -->
+          <li><a href="<?php echo URL::to('user/host'); ?>"><img src="{{ URL::asset('public') }}/assets/front-design/images/dashborad.svg" alt=""> Dashboard</a></li>
+         
+          <li><a href="<?php echo URL::to('addproperty'); ?>"><img src="{{ URL::asset('public') }}/assets/front-design/images/properties.svg" alt=""> Add Properties</a></li>
+          <li class="dropdown">
+              <a href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <img src="{{ URL::asset('public') }}/assets/front-design/images/parked-car.svg" alt="">Parking Properties</a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="<?php echo URL::to('addproperty'); ?>"><img src="{{ URL::asset('public') }}/assets/front-design/images/arrow.svg" alt=""> Add Parking</a></li>
+                    <li><a class="dropdown-item" href="<?php echo URL::to('editparking'); ?>"><img src="{{ URL::asset('public') }}/assets/front-design/images/arrow.svg" alt=""> Edit Parking</a></li>
+                    <li><a class="dropdown-item" href="<?php echo URL::to('user/parkingProperties'); ?>"><img src="{{ URL::asset('public') }}/assets/front-design/images/arrow.svg" alt=""> View Parking</a></li>
+                </ul>
+          </li>
+          <li class="dropdown">
+              <a href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <img src="{{ URL::asset('public') }}/assets/front-design/images/land.svg" alt="">Land Properties</a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="<?php echo URL::to('addproperty'); ?>"><img src="{{ URL::asset('public') }}/assets/front-design/images/arrow.svg" alt=""> Add Land</a></li>
+                    <li><a class="dropdown-item" href="<?php echo URL::to('addproperty'); ?>"><img src="{{ URL::asset('public') }}/assets/front-design/images/arrow.svg" alt=""> Edit Land</a></li>
+                    <li><a class="dropdown-item" href="<?php echo URL::to('user/landProperties'); ?>"><img src="{{ URL::asset('public') }}/assets/front-design/images/arrow.svg" alt=""> View Land</a></li>
+                </ul>
+          </li>
+          <li><a href="<?php echo URL::to('user/bookingProperties'); ?>"><img src="{{ URL::asset('public') }}/assets/front-design/images/booking.svg" alt="">Booking Properties</a></li>
+        </ul>
+      </div><!-- dl-sidebar -->
+
+      <div class="col-lg-10 col-md-9 col-sm-12 dl-content">
+          <section class="edit-parking edit-property">
+            <h2>Edit Parking</h2>
+            <div class="row">
+              <div class="col-lg-3 col-md-3 col-sm-12">
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#ep01">Property Information</a></li>
+                    <li><a data-toggle="tab" href="#ep02">Property Floor Map</a></li>
+                    <li><a data-toggle="tab" href="#ep03">Cars and Pricing</a></li>
+                    <li><a data-toggle="tab" href="#ep04">Amenities and Other</a></li>
+                    <li><a data-toggle="tab" href="#ep05">When is it available?</a></li>
+                    <li><a data-toggle="tab" href="#ep06">Set your cancellation policy</a></li>
+                    <li><a data-toggle="tab" href="#ep07">Documents</a></li>
+                  </ul>
+              </div>
+              <div class="col-lg-9 col-md-9 col-sm-12 tab-content">
+                <div id="ep01" class="tab-pane fade in active">
+                    <div class="stepbox">
+                      <h3>Property Information</h3>
+                      <input type="text" name="data[property_name]" id="property_name" placeholder="Property Name ">
+                      <select id="select-property-type" name="module_manage_id" class="type" onchange="getProprtyMasters(this.value)">
+                        <option value="">Select Property</option>
+                        <option value="2">Parking</option>
+                        <option value="3">Land</option>
+                        <option value="4">Industry</option>
+                        <option value="5">Developement</option>
+                      </select>
+                              
+                      <input type="text" name="data[location]" id="location-property" placeholder="Location" autocomplete="off">
+                      <input type="text" name="data[zip_code]" id="zip_code" placeholder="Enter Property Zip Code">
+                      <textarea placeholder="Property description" name="data[property_description]" id="property_description" cols="6"></textarea>
+                      <div class="box">
+                        <input type="file" name="" id="" multiple="" >
+                        <div class="row">
+                          <div class="column">
+                            <img src="images/discoverpsace01.jpg">
+                            <a href=""><i class="fa fa-times-circle" aria-hidden="true"></i></a>
+                          </div>
+                          <div class="column">
+                            <img src="images/discoverpsace01.jpg">
+                            <a href=""><i class="fa fa-times-circle" aria-hidden="true"></i></a>
+                          </div>
+                          <div class="column">
+                            <img src="images/discoverpsace01.jpg">
+                            <a href=""><i class="fa fa-times-circle" aria-hidden="true"></i></a>
+                          </div>
+                          <div class="column">
+                            <img src="images/discoverpsace01.jpg">
+                            <a href=""><i class="fa fa-times-circle" aria-hidden="true"></i></a>
+                          </div>
+                        </div>
+
+                      </div>
+                      <input type="button" name="next" class="next action-button" value="Save">
+                      <div class="clear"></div>
+                    </div><!-- stepbox -->
+                </div>
+
+                <div id="ep02" class="tab-pane fade">
+                    <div class="stepbox">
+                        <h3>Property Floor Map</h3>
+                        <div class="box">
+                          <input type="file" name="" id="" multiple="" >
+                          <div class="row">
+                            <div class="column">
+                              <img src="images/floormap.jpg" alt="">
+                              <a href=""><i class="fa fa-times-circle" aria-hidden="true"></i></a>
+                            </div>
+                          </div>
+                        </div>
+                        <input type="button" name="next" class="next action-button" value="Save">
+                        <div class="clear"></div>
+                      </div><!-- stepbox -->
+                </div>
+
+                <div id="ep03" class="tab-pane fade">
+                      <div class="stepbox">
+                      <h3>Cars and Pricing</h3>
+                      <label>Enter Property Floors Parking spots</label>
+                      <table id="myTable" class=" table order-list1">
+                        <tbody>
+                            <tr>
+                                <td class="col-sm-3">
+                                    <input type="text" name="data[parking][floor_name][]" placeholder="Enter floor name">
+                                </td>
+                                <td class="col-sm-3">
+                                  <select name="data[parking][parking_type_id][]">
+                                      <option value="">Parking Type</option>
+                                      <option value="1">Self</option>
+                                      <option value="2">Valet</option>
+                                      <option value="3">Reserved</option>
+                                      <option value="4">Handicap</option>
+                                      <option value="5">handicaps</option>
+                                  </select>
+                                </td>
+                                <td class="col-sm-3">
+                                    <input type="text" name="data[parking][total_parking_spots][]" placeholder="Total Parking spots ">
+                                </td>
+                                <td class="col-sm-2"><a class="deleteRow"></a>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="5" style="text-align: right;">
+                                    <input type="button" class="btn btn-lg btn-block addrow" id="addrow" value="Add Row" />
+                                </td>
+                            </tr>
+                            <tr>
+                            </tr>
+                        </tfoot>
+                      </table>
+                      <label>Select Booking Duration Type and Enter Property Rent</label>
+                      <table id="tbl_rent_with_booking_duration_type" class="table order-list">
+                        <tbody>
+                            <tr>
+                                <td class="col-sm-3">
+                                  <select name="data[parking][car_type_id][]">
+                                     <option value="">Car Type</option>
+                                      <option value=""></option>
+                                  </select>
+                                </td>
+
+                                <td class="col-sm-9">
+                                  <table id="rent_with_booking_duration_type">
+                                    <tr>
+                                      <td class="col-sm-3">
+                                        <input type="text" name="" placeholder="Daily Price">
+                                      </td>
+                                      <td class="col-sm-3">
+                                        <input type="text" name="" placeholder="Daily Price">
+                                    </td>
+                                    <td class="col-sm-3">
+                                       <input type="text" name="" placeholder="Monthly Price">
+                                    </td>
+                                  </tr>
+                                 </table>
+                                </td>
+                                <td class="col-sm-2"><a class="deleteRow"></a>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="5" style="text-align: right;">
+                                    <input type="button" class="btn btn-lg btn-block addrow" id="second-addrow" value="Add Row" />
+                                </td>
+                            </tr>
+                            <tr>
+                            </tr>
+                        </tfoot>
+                      </table>
+                      <input type="button" name="next" class="next action-button" value="Save">
+                      <div class="clear"></div>
+                    </div><!-- stepbox -->
+                </div>
+
+                <div id="ep04" class="tab-pane fade">
+                  <div class="stepbox">
+                    <h3>Amenities and Other</h3>
+                    <ul class="aminities-list custom-checkbox" id="amenities_list"><li>
+                      <input type="checkbox" name="data[amenities][]" id="EV charging" value="59">
+                      <label for="EV charging">EV charging <img src="https://www.prymestory.com/public/images/amenity/ev charging.png" width="50"></label>
+                      <input type="checkbox" name="data[amenities][]" id="Water supply" value="58"><label for="Water supply">Water supply <img src="https://www.prymestory.com/public/images/amenity/water supply.svg" width="50"></label>
+                      <input type="checkbox" name="data[amenities][]" id="Security" value="57"><label for="Security">Security <img src="https://www.prymestory.com/public/images/amenity/security.svg" width="50"></label>
+                      <input type="checkbox" name="data[amenities][]" id="Wifi" value="55"><label for="Wifi">Wifi <img src="https://www.prymestory.com/public/images/amenity/wifi.svg" width="50"></label>
+                      <input type="checkbox" name="data[amenities][]" id="Fire Extinguisher" value="61"><label for="Fire Extinguisher">Fire Extinguisher <img src="https://www.prymestory.com/public/images/amenity/fire extinguisher.svg" width="50"></label>
+                      <input type="checkbox" name="data[amenities][]" id="Wheelchair accesible" value="56"><label for="Wheelchair accesible">Wheelchair accesible <img src="https://www.prymestory.com/public/images/amenity/wheelchaire.svg" width="50"></label>
+                    </li></ul>
+                    <hr>
+                    <h3>Location Type</h3>
+                    <ul class="custom-radio" id="locationtypes"><li>
+                      <input type="radio" name="data[location_type]" id="Covered" value="1"><label for="Covered">Covered</label>
+                      <input type="radio" name="data[location_type]" id="Uncovered" value="2"><label for="Uncovered">Uncovered</label>
+                      <input type="radio" name="data[location_type]" id="Both" value="3"><label for="Both">Both</label></li></ul>
+                     <input type="button" name="next" class="next action-button" value="Save">
+                     <div class="clear"></div>
+                  </div><!-- stepbox -->
+                </div>
+
+                <div id="ep05" class="tab-pane fade">
+                  <div class="stepbox">
+                    <h3>When is it available?</h3>
+                    <div class="box">
+                    <div class="availablediv">
+                    <div class="ad-row row sunday-row">
+                      <div class="ad-col col-sm-2">Sunday</div>
+                      <div class="ad-col col-sm-2">
+                            <label class="switch">
+                            <input type="checkbox" name="day_status[sunday]"  id="sunday-checkbox" value="1"  data-on="On" data-off="Off">
+                            <span class="slider round" id="sunday-slider"></span>
+                          </label>
+                      </div>
+                      <div class="ad-col col-sm-3">
+                         <input type="hidden" name="dayname[]" value="sunday">
+                        <input type="radio" name="day_hours[sunday]" value="24" id="sunday-allday" checked><label for="sunday-allday">All day (24 hours)</label>
+                      </div>
+                      <div class="ad-col col-sm-2">
+                        <input type="radio" name="day_hours[sunday]" value="1" id="sunday-sethrs"><label for="sunday-sethrs">Set hours</label>
+                      </div>
+                      <div class="ad-col col-sm-3">
+                        <div class="form-group date-group">
+                              <input type="text" name="from_hours_time[sunday]" placeholder="Time" id="sunday-from" class="dates" >
+                              <input type="text" name="to_hours_time[sunday]" placeholder="Time" id="sunday-to" class="dates"> 
+                        </div>
+                      </div>
+                    </div><!--ad-row-->
+                    <div class="ad-row row monday-row">
+                      <div class="ad-col col-sm-2">Monday</div>
+                      <div class="ad-col col-sm-2">
+                       
+                          <label class="switch">
+                            <input type="checkbox" name="day_status[monday]" id="monday-checkbox">
+                            <span class="slider round" id="monday-slider"></span>
+                          </label>
+                      </div>
+                      <div class="ad-col col-sm-3">
+                         <input type="hidden" name="dayname[]" value="monday">
+                        <input type="radio" name="day_hours[monday]" value="24"  id="monday-allday" checked><label for="monday-allday">All day (24 hours)</label>
+                      </div>
+                      <div class="ad-col col-sm-2">
+                        <input type="radio" name="day_hours[monday]" value="1"  id="monday-sethrs"><label for="monday-sethrs">Set hours</label>
+                      </div>
+                      <div class="ad-col col-sm-3">
+                        <div class="form-group date-group">
+                              <input type="text" name="from_hours_time[monday]" placeholder="Time" id="monday-from" class="dates">
+                              <input type="text" name="to_hours_time[monday]" placeholder="Time" id="monday-to" class="dates"> 
+                        </div>
+                      </div>
+                    </div><!--ad-row-->
+                    <div class="ad-row row tuesday-row">
+                      <div class="ad-col col-sm-2">Tuesday</div>
+                      <div class="ad-col col-sm-2">
+                          
+                          <label class="switch">
+                            <input type="checkbox" name="day_status[tuesday]" id="tuesday-checkbox">
+                            <span class="slider round" id="tuesday-slider"></span>
+                          </label>
+                      </div>
+                      <div class="ad-col col-sm-3">
+                        <input type="hidden" name="dayname[]" value="tuesday">
+                        <input type="radio" name="day_hours[tuesday]"  value="24" id="tuesday-allday" checked><label for="tuesday-allday">All day (24 hours)</label>
+                      </div>
+                      <div class="ad-col col-sm-2">
+                        <input type="radio" name="day_hours[tuesday]" value="1"  id="tuesday-sethrs"><label for="tuesday-sethrs">Set hours</label>
+                      </div>
+                      <div class="ad-col col-sm-3">
+                        <div class="form-group date-group">
+                              <input type="text" name="from_hours_time[tuesday]" placeholder="Time" id="tuesday-from" class="dates">
+                              <input type="text" name="to_hours_time[tuesday]" placeholder="Time" id="tuesday-to" class="dates"> 
+                        </div>
+                      </div>
+                    </div><!--ad-row-->
+                    <div class="ad-row row wednesday-row">
+                      <div class="ad-col col-sm-2">Wednesday</div>
+                      <div class="ad-col col-sm-2">
+                         
+                          <label class="switch">
+                            <input type="checkbox" name="day_status[wednesday]" id="wednesday-checkbox">
+                            <span class="slider round" id="wednesday-slider"></span>
+                          </label>
+                      </div>
+                      <div class="ad-col col-sm-3"> 
+                         <input type="hidden" name="dayname[]" value="wednesday">
+                        <input type="radio" name="day_hours[wednesday]"  value="24" id="wednesday-allday" checked><label for="wednesday-allday">All day (24 hours)</label>
+                      </div>
+                      <div class="ad-col col-sm-2">
+                        <input type="radio" name="day_hours[wednesday]" value="1"  id="wednesday-sethrs"><label for="wednesday-sethrs">Set hours</label>
+                      </div>
+                      <div class="ad-col col-sm-3">
+                        <div class="form-group date-group">
+                              <input type="text" name="from_hours_time[wednesday]" placeholder="Time" id="wednesday-from" class="dates">
+                              <input type="text" name="to_hours_time[wednesday]" placeholder="Time" id="wednesday-to" class="dates"> 
+                        </div>
+                      </div>
+                    </div><!--ad-row-->
+                    <div class="ad-row row thursday-row">
+                      <div class="ad-col col-sm-2">Thursday</div>
+                      <div class="ad-col col-sm-2">
+                          <label class="switch">
+                            <input type="checkbox" name="day_status[thursday]"  id="thursday-checkbox">
+                            <span class="slider round" id="thursday-slider"></span>
+                          </label>
+                      </div>
+                      <div class="ad-col col-sm-3">
+                        <input type="hidden" name="dayname[]" value="thursday">
+                        <input type="radio"  name="day_hours[thursday]"  value="24" id="thursday-allday" checked><label for="thursday-allday">All day (24 hours)</label>
+                      </div>
+                      <div class="ad-col col-sm-2">
+                        <input type="radio" name="day_hours[thursday]" value="1"  id="thursday-sethrs"><label for="thursday-sethrs">Set hours</label>
+                      </div>
+                      <div class="ad-col col-sm-3">
+                        <div class="form-group date-group">
+                              <input type="text" name="from_hours_time[thursday]" placeholder="Time" id="thursday-from" class="dates">
+                              <input type="text" name="to_hours_time[thursday]" placeholder="Time" id="thursday-to" class="dates"> 
+                        </div>
+                      </div>
+                    </div><!--ad-row-->
+                    <div class="ad-row row friday-row">
+                      <div class="ad-col col-sm-2">Friday</div>
+                      <div class="ad-col col-sm-2">
+                          <label class="switch">
+                            <input type="checkbox"  name="day_status[friday]"  id="friday-checkbox">
+                            <span class="slider round" id="friday-slider"></span>
+                          </label>
+                      </div>
+                      <div class="ad-col col-sm-3">
+                        <input type="hidden" name="dayname[]" value="friday">
+                        <input type="radio" name="day_hours[friday]"  value="24" id="friday-allday" checked><label for="friday-allday">All day (24 hours)</label>
+                      </div>
+                      <div class="ad-col col-sm-2">
+                        <input type="radio" name="day_hours[friday]"  value="1"  id="friday-sethrs"><label for="friday-sethrs">Set hours</label>
+                      </div>
+                      <div class="ad-col col-sm-3">
+                        <div class="form-group date-group">
+                              <input type="text" name="from_hours_time[friday]" placeholder="Time" id="friday-from" class="dates">
+                              <input type="text" name="to_hours_time[friday]" placeholder="Time" id="friday-to" class="dates"> 
+                        </div>
+                      </div>
+                    </div><!--ad-row-->
+                    <div class="ad-row row saturday-row">
+                      <div class="ad-col col-sm-2">Saturday</div>
+                      <div class="ad-col col-sm-2">
+                          <label class="switch">
+                            <input type="checkbox" name="day_status[saturday]" id="saturday-checkbox">
+                            <span class="slider round"  id="saturday-slider"></span>
+                          </label>
+                      </div>
+                      <div class="ad-col col-sm-3">
+                         <input type="hidden" name="dayname[]" value="saturday">
+                        <input type="radio" name="day_hours[saturday]"  value="24" id="saturday-allday" checked><label for="saturday-allday">All day (24 hours)</label>
+                      </div>
+                      <div class="ad-col col-sm-2">
+                        <input type="radio" name="day_hours[saturday]" value="1"  id="saturday-sethrs"><label for="saturday-sethrs">Set hours</label>
+                      </div>
+                      <div class="ad-col col-sm-3">
+                        <div class="form-group date-group">
+                              <input type="text" name="from_hours_time[saturday]" placeholder="Time" id="saturday-from" class="dates">
+                              <input type="text" name="to_hours_time[saturday]" placeholder="Time" id="saturday-to" class="dates"> 
+                        </div>
+                      </div>
+                    </div><!--ad-row-->
+                  </div>
+                  </div>
+                  <input type="button" name="next" class="next action-button" value="Save">
+                     <div class="clear"></div>
+                  </div><!-- stepbox -->
+                </div>
+
+                <div id="ep06" class="tab-pane fade">
+                  <div class="stepbox">
+                    <h3>Set your cancellation policy</h3>
+                    <div class="box" id="get_cancellation_policy"><div class="row"><div class="col-sm-3"><div class="ad-col"><input type="radio" name="cancellation_policy_id" id="8" value="8"><label for="8">Moderate</label></div></div><div class="col-sm-9"><p>Before 24 hrs – No fees/ Charges</p></div></div><div class="row"><div class="col-sm-3"><div class="ad-col"><input type="radio" name="cancellation_policy_id" id="9" value="9"><label for="9">Strict</label></div></div><div class="col-sm-9"><p>Before 23 hrs – No fees/ Charges</p></div></div><div class="row"><div class="col-sm-3"><div class="ad-col"><input type="radio" name="cancellation_policy_id" id="13" value="13"><label for="13">Super Strict</label></div></div><div class="col-sm-9"><p>Before 23.59 – 25% Charges</p></div></div></div>
+                    <tfoot>
+                   <input type="button" name="next" class="next action-button" value="Save">
+                     <div class="clear"></div>
+                  </div><!-- stepbox -->
+                </div>
+                
+                <div id="ep07" class="tab-pane fade">
+                  <div class="stepbox">
+                    <h3>Documents</h3>
+                    <div class="box">
+                      <input type="file" name="property_documents[]" multiple="" id="property-documents">
+                    </div>
+                    <input type="button" name="next" class="next action-button" value="Save">
+                     <div class="clear"></div>
+                  </div><!-- stepbox -->
+                </div>
+
+              </div>
+            </div>
+          </section> <!-- edit-property  -->
+      </div><!-- dl-content -->
+
+    </div>
+</section>
+ 
+</div><!-- site-content -->
+
+<footer class="site-footer">
+	<div class="container">
+		<div class="foot-top">
+			<div class="row">
+				<div class="col-lg-3 col-md-3 col-sm-6">
+					<a href="" class="foot-logo"><img src="images/psw-logo.png" alt=""></a>
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-6">
+					<h4>Company</h4>
+					<ul>
+						<li><a href="">About Us</a></li>
+						<li><a href="">Mission</a></li>
+						<li><a href="">Vision</a></li>
+						<li><a href="">Blog</a></li>
+						<li><a href="">Press</a></li>
+						<li><a href="">FAQ's</a></li>
+					</ul>
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-6">
+					<h4>Hosts</h4>
+					<ul>
+						<li><a href="">Benefits for Hosting with Us</a></li>
+						<li><a href="">Become a Host</a></li>
+						<li><a href="">Host FAQ's </a></li>
+						<li><a href="">Community</a></li>
+					</ul>
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-6">
+					<h4>Renter</h4>
+					<ul>
+						<li><a href="">Benefits for Renting with Us</a></li>
+						<li><a href="">Become a Renter</a></li>
+						<li><a href="">Renter FAQ's </a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="foot-btm">
+			<ul>
+				<li><a href="">Terms</a></li>
+				<li><a href="">Privacy Statement</a></li>
+			</ul>
+			<div class="copyright">© 2019 Pryme Space, Inc.</div>
+			<ul class="foot-social">
+				<li><a href=""><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+				<li><a href=""><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+				<li><a href=""><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+				<li><a href=""><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+				<li><a href=""><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+
+
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="js/owl.carousel.min.js"></script>
+<script type="text/javascript" src="js/popper.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+
+<link rel="stylesheet" type="text/css" href="css/owl.carousel.min.css">
+<link rel="stylesheet" type="text/css" href="css/owl.theme.default.min.css">
+
+<!-- Below CSS and JS use for Date Time picker -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.js"></script>
+<script type="text/javascript" src="js/jquery.js"></script>
+<!-- <script type="text/javascript">
+jQuery.datetimepicker.setLocale('en');
+
+jQuery('#from').datetimepicker({
+ timepicker:false,
+ format:'m.d.Y'
+});
+jQuery('#to').datetimepicker({
+ timepicker:false,
+ format:'m.d.Y'
+});
+
+</script> -->
+
+
+
+
+</body>
+</html> 

@@ -177,6 +177,23 @@ function DeleteRecordWithChild(id,parentTable,tbid,isDeleteChild,childTable)
   </ul>
 </li>
 
+<li><a class="parent" ><i class="fa fa-shopping-cart fa-fw"></i> <span>CMS Pages</span></a>
+   <ul class="collapse">
+      <li><a href="{{ URL::asset('admin/cmspages')}}/">Manage CMS Pages</a></li>
+   </ul>
+</li>
+<li><a class="parent" ><i class="fa fa-shopping-cart fa-fw"></i> <span>Blogs</span></a>
+   <ul class="collapse">
+      <li><a href="{{ URL::asset('admin/blogs')}}/">Manage Blogs</a></li>
+   </ul>
+</li>
+<li><a class="parent" ><i class="fa fa-shopping-cart fa-fw"></i> <span>FAQ</span></a>
+   <ul class="collapse">
+      <li><a href="{{ URL::asset('admin/faqs/categories')}}/">Manage FAQ Categories</a></li>
+      <li><a href="{{ URL::asset('admin/faq/')}}/">Manage FAQ's</a></li>
+   </ul>
+</li>
+
 <li id="wallet" style="display: none;"><a class="parent"><i class="fa fa-money fa-fw"></i> <span>Wallet</span></a>
   <ul class="collapse">
     <li><a href="#">Sales List</a></li>

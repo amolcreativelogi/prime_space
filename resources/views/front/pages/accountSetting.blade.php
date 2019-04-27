@@ -108,7 +108,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>CVV</label>
-                                            <input type="text" class="form-control" placeholder="CVV"> 
+                                            <input type="text" class="form-control" placeholder="CVV">
                                         </div>
                                     </div>
                                 </div>
@@ -132,4 +132,3 @@
 
 </div><!-- site-content -->
 @stop
-

@@ -8,18 +8,11 @@
      @include('front/includes.customer_side_menu')
 
      <div class="col-lg-10 col-md-9 col-sm-12 dl-content dash-content">
-        
-            @if (Session::has('success'))
-                <div class="alert alert-success text-center">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                    <p>{{ Session::get('success') }}</p>
-                </div>
-            @endif
      	<div class="row firstrow">
      		<div class="col-lg-4 col-md-4 col-sm-6">
                 <div class="dash-counterbox dash-add-prop">
                     <div class="dashcount-icon"><img src="{{ URL::asset('public') }}/assets/front-design/images/total-booking.svg" alt=""></div>
-                    <div class="dashcount-text"><span>100</span>My Booking</div>
+                    <div class="dashcount-text"><span><?php echo ($totalBooking) ? $totalBooking : 0; ?></span>My Booking</div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-6">
@@ -39,47 +32,31 @@
 		<div class="row third-row">
             <div class="col-sm-6">
                 <div class="dash-table">
-                    <div class="dashtable-head"><h3>my bookings</h3><a href="">view all</a></div>
+                    <div class="dashtable-head"><h3>my bookings</h3><a href="<?php echo URL::to('user/upcomingBooking'); ?>">view all</a></div>
                     <table>
                         <thead>
                             <tr>
-                                <th>property name</th>
-                                <th>location</th>
-                                <th>property type</th>
-                                <th>date/time</th>
+                                <th>booking for</th>
+                                <th>customer name</th>
+                                <th>status</th>
+                                <th>booking date/time</th>
                             </tr>
                         </thead>
                         <tbody>
+
+                          <?php foreach($getBookingList as $booking) { 
+
+                            ?>
                             <tr>
-                                <td><a href="#">property one</a></td>
-                                <td>sadar</td>
-                                <td>parking</td>
-                                <td>16.04.19 (11.30)</td>
+                                <td>Parking</td>
+                                <td><?php echo $booking->firstname; ?></td>
+                                <!-- <td class="de-active">de-active</td> -->
+                                <td><?php echo $booking->booking_status; ?></td>
+                                <td><?php echo $booking->start_time.' '.$booking->start_date; ?></td>
+
                             </tr>
-                            <tr>
-                                <td><a href="#">property two</a></td>
-                                <td>sadar</td>
-                                <td>land</td>
-                                <td>16.04.19</td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">property three</a></td>
-                                <td>sadar</td>
-                                <td>parking</td>
-                                <td>16.04.19 (14.30)</td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">property four</a></td>
-                                <td>sadar</td>
-                                <td>land</td>
-                                <td>16.04.19</td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">property five</a></td>
-                                <td>sadar</td>
-                                <td>parking</td>
-                                <td>16.04.19 (16:10)</td>
-                            </tr>
+                          <?php } ?>
+                         
                         </tbody>
                     </table>
                 </div>

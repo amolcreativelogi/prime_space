@@ -1,8 +1,8 @@
 <?php 
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Front;
 
-use App\Models\tbl_blogs as tbl_blogs;
+use App\Models\Tbl_blogs as Tbl_blogs;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Hash;
@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Requests\BlogRequest;
-
+ 
 use DB;
 
 class BlogsController extends Controller {
@@ -18,8 +18,10 @@ class BlogsController extends Controller {
     //List cms pages
     public function index()
       { 
+
        
-        $data['blogs'] = Tbl_blogs::all();
+        //$data['blogs'] = Tbl_blogs::all();
+        $data['blogs'] =  DB::table('tbl_blogs')->where('status', '=', 1)->where('is_deleted', '=', 0)->get();
         return view('admin/blog/index',$data);
       }
 
@@ -192,8 +194,8 @@ class BlogsController extends Controller {
   //load add/edit cms page form
   public function listBlogs()
   { 
-    $getBlogs = Tbl_blogs::all();
-    return view('admin.blog.list')->with('getBlogs', $getBlogs); 
+    $getBlogs = DB::table('tbl_blogs')->where('status', '=', 1)->where('is_deleted', '=', 0)->orderBy('id', 'desc')->get();//Tbl_blogs::all();
+    return view('front.blog.list')->with('getBlogs', $getBlogs); 
     
   }
 
@@ -201,7 +203,7 @@ class BlogsController extends Controller {
   public function loadBlogPage($blog_id = NULL)
   { 
     $getBlogPageData = DB::table('tbl_blogs')->where('id', '=', $blog_id)->first();
-    return view('admin.blog.view')->with('getBlogPageData', $getBlogPageData); 
+    return view('front.blog.view')->with('getBlogPageData', $getBlogPageData); 
     
   }
 

@@ -9,13 +9,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\URL;
 use DB;
 
-use Mail; 
+use Mail;
 
 class UserController extends Controller
 {
-
+   public function accountSetting()
+   {
+       return view('front.pages.accountSetting');
+   }
     public function userRegistration(Request $request)
-    {		
+    {
 
     	// print_r($_POST);
     	// exit;
@@ -28,7 +31,7 @@ class UserController extends Controller
 
 			$res = $this->check_duplicate($check_email);
 
-								
+
 			if($this->check_duplicate($check_email) == true){
 				$data = array('status' => false,
 						      'response' => array('msg' =>'email ID already exists.'),
@@ -58,7 +61,7 @@ class UserController extends Controller
 					// {
 					// 		$data = array('status' => true,
 					// 		'response' => array('msg' =>'Thank you for applying for host to our site. We will review your details and send you an email letting you know whether your application has been successful or not.'),'url' => '');
-				
+
 					// }
 					// else
 					// {
@@ -67,17 +70,17 @@ class UserController extends Controller
 					// }
 				}
 			}
-			
+
 		}else{
 			$data = array('status' => false,
-						  'response' => '','url' => '');	
+						  'response' => '','url' => '');
 		};
 		echo json_encode($data);
 		exit;
 	}
 
 	function check_duplicate($array)
-	{	
+	{
 
 		$res = DB::table($array['table'])->select($array['field'])->where($array['where'])->count();
 
@@ -85,29 +88,27 @@ class UserController extends Controller
 		//dd(DB::getQueryLog());
 		// $ci=& get_instance();
 	 //    $ci->load->database();
-		// //$sql = "select model_action from moderators_per "; 
+		// //$sql = "select model_action from moderators_per ";
 		// $ci->db->select($array['field']);
 		// $ci->db->from($array['table']);
 		// $ci->db->where($array['where']);
 		// $q = $ci->db->get();
 		// $res = $q->row();
-		return $res ? true : false; 
+		return $res ? true : false;
 	}
 
 
 	public function userLogin(Request $request)
 	{
-		
-       
+
 		$getuserLogin = DB::table('prk_user_registrations')->select('user_id','user_type_id','default_user_type','status','firstname','is_deleted','profile_pic', 'is_payment_setup', 'email_id')->where('is_deleted', '=', 0)->where('email_id', '=', $request->input('email_id'))->where('password', '=', md5($request->input('password')))->first();
-	
 		$array = array();
     	if($getuserLogin)
     	{
     		if($getuserLogin->default_user_type == 2 && $getuserLogin->status == 0)
     		{
     			$data = array('status' => false,
-						  'response' =>  array('msg' =>'Your account not activate, please contact administrator.'),'url' => '');	
+						  'response' =>  array('msg' =>'Your account not activate, please contact administrator.'),'url' => '');
     		}
     		else
     		{
@@ -117,7 +118,7 @@ class UserController extends Controller
     		$_SESSION['user']['user_type_id'] = $getuserLogin->user_type_id;
     		$_SESSION['user']['default_user_type'] = $getuserLogin->default_user_type;
     		$_SESSION['user']['profile_pic'] = $getuserLogin->profile_pic;
-    		$_SESSION['user']['is_payment_setup'] =  $getuserLogin->is_payment_setup;
+        $_SESSION['user']['is_payment_setup'] =  $getuserLogin->is_payment_setup;
     		$_SESSION['user']['email_id'] =  $getuserLogin->email_id;
     		if($getuserLogin->default_user_type == 2)
     		{
@@ -132,26 +133,26 @@ class UserController extends Controller
     		}
     	} else {
     		$data = array('status' => false,
-						  'response' =>  array('msg' =>'Invalid login details.'),'url' => '');	
-    	}    
+						  'response' =>  array('msg' =>'Invalid login details.'),'url' => '');
+    	}
     	echo json_encode($data);
 		exit;
 	}
 
 	//forgot password
 	public function resetPassword(Request $request)
-	{	
+	{
 		$getuserDetails = DB::table('prk_user_registrations')->select('user_id','user_type_id','default_user_type','status')->where('email_id', '=', $request->input('email_id'))->first();
 		if($getuserDetails)
 		{
 			//forgot password link send on email
 			$data = array('status' => true,
-						  'response' =>  array('msg' =>'An email has been sent to the registered email address. Follow the instruction in the email to reset your password.'),'url' => '');	
+						  'response' =>  array('msg' =>'An email has been sent to the registered email address. Follow the instruction in the email to reset your password.'),'url' => '');
 		}
 		else
 		{
 			$data = array('status' => false,
-						  'response' =>  array('msg' =>'Invalid email id.'),'url' => '');	
+						  'response' =>  array('msg' =>'Invalid email id.'),'url' => '');
 		}
 		echo json_encode($data);
 		exit;
@@ -172,11 +173,11 @@ class UserController extends Controller
 	public function switchtohost()
 	{
 		$_SESSION['user']['user_type_permission'] = 'host';
-		return redirect('/user/host');	
+		return redirect('/user/host');
 	}
 
 	public function emailSend()
-	{	
+	{
 		$data = array('name'=>'amol kharate','body'=>'Test Email');
 		echo  \Mail::send('emails.mail', $data, function ($m){
             $m->from('info@prymestory.com', 'Pryme Story');
@@ -186,36 +187,40 @@ class UserController extends Controller
 	}
 
 	public function editprofile($userId)
-	{	
+	{
 		$getuserDetails = DB::table('prk_user_registrations')->select('*')->where('user_id', '=', $userId)->first();
 
 		return view('front.pages.update_profile')->with(['userdetails'=>$getuserDetails]);
 	}
 
 	public function updatesaveprofile(Request $request)
-	{	 
-		if( $request->file('profile_pic')){
-			$image = $request->file('profile_pic')->store('userprofile');
-			$result  = DB::table('prk_user_registrations')->where('user_id', $request->input('user_id'))->update(['profile_pic' => $image]);
-			$_SESSION['user']['profile_pic'] = $image;
-		}
+	{
 
 
-		/* if($image)
+		// if( $request->file('profile_pic')){
+
+		// 	$image = $request->file('profile_pic')->store('userprofile');
+		// 	$result  = DB::table('prk_user_registrations')->where('user_id', $request->input('user_id'))->update(['profile_pic' => $image]);
+		// 	$_SESSION['user']['profile_pic'] = $image;
+		// }
+
+		 if($request->file('profile_pic'))
 		 {
-		 //$imagename = strtolower(trim($request->input('firstname'))).'.'.$image->getClientOriginalExtension();
-		 //$destinationPath = public_path('/images/user-profile');
-		 //$amenities_image = $image->move($destinationPath,$imagename);
+		 $image = $request->file('profile_pic');
+		 $imagename = strtolower(trim($request->input('firstname'))).'.'.$image->getClientOriginalExtension();
+		 $destinationPath = public_path('/images/user-profile');
+		 $amenities_image = $image->move($destinationPath,$imagename);
 		 $image = $imagename;
 		 } else {
 			$image = $request->input('edit_profile_pic');
-		 }*/
-
+		 }
+		 $_SESSION['user']['profile_pic'] = $image;
 
 		$data = array(
 					'firstname'=>$request->input('firstname'),
 					'lastname'=>$request->input('lastname'),
 					'contact_no'=>$request->input('contact_no'),
+					'profile_pic'=>$image,
 					'address'=>$request->input('address'),
 					'zipcode'=>$request->input('zipcode'),
 					'city'=>$request->input('city'),
@@ -234,13 +239,13 @@ class UserController extends Controller
 			return back()->with(['success' => "Your profile has been updated successfully."]);
 			//forgot password link send on email
 			//$data = array('status' => true,
-			//			  'response' =>  array('msg' =>'Your profile has been updated successfully.'),'url' => '');	
+			//			  'response' =>  array('msg' =>'Your profile has been updated successfully.'),'url' => '');
 		}
 		else
 		{
-			return back()->with(['success' => "Your profile not has been updated."]);
+			return back()->with(['success' => "Your profile has been updated."]);
 			//$data = array('status' => false,
-			//			  'response' =>  array('msg' =>'Your profile not has been updated.'),'url' => '');	
+			//			  'response' =>  array('msg' =>'Your profile not has been updated.'),'url' => '');
 		}
 		echo json_encode($data);
 		exit;

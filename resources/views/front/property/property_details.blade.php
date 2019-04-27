@@ -26,7 +26,7 @@
                      <?php if(isset($image->name) && file_exists(public_path() . '/images/properties/' . $image->name. '')) { ?>
                       <div class="item">
                         <img src="<?php echo url('/public/images/properties/'.$image->name)?>" alt="">
-                      </div> 
+                      </div>
                      <?php }
                     ?>
                 <?php }
@@ -76,9 +76,9 @@
                   </table>
                 <?php } ?>
 
-                  <!-- <div class="col-sm-6"><i class="fa fa-server" aria-hidden="true"></i> Number of floor <strong>: 2 </strong></div>
-                  <div class="col-sm-6"><i class="fa fa-list" aria-hidden="true"></i> Total Parking Slots <strong>: 10</strong></div>
-                  <div class="col-sm-6"><i class="fa fa-car" aria-hidden="true"></i> Type of parking <strong>: Covered</strong></div> -->
+                  <div class="col-sm-6"><i class="fa fa-server" aria-hidden="true"></i> Number of floor <strong>: <?php echo ($NOoffloor) ? $NOoffloor->floor : ''; ?> </strong></div>
+                  <div class="col-sm-6"><i class="fa fa-list" aria-hidden="true"></i> Total Parking Slots <strong>: <?php echo ($NOoffloor) ? $NOoffloor->spots : ''; ?></strong></div>
+                  <div class="col-sm-12"><i class="fa fa-car" aria-hidden="true"></i> Type of parking <strong>: <?php echo ($parkingType->parking_type) ? $parkingType->parking_type : ''; ?></strong></div>
                 </div>
                 <div class="about-property">
                   <h4>About the space</h4>
@@ -86,14 +86,14 @@
                   <p><?php echo !isset($getPropertyDetails->description)?'':$getPropertyDetails->description;?></p>
 
                    <?php if($module_id == 3) { ?>
-                   <p>Tour Availability - <?php $tour_availability =  !isset($getPropertyDetails->tour_availability)?'':$getPropertyDetails->tour_availability; 
+                   <p>Tour Availability - <?php $tour_availability =  !isset($getPropertyDetails->tour_availability)?'':$getPropertyDetails->tour_availability;
                    echo ($tour_availability == 1) ? 'Yes' : 'No';
                    ?></p>
 
-                    <p>Land Type - <?php echo  !isset($land_type_id->land_type)?'':$land_type_id->land_type; 
+                    <p>Land Type - <?php echo  !isset($land_type_id->land_type)?'':$land_type_id->land_type;
                    ?></p>
 
-                     <p>Property Size - <?php echo  !isset($unit_type_id->unit_type)?'':$unit_type_id->property_size.' '.$unit_type_id->unit_type; 
+                     <p>Property Size - <?php echo  !isset($unit_type_id->unit_type)?'':$unit_type_id->property_size.' '.$unit_type_id->unit_type;
                    ?></p>
                  <?php } ?>
                  <!--  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque quam lectus, faucibus in elit et, vehicula convallis est. Morbi lacinia, arcu vel venenatis rhoncus, arcu lorem tincidunt magna, ut sollicitudin dui massa in urna. Integer semper enim ac augue varius laoreet. Fusce vehicula libero a maximus pretium. In hac habitasse platea dictumst. Phasellus risus leo, mattis accumsan semper sed, dictum non arcu. Nam mauris tortor, sodales sit amet leo non, aliquam molestie massa. Fusce imperdiet sed metus viverra rutrum. Cras ut finibus libero. Pellentesque blandit hendrerit dolor ut dapibus. Sed a magna nisi. Nullam auctor nec nibh quis pellentesque.</p> -->
@@ -172,7 +172,9 @@
         </button>
       </div>
       <div class="modal-body">
+        <?php if(isset($getPropertyImagesFloorMap->name)) { ?>
         <img src="<?php echo URL::to('/public/images/property-floor-map/'.$getPropertyImagesFloorMap->name.''); ?>" width="100">
+        <?php } ?>
       </div>
     </div>
   </div>
@@ -195,10 +197,24 @@
                 <!--    <li>Nam mauris tortor, sodales sit amet leo</li>-->
                 <!--  </ul>-->
                 <!--</div>-->
+                <?php   $countUser = count($bookingDataRatings); ?>
                 <div class="property-review">
-                  <h3>2 Reviews</h3>
+                  <h3><?php echo ($countUser) ? $countUser : 0;   ?> Reviews</h3>
                   <div class="rating">
-                      <input type="radio" id="star5-5" name="rating" value="5" />
+                      <?php
+
+                        if ($countUser == 0) {
+                          $countUser = 1;
+                        }
+                      ?>
+                      <?php for ($i=5; $i >= 1; $i--) { ?>
+                          <?php if ($i <= ($calRating / $countUser)): ?>
+                            <label style="color: #5500fe" class = "full" for="star<?= $i ?>-<?= $i ?>" title="Awesome - <?= $i ?> stars"></label>
+                          <?php else: ?>
+                            <label class = "full" for="star1-1" title="Awesome - 1 stars"></label>
+                          <?php endif ?>
+                      <?php } ?>
+                     <!--  <input type="radio" id="star5-5" name="rating" value="5" />
                       <label class = "full" for="star5-5" title="Awesome - 5 stars"></label>
                       <input type="radio" id="star4-5" name="rating" value="4" />
                       <label class = "full" for="star4-5" title="Pretty good - 4 stars"></label>
@@ -207,19 +223,28 @@
                       <input type="radio" id="star2-5" name="rating" value="2" />
                       <label class = "full" for="star2-5" title="Kinda bad - 2 stars"></label>
                       <input type="radio" id="star1-5" name="rating" value="1" />
-                      <label class = "full" for="star1-5" title="Sucks big time - 1 star"></label>
+                      <label class = "full" for="star1-5" title="Sucks big time - 1 star"></label> -->
                   </div>
                   <div class="clear"></div>
+                  <?php foreach ($bookingDataRatings as $key => $bookingDataRating):?>
+
                   <div class="reviewbox">
                     <div class="reviewer-img"><img src="{{ URL::asset('public') }}/assets/front-design/images/user-icon.jpg" alt=""></div>
-                    <div class="reviewer-info"><h4>Ivan</h4><span>March 2019</span></div>
-                    <div class="reviewer-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque quam lectus, faucibus in elit et, vehicula convallis est. Morbi lacinia, arcu vel venenatis rhoncus, arcu lorem tincidunt magna, ut sollicitudin dui massa in urna...<a href="">Read more</a></div>
+                    <div class="reviewer-info"><h4>{{$bookingDataRating->firstname}} {{$bookingDataRating->lastname}}</h4><span>{{$bookingDataRating->rating_date}}</span>
+                    <!-- {{$bookingDataRating->rating}} -->
+                    <div class="rating">
+                      <?php for ($i=5; $i >= 1; $i--) { ?>
+                          <?php if ($i <= $bookingDataRating->rating): ?>
+                            <label style="color: #5500fe" class = "full" for="star<?= $i ?>-<?= $i ?>" title="Awesome - <?= $i ?> stars"></label>
+                          <?php else: ?>
+                            <label class = "full" for="star1-1" title="Awesome - 1 stars"></label>
+                          <?php endif ?>
+                      <?php } ?>
                   </div>
-                  <div class="reviewbox">
-                    <div class="reviewer-img"><img src="images/user-icon.jpg" alt=""></div>
-                    <div class="reviewer-info"><h4>Ivan</h4><span>March 2019</span></div>
-                    <div class="reviewer-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque quam lectus, faucibus in elit et, vehicula convallis est. Morbi lacinia, arcu vel venenatis rhoncus, arcu lorem tincidunt magna, ut sollicitudin dui massa in urna...<a href="">Read more</a></div>
                   </div>
+                    <div class="reviewer-content">{{$bookingDataRating->review}}<!--<a href="">Read more</a> --></div>
+                  </div>
+                  <?php endforeach ?>
                   <div class="rentedby">
                     <div class="row">
                       <div class="col-sm-6">
@@ -230,12 +255,12 @@
                         <div class="reviewer-img"><img src="{{ URL::asset('public') }}/assets/front-design/images/user-icon.jpg" alt=""></div>
                       </div>
                     </div>
-                    
+
                   </div><!-- rentedby -->
                 </div>
               </div><!-- pc-left -->
 
-              
+
 
 
               <div class="col-lg-4 col-md-4 col-sm-12 pc-right">
@@ -248,7 +273,7 @@
                   </div>
                 </div><br>
                 <div class="book-amenties">
-                    <h4>Amenities</h4>
+                    <h4>Amenties</h4>
                     <ul>
                         <?php foreach($getPropAmenities as $amenities) {
                           if (isset($amenities->amenity_image) && file_exists(public_path() . '/images/amenity/' . $amenities->amenity_image. '')) {
@@ -257,28 +282,38 @@
                               $image =  'No Image';
                           }
                          ?>
-                        <li><?php echo $image; ?><span><?php echo $amenities->amenity_name; ?>  </span></li> 
+                        <li><?php echo $image; ?><span><?php echo $amenities->amenity_name; ?>  </span></li>
                         <?php } ?>
                     </ul>
+                    <h4>Booking Availability</h4>
+                    <table class="table table-bordered">
+                    <tbody>
+                      <?php foreach($days_time_availability as $dta) {
+                       ?>
+                      <tr>
+                        <td><?php echo $dta->days; ?></td>
+                        <td><?php echo $dta->start_time; ?></td>
+                        <td><?php echo $dta->end_time; ?></td>
+                        <td><?php echo ($dta->status == 0) ? 'Closed' : ''; ?></td>
+                      </tr>
+                    <?php } ?>
+                    </tbody>
+                  </table>
                 </div>
                 <hr>
                 <a href="" class="cont-host">contact host</a><br/>
-                <a href='<?php echo URL('/') ?>/bookNow?moduleid=<?php echo Request::get("module_id")."&propertyid=".Request::get("propertyid")."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="cont-host">Book now</a>
+                <!-- <a href='<?php //echo URL('/') ?>/bookNow?moduleid=<?php //echo Request::get("module_id")."&propertyid=".$searchProp->property_id."&car_type_id=".$searchProp->car_type_id."&duration_type_id=".$searchProp->duration_type_id."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="cont-host">Book now</a> -->
                  <hr>
-               
               </div><!-- pc-right -->
-
-
             </div>
           </div>
       </section><!-- property-content -->
-
   </div><!-- single-property -->
  <?php }?>
 </div><!-- site-content -->
 
 <style type="text/css">
-  
+
   #mapCanvas1 {
     width: 100%;
     height: 400px;
@@ -313,11 +348,7 @@ function  initMap() {
         ['<?php echo $getPropertyDetails->location; ?>', <?php echo $getPropertyDetails->latitude; ?>,  <?php echo $getPropertyDetails->longitude; ?>]
     ];
    <?php } ?>
-
-   
-
-   // console.log(markers);
-                        
+    // console.log(markers);
     // Info window content
     // var infoWindowContent = [
     //     ['<div class="info_content">' +
@@ -329,11 +360,11 @@ function  initMap() {
     //     '<p>Mumbai.</p>' +
     //     '</div>']
     // ];
-        
+
     // Add multiple markers to map
     var infoWindow = new google.maps.InfoWindow(), marker, i;
-    
-    // Place each marker on the map  
+
+    // Place each marker on the map
     for( i = 0; i < markers.length; i++ ) {
         var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
         bounds.extend(position);
@@ -342,8 +373,8 @@ function  initMap() {
             map: map,
             title: markers[i][0]
         });
-        
-        // Add info window to marker    
+
+        // Add info window to marker
         google.maps.event.addListener(marker, 'click', (function(marker, i) {
             return function() {
                 infoWindow.setContent(infoWindowContent[i][0]);
@@ -360,7 +391,7 @@ function  initMap() {
         this.setZoom(1);
         google.maps.event.removeListener(boundsListener);
     });
-    
+
 }
 // Load initialize function
 google.maps.event.addDomListener(window, 'load', initMap);

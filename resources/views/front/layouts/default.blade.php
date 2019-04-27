@@ -4,6 +4,5 @@
 
     @yield('content')
 
-
+        @yield('script')
 @include('front/includes.footer')
-    

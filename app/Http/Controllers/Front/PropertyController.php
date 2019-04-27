@@ -15,7 +15,7 @@ class PropertyController extends Controller
     public function addProperty($module_manage_id = NULL)
     {
         /*$getModuleCategories =[];
-        $getCarType=[];
+        $getCarType=[]; 
         $getParkingType =[];
         $getLandType=[];*/
 
@@ -58,9 +58,98 @@ class PropertyController extends Controller
         
     }
 
-    public function editParking()
+    public function editParking($property_id)
     {
-        return view('front.property.edit_parking');
+        $propertyDetails =  DB::table('prk_add_property')->select('*')->where('prk_add_property.property_id', '=', $property_id)->first();
+
+       $getPropertyImages =  DB::table('prk_add_property_files')->select('name','document_type_id','default_file','file_id')->where('property_id', '=', $property_id)->where('document_type_id', '=', 1)->get();
+
+       $getPropertyFloorMap =  DB::table('prk_add_property_files')->select('name','document_type_id','default_file','file_id')->where('property_id', '=', $property_id)->where('document_type_id', '=', 2)->get();
+
+         $getParkingType = DB::table('prk_parking_type')
+        ->select('status','parking_type','parking_type_id')
+        ->where([['is_deleted', '=', 0],
+                ['status', '=', 1]])->get();
+
+         $getCarType = DB::table('prk_car_type')
+        ->select('status','car_type','car_type_id')
+        ->where([['is_deleted', '=', 0],
+                ['status', '=', 1]])->get();
+
+        $getAddParkingSpot =  DB::table('prk_add_property_floors')->select('*')->where('property_id', '=', $property_id)->get();
+
+        $getPropertyAddRent =  DB::table('prk_add_property_rent')->select('*')->where('property_id', '=', $property_id)->get();
+
+
+
+
+         $getPropertyRent = DB::table('tbl_mstr_booking_duration_type')
+        ->select(
+            'tbl_mstr_booking_duration_type.duration_type',
+            'tbl_mstr_booking_duration_type.status',
+            'tbl_mstr_booking_duration_type.duration_type_id'
+            )
+         ->leftJoin('tbl_mstr_booking_duration_type_with_module', 'tbl_mstr_booking_duration_type_with_module.duration_type_id', '=', 'tbl_mstr_booking_duration_type.duration_type_id')
+         ->leftJoin('tbl_module_manage', 'tbl_module_manage.module_manage_id', '=', 'tbl_mstr_booking_duration_type_with_module.module_manage_id')->where('tbl_mstr_booking_duration_type.is_deleted', '=', 0)
+        ->where('tbl_mstr_booking_duration_type_with_module.module_manage_id', '=', 2)
+        ->where('tbl_mstr_booking_duration_type_with_module.status', '=', 1)
+        ->get();
+
+
+
+         $getAmenities = DB::table('tbl_mstr_amenities')
+        ->select(
+            'tbl_mstr_amenities.amenity_name',
+            'tbl_mstr_amenities.status',
+            'tbl_mstr_amenities.amenity_id',
+            'tbl_mstr_amenities.amenity_image'
+            )
+         ->leftJoin('tbl_mstr_amenities_with_category', 'tbl_mstr_amenities_with_category.amenity_id', '=', 'tbl_mstr_amenities.amenity_id')
+         ->leftJoin('tbl_module_manage', 'tbl_module_manage.module_manage_id', '=', 'tbl_mstr_amenities_with_category.module_manage_id')->where('tbl_mstr_amenities.is_deleted', '=', 0)
+        ->where('tbl_mstr_amenities_with_category.module_manage_id', '=', 2)
+        ->where('tbl_mstr_amenities_with_category.status', '=', 1)
+        ->get();
+
+        $getLocationTypes = DB::table('tbl_mstr_location_type')->select('tbl_mstr_location_type.location_type',
+            'tbl_mstr_location_type.status',
+            'tbl_mstr_location_type.location_type_id'
+            )
+         ->leftJoin('tbl_mstr_location_type_with_module', 'tbl_mstr_location_type_with_module.location_type_id', '=', 'tbl_mstr_location_type.location_type_id')
+         ->leftJoin('tbl_module_manage', 'tbl_module_manage.module_manage_id', '=', 'tbl_mstr_location_type_with_module.module_manage_id')
+         ->where('tbl_mstr_location_type_with_module.is_deleted', '=', 0)
+         ->where('tbl_mstr_location_type_with_module.module_manage_id', '=', 2)
+         ->where('tbl_mstr_location_type_with_module.status', '=', 1)
+         ->get();
+
+          //get amenities with its modules
+        $getcancellationpolicies = DB::table('tbl_mstr_cancellation_policies as tcp')
+        ->select(
+            'tcp.cancellation_policy_id',
+            'cancellation_policy_text',
+            'cancellation_percentage',
+            'cancellation_type'
+            )
+         ->leftJoin('tbl_mstr_cancellation_type as tca', 'tca.cancellation_type_id', '=', 'tcp.cancellation_type_id')
+        ->where('tcp.module_manage_id', '=', 2)
+        ->where('tca.status', '=', 1)
+        ->where('tca.is_deleted', '=', 0)
+        ->get();
+
+
+        $getPropertyAmenity = DB::table('prk_add_property_amenities')->select(DB::raw("(GROUP_CONCAT(amenity_id SEPARATOR ',')) as `amenity_id`"))->where('property_id', '=', $property_id)->first();
+
+         $SundayAval = DB::table('prk_property_days_time_availability')->select('*')->where('property_id', '=', $property_id)->where('days', '=', 'Sunday')->first();
+         $MondayAval = DB::table('prk_property_days_time_availability')->select('*')->where('property_id', '=', $property_id)->where('days', '=', 'Monday')->first();
+         $TuesdayAval = DB::table('prk_property_days_time_availability')->select('*')->where('property_id', '=', $property_id)->where('days', '=', 'Tuesday')->first();
+         $WednesdayAval = DB::table('prk_property_days_time_availability')->select('*')->where('property_id', '=', $property_id)->where('days', '=', 'Wednesday')->first();
+         $ThursdayAval = DB::table('prk_property_days_time_availability')->select('*')->where('property_id', '=', $property_id)->where('days', '=', 'Thursday')->first();
+         $FridayAval = DB::table('prk_property_days_time_availability')->select('*')->where('property_id', '=', $property_id)->where('days', '=', 'Friday')->first();
+         $SaturdayAval = DB::table('prk_property_days_time_availability')->select('*')->where('property_id', '=', $property_id)->where('days', '=', 'Saturday')->first();
+
+        $AddPropertyCancelPolicy = DB::table('prk_add_property_cancellation_policies')->select('*')->where('property_id', '=', $property_id)->first();
+
+
+        return view('front.property.edit_parking')->with(['parking'=>$propertyDetails,'getPropertyImages'=>$getPropertyImages,'getPropertyFloorMap'=>$getPropertyFloorMap,'getParkingType'=>$getParkingType,'getAddParkingSpot'=>$getAddParkingSpot,'getCarType'=>$getCarType,'getPropertyRent'=>$getPropertyRent,'getAmenities'=>$getAmenities,'getLocationTypes'=>$getLocationTypes,'getcancellationpolicies'=>$getcancellationpolicies,'getPropertyAmenity'=>$getPropertyAmenity,'SundayAval'=>$SundayAval,'MondayAval'=>$MondayAval,'TuesdayAval'=>$TuesdayAval,'WednesdayAval'=>$WednesdayAval,'ThursdayAval'=>$ThursdayAval,'FridayAval'=>$FridayAval,'SaturdayAval'=>$SaturdayAval,'AddPropertyCancelPolicy'=>$AddPropertyCancelPolicy,'getPropertyAddRent'=>$getPropertyAddRent]);
     }
 
      public function editLand()
@@ -171,6 +260,260 @@ class PropertyController extends Controller
         
     } 
     
+    public function saveeditProperty(Request $request){
+
+      $propertyId = 11;
+       $tbl_prefix="prk_";
+
+      // First Step Form Save Record
+      if($request['step1'] == 'step1')
+      {
+      $propBasicDetails = array(
+                                    'module_manage_id'=>'2',
+                                    'user_id'=>$_SESSION['user']['user_id'],
+                                    'name'=>$request['data']['property_name'],
+                                    'location'=>$request['data']['location'],
+                                    'latitude'=>$request['data']['latitude'],
+                                    'longitude'=>$request['data']['longitude'],
+                                    'zip_code'=>$request['data']['zip_code'],
+                                    'description'=>$request['data']['property_description'],
+                                    //'location_type_id'=>$request['data']['location_type'],
+                                    'status'=>'0',
+                                    'created_by'=>'1',
+                                    'modified_by'=>'1',
+                                    'is_deleted'=>'0',
+                                    ); 
+
+      
+      
+      $propBasicDetails  = DB::table('prk_add_property')->where('property_id', $propertyId)->update($propBasicDetails);
+
+       //Code for upload image, floor map and doc
+       if($request->hasfile('property_images'))
+       {
+              foreach($request->file('property_images') as $key => $image)
+              {
+                $name= str_replace(' ', '-', strtolower($request['data']['property_name']));
+                $name = time().'-'.$image->getClientOriginalName();
+
+                // $name = strtolower(trim($request->input('property_images'))).'.'.$image->getClientOriginalExtension();
+                $image->move(public_path().'/images/properties', $name);  
+                $data[] = $name;  
+
+                
+                // $image = $request->file('property_images');
+                // $imagename = strtolower(trim($request->input('property_images'))).'.'.$image->getClientOriginalExtension();
+                // $destinationPath = public_path('/images/properties');
+                // $name = $image->move($destinationPath,$imagename);
+                $default_file = ($key == 0) ? 1 : 0;
+                if(!empty($name)) {
+                $insertPropertyImage[] = array(
+                                           'name'=>$name,
+                                           'property_id'=>$propertyId,
+                                           'document_type_id'=>1,
+                                           'default_file'=>$default_file,
+                                           'status'=>1,
+                                           'created_by'=>'1',
+                                           'modified_by'=>'1',
+                                           'is_deleted'=>'0');
+                }
+              }
+              $insertPropertyImage  = DB::table($tbl_prefix.'add_property_files')->insert($insertPropertyImage);
+           }
+     }
+
+
+     if($request['step2'] == 'step2')
+     {
+           if($request->hasfile('property_map'))
+           {
+              foreach($request->file('property_map') as $key => $image)
+              {
+                $name= str_replace(' ', '-', strtolower($request['data']['property_name']));
+                $name = time().'-'.$image->getClientOriginalName();
+                // $name = strtolower(trim($request->input('property_name'))).'.'.$image->getClientOriginalExtension();
+                $image->move(public_path().'/images/property-floor-map', $name);  
+                $data[] = $name;  
+                // $image = $request->file('property_map');
+                // $imagename = strtolower(trim($request->input('property_map'))).'.'.$image->getClientOriginalExtension();
+                // $destinationPath = public_path('/images/property-floor-map');
+                // $name = $image->move($destinationPath,$imagename);
+                $default_file = ($key == 0) ? 1 : 0;
+                $insertPropertyMap[] = array(
+                                           'name'=>$name,
+                                           'property_id'=>$propertyId,
+                                           'document_type_id'=>2,
+                                           'default_file'=>$default_file,
+                                           'status'=>1,
+                                           'created_by'=>'1',
+                                           'modified_by'=>'1',
+                                           'is_deleted'=>'0');
+
+              }
+              $insertPropertyMap  = DB::table($tbl_prefix.'add_property_files')->insert($insertPropertyMap);
+           }
+     }
+
+     if($request['step3'] == 'step3')
+     {  
+
+         //insert parking floors
+         if(isset($request['data']['parking']['floor_name']) && !empty($request['data']['parking']['floor_name']))
+            {
+
+                $floorNameDelete = DB::table($tbl_prefix.'add_property_floors')->where('property_id', $propertyId)->delete();
+                foreach($request['data']['parking']['floor_name'] as $key => $floor_name)
+                {
+                if(!empty($floor_name) && !empty($request['data']['parking']['parking_type_id'][$key]) && !empty($request['data']['parking']['total_parking_spots'][$key])) {
+                   $insertPropFloorDetails[]= array(
+                                         'floor_name'=>($floor_name)?$floor_name:'',
+                                         'parking_type_id'=>$request['data']['parking']['parking_type_id'][$key],
+                                         'total_parking_spots'=> $request['data']['parking']['total_parking_spots'][$key],
+                                         'property_id'=>$propertyId,
+                                         'status'=>1,
+                                         'created_by'=>'1',
+                                         'modified_by'=>'1',
+                                         'is_deleted'=>'0');
+                      }
+                }
+                $insertPropFloorData  = DB::table($tbl_prefix.'add_property_floors')->insert($insertPropFloorDetails);
+            } 
+
+           
+
+            if(isset($request['data']['parking']['car_type_id']) && !empty($request['data']['parking']['car_type_id']))
+             {
+              
+                $PropertyRentDelete = DB::table($tbl_prefix.'add_property_rent')->where('property_id', $propertyId)->delete();
+
+                foreach($request['data']['parking']['car_type_id'] as $keyC => $car_type_id)
+                {
+                       foreach($request['data']['parking']['rent_amount'] as $keyR => $rent_amount)
+                       {    
+
+                           
+                           if(!empty($car_type_id) && !empty($request['data']['parking']['duration_type_id'][$keyR][$keyC]) && !empty($rent_amount[$keyC])) {
+           
+                              $insertPropRentDetails[]= array(
+                                         'car_type_id' => $car_type_id,
+                                         'duration_type_id'=>$request['data']['parking']['duration_type_id'][$keyR][$keyC],
+                                         'rent_amount' => $rent_amount[$keyC],
+                                         'property_id'=>$propertyId,
+                                         'status'=>1,
+                                         'created_by'=>'1',
+                                         'modified_by'=>'1',
+                                         'is_deleted'=>'0');
+                            }
+                       }
+              }
+             $insertPropRentData  = DB::table($tbl_prefix.'add_property_rent')->insert($insertPropRentDetails);     
+            }
+     }
+
+
+
+     if($request['step4'] == 'step4')
+     {
+          //Add Booking Durition
+          //exit;
+          $inserAmenitiesArr=[];
+          if(isset($request['data']['amenities'])) {
+          $AmenitiesRentDelete = DB::table($tbl_prefix.'add_property_amenities')->where('property_id', $propertyId)->delete();
+          foreach ($request['data']['amenities'] as $value) {
+                        # code...
+                        if(!empty($value)) {
+                        $inserAmenitiesArr[]=array(
+                                                  'amenity_id'=>$value,
+                                                  'property_id'=>$propertyId,
+                                                  'status'=>1,
+                                                  'created_by'=>'1',
+                                                  'modified_by'=>'1',
+                                                  'is_deleted'=>'0'
+                                              );
+                        }
+                    }
+                    $insertPropFloorData  = DB::table($tbl_prefix.'add_property_amenities')->insert($inserAmenitiesArr);
+                    //print_r($propFloorDetails);die('in');
+           }
+     }
+
+
+
+    if($request['step5'] == 'step5')
+    {
+    foreach($request['dayname'] as $key => $dayname)
+    {   
+        $propAvailDelete = DB::table($tbl_prefix.'property_days_time_availability')->where('property_id', $propertyId)->delete();
+
+         $from_hours_time = ($request['day_hours'][$dayname] == 24) ? '00:00:01' : $request['from_hours_time'][$dayname]; 
+         $to_hours_time = ($request['day_hours'][$dayname] == 24) ? '23:59:00' : $request['to_hours_time'][$dayname];
+         $day_status = (isset($request['day_status'][$dayname])) ? 0 : 1;
+
+         $propAvailDetails[] = array(
+                        'property_id'=>$propertyId,
+                        'days'=>$dayname,
+                        'start_time'=>$from_hours_time,
+                        'end_time'=>$to_hours_time,
+                        'status'=>$day_status,
+                        'created_by'=>'1',
+                        'modified_by'=>'1',
+                        'is_deleted'=>'0',
+                        );
+    }
+    $propertyId  = DB::table($tbl_prefix.'property_days_time_availability')->insert($propAvailDetails);
+    
+    }
+
+    if($request['step6'] == 'step6')
+    {
+    $insertcancellation = array(
+                                 'cancellation_policy_id'=>$request['cancellation_policy_id'],
+                                 'property_id'=>$propertyId,
+                                 'status'=>1,
+                                 'created_by'=>'1',
+                                 'modified_by'=>'1',
+                                 'is_deleted'=>'0');
+
+    if(!empty($request['cancellation_policy_id'])) {                          
+    $insertcancellationpolicies  = DB::table($tbl_prefix.'add_property_cancellation_policies')->insert($insertcancellation);
+    }
+
+
+        if($request['step7'] == 'step7')
+        {
+              if($request->hasfile('property_documents'))
+               {
+                  foreach($request->file('property_documents') as $key => $image)
+                  {
+                    $name = time().'-'.$image->getClientOriginalName();
+                    $image->move(public_path().'/images/property-documents', $name);  
+                    $data[] = $name;  
+                  
+                    $default_file = ($key == 0) ? 1 : 0;
+                    $insertPropertyDoc[] = array(
+                                               'name'=>$name,
+                                               'property_id'=>$propertyId,
+                                               'document_type_id'=>3,
+                                               'default_file'=>$default_file,
+                                               'status'=>1,
+                                               'created_by'=>'1',
+                                               'modified_by'=>'1',
+                                               'is_deleted'=>'0');
+
+                  }
+                  $insertPropertyDoc  = DB::table($tbl_prefix.'add_property_files')->insert($insertPropertyDoc);
+               }
+
+        }
+        }
+        $data = array('status' => 200,
+                      'response' => array('msg' =>'Parking Updated Successfully'));
+
+        echo json_encode($data);
+        exit;
+    }
+
+
     public function saveProperty(Request $request)
     {       
       
@@ -508,4 +851,11 @@ class PropertyController extends Controller
         echo json_encode($data);
          //echo '{code:200,msg:success}';
     }
+
+
+    public function RemoveParkigImage()
+    {
+         $floorNameDelete = DB::table('prk_add_property_files')->where('file_id', $_POST['id'])->delete();
+         echo 'success';
+    }   
 }
