@@ -58,11 +58,12 @@
              </div>
            </div>
          <?php }?>
-          <div class="form-group">
+          <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-username"> Short Description </label>
             <div class="col-sm-10">
              
-              <textarea name="short_description" class="form-control" id="short_description" name="description"><?php echo ($editBlogs && $editBlogs->short_description) ? $editBlogs->short_description : ''; ?></textarea>
+              <textarea name="short_description" maxlength='125' class="form-control" id="short_description" name="description" placeholder="Short Description"><?php echo ($editBlogs && $editBlogs->short_description) ? $editBlogs->short_description : ''; ?></textarea>
+                <p>Maximum 125 character</p>
 
                  <?php if($errors->first('short_description')) { ?>
                  <div class="text-danger"><?php echo $errors->first('short_description'); ?></div>
@@ -70,11 +71,11 @@
              </div>
            
           </div>
-          <div class="form-group">
+          <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-username"> Description </label>
             <div class="col-sm-10">
              
-              <textarea name="description" class="form-control" id="description" name="description"><?php echo ($editBlogs && $editBlogs->description) ? $editBlogs->description : ''; ?></textarea>
+              <textarea name="description" placeholder=""class="form-control" id="description" name="description"><?php echo ($editBlogs && $editBlogs->description) ? $editBlogs->description : ''; ?></textarea>
 
                  <?php if($errors->first('description')) { ?>
                  <div class="text-danger"><?php echo $errors->first('description'); ?></div>

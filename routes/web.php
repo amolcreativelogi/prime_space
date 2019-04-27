@@ -14,11 +14,13 @@ session_start();
 /*Route::get('/', function () {
     return view('front/pages/home');
 });*/
+### start Stripe Payment ########
 Route::get('/connectStripAccount','Front\PaymentController@connectStripAccount');
 Route::post('/make_payment', 'Front\PaymentController@make_payment')->name('make_payment.post')->middleware('UserAuth');;
 Route::get('/user/autoPayToHost','Front\PaymentController@autoPayToHost');
+### end Stripe Payment ########
 
-
+Route::get('/user/submitRating','Front\CustomerController@submitRating')->middleware('UserAuth');
 Route::get('/','Front\HomeController@Home');
 
 //frontend route
@@ -109,7 +111,7 @@ Route::post('/admin/getLandList','Admin\LandController@getLandList');
 
 /* LOCATION TYPE */
 
-//Route to load location type listing 
+//Route to load location type listing
 Route::get('/admin/locationTypeExecute','Admin\MasterController@locationTypeExecute');
 
 //Route to add location type
@@ -124,7 +126,7 @@ Route::post('/admin/getLocationTypes','Admin\MasterController@getLocationTypes')
 
 /* PARKING TYPE */
 
-//Route to load parking type listing 
+//Route to load parking type listing
 Route::get('/admin/parkingTypeExecute','Admin\MasterController@parkingTypeExecute');
 
 //Route to add parking type
@@ -139,7 +141,7 @@ Route::post('/admin/getParkingTypes','Admin\MasterController@getParkingTypes');
 
 /* BOOKING DURATION TYPE*/
 
-//Route to load booking duration type listing 
+//Route to load booking duration type listing
 Route::get('/admin/bookingDurationTypeExecute','Admin\MasterController@bookingDurationTypeExecute');
 
 //Route to add booking duration type
@@ -150,7 +152,7 @@ Route::post('/admin/saveBookingDurationType','Admin\MasterController@saveBooking
 
 //Route to get booking duration type list
 Route::post('/admin/getBookingDurationTypes','Admin\MasterController@getBookingDurationTypes');
- 
+
 
 
 Route::get('/admin/Users','Admin\UsersController@Users');
@@ -172,7 +174,7 @@ Route::get('/admin/viewUsersProfile/{id?}','Admin\UsersController@viewUsersProfi
 
 /* DOCUMENT TYPE */
 
-//Route to load booking duration type listing 
+//Route to load booking duration type listing
 Route::get('/admin/documentTypeExecute','Admin\MasterController@documentTypeExecute');
 
 //Route to add booking duration type
@@ -188,7 +190,7 @@ Route::post('/admin/getDocumentTypes','Admin\MasterController@getDocumentTypes')
 
 /* UNIT TYPE */
 
-//Route to load booking duration type listing 
+//Route to load booking duration type listing
 Route::get('/admin/unitTypeExecute','Admin\MasterController@unitTypeExecute');
 
 //Route to add booking duration type
@@ -203,7 +205,7 @@ Route::post('/admin/getUnitTypes','Admin\MasterController@getUnitTypes');
 
 /* CANCELLATION TYPE */
 
-//Route to load booking duration type listing 
+//Route to load booking duration type listing
 Route::get('/admin/cancellationTypeExecute','Admin\MasterController@cancellationTypeExecute');
 
 //Route to add booking duration type
@@ -217,7 +219,7 @@ Route::post('/admin/getCancellationTypes','Admin\MasterController@getCancellatio
 
 /* CANCELLATION POLICIES */
 
-//Route to load booking duration type listing 
+//Route to load booking duration type listing
 Route::get('/admin/cancellationPoliciesExecute','Admin\MasterController@cancellationPoliciesExecute');
 
 //Route to add booking duration type
@@ -231,7 +233,7 @@ Route::post('/admin/getCancellationPolicies','Admin\MasterController@getCancella
 
 /* LAND TYPES */
 
-//Route to load  land type listing 
+//Route to load  land type listing
 Route::get('/admin/landTypeExecute','Admin\LandController@landTypeExecute');
 
 //Route to add  land type
@@ -259,8 +261,6 @@ Route::get('/user/editprofile/{id?}','Front\UserController@editprofile')->middle
 Route::post('/updatesaveprofile/{id?}','Front\UserController@updatesaveprofile')->middleware('UserAuth');
 Route::get('/user/accountSetting','Front\UserController@accountSetting');
 Route::post('/user/submitnewpassword','Front\UserController@submitNewPassword')->middleware('UserAuth');
-//Route::get('/payment/queryget','Front\PaymentController@queryTransaction');
-
 
 Route::get('/user/parkingProperties','Front\HostController@parkingProperties')->middleware('UserAuth');
 Route::get('/user/landProperties','Front\HostController@landProperties')->middleware('UserAuth');
@@ -283,8 +283,10 @@ Route::get('/user/editparking/{id}','Front\PropertyController@editParking')->mid
 Route::get('/editland','Front\PropertyController@editLand')->middleware('UserAuth');
 
 
+Route::get('/user/bookingView/{id}','Front\CustomerController@bookingView')->middleware('UserAuth');
+
 //Pages
-Route::get('/faq','Front\PagesController@faq');
+Route::get('/faq','Front\FaqsController@index');
 Route::get('/general-faq','Front\PagesController@general_faq');
 Route::get('/host-faq','Front\PagesController@host_faq');
 Route::get('/general-faq','Front\PagesController@general_faq');
@@ -298,13 +300,19 @@ Route::get('/notification','Front\PagesController@notification');
 Route::get('/messages','Front\PagesController@messages');
 Route::get('/refundPolicy','Front\PagesController@refundPolicy');
 
+Route::get('/accountSetting','Front\PagesController@accountSetting');
+Route::get('/blogListing','Front\PagesController@blogListing');
+Route::get('/aboutUs','Front\PagesController@aboutUs');
+Route::get('/singleBlog','Front\PagesController@singleBlog');
+Route::get('/terms','Front\PagesController@terms');
+
 
 //Route to get masters details on add property form
 Route::post('/frontend/getPropertyMasters','Front\PropertyController@getPropertyMasters');
 //Route to save property
 Route::post('/frontend/saveProperty','Front\PropertyController@saveProperty');
+Route::post('/frontend/saveeditProperty','Front\PropertyController@saveeditProperty');
 
- 
 //Route to Search Property
 Route::get('/searchproperty/{module_id?}','Front\SearchPropertyController@SeachProperty');
 
@@ -314,11 +322,11 @@ Route::get('/bookNow','Front\BookingController@bookNow');
 
 //Route to load single property
 Route::get('/propertydetails/{module_id?}/{property_id?}','Front\BookingController@propertyDetails');
- 
+
 //Route to book property
 Route::post('/frontend/bookProperty','Front\BookingController@bookProperty');
 
-//Route to get valid parking property 
+//Route to get valid parking property
 Route::post('/frontend/getValidParkingProperty','Front\SearchPropertyController@getValidParkingProperty');
 
 //Route to get module list
@@ -326,6 +334,7 @@ Route::post('/frontend/getModuleList','Front\SearchPropertyController@getModuleL
 
 
 
+Route::post('/user/RemoveParkigImage','Front\PropertyController@RemoveParkigImage');
 
 Route::get('/user/parkingdetails/{id?}','Front\HostController@ParkingDetails');
 Route::post('/user/DeleteRecord','Front\HostController@DeleteRecord');
@@ -335,5 +344,51 @@ Route::get('/user/downloadDoc/{id?}','Front\HostController@downloadDoc');
 Route::post('/frontend/getAmenities','Front\SearchPropertyController@getAmenities');
 
 
+Route::post('/admin/cmspages/getCMSPages', 'Admin\CmsPagesController@getCMSPages');
+Route::get('/admin/cmspages/add/{id?}', 'Admin\CmsPagesController@add');
+Route::get('/admin/cmspages', 'Admin\CmsPagesController@index');
+Route::post('/admin/cmspages/saveCmsPage', 'Admin\CmsPagesController@saveCmsPage');
+Route::get('/admin/cmspages/delete/{id}', 'Admin\CmsPagesController@delete');
+Route::post('upload_image','Admin\CmsPagesController@uploadImage')->name('upload');
 
 
+Route::get('/pages/{urlkey}', 'Front\CmsPagesController@loadCmsPage');
+
+// routes for blogs.
+/*Route::group(array('prefix' => 'tbl_cms_pages'), function()
+{*/
+Route::post('/admin/blogs/getBlogs', 'Admin\BlogsController@getBlogs');
+Route::get('/admin/blogs', 'Admin\BlogsController@index');
+Route::get('/admin/blogs/add/{id?}', 'Admin\BlogsController@add');
+Route::post('/admin/blogs/saveBlog', 'Admin\BlogsController@saveBlog');
+Route::get('/admin/blogs/delete/{id}', 'Admin\BlogsController@delete');
+Route::post('upload_image','Admin\BlogsController@uploadImage')->name('upload');
+Route::get('/blogs/{id}', 'Front\BlogsController@loadBlogPage');
+Route::get('/blogs', 'Front\BlogsController@listBlogs');
+//});
+// end of blogs routes
+
+//Route for FAQ Categories
+Route::post('/admin/faqs/getFaqCategories', 'Admin\FaqsCategoryController@getFaqCategories');
+Route::get('/admin/faqs/categories', 'Admin\FaqsCategoryController@index');
+Route::get('/admin/faqs/categories/add/{id?}', 'Admin\FaqsCategoryController@add');
+Route::post('/admin/faqs/saveFaqsCategory', 'Admin\FaqsCategoryController@saveFaqsCategory');
+Route::post('/admin/faqs/DeleteFaqCategory','Admin\FaqsCategoryController@DeleteFaqCategory');
+Route::get('/admin/faqs/updateCategorySequence', 'Admin\FaqsCategoryController@updateCategorySequence');
+Route::post('/admin/faqs/saveFaqsCategorySequece', 'Admin\FaqsCategoryController@saveFaqsCategorySequece');
+
+
+
+//Route for FAQ's
+Route::get('/admin/faq', 'Admin\FaqsController@index');
+Route::get('/admin/faq/add/{id?}', 'Admin\FaqsController@add');
+Route::post('/admin/faq/saveFaq', 'Admin\FaqsController@saveFaq');
+Route::get('/admin/faq/edit/{id?}', 'Admin\FaqsController@edit');
+Route::post('/admin/faq/editFaq', 'Admin\FaqsController@editFaq');
+Route::get('/admin/faq/delete/{faq_id}/{category_id}', 'Admin\FaqsController@delete');
+Route::post('upload_image','Admin\FaqsController@uploadImage')->name('upload');
+Route::post('/admin/faq/getFaqs', 'Admin\FaqsController@getFaqs');
+Route::get('/admin/faq/list/{category_id?}', 'Admin\FaqsController@getAllFaqList');
+Route::get('/admin/faq/updateFaqSequence', 'Admin\FaqsController@updateFaqSequence');
+Route::post('/admin/faq/saveFaqSequece', 'Admin\FaqsController@saveFaqSequece');
+//Route::post('/admin/faq/list', 'Admin\FaqsController@list');

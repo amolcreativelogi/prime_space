@@ -1,7 +1,7 @@
 @extends('front/layouts.default')
 @section('content')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <style type="text/css">
     .panel-title {
     display: inline;
@@ -103,10 +103,10 @@
             <div class="panel-heading display-table" >
                 <div class="row display-tr" >
                     <h3 class="panel-title display-td" >Payment Details</h3>
-                    <div class="display-td" >                            
+                    <div class="display-td" >
                         <img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png">
                     </div>
-                </div>                    
+                </div>
             </div>
             <div class="panel-body">
                 <form role="form" action="{{ route('make_payment.post') }}" method="post" class="require-validation"
@@ -132,7 +132,7 @@
                     </div>
 
                     <div class='form-row row'>
-                        
+
                         <div class='col-xs-12 col-md-4 form-group expiration required'>
                             <label class='control-label'>Expiration Month</label> <input
                                 class='form-control card-expiry-month' placeholder='MM' size='2'
@@ -164,10 +164,10 @@
                             <button class="btn btn-primary btn-lg btn-block" type="submit">Pay Now</button>
                         </div>
                     </div>
-                      
+
                 </form>
             </div>
-        </div>        
+        </div>
     </div>
 </div>
 
@@ -189,7 +189,7 @@ $image = '<img src="'.url('/public/images/amenity/'.$amenities->amenity_image.''
 $image = 'No Image';
 }
 ?>
-<li><?php echo $image; ?><span><?php echo $amenities->amenity_name; ?> </span></li> 
+<li><?php echo $image; ?><span><?php echo $amenities->amenity_name; ?> </span></li>
 <?php } ?>
 </ul>
 </div>
@@ -217,13 +217,13 @@ $image = 'No Image';
         <div class="thanksmsgbox">
             <i class="fa fa-smile-o" aria-hidden="true"></i>
             <h2>Thanks for your Booking</h2>
-        </div>  
+        </div>
       </div>
     </div>
   </div>
 </div>
 <!-- thanksModal end -->
-    
+
 </div>
 
 
@@ -235,11 +235,13 @@ $image = 'No Image';
 @section('script')
 
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-  
+
 <script type="text/javascript">
 $(function() {
+
     var $form         = $(".require-validation");
   $('form.require-validation').bind('submit', function(e) {
+
     var $form         = $(".require-validation"),
         inputSelector = ['input[type=email]', 'input[type=password]',
                          'input[type=text]', 'input[type=file]',
@@ -248,7 +250,7 @@ $(function() {
         $errorMessage = $form.find('div.error'),
         valid         = true;
         $errorMessage.addClass('hide');
- 
+
         $('.has-error').removeClass('has-error');
     $inputs.each(function(i, el) {
       var $input = $(el);
@@ -258,7 +260,7 @@ $(function() {
         e.preventDefault();
       }
     });
-  
+
     if (!$form.data('cc-on-file')) {
       e.preventDefault();
       Stripe.setPublishableKey($form.data('stripe-publishable-key'));
@@ -269,9 +271,9 @@ $(function() {
         exp_year: $('.card-expiry-year').val()
       }, stripeResponseHandler);
     }
-  
+
   });
-  
+
   function stripeResponseHandler(status, response) {
         if (response.error) {
             $('.error')

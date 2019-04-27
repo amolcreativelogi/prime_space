@@ -25,7 +25,7 @@ class BlogRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'image' => 'required',
+            //'image' => 'required',
             'short_description' => 'required',
             'description' => 'required'
             
@@ -37,7 +37,7 @@ class BlogRequest extends FormRequest
     {
         return [
             'title.required' => 'Title field is required',
-            'image.required' => 'Image field is required',
+            //'image.required' => 'Image field is required',
             'short_description.required' => 'Short Description field is required',
             'description.required' => 'Description field is required'
             

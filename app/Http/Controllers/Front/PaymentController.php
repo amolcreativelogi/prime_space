@@ -12,7 +12,7 @@ use Stripe;
 use Stripe\HttpClient\ClientInterface;
 class PaymentController extends Controller
 {
-	public function connectStripAccount(Request $request)
+  public function connectStripAccount(Request $request)
 	{
 		$tokendata = [
 			'client_secret' => 'sk_test_oLbicpRdoHMYDli7jqrx8kFC00ocW3XROQ',
@@ -47,7 +47,7 @@ class PaymentController extends Controller
 		} else {
 		    if ($userAccountDtail = json_decode($response)) {
 		    	DB::table('connect_stripe_account_for_host')->insert([
-		    		'user_id' => $_SESSION['user']['user_id'], 
+		    		'user_id' => $_SESSION['user']['user_id'],
 				    'stripe_user_id' => $userAccountDtail->stripe_user_id,
 				    'stripe_publishable_key' => $userAccountDtail->stripe_publishable_key
 				]);
@@ -62,42 +62,46 @@ class PaymentController extends Controller
 
 	}
 
-	public function make_payment(Request $request)
-	{
-		Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-		$amount = DB::table('booking_transactions')->orderBy('txn_id', 'DESC')->first();
-		$amount = $amount->amount + $request->finalprice;
-		$customer = Stripe\Customer::create(array(
-			        	'name' => $request->name,
-			            'email' => $_SESSION['user']['email_id'],
-			            'source'  => $request->stripeToken
-			        ));
-		$charge = \Stripe\Charge::create([
-			'customer' => $customer->id,
-		    'amount' => $request->finalprice * 100,
-		    'currency' => 'usd',
-		    'description' => 'Test payment from prime space.'
-		]);
-        if ($charge->status == 'succeeded') {
-        	DB::table('booking_transactions')->where('booking_id', $request->booking_id)->update([
-														    'amount' => $amount,
-														    'status_message' => 'success'
-														]); 
+  public function make_payment(Request $request)
+  	{
+  		Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+  		$amount = DB::table('booking_transactions')->orderBy('txn_id', 'DESC')->first();
+  		$amount = $amount->amount + $request->finalprice;
+  		$customer = Stripe\Customer::create(array(
+  			        	'name' => $request->name,
+  			            'email' => $_SESSION['user']['email_id'],
+  			            'source'  => $request->stripeToken
+  			        ));
+  		$charge = \Stripe\Charge::create([
+  			'customer' => $customer->id,
+  		    'amount' => $request->finalprice * 100,
+  		    'currency' => 'usd',
+  		    'description' => 'Test payment from prime space.'
+  		]);
+          if ($charge->status == 'succeeded') {
+          	DB::table('booking_transactions')->where('booking_id', $request->booking_id)->update([
+  														    'amount' => $amount,
+  														    'status_message' => 'success'
+  														]);
 
-        	DB::table('tbl_property_bookings')->where('booking_id', $request->booking_id)->update([
-														    'booking_status' => 'approved'
-														]); 
-        }
-        Session::flash('success', 'Payment successful!');
-        return redirect('/user/customer');
-	}
+          	DB::table('tbl_property_bookings')->where('booking_id', $request->booking_id)->update([
+  														    'booking_status' => 'approved'
+  														]);
+          }
+          Session::flash('success', 'Payment successful!');
+          return redirect('/user/customer');
+  	}
 
 	public function autoPayToHost()
 	{
 		$bookings = DB::table('tbl_property_bookings')->join('booking_transactions', 'booking_transactions.booking_id', 'tbl_property_bookings.booking_id')->where('tbl_property_bookings.end_date', '<', date('Y-m-d'))->get();
 
 		foreach ($bookings as $key => $booking) {
-			$userAccount = DB::table('connect_stripe_account_for_host')->where('user_id', 19)->first();
+
+      $getHostId = DB::table('prk_add_property')->select('user_id')->where(['property_id'=>$booking->property_id])->first();
+      // print_r($getHostId);
+      // exit;
+			$userAccount = DB::table('connect_stripe_account_for_host')->where('user_id', $getHostId->user_id)->first();
 			$transferToHost = ($booking->credit/100)*85 ;
 			$adminbalance = $booking->amount - $transferToHost;
 			Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
@@ -111,8 +115,8 @@ class PaymentController extends Controller
 			]);
 
 			if ($transfer) {
-				 DB::table('booking_transactions')->insert([            
-		          'user_id' => $userAccount->user_id, 
+				 DB::table('booking_transactions')->insert([
+		          'user_id' => $userAccount->user_id,
 		          'booking_id' => $booking->booking_id,
 		          'debit' => $transferToHost,
 		          'amount'=> $adminbalance,
@@ -121,5 +125,4 @@ class PaymentController extends Controller
 			}
 		}
 	}
-	
 }
