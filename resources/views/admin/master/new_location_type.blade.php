@@ -25,7 +25,7 @@
             </div>
           @endif
 
-          <!-- <div class="form-group required">
+          <div class="form-group required">
               <label class="col-sm-2 control-label" for="input-username">Module Categories</label>
               <div class="col-sm-10">
                  <select name="module_manage_id" id="module_manage_id" class="form-control">
@@ -38,7 +38,7 @@
                   <div class="text-danger"><?php echo $errors->first('module_manage_id'); ?></div>
                   <?php } ?>
              </div>
-          </div> -->
+          </div>
 
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-username"> Location Type</label>

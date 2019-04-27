@@ -25,7 +25,7 @@
           <table id="example" class="table table-striped">
             <thead>
               <tr>
-              <!-- <td>Module Category</td> -->  
+              <td>Module Category</td>  
               <td>Location Type</td>
               <td>Status</td>
               <td>Action</td>

@@ -4,7 +4,6 @@
 <?php use \App\Http\Controllers\Front\SearchPropertyController;//echo print_r($_GET); die;//echo '<pre>'; print_r($searchResult); echo '</pre>'?>
 <div class="site-content">
 
-
 <div class="all-properties">
     <section class="ap-filter">
       <div class="container">
@@ -23,9 +22,9 @@
                       <div class="prop-type">
                             <nav>
                                 <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                    <a class="nav-item nav-link removeactive hourly active" id="nav-home-tab" data-toggle="tab" href="#hourly" role="tab" aria-controls="nav-home" aria-selected="true">Hourly</a>
-                                    <a class="nav-item nav-link removeactive daily" id="nav-profile-tab" data-toggle="tab"  href="#daily" role="tab" aria-controls="nav-profile" aria-selected="false">Daily</a>
-                                    <a class="nav-item nav-link removeactive monthly" id="nav-contact-tab" data-toggle="tab" href="#monthly" role="tab" aria-controls="nav-contact" aria-selected="false">Monthly</a>
+                                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#hourly" role="tab" aria-controls="nav-home" aria-selected="true">Hourly</a>
+                                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab"  href="#daily" role="tab" aria-controls="nav-profile" aria-selected="false">Daily</a>
+                                    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#monthly" role="tab" aria-controls="nav-contact" aria-selected="false">Monthly</a>
                                 </div>
 
                                 
@@ -39,7 +38,7 @@
 
                                 <select class="filter-select" id="location_type_id" name="location_type_id">
                                   <option value="">Location Type</option>
-                                   <?php foreach($getLocationType as $locationType) { ?>
+                                  <?php foreach($getLocationType as $locationType) { ?>
                                   <option <?php echo (Request::get("location_type_id")==$locationType->location_type_id)?"selected":"" ?> value="<?php echo $locationType->location_type_id; ?>"><?php echo $locationType->location_type; ?></option>  
                                   <?php } ?>
                                 </select>
@@ -54,10 +53,8 @@
                             
 
                             <div class="tab-content" id="nav-tabContent">
-                            <div class="tab-pane fade removeactive show active" id="hourly" role="tabpanel" aria-labelledby="nav-home-tab">
-
+                            <div class="tab-pane fade show active" id="hourly" role="tabpanel" aria-labelledby="nav-home-tab">
                               <div id="hourly" class="tablist-container filterbox hourly" style="display: block;">
-
             
                                 <form>
                                   <div class="form-group">
@@ -71,12 +68,10 @@
                                       <!-- <input type="" name="" placeholder="Address, City"> -->
                     
                                     </div>
-                                    <div class="error from_parkingtypeh"></div>
                                   </div>
                                   <div class="form-group date-group">
                                     <label>From Date</label>
                                     <div class="date"><input type="text" name="from_date" placeholder="Any" id="from_date"></div>
-                                    <div class="error from_dateh"></div>
                                   </div>
                                   <!-- <div class="form-group time-group">-->
                                   <!--  <label>From time</label>-->
@@ -85,7 +80,6 @@
                                   <div class="form-group date-group">
                                     <label>To date</label>
                                     <div class="date"><input type="text" name="to_date" placeholder="Any" id="to_date"></div>
-                                    <div class="error from_todate_datesh"></div>
                                   </div>
                                   <!--<div class="form-group time-group">-->
                                   <!--  <label>From time</label>-->
@@ -94,7 +88,7 @@
                                 </form>
                               </div>
                             </div>
-                            <div class="tab-pane fade removeactive" id="daily" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <div class="tab-pane fade" id="daily" role="tabpanel" aria-labelledby="nav-profile-tab">
                               <div id="daily" class="tablist-container filterbox daily">
                                 <form action="searchproperty/" method="get">
                                   <div class="form-group">
@@ -105,24 +99,21 @@
                                       <input type="hidden" name="dailyFrmLatitude" id="dailyFrmLatitude">
                                       <input type="hidden" name="dailyFrmLongitude" id="dailyFrmLongitude">
                                     </div>
-                                     <div class="error from_parkingtyped"></div>
                                     </div>
                                   <div class="form-group date-group">
                                     <label>From</label>
                                     <!-- <div class="date"><input type="" name="" placeholder="Any"></div> -->
                                      <div class="date"><input type="text" class="form-control" placeholder="Any" id="from" /></div>
-                                     <div class="error from_dated"></div>
                                   </div>
                                   <div class="form-group date-group">
                                     <label>To</label>
                                     <div class="date"><input type="text" class="form-control" placeholder="Any" id="to" /></div>
-                                    <div class="error from_todate_datesd"></div>
                                   </div>
                                  
                                 </form>
                               </div>
                             </div>
-                            <div class="tab-pane fade removeactive" id="monthly" role="tabpanel" aria-labelledby="nav-contact-tab">
+                            <div class="tab-pane fade" id="monthly" role="tabpanel" aria-labelledby="nav-contact-tab">
                               <div id="monthly" class="tablist-container filterbox monthly">
                                 <form action="searchproperty/" method="get">
                                   <div class="form-group">
@@ -132,18 +123,15 @@
                                         <input type="hidden" id="monthlyFrmCity" name="monthlyFrmCity" />
                                         <input type="hidden" name="monthlyFrmLatitude" id="monthlyFrmLatitude">
                                         <input type="hidden" name="monthlyFrmLongitude" id="monthlyFrmLongitude"></div>
-                                         <div class="error from_parkingtypem"></div>
                                     </div>
                                   <div class="form-group date-group">
                                     <label>From</label>
                                     <!-- <div class="date"><input type="" name="" placeholder="Any"></div> -->
                                      <div class="date"><input type="text" class="form-control" placeholder="Any" id="monthly_from" /></div>
-                                      <div class="error from_datem"></div>
                                   </div>
                                   <div class="form-group date-group">
                                     <label>To</label>
                                     <div class="date"><input type="text" class="form-control" placeholder="Any" id="monthly_to" /></div>
-                                     <div class="error from_todate_datesm"></div>
                                   </div>
                                  
                                 </form>
@@ -326,7 +314,6 @@
                         <div class="ps-count"><?= $no_of_prop ?> Properties</div>
                       @foreach($searchResult['closest'] as $searchProp)
                         <div class="ps-box">
-                     
                             <div class="ps-img">
                         <?php if(isset($searchProp->image) && file_exists(public_path() . '/images/properties/' . $searchProp->image. '')) { ?>
                               <img src="<?php echo url('/public/images/properties/'.$searchProp->image)?>" alt=""> 
@@ -384,7 +371,7 @@
                                <input type="hidden" id="to_destination_<?php echo $searchProp->property_id; ?>" value="<?php echo $searchProp->location; ?>" placeholder="Search Destination">
                                 <a href="javascript:void();" class="get-direction" onclick="getAddress(<?php echo $searchProp->property_id; ?>)"  ><img src="{{ URL::asset('public') }}/assets/front-design/images/get-directions-button.svg" alt=""></a>
                                 <a href='<?php echo URL('/') ?>/propertydetails?moduleid=<?php echo Request::get("module_id")."&propertyid=".$searchProp->property_id."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="prop-details">details</a>
-                                    <a href='<?php echo URL('/') ?>/bookNow?moduleid=<?php echo Request::get("module_id")."&propertyid=".$searchProp->property_id."&car_type_id=".$searchProp->car_type_id."&duration_type_id=".$searchProp->duration_type_id."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="booknow">Book now</a>
+                                    <a href='<?php echo URL('/') ?>/bookNow?moduleid=<?php echo Request::get("module_id")."&propertyid=".$searchProp->property_id."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="booknow">Book now</a>
           
                                 </div>
                             </div>
@@ -394,19 +381,7 @@
 
                     <div class="tab-pane fade" id="cheapest" role="tabpanel" aria-labelledby="nav-profile-tab">
                         <div class="ps-count"><?= $no_of_prop ?> Properties</div>
-
-
-                        <?php
-
-                        $price = array();
-                      foreach ($searchResult['closest'] as $key => $row)
-                      {
-                          $price[$key] = $row->rent_amount;
-                      }
-                      $getDate = array_multisort($price, SORT_ASC, $searchResult['closest']);
-                      ?>
-
-                      @foreach($searchResult['closest'] as $searchProp)
+                      @foreach($searchResult['cheapest'] as $searchProp)
                             <div class="ps-box">
                             <div class="ps-img">
                             <?php if(isset($searchProp->image) && file_exists(public_path() . '/images/properties/' . $searchProp->image. '')) { ?>
@@ -480,7 +455,7 @@
     </section><!-- filter-result -->
 
 </div><!-- all-properties -->
-
+ 
 </div><!-- site-content -->
  <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -503,7 +478,6 @@
             </div>
 
         </div>
-
 </div>
 
 
@@ -536,24 +510,25 @@ foreach($searchResult['cheapest'] as $s)
 
 $mapperPointerClosest =  json_encode($jsonClosest);
 $mapperPointerCheapest =  json_encode($jsonCheapest);
+
 ?>
 
 
 
 <script>
-$('.removeactive').removeClass('active show')
-$('.<?php echo $_GET['activeTab']; ?>, #<?php echo $_GET['activeTab']; ?>').addClass('active show')
-$('.<?php echo $_GET['activeTab']; ?>').trigger( "click" );
 
-function getAddress(id)
- {
+  
+
+  function getAddress(id)
+  {
     var fromdest = $('#location-from-search').val();
     var to = $('#to_destination_'+id).val();
+
     url = 'https://www.google.com/maps/dir/'+fromdest+'/'+to+'';
-    window.open(url,"Get Gdirections","width=900,height=650,150,status=0,")
-    // $("#forecast_embed").attr("src",url); 
-    // window.open(url, '_blank');
-}
+    window.open(url, '_blank');
+
+  }
+
 //var jsonRes = <?php $searchResult; ?>;
 // var as = JSON.parse(jsonRes);
 // alert(as);
@@ -580,9 +555,15 @@ function reloadMarkers() {
     alert(searchTabId);
     // Reset the markers array
     markers = [];
+    if(searchTabId == "#closest"){
+      // Call set markers to re-add markers
+      setMarkers('<?php echo $mapperPointerClosest;?>');
+    }else{
+      setMarkers('<?php echo $mapperPointerCheapest;?>');
+      
+    }
     
-    
-    setMarkers('<?php echo $mapperPointerClosest;?>');
+
 
 }
 
@@ -678,7 +659,6 @@ google.maps.event.addDomListener(window, 'load', initMap);
 $(document).ready(function() {
   //form land
 
-  $('#location-from-search').val('<?php echo $_GET['location'];?>');
   $('#landweeklyFrmlocation').val('<?php echo $_GET['location'];?>');
   $('#landweeklyFrmLatitude').val('<?php echo $_GET['latitude'];?>');
   $('#landweeklyFrmLongitude').val('<?php echo $_GET['longitude'];?>');

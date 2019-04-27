@@ -14,6 +14,10 @@ session_start();
 /*Route::get('/', function () {
     return view('front/pages/home');
 });*/
+Route::get('/connectStripAccount','Front\PaymentController@connectStripAccount');
+Route::post('/make_payment', 'Front\PaymentController@make_payment')->name('make_payment.post')->middleware('UserAuth');;
+Route::get('/user/autoPayToHost','Front\PaymentController@autoPayToHost');
+
 
 Route::get('/','Front\HomeController@Home');
 
@@ -251,11 +255,12 @@ Route::get('/admin/mail','Admin\UsersController@mail');
 Route::post('/userRegistration','Front\UserController@userRegistration');
 Route::post('/userLogin','Front\UserController@userLogin');
 Route::post('/resetPassword','Front\UserController@resetPassword');
-Route::get('/user/editprofile/{id?}','Front\UserController@editprofile');
-Route::post('/updatesaveprofile/{id?}','Front\UserController@updatesaveprofile');
-Route::get('/user/accountSetting','Front\UserController@accountSetting');
-Route::post('/user/submitnewpassword','Front\UserController@submitNewPassword');
-Route::get('/payment/queryget','Front\PaymentController@queryTransaction');
+Route::get('/user/editprofile/{id?}','Front\UserController@editprofile')->middleware('UserAuth');
+Route::post('/updatesaveprofile/{id?}','Front\UserController@updatesaveprofile')->middleware('UserAuth');
+Route::get('/user/accountSetting','Front\UserController@accountSetting')->middleware('UserAuth');
+Route::post('/user/submitnewpassword','Front\UserController@submitNewPassword')->middleware('UserAuth');
+//Route::get('/payment/queryget','Front\PaymentController@queryTransaction');
+
 
 Route::get('/user/parkingProperties','Front\HostController@parkingProperties')->middleware('UserAuth');
 Route::get('/user/landProperties','Front\HostController@landProperties')->middleware('UserAuth');
@@ -268,11 +273,7 @@ Route::get('/user/customer','Front\CustomerController@customerDashboard')->middl
 Route::get('/user/logout','Front\UserController@userlogout');
 Route::get('/user/bookingHistory','Front\CustomerController@bookingHistory')->middleware('UserAuth');
 Route::get('/user/orderHistory','Front\CustomerController@orderHistory')->middleware('UserAuth');
-Route::get('/user/bookingView/{id}','Front\CustomerController@bookingView')->middleware('UserAuth');
-Route::get('/user/submitRating','Front\CustomerController@submitRating')->middleware('UserAuth');
-
-Route::get('/customer/bookingHistory','Front\CustomerController@bookingHistory')->middleware('UserAuth');
-Route::get('/customer/orderHistory','Front\CustomerController@orderHistory')->middleware('UserAuth');
+Route::get('/user/bookingView','Front\CustomerController@bookingView')->middleware('UserAuth');
 
 Route::get('/user/switchtohost','Front\UserController@switchtohost');
 Route::get('/user/switchtocustomer','Front\UserController@switchtocustomer');
@@ -280,6 +281,7 @@ Route::get('/user/switchtohost','Front\UserController@switchtohost');
 Route::get('/addproperty','Front\PropertyController@addProperty')->middleware('UserAuth');
 Route::get('/user/editparking/{id}','Front\PropertyController@editParking')->middleware('UserAuth');
 Route::get('/editland','Front\PropertyController@editLand')->middleware('UserAuth');
+
 
 //Pages
 Route::get('/faq','Front\PagesController@faq');
@@ -295,11 +297,7 @@ Route::get('/renter-faq','Front\PagesController@renter_faq');
 Route::get('/notification','Front\PagesController@notification');
 Route::get('/messages','Front\PagesController@messages');
 Route::get('/refundPolicy','Front\PagesController@refundPolicy');
-Route::get('/accountSetting','Front\PagesController@accountSetting');
-Route::get('/blogListing','Front\PagesController@blogListing');
-Route::get('/aboutUs','Front\PagesController@aboutUs');
-Route::get('/singleBlog','Front\PagesController@singleBlog');
-Route::get('/terms','Front\PagesController@terms');
+
 
 //Route to get masters details on add property form
 Route::post('/frontend/getPropertyMasters','Front\PropertyController@getPropertyMasters');
@@ -310,13 +308,9 @@ Route::post('/frontend/saveProperty','Front\PropertyController@saveProperty');
 //Route to Search Property
 Route::get('/searchproperty/{module_id?}','Front\SearchPropertyController@SeachProperty');
 
-// Route::get('/bookNow', function() {
-//     Artisan::call('cache:clear');
-//     return "Cache is cleared";
-// });
 
 Route::get('/bookNow','Front\BookingController@bookNow');
-Route::get('/payment/process', 'Front\PaymentController@process')->name('payment.process');
+
 
 //Route to load single property
 Route::get('/propertydetails/{module_id?}/{property_id?}','Front\BookingController@propertyDetails');
@@ -336,42 +330,9 @@ Route::post('/frontend/getModuleList','Front\SearchPropertyController@getModuleL
 Route::get('/user/parkingdetails/{id?}','Front\HostController@ParkingDetails');
 Route::post('/user/DeleteRecord','Front\HostController@DeleteRecord');
 Route::get('/user/downloadDoc/{id?}','Front\HostController@downloadDoc');
-Route::get('/getForgotpass','Front\UserController@getForgotpass');
-Route::post('/submitForgotpass','Front\UserController@submitForgotpass');
+
 //Route to get amenity type list
 Route::post('/frontend/getAmenities','Front\SearchPropertyController@getAmenities');
-
-// routes for cms_pages.
-/*Route::group(array('prefix' => 'tbl_cms_pages'), function()
-{*/
-Route::post('/admin/cmspages/getCMSPages', 'Admin\CmsPagesController@getCMSPages');
-Route::get('/admin/cmspages', 'Admin\CmsPagesController@index');
-Route::get('/admin/cmspages/add/{id?}', 'Admin\CmsPagesController@add');
-Route::post('/admin/cmspages/saveCmsPage', 'Admin\CmsPagesController@saveCmsPage');
-Route::get('/admin/cmspages/delete/{id}', 'Admin\CmsPagesController@delete');
-Route::post('upload_image','Admin\CmsPagesController@uploadImage')->name('upload');
-
-
-Route::get('/pages/{urlkey}', 'Front\CmsPagesController@loadCmsPage');
-//});
-// end of tbl_cms_pages routes
-
-
-// routes for blogs.
-/*Route::group(array('prefix' => 'tbl_cms_pages'), function()
-{*/
-Route::post('/admin/blogs/getBlogs', 'Admin\BlogsController@getBlogs');
-Route::get('/admin/blogs', 'Admin\BlogsController@index');
-Route::get('/admin/blogs/add/{id?}', 'Admin\BlogsController@add');
-Route::post('/admin/blogs/saveBlog', 'Admin\BlogsController@saveBlog');
-Route::get('/admin/blogs/delete/{id}', 'Admin\BlogsController@delete');
-Route::post('upload_image','Admin\BlogsController@uploadImage')->name('upload');
-Route::get('/blogs/{id}', 'Admin\BlogsController@loadBlogPage');
-Route::get('/blogs', 'Admin\BlogsController@listBlogs');
-//});
-// end of tbl_cms_pages routes
-
-
 
 
 
