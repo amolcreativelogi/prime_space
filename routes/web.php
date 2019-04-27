@@ -257,7 +257,7 @@ Route::post('/userLogin','Front\UserController@userLogin');
 Route::post('/resetPassword','Front\UserController@resetPassword');
 Route::get('/user/editprofile/{id?}','Front\UserController@editprofile')->middleware('UserAuth');
 Route::post('/updatesaveprofile/{id?}','Front\UserController@updatesaveprofile')->middleware('UserAuth');
-Route::get('/user/accountSetting','Front\UserController@accountSetting')->middleware('UserAuth');
+Route::get('/user/accountSetting','Front\UserController@accountSetting');
 Route::post('/user/submitnewpassword','Front\UserController@submitNewPassword')->middleware('UserAuth');
 //Route::get('/payment/queryget','Front\PaymentController@queryTransaction');
 

@@ -346,6 +346,7 @@ class BookingController extends Controller
                 'booking_amount' => $data['finalprice'],
                 'booking_status' => 'Pending'
               ]);
+        
         $amount = DB::table('booking_transactions')->orderBy('txn_id', 'DESC')->first();
         if($amount == null){
           $amount = 0;
