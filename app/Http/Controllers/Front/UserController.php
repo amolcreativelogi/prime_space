@@ -96,10 +96,6 @@ class UserController extends Controller
 		// $res = $q->row();
 		return $res ? true : false;
 	}
-	 public function accountSetting()
-    {
-        return view('front.pages.accountSetting');      
-    }
 
 	public function userLogin(Request $request)
 	{
