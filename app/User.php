@@ -3,10 +3,12 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
+//use Launcher\Mercurius\MercuriusUser;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    //use MercuriusUser;
     use Notifiable;
 
     /**

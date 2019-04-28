@@ -24,6 +24,9 @@ Route::get('/user/submitRating','Front\CustomerController@submitRating')->middle
 Route::get('/','Front\HomeController@Home');
 
 //frontend route
+
+Route::get('/getuserAuth','Front\UserController@getuserAuth');
+
 Route::get('/login','Front\HomeController@Login');
 Route::get('/sign_up','Front\HomeController@Signup');
 Route::get('/forgot_password','Front\HomeController@Forgot_password');
@@ -389,6 +392,12 @@ Route::get('/admin/faq/delete/{faq_id}/{category_id}', 'Admin\FaqsController@del
 Route::post('upload_image','Admin\FaqsController@uploadImage')->name('upload');
 Route::post('/admin/faq/getFaqs', 'Admin\FaqsController@getFaqs');
 Route::get('/admin/faq/list/{category_id?}', 'Admin\FaqsController@getAllFaqList');
-Route::get('/admin/faq/updateFaqSequence', 'Admin\FaqsController@updateFaqSequence');
+Route::get('/admin/faq/updateFaqSequence/{category_id?}', 'Admin\FaqsController@updateFaqSequence');
 Route::post('/admin/faq/saveFaqSequece', 'Admin\FaqsController@saveFaqSequece');
 //Route::post('/admin/faq/list', 'Admin\FaqsController@list');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/testEmail','Front\UserController@testEmail');

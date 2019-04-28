@@ -5,22 +5,16 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">All Users</div>
+                <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
-                @foreach($users as $user)
-                    <table class="table">
-                        <tr>
-                            <td>
-                                <img src="{{$user->avatar}}">
-                                {{$user->name}}
-                            </td>
-                            <td>
-                                <a href="{{route('message.read', ['id'=>$user->id])}}" class="btn btn-success pull-right">Send Message</a>
-                            </td>
-                        </tr>
-                    </table>
-                @endforeach
+                    @if (session('status'))
+                        <div class="alert alert-success">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                    You are logged in!
                 </div>
             </div>
         </div>

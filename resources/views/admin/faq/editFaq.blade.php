@@ -33,8 +33,7 @@
                 <option value="">Select category</option>
                 <?php foreach($getCategories as $category){  ?>
                   <option 
-                  value="<?php echo $category->category_id ?>" 
-                  <?php echo  ($category->category_id==$editFaqs->category_id) ? 'selected' : ''; ?> 
+                  value="<?php echo $category->category_id ?>" <?php if( $category->category_id == $editFaqs->category_id){ echo 'selected';}else{echo ''; } ?> 
                   class=""><?php echo $category->category_name ?></option>
                 <?php } ?>
                 </select>
