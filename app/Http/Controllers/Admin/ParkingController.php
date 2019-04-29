@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 
 use DB;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PropertyApprovedAdmin;
+
 class ParkingController extends Controller
 {
     public function parkingList()
@@ -106,8 +109,15 @@ class ParkingController extends Controller
 					 'status'=>$request->input('status'),
 					 );
 		$result  = DB::table('prk_add_property')->where('property_id', $request->input('property_id'))->update($data);
+		
+
+		$result1  = DB::table('prk_add_property')->where('property_id', $request->input('property_id'))->first();
 		if($result)
 		{
+			if($request->input('status') == 1) { 
+				$emailget  = DB::table('prk_user_registrations')->where('user_id', $result1->user_id)->first();
+				Mail::to($emailget->email_id)->send(new PropertyApprovedAdmin);
+			}
 			echo 200;
 		} else {
 			echo 100;

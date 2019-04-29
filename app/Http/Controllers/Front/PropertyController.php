@@ -9,6 +9,9 @@ use DB;
 use Intervention\Image\Facades\Image;
 //validation file
 use App\Http\Requests\Frontend\PropertyRequest;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PropertyAddedSuccess;
+
 
 class PropertyController extends Controller
 {
@@ -848,6 +851,9 @@ class PropertyController extends Controller
                       'response' => array('msg' =>'Thank you for adding Land. Please wait for Admin approval.')); 
             //echo 4;exit;  
         }
+        $user_id = $_SESSION['user']['user_id'];
+        $result  = DB::table('prk_user_registrations')->where('user_id', $user_id)->first();
+        Mail::to($result->email_id)->send(new PropertyAddedSuccess);
         echo json_encode($data);
          //echo '{code:200,msg:success}';
     }

@@ -263,7 +263,7 @@ Route::post('/resetPassword','Front\UserController@resetPassword');
 Route::get('/user/editprofile/{id?}','Front\UserController@editprofile')->middleware('UserAuth');
 Route::post('/updatesaveprofile/{id?}','Front\UserController@updatesaveprofile')->middleware('UserAuth');
 Route::get('/user/accountSetting','Front\UserController@accountSetting');
-Route::post('/user/submitnewpassword','Front\UserController@submitNewPassword')->middleware('UserAuth');
+Route::post('/user/submitnewpassword','Front\UserController@submitNewPassword');
 
 Route::get('/user/parkingProperties','Front\HostController@parkingProperties')->middleware('UserAuth');
 Route::get('/user/landProperties','Front\HostController@landProperties')->middleware('UserAuth');
@@ -342,6 +342,8 @@ Route::post('/user/RemoveParkigImage','Front\PropertyController@RemoveParkigImag
 Route::get('/user/parkingdetails/{id?}','Front\HostController@ParkingDetails');
 Route::post('/user/DeleteRecord','Front\HostController@DeleteRecord');
 Route::get('/user/downloadDoc/{id?}','Front\HostController@downloadDoc');
+Route::get('/getForgotpass','Front\UserController@getForgotpass');
+Route::post('/submitForgotpass','Front\UserController@submitForgotpass');
 
 //Route to get amenity type list
 Route::post('/frontend/getAmenities','Front\SearchPropertyController@getAmenities');
@@ -400,4 +402,5 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/testEmail','Front\UserController@testEmail');
+Route::get('/testEmailLaravel','Front\UserController@testEmailLaravel');
+Route::get('/testEmailPhp','Front\UserController@testEmailPhp');

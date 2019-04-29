@@ -1,4 +1,5 @@
-@component('mail::message')
+
+@include('emails.email_header')
 
 We have received a password change request for your account with Pryme Space. If you have not requested this, please contact the Pryme Space support team.
 
@@ -9,4 +10,4 @@ Forgot Password
 @endcomponent
 
 
-@endcomponent
+@include('emails.email_footer')

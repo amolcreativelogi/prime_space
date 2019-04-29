@@ -1,8 +1,3 @@
-@component('mail::message')
+@include('emails.email_header')
 Your password has been changed successfully. If you have not made this password change, please contact the Pryme Space support team immidiately.
-
-@component('mail::button', ['url' => URL::to('/')])
-Contact Us
-@endcomponent
-
-@endcomponent
+@include('emails.email_footer')
