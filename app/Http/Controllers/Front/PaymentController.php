@@ -4,45 +4,125 @@ namespace App\Http\Controllers\Front;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Braintree_Transaction;
+use Rap2hpoutre\LaravelStripeConnect\StripeConnect;
 use App\PropertyBooking;
 use DB;
+use Session;
+use Stripe;
+use Stripe\HttpClient\ClientInterface;
 class PaymentController extends Controller
 {
-    
-
-	public function process(Request $request)
+  public function connectStripAccount(Request $request)
 	{
-	    $payload = $request->input('payload', false);
-	    $nonce = $payload['nonce'];
+		$tokendata = [
+			'client_secret' => 'sk_test_oLbicpRdoHMYDli7jqrx8kFC00ocW3XROQ',
+		    'code' => $request->code,
+		    'grant_type' => 'authorization_code',
+		];
 
-	    $status = Braintree_Transaction::sale([
-		'amount' => $payload['amount'],
-		'paymentMethodNonce' => $nonce,
-		'options' => [
-		    'submitForSettlement' => True
-		]
-	    ]);
-	    if ($status->success) {
-			$b_id = PropertyBooking::where('booking_id', $payload['booking_id'])->where('user_id',  $_SESSION['user']['user_id'])->update(['booking_status' => 'approved']);
-			
+		$curl = curl_init();
+		curl_setopt_array($curl, array(
+		    CURLOPT_URL =>'https://connect.stripe.com/oauth/token',
+		    CURLOPT_RETURNTRANSFER => true,
+		    CURLOPT_ENCODING => "",
+		    CURLOPT_MAXREDIRS => 10,
+		    CURLOPT_TIMEOUT => 30000,
+		    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		    CURLOPT_CUSTOMREQUEST => "POST",
+		    CURLOPT_POSTFIELDS => json_encode($tokendata),
+		    CURLOPT_HTTPHEADER => array(
+		        "accept: */*",
+		        "accept-language: en-US,en;q=0.8",
+		        "content-type: application/json",
+		    ),
+		));
 
-            DB::table('booking_transactions')->where('booking_id',$payload['booking_id'])->where('user_id',  $_SESSION['user']['user_id'])->update(['status_message'=>'success']);
-	    }else{
-	    	$b_id = PropertyBooking::where('booking_id', $payload['booking_id'])->where('user_id',  $_SESSION['user']['user_id'])->update(['booking_status' => 'pending']);
+		$response = curl_exec($curl);
+		$err = curl_error($curl);
 
-            DB::table('booking_transactions')->where('booking_id',$payload['booking_id'])->where('user_id',  $_SESSION['user']['user_id'])->update(['status_message'=>'faield']);
-	    }
-	    return response()->json($status);
+		curl_close($curl);
+
+		if ($err) {
+		    echo "cURL Error #:" . $err;
+		} else {
+		    if ($userAccountDtail = json_decode($response)) {
+		    	DB::table('connect_stripe_account_for_host')->insert([
+		    		'user_id' => $_SESSION['user']['user_id'],
+				    'stripe_user_id' => $userAccountDtail->stripe_user_id,
+				    'stripe_publishable_key' => $userAccountDtail->stripe_publishable_key
+				]);
+			    $userPayment_setup = DB::table('prk_user_registrations')->where('user_id', $_SESSION['user']['user_id'])->update(['is_payment_setup' => 1]);
+			    if ($userPayment_setup) {
+			    	$_SESSION['user']['is_payment_setup'] = 1;
+			    	return redirect('/user/host');
+			    }
+		    }
+		}
+
+
 	}
 
+  public function make_payment(Request $request)
+  	{
+  		Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+  		$amount = DB::table('booking_transactions')->orderBy('txn_id', 'DESC')->first();
+  		$amount = $amount->amount + $request->finalprice;
+  		$customer = Stripe\Customer::create(array(
+  			        	'name' => $request->name,
+  			            'email' => $_SESSION['user']['email_id'],
+  			            'source'  => $request->stripeToken
+  			        ));
+  		$charge = \Stripe\Charge::create([
+  			'customer' => $customer->id,
+  		    'amount' => $request->finalprice * 100,
+  		    'currency' => 'usd',
+  		    'description' => 'Test payment from prime space.'
+  		]);
+          if ($charge->status == 'succeeded') {
+          	DB::table('booking_transactions')->where('booking_id', $request->booking_id)->update([
+  														    'amount' => $amount,
+  														    'status_message' => 'success'
+  														]);
 
-	// public function queryTransaction(){
+          	DB::table('tbl_property_bookings')->where('booking_id', $request->booking_id)->update([
+  														    'booking_status' => 'approved'
+  														]);
+          }
+          Session::flash('success', 'Payment successful!');
+          return redirect('/user/customer');
+  	}
 
-	// 	$tabel = DB::table('tbl_property_bookings')->join('prk_user_registrations','tbl_property_bookings.user_id','prk_user_registrations.user_id')
-	// 					->join('prk_add_property_amenities','tbl_mstr_amenities.amenity_id','prk_add_property_amenities.amenity_id')->get();
-	// 	echo '<pre>';
-	// 	print_r($tabel);
-		
-	// }
+	public function autoPayToHost()
+	{
+		$bookings = DB::table('tbl_property_bookings')->join('booking_transactions', 'booking_transactions.booking_id', 'tbl_property_bookings.booking_id')->where('tbl_property_bookings.end_date', '<', date('Y-m-d'))->get();
+
+		foreach ($bookings as $key => $booking) {
+
+      $getHostId = DB::table('prk_add_property')->select('user_id')->where(['property_id'=>$booking->property_id])->first();
+      // print_r($getHostId);
+      // exit;
+			$userAccount = DB::table('connect_stripe_account_for_host')->where('user_id', $getHostId->user_id)->first();
+			$transferToHost = ($booking->credit/100)*85 ;
+			$adminbalance = $booking->amount - $transferToHost;
+			Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+			//dd($transferToHost * 100);
+			$transfer = \Stripe\Transfer::create([
+			  "amount" => $transferToHost * 100,
+			  "currency" => "usd",
+			  "destination" => $userAccount->stripe_user_id,
+			  "transfer_group" => "Host",
+			  'description' => 'Test payment transfer from prime space to Host.'
+			]);
+
+			if ($transfer) {
+				 DB::table('booking_transactions')->insert([
+		          'user_id' => $userAccount->user_id,
+		          'booking_id' => $booking->booking_id,
+		          'debit' => $transferToHost,
+		          'amount'=> $adminbalance,
+		          'status_message' => 'success'
+		        ]);
+			}
+		}
+	}
 }

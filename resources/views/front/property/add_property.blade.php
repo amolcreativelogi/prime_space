@@ -1,4 +1,4 @@
-  @extends('front/layouts.default')
+    @extends('front/layouts.default')
   @section('content')
 
   <div class="site-content">
@@ -702,7 +702,7 @@ $(document).ready(function () {
 });
 </script>
 
-<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/additional-methods.min.js"></script>
 <script type="text/javascript">
 $(function() {
 
@@ -976,6 +976,7 @@ $('#msform').on('submit', function(e){
     });
 });
 </script>
+
 <!--  $("#rent_with_booking_duration_type").html('');
 
               '<table id="rent_with_booking_duration_type">

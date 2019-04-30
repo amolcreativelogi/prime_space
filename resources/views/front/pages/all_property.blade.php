@@ -304,7 +304,7 @@
               <nav>
                     <div class="nav nav-tabs nav-fill" id="prop-tab" role="tablist">
 
-                        <input type="text" id="location-from-search" value="" placeholder="Set Location">
+                        <input type="text" id="location-from-search" value="<?php echo $_GET['location'];?>" placeholder="Set Location">
                       <a class="nav-item nav-link active search-tab" id="nav-home-tab" data-toggle="tab" href="#closest" role="tab" aria-controls="nav-home" aria-selected="true">closest</a>
                       <a class="nav-item nav-link search-tab" id="nav-profile-tab" data-toggle="tab" href="#cheapest" role="tab" aria-controls="nav-profile" aria-selected="false">cheapest</a>
                     </div>
@@ -369,12 +369,12 @@
                                 <div class="pstext-btm">
                                   
                                <input type="hidden" id="to_destination_<?php echo $searchProp->property_id; ?>" value="<?php echo $searchProp->location; ?>" placeholder="Search Destination">
-                                <a href="javascript:void();" class="get-direction" onclick="getAddress(<?php echo $searchProp->property_id; ?>)"  ><img src="{{ URL::asset('public') }}/assets/front-design/images/get-directions-button.svg" alt=""></a>
+                                <a href="javascript:void();" class="get-direction" onclick="getAddress( <?php echo $searchProp->property_id; ?>)"  ><img src="{{ URL::asset('public') }}/assets/front-design/images/get-directions-button.svg" alt=""></a>
                                 <a href='<?php echo URL('/') ?>/propertydetails?moduleid=<?php echo Request::get("module_id")."&propertyid=".$searchProp->property_id."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="prop-details">details</a>
-                                    <a href='<?php echo URL('/') ?>/bookNow?moduleid=<?php echo Request::get("module_id")."&propertyid=".$searchProp->property_id."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="booknow">Book now</a>
+                                    <a href='<?php echo URL('/') ?>/bookNow?moduleid=<?php echo Request::get("module_id")."&propertyid=".$searchProp->property_id."&duration_type_id=".$searchProp->duration_type_id."&car_type_id=".$searchProp->car_type_id."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="booknow">Book now</a>
           
                                 </div>
-                            </div>
+                            </div> 
                         </div><!-- ps-box -->
                        @endForeach
                     </div>
@@ -490,6 +490,7 @@
     height: 500px;
 }
 
+
 </style>
 
 <?php 
@@ -498,7 +499,9 @@ $jsonClosest = array();
 foreach($searchResult['closest'] as $s)
 {
     $jsonClosest[] =   array($s->location,$s->latitude, $s->longitude);
-   
+
+    $jsonClosestpoint =   array($s->location,$s->latitude, $s->longitude);
+
 }
 //map pointer for cheapest tab
 $jsonCheapest = array();
@@ -507,8 +510,8 @@ foreach($searchResult['cheapest'] as $s)
     $jsonCheapest[] =   array($s->location,$s->latitude, $s->longitude);
    
 }
-
 $mapperPointerClosest =  json_encode($jsonClosest);
+$mapperPointerpoint =  json_encode($jsonClosestpoint);
 $mapperPointerCheapest =  json_encode($jsonCheapest);
 
 ?>
@@ -518,16 +521,20 @@ $mapperPointerCheapest =  json_encode($jsonCheapest);
 <script>
 
   
+ 
+$('.removeactive').removeClass('active show')
+$('.hourly, #hourly').addClass('active show')
+$('.hourly').trigger( "click" );
 
-  function getAddress(id)
-  {
+function getAddress(id)
+ {
     var fromdest = $('#location-from-search').val();
     var to = $('#to_destination_'+id).val();
-
     url = 'https://www.google.com/maps/dir/'+fromdest+'/'+to+'';
-    window.open(url, '_blank');
-
-  }
+    window.open(url,"Get Gdirections","width=900,height=650,150,status=0,")
+    // $("#forecast_embed").attr("src",url); 
+    // window.open(url, '_blank');
+}
 
 //var jsonRes = <?php $searchResult; ?>;
 // var as = JSON.parse(jsonRes);
@@ -607,12 +614,20 @@ function initMap() {
 
    // console.log(markers);
                         
-    // Info window content
+    //Info window content
+
+     var infoWindowContent = [
+        <?php foreach($searchResult['closest'] as $searchProp) { ?>
+        ['<div class="info_content"><h5><?= $searchProp->name; ?></h5><p><div class="pstext-btm"><a href="<?php echo URL('/') ?>/bookNow?moduleid=<?php echo Request::get("module_id")."&propertyid=".$searchProp->property_id."&duration_type_id=".$searchProp->duration_type_id."&car_type_id=".$searchProp->car_type_id."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>" class="booknow btn">Book now</a><a href="<?php echo URL('/') ?>/propertydetails?moduleid=<?php echo Request::get("module_id")."&propertyid=".$searchProp->property_id."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>" class="prop-details">details</a><a href="javascript:void();" class="get-direction" onclick="getAddress( <?php echo $searchProp->property_id; ?>)"><img src="{{ URL::asset('public') }}/assets/front-design/images/get-directions-button.svg" alt=""></a></div>.</p></div>'],
+        <?php } ?>
+    ];
+        
+
     // var infoWindowContent = [
     //     ['<div class="info_content">' +
     //     '<p>Sadar.</p>' + '</div>'],
     //     ['<div class="info_content">' +
-    //     '<p>Nagpur.</p>' +
+    //     '<p><a href="http://localhost:8080/live/alkurna/pryme-space/bookNow?moduleid=2&amp;propertyid=12&amp;duration_type_id=1&amp;car_type_id=1&amp;fromdate=04.27.2019&amp;todate=04.27.2019&amp;fromtime=12:10&amp;totime=13:10&amp;durationtype=hourly" class="booknow">Book now</a>.</p>' +
     //     '</div>'],
     //     ['<div class="info_content">' +
     //     '<p>Mumbai.</p>' +

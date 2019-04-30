@@ -138,7 +138,7 @@ $('.singupModal').click(function(){
 
     $('body').addClass('modalopen');
    $('#singupModal').modal('show')
-   
+
    $('#loginModal').modal('hide')
    $('#resetpassModal').modal('hide')
 })
@@ -146,7 +146,7 @@ $('.loginModal').click(function(){
     $('body').addClass('modalopen');
    $('#singupModal').modal('hide')
    $('#loginModal').modal('show')
-   
+
    $('#resetpassModal').modal('hide')
 })
 $('.forgotlink').click(function(){
@@ -154,7 +154,7 @@ $('.forgotlink').click(function(){
    $('#singupModal').modal('hide')
    $('#loginModal').modal('hide')
    $('#resetpassModal').modal('show')
-   
+
 })
 
 
@@ -179,7 +179,7 @@ $('.forgotlink').click(function(){
 
 
 //     $("table.order-list1").on("click", ".ibtnDel", function (event) {
-//         $(this).closest("tr").remove();       
+//         $(this).closest("tr").remove();
 //         counter -= 1
 //     });
 
@@ -218,12 +218,12 @@ function calculateGrandTotal() {
 }
 
 
-//Show Hide Div on property select 
+//Show Hide Div on property select
 $(function() {
     $('#select-property-type').change(function(){
         $('.step-show').hide();
         $('#' + $(this).val()).show();
-        
+
     });
 });
 
@@ -264,7 +264,7 @@ function getCurrentDate(){
 $(function() {
   $('#tablist').change(function(){
     $('.tablist-container').hide();
-    $('#' + $(this).val()).show(); 
+    $('#' + $(this).val()).show();
   });
 });
 
@@ -272,14 +272,14 @@ $(function() {
   $('#landtablist').change(function(){
     $('.landtablist-container').hide();
     //$('#tablist').hide();
-    $('#' + $(this).val()).show();  
+    $('#' + $(this).val()).show();
   });
 });
 
 $(function() {
   $('#tab-prop-type').change(function(){
     $('.parking-slection').hide();
-    $('#' + $(this).val()).show(); 
+    $('#' + $(this).val()).show();
   });
 });
 
@@ -290,7 +290,7 @@ $(function() {
 $(function() {
   $('.select-property-type').change(function(){
     $('.parking-slection').hide();
-   // $('#tablist').hide(); 
+   // $('#tablist').hide();
     $('#' + $(this).val()).show();
   });
 });
@@ -313,10 +313,10 @@ $(function () {
 $(function () {
     $("#select-property-type").change(function () {
         if ($(this).val() == 3) {
-            $("#step4").addClass("open"); 
-            $("#park-availabilty").hide(); 
-            $(".tour-avail").show(); 
-            $("#locationtype").hide(); 
+            $("#step4").addClass("open");
+            $("#park-availabilty").hide();
+            $(".tour-avail").show();
+            $("#locationtype").hide();
 
             // $("#park-availabilty").removeClass("exapnd");
             // $(".avail-hide").hide();
@@ -327,9 +327,9 @@ $(function () {
             // $("#park-availabilty").addClass("exapnd");
             // $(".avail-hide").show();
             // $("#park-availabilty.exapnd").show();
-             $("#park-availabilty").show(); 
-            $(".tour-avail").hide(); 
-            $("#locationtype").show(); 
+             $("#park-availabilty").show();
+            $(".tour-avail").hide();
+            $("#locationtype").show();
         }
     });
 });
@@ -350,7 +350,7 @@ $(function () {
             $("#search_dates").show();
         } else {
             $("#search_dates").hide();
-            $("#land-search_dates").show(); 
+            $("#land-search_dates").show();
         }
     });
 });
@@ -462,7 +462,7 @@ $("#saturday-allday").click(function(){
 
 
 // $(function () {
-//  $(".homebannertext #select-property-type").change(function () { 
+//  $(".homebannertext #select-property-type").change(function () {
 //             if ($(this).val() == "1) {
 //                 $("#search_dates1").show();
 //             } else {
@@ -472,7 +472,7 @@ $("#saturday-allday").click(function(){
 // });
 
 
-// Parking Tabs 
+// Parking Tabs
 function openParking(evt, cityName) {
   var i, tabcontent, tablinks;
   tabcontent = document.getElementsByClassName("tabcontent");
@@ -521,7 +521,7 @@ $(document).ready(function () {
 
 
     $("table.order-list1").on("click", ".ibtnDel", function (event) {
-        $(this).closest("tr").remove();       
+        $(this).closest("tr").remove();
         counter -= 1
     });
 
@@ -566,7 +566,7 @@ $(document).ready(function () {
 
 
     $("table.order-list").on("click", ".ibtnDel", function (event) {
-        $(this).closest("tr").remove();       
+        $(this).closest("tr").remove();
         counter -= 1
     });
 
@@ -619,7 +619,7 @@ $(document).ready(function () {
 
 
     $("table.order-list").on("click", ".ibtnDel", function (event) {
-        $(this).closest("tr").remove();       
+        $(this).closest("tr").remove();
         counter -= 1
     });
 
@@ -658,13 +658,3 @@ $(document).ready(function(){
       $(".aminities-list li input").toggleClass("selected");
     });
 });
-
-
-
-
-
-
-
-
-
-

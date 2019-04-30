@@ -1,65 +1,50 @@
+@extends('front/layouts.default')
+@section('content')
+<div class="site-content">
+ 
+<section class="blog-listing">
+    <div class="container">
+      <h2>Blog Listing</h2>
+      <div class="bloglist">
+        <div class="row">
+          @if(!empty($getBlogs))
+            @foreach($getBlogs as $blogs)
+            
+           <?php 
+           // $image = '<a target="_blank" href="'.url('public/assets/front-design/images/homebanner1.jpg').'"><img src="'.url('public/assets/front-design/images/homebanner1.jpg').'" width="50"></a>';
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Laravel Crud By Crud Generator</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-</head>
-<body>
-
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="http://crudegenerator.in">Laravel Crud By Crud Generator</a>
+           $image = '<a target="_blank" href="'.url('blogs/'.$blogs->id.'').'"><img src="'.url('public/assets/front-design/images/homebanner1.jpg').'" width="50"></a>';
+           if (isset($blogs->image) && file_exists(public_path() . '/images/blogs/'.$blogs->image. '')) {
+               $image = '<a target="_blank" href="'.url('blogs/'.$blogs->id.'').'"><img src="'.url('/public/images/blogs/'.$blogs->image.'').'" width="50"></a>';
+            } ?>
+          <div class="col-lg-6 col-md-6 col-sm-12 blogDiv">
+            <div class="blogbox">
+              <div class="blog-img">
+                <?=$image?>
+                <div class="blogdate"><?= date('d',strtotime($blogs->created))?><span><?= date('M',strtotime($blogs->created))?></span></div>
+              </div>
+              <div class="blog-content">
+                <h3><a href="<?php echo url('blogs/'.$blogs->id)?>"><?php echo empty($blogs->title)?'':$blogs->title; ?></a></h3>
+                <p><?php echo empty($blogs->short_description)?'':$blogs->short_description; ?></p>
+              </div>
+            </div><!-- blogbox -->
+          </div><!-- blogDiv -->
+          
+            @endforeach
+          @endif
+          <div class="col-sm-12 custom-pagination">
+             <ul class="pagination">
+              <li class="page-item disabled prev"><a class="page-link" href="#">&laquo;</a></li>
+              <li class="page-item"><a class="page-link active" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item next"><a class="page-link " href="#">&raquo;</a></li>
+            </ul> 
+          </div>
+        </div>
       </div>
-      <ul class="nav navbar-nav">
-        <li><a href="{{Request::root()}}/tbl_cms_pages/manage-tbl_cms_pages">Manage Tbl_cms_pages</a></li>
-        <li><a href="{{Request::root()}}/tbl_cms_pages/add-tbl_cms_pages">Add Tbl_cms_pages</a></li>
-      </ul>
-  </div>
-</nav>
+    </div>
+</section>
 
-<div class="container">
-@if(!empty($getBlogs))
-@foreach($getBlogs as $blogs)
-
- <div class="row">
-  <div class="col-xs-12 col-md-10 well">
-   id  :  <?php echo $blogs->id ?>
-  </div>
 </div>
-<div class="row">
-  <div class="col-xs-12 col-md-10 well">
-   title  :  <?php echo $blogs->title ?>
-  </div>
-</div>
-<?php 
-$image='';
-  if (isset($blogs->image) && file_exists(public_path() . '/images/blogs/' . $blogs->image. '')) {
-        $image = '<a target="_blank" href="'.url('/public/images/blogs/'.$blogs->image.'').'"><img src="'.url('/public/images/blogs/'.$blogs->image.'').'" width="50"></a>';
-    } 
-?> 
-<div class="row">
-  <div class="col-xs-12 col-md-10 well">
-   Image  :  <?php echo $image ?>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-xs-12 col-md-10 well">
-   description  :  <?php echo $blogs->short_description ?>
-  </div>
-</div>
-<div class="row">
-  <div class="col-xs-12 col-md-10 well">
-   description  :  <?php echo $blogs->description ?>
-  </div>
-</div>
-@endforeach
-@endif
-</div>
-
-</body>
-</html>
+@stop

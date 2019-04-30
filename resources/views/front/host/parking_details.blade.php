@@ -8,151 +8,261 @@
      @include('front/includes.host_side_menu')
     
     <div class="col-lg-10 col-md-9 col-sm-12 dl-content dash-content">
-      <div class="single-property">
-            <section class="property-slider">
-              <div id="property-slider" class="owl-carousel owl-theme">
-                      <?php if(!empty($getPropImages)){
-                          foreach($getPropImages as $image){ ?>
-                           <?php if(isset($image->name) && file_exists(public_path() . '/images/properties/' . $image->name. '')) { ?>
-                            <div class="item">
-                              <img src="<?php echo url('/public/images/properties/'.$image->name)?>" alt="">
-                            </div> 
-                           <?php }
-                          ?>
-                      <?php }
-                       }else{?>
-                          <div class="item">
-                            <img src="{{ URL::asset('public') }}/assets/front-design/images/homebanner1.jpg" alt="">
-                          </div>
-                      <?php }?>
-                     <!--  <div class="item">
-                        <img src="images/homebanner1.jpg" alt="">
-                      </div> -->
+        <div class="container-fluid">
+            <div class="panel panel-default">
+     <h1>Parking Property Details</h1>
+ 
+                <div class="panel-body">
+      
+        <div class="col-lg-12 col-xs-12 admin-order-list"> 
+          <div class="col-lg-4 col-xs-12 order-left pull-left">
+            <div class="row">
+              <div class="admin-order-left clearfix">
+                <ul class="list-unstyled clearfix">
+                  <li><span class="order-placed"> </span></li>
+                  <li class="order-date-time">
+                    <span class="date"><b></b></span>
+                  </li>
+                
+                  <li>
+                    <span class="admin-order-id">Module Name :</span>
+                    <span class="admin-student">Parking</span>
+                  </li>
+
+                  <li>
+                    <span class="admin-order-id">Customer Name :</span>
+                    <span class="admin-student"><?php echo $propertyDetails->firstname.' '.$propertyDetails->lastname; ?></span>
+                  </li>
+
+                  <li>
+                    <span class="admin-order-id">Property Name :</span>
+                    <span class="admin-student"><?php echo $propertyDetails->name; ?></span>
+                  </li>
+
+                  <li>
+                    <span class="admin-order-id">Location :</span>
+                    <span class="admin-student"><?php echo $propertyDetails->location; ?></span>
+                  </li>
+
+                  <li>
+                    <span class="admin-order-id">Latitude :</span>
+                    <span class="admin-student"><?php echo $propertyDetails->latitude; ?></span>
+                  </li>
+
+                  <li>
+                    <span class="admin-order-id">Longitude :</span>
+                    <span class="admin-student"><?php echo $propertyDetails->longitude; ?></span>
+                  </li>
+
+                  <li>
+                    <span class="admin-order-id">Zipcode :</span>
+                    <span class="admin-student"><?php echo $propertyDetails->zip_code; ?></span>
+                  </li>
+                 
+
+                  <li>
+                    <span class="admin-order-id">Description :</span>
+                    <span class="admin-student"><?php echo $propertyDetails->description; ?></span>
+                  </li>
+
+                  <li>
+                    <span class="admin-order-id">EV Charging  :</span>
+                    <span class="admin-student"><?php echo ($propertyDetails->ev_charging == 1) ? 'Active' : 'Inactive'; ?></span>
+                  </li>
+
+                   <li>
+                    <span class="admin-order-id">Wheelchair Accessible :</span>
+                    <span class="admin-student"><?php echo ($propertyDetails->wheelchair_accessible == 1) ? 'Active' : 'Inactive'; ?></span>
+                  </li>
+
+                  <li>
+                    <span class="admin-order-id">Status :</span>
+                    <span class="admin-student"><?php echo ($propertyDetails->status == 1) ? 'Active' : 'Inactive'; ?></span>
+                  </li>
+                 
+
+                </ul>
               </div>
-            </section>
-            <br>
-            <section class="property-content">
-              <div class="row">
-
-                <div class="col-lg-8 col-md-8 col-sm-12 pc-left">
-                  <h3><?php echo $propertyDetails->name; ?></h3>
-                  <h4><i class="fa fa-map-marker" aria-hidden="true"></i> <?php echo $propertyDetails->location; ?>, <?php echo $propertyDetails->zip_code; ?></h4>
-                  <div class="row firstrow">
-                    <div class="col-sm-6"><strong>Customer Name : </strong> <?php echo $propertyDetails->firstname.' '.$propertyDetails->lastname; ?> </div>
-                    <div class="col-sm-6"><strong>Module Name : </strong> Parking</div>
-                  </div>
-                  <h4>Description :</h4>
-                  <p><?php echo $propertyDetails->description; ?></p>
-                  <br>
-                  <div class="tablediv">
-                    <h4>Property Rent</h4>
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th>Car Type</th>
-                          <th>Booking Type</th>
-                          <th>Rent</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php foreach($getPropertyrent as $rent) { ?>
-                        <tr>
-                          <td><?php echo $rent->car_type; ?></td>
-                          <td><?php echo $rent->duration_type; ?></td>
-                          <td>$ <?php echo $rent->rent_amount; ?></td>
-                        </tr>
-                      <?php } ?>
-                      </tbody>
-                    </table>
-                  </div>
-                  <br>
-                  <div class="tablediv">
-                    <h4>Property Type</h4>
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th>Parking Type</th>
-                          <th>Floor Name</th>
-                          <th>Total Parking Spots</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php foreach($getPropertyType as $ptype) { ?>
-                        <tr>
-                          <td><?php echo $ptype->parking_type; ?></td>
-                          <td><?php echo $ptype->floor_name; ?></td>
-                          <td><?php echo $ptype->total_parking_spots; ?></td>
-                        </tr>
-                      <?php } ?>
-                      </tbody>
-                    </table>
-                  </div>
-
-                  <div class="row firstrow">
-                    <div class="col-sm-12"><strong>Parking Dcouments : </strong>  <?php foreach($getPropertyDoc as $pdoc) { 
-                        $imagepath = URL::to('/public/images/property-documents/'.$pdoc->name.'');
-                        ?>
-                      <a href="<?php echo URL::to('/user/downloadDoc/'.$pdoc->file_id.'') ?>">Download Doc</a>
-                        <!-- <?php //echo ($pdoc->default_file == 1) ? 'Active': 'Inactive'; ?> -->
-                    <?php }  ?></div>
-                    <div class="col-sm-12"><strong>Parking Floor Map :</strong> <?php foreach($getPropertyImagesFloorMap as $pmap) { ?>
-                     <img src="<?php echo URL::to('/public/images/property-floor-map/'.$pmap->name.''); ?>" width="100" class="floor_map">
-                        <!-- <td><?php echo $pmap->document_type_id; ?></td> -->
-                       <!--  <?php echo ($pmap->default_file == 1) ? 'Active': 'Inactive'; ?> -->
-                    <?php } ?></div>
-                    
-                  </div>
-
-                </div><!-- pc-left -->
-
-                <div class="col-lg-4 col-md-4 col-sm-12 pc-right">
-                  <div class="property-location">
-                    <h4>location</h4>
-                    <div class="row firstrow">
-                    <div class="col-sm-6"><strong>Latitude : </strong> <?php echo $propertyDetails->latitude; ?></div>
-                    <div class="col-sm-6"><strong>Longitude : </strong> <?php echo $propertyDetails->longitude; ?> </div>
-                  </div>
-                  <div class="map-div"> 
-                    <div id="mapCanvas1"></div>
-                  </div>
-                  <hr>
-                  <div class="book-amenties">
-                    <h4>Amenities</h4>
-                    <ul>
-                    <?php foreach($getAmenities as $amenities) {
+            </div>
+          </div><!-- order-left -->
+      
+          <div class="col-lg-8 col-xs-12 order-right pull-right">  
+               
+              <div class="admin-order-right clearfix">
+                <div class="col-lg-12 list-unstyled">
+                  <h4>Amenities</h4>
+                   <?php foreach($getAmenities as $amenities) {
                     if (isset($amenities->amenity_image) && file_exists(public_path() . '/images/amenity/' . $amenities->amenity_image. '')) {
                         $image = '<img src="'.url('/public/images/amenity/'.$amenities->amenity_image.'').'" width="100">';
                     } else {
                         $image =  'No Image';
                     }  
                     ?>
-                     <li> 
+                     <div class="col-lg-2"> 
 
                     <?php 
                    //echo $amenities->amenity_name; 
                    echo $image;
                    ?>
                    <span style="font-weight: bold;"><?php echo $amenities->amenity_name; ?></span>
-                      </li>  
+                      </div>  
                     <?php } ?>
-                    </ul>
-                   <!--  <ul>
-                        <li><img src="http://localhost/prime_space/public/images/amenity/wifi.svg" width="100"><span>Wifi  </span></li> 
-                    </ul> -->
+                </div>  
+                <hr>
+
+                 <div class="col-lg-12 list-unstyled">
+                  <h4>Property Rent</h4>
+                   
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Car Type</th>
+                        <th>Booking Type</th>
+                        <th>Rent</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php foreach($getPropertyrent as $rent) { ?>
+                      <tr>
+                        <td><?php echo $rent->car_type; ?></td>
+                        <td><?php echo $rent->duration_type; ?></td>
+                        <td>$ <?php echo $rent->rent_amount; ?></td>
+                      </tr>
+                    <?php } ?>
+                    </tbody>
+                  </table>
+
                 </div>
 
-                  </div>
-                </div><!-- pc-right -->
 
-              </div>
-            </section>
-      </div>
+                 <div class="col-lg-12 list-unstyled">
+                  <h4>Property Type</h4>
+                   
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Parking Type</th>
+                        <th>Floor Name</th>
+                        <th>Total Parking Spots</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php foreach($getPropertyType as $ptype) { ?>
+                      <tr>
+                        <td><?php echo $ptype->parking_type; ?></td>
+                        <td><?php echo $ptype->floor_name; ?></td>
+                        <td><?php echo $ptype->total_parking_spots; ?></td>
+                      </tr>
+                    <?php } ?>
+                    </tbody>
+                  </table>
 
+                </div>
+
+
+                 <div class="col-lg-12 list-unstyled">
+                  <h4>Property Documents</h4>
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Parking Dcouments</th>
+                       <!--  <th>Default Active</th> -->
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php foreach($getPropertyDoc as $pdoc) { 
+
+
+                        $imagepath = URL::to('/public/images/property-documents/'.$pdoc->name.'');
+                        ?>
+                      <tr>
+                        <td><a href="<?php echo URL::to('/user/downloadDoc/'.$pdoc->file_id.'') ?>">Download Doc</a>
+                        </td>
+                        <td><?php echo ($pdoc->default_file == 1) ? 'Active': 'Inactive'; ?></td>
+                      </tr>
+                    <?php }  ?>
+                    </tbody>
+                  </table>
+                </div>
+
+
+                <div class="col-lg-12 list-unstyled">
+                  <h4>Property Images</h4>
+                   
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Parking Image</th>
+                        <!-- <th>Default Active</th> -->
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php foreach($getPropertyImagesandDoc as $pimage) { ?>
+                      <tr>
+                        <td><img src="<?php echo URL::to('/public/images/properties/'.$pimage->name.''); ?>" width="100"></td>
+                        <!-- <td><?php echo $pimage->document_type_id; ?></td> -->
+                        <td><?php echo ($pimage->default_file == 1) ?  'Active' : 'Inactive'; ?></td>
+                      </tr>
+                    <?php } ?>
+                    </tbody>
+                  </table>
+
+                </div>
+
+
+                 <div class="col-lg-12 list-unstyled">
+                  <h4>Property Floor Map</h4>
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Parking Floor Map</th>
+                       <!--  <th>Default Active</th> -->
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php 
+                        $docformat = array("DOC", "txt", "DOCX", "pdf","doc", "txt", "docx", "pdf");
+                        foreach($getPropertyImagesFloorMap as $pmap) { 
+                        $ext = pathinfo($pmap->name, PATHINFO_EXTENSION);
+                        if(in_array($ext, $docformat))
+                        {
+                        ?>
+                        <tr>
+                        <td><a href="<?php echo URL::to('/user/downloadDoc/'.$pdoc->file_id.'') ?>">Download Doc</a></td>
+                        <!-- <td><?php echo $pmap->document_type_id; ?></td> -->
+                        <td><?php echo ($pmap->default_file == 1) ? 'Active': 'Inactive'; ?></td>
+                        </tr>
+                        <?php } else { ?>
+                       <tr>
+                        <td><img src="<?php echo URL::to('/public/images/property-floor-map/'.$pmap->name.''); ?>" width="100"></td>
+                        <!-- <td><?php echo $pmap->document_type_id; ?></td> -->
+                        <td><?php echo ($pmap->default_file == 1) ? 'Active': 'Inactive'; ?></td>
+                      </tr>
+                    <?php } ?>
+                    <?php } ?>
+                    </tbody>
+                  </table>
+                </div>
+
+    
+
+
+                </div>   
+           </div> 
+                  
+          <div class="col-lg-12 col-xs-12 admin-order-list" style="clear: both;"> 
+            <div id="mapCanvas1"></div>
+           </div> 
+              
+          </div><!-- order-right -->
     </div>      
 
-</section><!-- dashboard-layout -->
+</section>
  
-</div><!-- site-content -->
+</div>
 
 <style type="text/css">
 #mapCanvas1 {

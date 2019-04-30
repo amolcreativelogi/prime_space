@@ -27,7 +27,7 @@ select option, select.form-control option {}
 .modal-backdrop.fade.show {opacity: 0.8 !important;}
 .pullright {float: right;}
 .pullleft {float: left;}
-.bluebtn {font-size: 13px;background: #4d88e5;color: #fff;text-transform: uppercase;padding: 12px 30px;display: inline-block;border-radius: 5px;transition: all 0.5s ease-in-out;border: 0;}
+.bluebtn {font-size: 13px;background: #4d88e5;color: #fff;text-transform: uppercase;padding:8px 30px;display: inline-block;border-radius: 5px;transition: all 0.5s ease-in-out;border: 0;}
 .bluebtn:hover, .bluebtn:focus {background: #333;transition: all 0.5s ease-in-out;color: #fff;text-decoration: none;  border: 0;}
 .whitebtn {font-size: 13px;background: #fff;color: #211f1f;text-transform: uppercase;padding: 12px 30px;display: inline-block;border-radius: 5px;transition: all 0.5s ease-in-out;}
 .whitebtn:hover, .whitebtn:focus {background: #211f1f;color: #fff;transition: all 0.5s ease-in;text-decoration: none;
@@ -247,7 +247,8 @@ font-weight: 600;font-size: 13px;line-height: normal;text-transform: uppercase;c
 .acctype-group [type="radio"]:checked + label:after {opacity: 1;-webkit-transform: scale(1);transform: scale(1);}
 #privacy_policy_check.error { margin-bottom: 55px;}
 #privacy_policy_check + label.error {position: absolute;left: 55px;right: 0;width: 400px;bottom: -5px;}
-.site-login.site-form { padding: 30px 0 20px 0;}
+.site-login.site-form {background: #fff;padding: 20px;box-shadow: 0 0 5px #ccc;border-radius: 5px;}
+.site-login.site-form .form-group input[type="file"]  { padding: 0; }
 
 .site-form .form-group.birthdategroup {padding: 18px 0 5px 0;}
 .site-form .form-group.birthdategroup label {font-family: Montserrat;font-style: normal;font-weight: 600;font-size: 13px;
@@ -285,6 +286,9 @@ line-height: normal;color: #303030;padding: 5px 10px;width: 100%;margin-bottom: 
 #searchModal .site-form input[type="button"] {height: 50px;border-radius: 3px;font-family: Helvetica Neue;font-size: 16px;line-height: normal;color: #303030;padding: 5px 10px;width: 100%;background: #3351BB;color: #fff;border: 0;cursor: pointer;}
 #searchModal .site-form input[type="button"]:hover, #searchModal .site-form input[type="button"]:focus {background:#333;}
 body.modalopen .modal {overflow-x: hidden;overflow-y: auto;}
+.updateprofileimg { text-align: center; }
+.updateprofileimg img {width: 120px;height: 120px;border-radius: 100%;margin-bottom: 10px;}
+.updateprofileimg .box.custom-fileinput {width: 192px;margin: 0 auto 40px;text-transform: capitalize;}
 
 
 
@@ -311,8 +315,8 @@ body.modalopen .modal {overflow-x: hidden;overflow-y: auto;}
 .prop-view a:hover, .prop-view a:focus { background: #333; }
 .custom-pagination .pagination { display: inline-block; width: 100%; }
 .custom-pagination .pagination li { display: inline-block; }
-.custom-pagination .pagination li a, .custom-pagination .pagination li span { border:0;color: #333; }
-.custom-pagination .pagination li.next a, .custom-pagination .pagination li.prev a, .custom-pagination .pagination li.next span, .custom-pagination .pagination li.prev span {font-size: 25px;padding: 0;width: 32px;height: 32px;  background: #3c78ab;color: #fff;border-radius: 2px;line-height: 1.3;display: inline-block;}
+.custom-pagination .pagination li a, .custom-pagination .pagination li span { border:0;color: #333; font-size: 15px;padding: 5px; }
+.custom-pagination .pagination li.next a, .custom-pagination .pagination li.prev a, .custom-pagination .pagination li.next span, .custom-pagination .pagination li.prev span {font-size: 25px;padding: 0;width: 32px;height: 32px;  background: #3c78ab;color: #fff;border-radius: 2px;line-height: 1.1;display: inline-block;}
 .custom-pagination .pagination > .active > a {background: #3c78ab33;color: #3c78ab; }
 .favoritediv {position: absolute;right: 16px;top: 12px;font-size: 22px;}
 .property-box-text {position: relative;padding: 10px 0 19px 0;}
@@ -374,16 +378,8 @@ span.teating-div {position: absolute;left: 0;width: 100%;top: -4px;}
 .add-property .form-field table#tbl_rent_with_booking_duration_type tr.duration_price_input td:last-child {	width: 32%;	float: left;}
 .add-property .form-field table#tbl_rent_with_booking_duration_type tr.duration_price_input td {}
 .add-property .form-field table#tbl_rent_with_booking_duration_type tr td { width: 22%;float: left;max-width: 22%;}
-/*.add-property .form-field table#tbl_rent_with_booking_duration_type tr td.col-sm-7 {margin: 0;max-width: unset;
-  width: 94.5%;position: absolute;left: 24%;}*/
-.add-property .form-field table#tbl_rent_with_booking_duration_type tr td.col-sm-3 { position: relative; }
-.add-property .form-field table#tbl_rent_with_booking_duration_type tr td.col-sm-3:nth-child(1):before { content: ""; }
-.add-property .form-field table#tbl_rent_with_booking_duration_type tr td.col-sm-3::before {content: "$";  position: absolute;left: 15px;top: 6px;color: #9e9e9e;}
-.add-property .form-field table#tbl_rent_with_booking_duration_type tr td.col-sm-3 input {padding: 0 0 0 25px;}
-.add-property .form-field table#tbl_rent_with_booking_duration_type tr td.col-sm-7 { width: 100%;max-width: unset;}
-.add-property .form-field table#tbl_rent_with_booking_duration_type tr td.col-sm-7 .col-sm-3 {width: auto;max-width: unset;position: relative;}
-.add-property .form-field table#tbl_rent_with_booking_duration_type tr td.col-sm-7 .col-sm-3::before {content: "$";  position: absolute;left: 15px;top: 6px;color: #9e9e9e;}
-.add-property .form-field table#tbl_rent_with_booking_duration_type tr td.col-sm-7 .col-sm-3 input {width: 180px;padding: 0 0 0 25px;}
+.add-property .form-field table#tbl_rent_with_booking_duration_type tr td.col-sm-7 {margin: 0;max-width: unset;
+  width: 94.5%;position: absolute;left: 24%;}
 .add-property .form-field table#tbl_rent_with_booking_duration_type tr td.col-sm-7 + .col-sm-2 {position: absolute;
   right: 0;}
 .add-property .form-field table#tbl_rent_with_booking_duration_type tr td.col-sm-7 .col-sm-3 { margin: 0;}
@@ -414,7 +410,7 @@ span.teating-div {position: absolute;left: 0;width: 100%;top: -4px;}
 .custom-checkbox [type="checkbox"]:not(:checked) + span:after {opacity:0;-webkit-transform:scale(0);transform:scale(0);}
 .custom-checkbox [type="checkbox"]:checked + span:after {opacity: 1;-webkit-transform: scale(1);transform: scale(1);}*/
 /*Custom Checkbox End*/
-.custom-fileinput {position: relative;height: 50px;margin-bottom: 15px;}
+.custom-fileinput { position: relative; }
 .add-property .box.custom-fileinput span { position: absolute; left: 0; right: 0; top: 0; }
 .add-property .box.custom-fileinput label.error { border: 0; height: auto;}
 
@@ -455,7 +451,7 @@ span.teating-div {position: absolute;left: 0;width: 100%;top: -4px;}
 .add-property .box .hide-row .ad-col label {pointer-events: none;margin:0;}
 .add-property .box .ad-col .date-group {margin:0;}
 .add-property #msform .ad-col .date-group input {width: 48%;display: inline-block;border: 0;margin: 0;display: none;
-  font-size: 14px;padding: 5px 5px;background: url(../images/down-arrow.png) no-repeat 96% center;cursor: pointer;}
+  font-size: 14px;padding: 5px 5px;background: url(../images/down-arrow.png) no-repeat 96% center;}
 .add-property #msform .ad-col .date-group input.open {display: inline-block;}
 /*.add-property #msform .hide-row .ad-col .date-group input {display:none;}*/
  .tour-avail .custom-radio { text-align:center !important;}
@@ -511,7 +507,7 @@ span.teating-div {position: absolute;left: 0;width: 100%;top: -4px;}
 .ap-filter .filterbox .form-group .region::before {content: "\f041";font-family: FontAwesome;color: #3351BB;font-size: 25px;position: absolute;left: 10px;top:12px;}
 .ap-filter .filterbox .form-group .date { position: relative;background: #FFFFFF;border: 1px solid #DBDEDF;border-radius: 3px; height: 50px;padding: 9px 10px 9px 40px; }
 .ap-filter .filterbox .form-group .date::before {content: "\f133";font-family: FontAwesome;color: #3351BB;font-size: 18px;position: absolute;left: 10px;top: 12px;}
-.ap-filter .prop-type select.filter-select, .ap-filter select.filter-select {float: left;width:190px;padding: 5px 10px;height: 50px !important;margin-right: 10px;}
+.ap-filter .prop-type select.filter-select, .ap-filter select.filter-select {float: left;width:165px;padding: 5px 10px;height: 50px !important;margin-right: 10px;}
 .ap-filter .col-sm-10 {padding-left: 0;}
 
 .ap-filter .filterbox .form-group { margin-right: 2px;width:40%;vertical-align: top;margin: 0;}
@@ -605,6 +601,14 @@ span.teating-div {position: absolute;left: 0;width: 100%;top: -4px;}
 .property-content h4 {font-family: Montserrat;font-style: normal;font-weight: 600;font-size: 18px;line-height: normal;color: #505050;}
 .property-content .firstrow {font-family: Helvetica Neue;font-size: 14px;line-height: 23px;letter-spacing: 0.05em;text-transform: uppercase;color: #505050;border-width: 1px 0;border-style: solid;border-color: #DBDEDF;padding: 22px 0;
   min-height: 72px;margin: 15px 0;}
+.property-content .book-amenties h4 { text-align: center; }
+.property-content .book-amenties ul { border-bottom: 1px solid #ddd; }
+.book-amenties .table {border: 0;}
+.book-amenties .table td {border: 0;padding: 5px;font-size: 15px;}
+.book-amenties .table td:nth-child(1) {text-align: right;}
+.book-amenties td:nth-child(2) {text-align: right; position: relative;}
+.book-amenties td:nth-child(2)::after {content: "-";position: absolute;right: -2px;}
+
 .property-content .firstrow .col-sm-6 { margin-bottom:5px;}
 .property-content .firstrow .fa {font-size: 20px;margin-right: 5px;}
 .property-content .firstrow img {margin-right: 5px;width: 20px;transform: rotate(270deg);}
@@ -631,7 +635,9 @@ color: #303030;}
 .reviewer-img img { width: 100%; height: 100%; object-fit: cover; }
 .reviewer-info h4 {font-family: Montserrat;font-style: normal;font-weight: 600;font-size: 18px;line-height: normal;
 color: #303030;}
-.reviewer-info span {font-family: Helvetica Neue;font-size: 14px;line-height: 23px;color: #505050;}
+.reviewer-info span {font-family: Helvetica Neue;font-size: 14px;line-height: 23px;color: #505050; display:block;}
+.property-review .reviewer-info .rating { float: left; top: 0;}
+.property-review .reviewer-info .rating > label { height: auto; }
 .reviewer-content {font-family: Helvetica Neue;font-size: 16px;line-height: 26px;color: #303030;clear: both;}
 .reviewer-content a {color: #3351BB; }
 .rentedby {border-width:1px 0; border-style:solid; border-color: #DBDEDF; padding: 20px 0;}
@@ -768,7 +774,7 @@ top: 100%;}
 .dashcount-text span {display: block;font-size: 20px;font-weight: 600;}
 
 .dashboard-layout .second-row {margin: 30px 0;border: 1px solid #ddd;background: #fff;}
-.dashboard-layout .second-row #tab-prop-type {width: 280px;margin: 15px 0 20px 0;}
+.dashboard-layout .second-row #tab-prop-type {width: 280px;margin: 15px 0 20px 0;padding: 5px 10px;}
 .dashboard-layout .tab {max-height: 288px;overflow: auto;border-bottom: 1px solid #ccc;}
 .dashboard-layout .tab button {width: 100%;padding: 8px 10px;border-width: 1px 1px 0 1px;border-style: solid;border-color: #ccc;font-size: 16px;cursor: pointer;}
 .dashboard-layout .tab button a {padding: 0;background: transparent !important;color: #333;border: 0;}
@@ -915,10 +921,10 @@ top: 100%;}
 .dl-content .edit-property .nav-tabs li { width: 100%; }
 .stepbox {border-bottom: 1px solid #dddddde6;padding: 0 20px 20px 20px;}
 .stepbox h3 {font-size: 18px;text-transform: uppercase;color: #2C3E50;margin: 20px 0;font-family: Helvetica Neue;text-align: center;border-bottom: 1px solid #ccc;padding: 0 0 22px 0;}
-.stepbox input {height: 40px;  border-radius: 3px;font-family: Helvetica Neue;font-size: 16px;line-height: normal;
-  color: #303030;padding: 5px 10px;width: 100%;border: 1px solid #ced4da;margin-bottom:5px;}
+.stepbox input {height: 50px;  border-radius: 3px;font-family: Helvetica Neue;font-size: 16px;line-height: normal;
+  color: #303030;padding: 5px 10px;width: 100%;border: 1px solid #ced4da;margin-bottom: 14px;}
 .stepbox input[type="file"] {padding: 0;}
-.stepbox select {height:40px !important;border-radius: 3px;font-family: Helvetica Neue;font-size: 16px;line-height: normal; color: #303030;padding: 5px 10px;width: 100%;border: 1px solid #ced4da;margin-bottom: 14px;}
+.stepbox select {height:50px !important;border-radius: 3px;font-family: Helvetica Neue;font-size: 16px;line-height: normal; color: #303030;padding: 5px 10px;width: 100%;border: 1px solid #ced4da;margin-bottom: 14px;}
 .stepbox textarea {height: 105px;border-radius: 3px;font-family: Helvetica Neue;font-size: 16px;line-height: normal;
   color: #303030;padding: 5px 10px;width: 100%;resize: none;border: 1px solid #ced4da;margin-bottom: 14px;}
 .stepbox .action-button {width: 100px;background: #000;font-weight: normal;color: white;border: 0 none;border-radius: 1px;cursor: pointer;padding: 10px 5px;margin: 10px 5px;float: right;}
@@ -926,15 +932,13 @@ top: 100%;}
 .stepbox .column img { width: 100%;border: 1px solid #ccc; padding: 3px; }
 .stepbox .column a {position: absolute;top: -8px;right: 8px;}
 .stepbox .table td, .stepbox .table th { border:0; }
-.stepbox .addrow.btn-block { height:40px;border-radius:3px; font-family:Helvetica Neue; font-size:16px;line-height: normal;color: #fff;padding: 5px 10px;width: 150px;border:1px solid #ced4da;float:right;background:#303030;margin: 0;}
+.stepbox .addrow.btn-block { height:50px;border-radius:3px; font-family:Helvetica Neue; font-size:16px;line-height: normal;color: #fff;padding: 5px 10px;width: 150px;border:1px solid #ced4da;float:right;background:#303030;margin: 0;}
 .stepbox .table { border-bottom:1px solid #ccc; }
 .stepbox #myTable, .stepbox #tbl_rent_with_booking_duration_type {border-width: 0 0 1px 0;border-style: solid;  border-color: #ccc;padding: 0 0 15px 0;margin: 0 0 15px 0;display: block;}
 .stepbox #myTable tbody tr td, .stepbox #tbl_rent_with_booking_duration_type tbody tr td { width: 25%; }
 .stepbox .table td.col-sm-9 .col-sm-3 {padding-top: 0;}
 .dl-content table td:last-child a.deleteRow:nth-child(1)::before { content: ""; }
-.stepbox .custom-checkbox li, .stepbox .custom-radio li { width: 30%; text-align:left;}
-.stepbox #locationtypes.custom-radio li {width: 100%;text-align: center;}
-.stepbox .custom-checkbox li input, .stepbox .custom-radio li input {width: auto;height: auto;margin-right: 10px;}
+.stepbox .custom-checkbox li, .stepbox .custom-radio li { width: 100%;text-align: center; }
 .stepbox .aminities-list li img {width: 22px;vertical-align: top;margin: -2px 10px 0 0; display: inline-block;}
 .stepbox .box .ad-col .switch { position: relative; display: inline-block; width: 50px; height: 14px; float: left; margin-bottom: 0; border: 0;}
 .stepbox .box .ad-col .switch input {opacity: 0; width: 0;height: 0;}
@@ -953,8 +957,7 @@ top: 100%;}
 .stepbox #msform .ad-col .date-group input {width: 48%;display: inline-block; border:0;margin:0;display:none;}
 .stepbox #msform .ad-col .date-group input.open {display: inline-block;}
 .stepbox .ad-col input { width: auto;height: auto;margin-right: 10px;}
-.stepbox .ad-col .date-group input { width: 48%;display: inline-block;border: 0;margin: 0;display: none;background: url(https://www.prymestory.com/public/assets/front-design/images/down-arrow.png);background-repeat: no-repeat;  background-position: right center;font-size: 14px;}
-.stepbox .ad-col .date-group input.open { display: inline-block; }
+.stepbox .ad-col .date-group input {width: 48%;display: inline-block;border: 0;margin: 0;display: none;}
 .ad-col [type="radio"]:checked, .ad-col [type="radio"]:not(:checked) {position: absolute;left: -9999px;}
 .ad-col [type="radio"]:checked + label, .ad-col [type="radio"]:not(:checked) + label {position: relative;padding-left: 28px;cursor: pointer;line-height: 20px; display: inline-block;color: #666;cursor: pointer;}
 .ad-col [type="radio"]:checked + label:before, .ad-col [type="radio"]:not(:checked) + label:before {content: ''; position: absolute;left: 0;top: 0;width: 18px;height: 18px;border: 1px solid #ddd;background: #fff;cursor: pointer;border-radius:100%;}
@@ -964,21 +967,15 @@ top: 100%;}
 .ad-col [type="radio"]:checked + label:after {opacity: 1;-webkit-transform: scale(1);transform: scale(1);}
 #cancellation-policy p {text-align: left;font-size: 15px;margin-bottom: 25px;}
 #cancellation-policy .ad-col {text-align: left;}
-.edit-property table#tbl_rent_with_booking_duration_type tr td.col-sm-7 {margin: 0;max-width: unset;
-  width: 94.5%;position: absolute;left: 24%;}
-.edit-property table#tbl_rent_with_booking_duration_type tr { margin: 0; }
-.edit-property table#tbl_rent_with_booking_duration_type tr td {width: 24%;max-width: 24%; float: left;}
-.edit-property table#tbl_rent_with_booking_duration_type tfoot { width: 100%; }
-.edit-property table#tbl_rent_with_booking_duration_type tfoot tr td {width: 109%;max-width: 109%;}
 
 
 /*Dashboard Filter*/
 .dashfilter {background: #fff;margin-bottom: 20px;padding: 10px;box-shadow: 0 0 5px #ccc;}
 .dashfilter select {width: 20%;display: inline-block;margin-right: 10px;font-size: 16px;padding: 5px 10px;text-transform: capitalize;}
-.dashfilter .date {position: relative;width: 20%; display: inline-block;margin-right: 10px;height: 46px;vertical-align: top;}
+.dashfilter .date {position: relative;width: 20%; display: inline-block;margin-right: 10px;height:40px;vertical-align: top;}
 .dashfilter .date input {height: 100%;width: 100%;padding: 5px 10px; font-size: 16px;}
 .dashfilter .date::before {content: "\f133";font-family: FontAwesome;color: #3351BB;font-size: 18px;position: absolute;
-  right: 10px;top: 10px;}
+  right: 10px;top:7px;}
 .dashfilter .filtersearch {background: #000;height: 45px;vertical-align: top;border: 0;width: 150px;color: #fff;  text-transform: uppercase;font-size: 16px;}
 .paid, .completed { color: green }
 .pending { color: #ff0000; }
@@ -1037,6 +1034,9 @@ background: #fff;border: 1px solid #ced4da;height: 50px;}
 .msgbtm-sect .msg-send:hover, .msgbtm-sect .msg-send:focus { background: #3351BB;}
 
 .static-content {background: #fff;padding: 40px 40px 20px 40px; box-shadow: 0 0 5px #ccc;font-size: 16px;}
+.aboutpage {}
+.aboutpage h2 {text-align: center;font-size: 26px;margin-bottom: 15px;}
+.aboutpage h3 {text-align: center;font-size: 25px;color: #9f9e9e;margin-bottom: 20px;}
 
 /*view booking page*/
 .viewbooking {padding: 20px;background: #fff;box-shadow: 0 0 5px #ccc;border-radius: 3px;}
@@ -1059,24 +1059,68 @@ background: #fff;border: 1px solid #ced4da;height: 50px;}
 .reviewModal .blackbtn {background: #000;border: 0;color: #fff;padding: 5px 15px;display: inline-block;cursor: pointer;
   margin-top: 15px;}
 
+/*account Setting*/
+.acc-set-page {background: #fff;padding: 20px;box-shadow: 0 0 5px #ccc;border-radius: 5px;}
+.acc-set-page ul.nav-pills {padding: 0;margin: 0;border-width: 1px 1px 0 1px; border-style: solid; border-color: #ddd;}
+.acc-set-page ul.nav-pills li {display: block;width: 100%;}
+.acc-set-page ul.nav-pills li a.nav-link {display: block;width: 100%;text-transform: capitalize;border-radius: 0;color: #333;font-size: 16px;border-bottom: 1px solid #ddd;}
+.acc-set-page ul.nav-pills .nav-link.active, .acc-set-page ul.nav-pills .show > .nav-link, .acc-set-page ul.nav-pills .nav-link:hover, .acc-set-page ul.nav-pills .nav-link:focus { background: #ddd;  }
+.acc-set-page .tab-content h3 {text-transform: capitalize;font-size: 20px;margin-bottom: 20px;text-align: center;
+  border-bottom: 1px solid #ddd;padding: 0 0 10px;}
+.acc-set-page .site-form .form-group.cardexp-group input { width: 40%; display: inline-block; }
+.acc-set-page .site-form .form-group.cardexp-group span { padding:0 5px; }
+.acc-set-page .switchuser {border: 1px solid #ddd;height: 80px;display: block;padding: 15px 5px;border-radius: 5px;
+  margin: 0 auto;width: 185px;text-align: center;background: #f5f5f5;box-shadow: 0 0 5px #ccc !important;}
+.acc-set-page .switchuser:hover, .acc-set-page .switchuser:focus {box-shadow: 0 0 10px #333 !important; text-decoration: none;}
+.acc-set-page .switchuser img {width: 50px;margin: 0 10px;}
+.acc-set-page .switchuser .fa {}
 
-/*Property View Page form Dashboard*/
-.dl-content .single-property { background: #fff; box-shadow: 0 0 5px #ccc; padding: 15px; }
-.dl-content .single-property h4 { text-transform: capitalize; }
-.dl-content .single-property .book-amenties li img {width: 25px;}
-.dl-content .single-property .property-location {margin: 45px 0 0 0;}
-.dl-content .single-property .property-location .firstrow {padding: 12px 0 8px 0;min-height: 72px;margin: 15px 0;}
-.dl-content .single-property .property-location .book-amenties { border: 0; }
-.dl-content .property-content .firstrow img.floor_map {width: 100%;display: block;transform: rotate(0deg);border: 1px solid #ddd;padding: 3px;margin: 5px 0 0 0;}
-/*.dl-content .single-property .owl-theme .owl-nav { display: block; }*/
+/*Blog Listing*/
+.blog-listing { padding: 30px 0;}
+.blog-listing h2 {font-family: Montserrat;font-style: normal;font-weight: 600;font-size: 30px;line-height: normal;
+color: #262626;margin: 0px 0 20px 0;text-align: center;text-transform: capitalize;}
+.blogbox {border: 1px solid #ccc;border-radius: 5px; margin-bottom: 30px; overflow: hidden;}
+.blog-img { width: 100%; height: 280px; position: relative;overflow: hidden; }
+.blog-img img { width: 100%; height: 100%; object-fit: cover; transform: scale(1);transition: all 0.5s ease-in-out; }
+.blog-img img:hover, .blog-img img:focus {transform: scale(1.1);transition: all 0.5s ease-in-out;}
+.blog-img .blogdate {position:absolute;top:0;left:0;background:#000;color: #fff;padding: 5px 10px;text-align: center;}
+.blog-img .blogdate span {display: block;text-transform: uppercase;border-top: 2px solid #fff;}
+.blog-content { padding: 10px;font-size: 16px;}
+.blog-content h3 {font-size: 22px;}
+.blog-content h3 a { color: #333; }
+.blog-content h3 a:hover, .blog-content h3 a:focus {color: #5500fe; text-decoration: none; }
+.custom-pagination {text-align: center;}
 
 
+.single-blog {padding: 30px 0;}
+.single-blog h2 {font-family: Montserrat;font-style: normal;font-weight: 600;font-size: 30px;line-height: normal;
+color: #262626;margin: 0px 0 20px 0;text-align: center;text-transform: capitalize;}
+.single-blog .blogdate {text-align: center;margin-bottom: 20px;}
+.singleblog-img { border:1px solid #ccc; padding: 5px;margin-bottom: 20px; }
+.singleblog-img img { width: 100%; }
+.singleblog-content { font-size: 15px; }
+
+
+.paymentbox { width: 410px; margin: 0 auto;}
+.paymentbox #submit-button {background: #000;border: 0;margin-bottom: 30px;color: #fff;padding: 8px 15px;font-size: 16px;cursor: pointer;text-transform: capitalize;}
+.paymentbox #submit-button:hover, .paymentbox #submit-button:focus { background: #3351BB;}
+.paymentbox .braintree-sheet__content--form .braintree-form__field-group .braintree-form__field .braintree-form__hosted-field { height: 40px; }
+
+/*On Demand Parking*/
+.ondemand-filter { padding: 0 0 10px;}
+.ondemand-filter .ondemand-link { text-transform: capitalize; color: #333;}
+.ondemand-filter .ondemand-link.active {color: #5500fe; text-decoration: underline;}
+.ondemand-filter .ondemand-next { float: right; background: #3351BB; color: #fff; text-transform: capitalize; font-size: 15px;
+  padding: 5px 20px; border-radius: 3px;}
+.ondemand-filter .ondemand-next:hover, .ondemand-filter .ondemand-next:focus { background: #000; text-decoration: none; }
+.ondemand-map { border:1px solid #ccc; padding: 3px; } 
 
 
 
 @media screen and (-webkit-min-device-pixel-ratio:0) { 
 .myadded-property .prop-view {position: absolute;left: 0;right: 0;bottom: -5px;}
 }
+
 
 
 /*Responsive Start*/
