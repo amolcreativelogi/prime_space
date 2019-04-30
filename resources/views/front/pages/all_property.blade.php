@@ -68,10 +68,12 @@
                                       <!-- <input type="" name="" placeholder="Address, City"> -->
                     
                                     </div>
+                                    <div class="error from_parkingtypeh"></div>
                                   </div>
                                   <div class="form-group date-group">
                                     <label>From Date</label>
                                     <div class="date"><input type="text" name="from_date" placeholder="Any" id="from_date"></div>
+                                     <div class="error from_dateh"></div>
                                   </div>
                                   <!-- <div class="form-group time-group">-->
                                   <!--  <label>From time</label>-->
@@ -80,6 +82,7 @@
                                   <div class="form-group date-group">
                                     <label>To date</label>
                                     <div class="date"><input type="text" name="to_date" placeholder="Any" id="to_date"></div>
+                                     <div class="error from_todate_datesh"></div>
                                   </div>
                                   <!--<div class="form-group time-group">-->
                                   <!--  <label>From time</label>-->
@@ -99,15 +102,18 @@
                                       <input type="hidden" name="dailyFrmLatitude" id="dailyFrmLatitude">
                                       <input type="hidden" name="dailyFrmLongitude" id="dailyFrmLongitude">
                                     </div>
+                                     <div class="error from_parkingtyped"></div>
                                     </div>
                                   <div class="form-group date-group">
                                     <label>From</label>
                                     <!-- <div class="date"><input type="" name="" placeholder="Any"></div> -->
                                      <div class="date"><input type="text" class="form-control" placeholder="Any" id="from" /></div>
+                                       <div class="error from_dated"></div>
                                   </div>
                                   <div class="form-group date-group">
                                     <label>To</label>
                                     <div class="date"><input type="text" class="form-control" placeholder="Any" id="to" /></div>
+                                      <div class="error from_todate_datesd"></div>
                                   </div>
                                  
                                 </form>
@@ -123,15 +129,18 @@
                                         <input type="hidden" id="monthlyFrmCity" name="monthlyFrmCity" />
                                         <input type="hidden" name="monthlyFrmLatitude" id="monthlyFrmLatitude">
                                         <input type="hidden" name="monthlyFrmLongitude" id="monthlyFrmLongitude"></div>
+                                        <div class="error from_parkingtypem"></div>
                                     </div>
                                   <div class="form-group date-group">
                                     <label>From</label>
                                     <!-- <div class="date"><input type="" name="" placeholder="Any"></div> -->
                                      <div class="date"><input type="text" class="form-control" placeholder="Any" id="monthly_from" /></div>
+                                       <div class="error from_datem"></div>
                                   </div>
                                   <div class="form-group date-group">
                                     <label>To</label>
                                     <div class="date"><input type="text" class="form-control" placeholder="Any" id="monthly_to" /></div>
+                                      <div class="error from_todate_datesm"></div>
                                   </div>
                                  
                                 </form>
@@ -500,8 +509,6 @@ foreach($searchResult['closest'] as $s)
 {
     $jsonClosest[] =   array($s->location,$s->latitude, $s->longitude);
 
-    $jsonClosestpoint =   array($s->location,$s->latitude, $s->longitude);
-
 }
 //map pointer for cheapest tab
 $jsonCheapest = array();
@@ -511,7 +518,6 @@ foreach($searchResult['cheapest'] as $s)
    
 }
 $mapperPointerClosest =  json_encode($jsonClosest);
-$mapperPointerpoint =  json_encode($jsonClosestpoint);
 $mapperPointerCheapest =  json_encode($jsonCheapest);
 
 ?>

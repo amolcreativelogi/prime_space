@@ -39,7 +39,7 @@
 					get_success(test.msg,test.url);
 				}else{
 					get_error(test.msg,test.url);
-				}
+				} 
 			}
 		});
 	}
@@ -523,6 +523,42 @@ $(".modal").on("hidden.bs.modal", function(){
 
 $('#singupModal, #loginModal, #resetpassModal').on('shown.bs.modal', function() {
   $('#email_id, #email_id_login, #forgot_password_email').focus();
+})
+
+
+
+
+$('#from_date').change(function(){
+  var home_search_datetime = $('#from_date').val();
+  var split_home_search_datetime = home_search_datetime.split(' ');
+  var home_search_frmdate =split_home_search_datetime[0];
+  var home_search_frmtime =split_home_search_datetime[1];
+  //var home_search_frmtime_obj = home_search_datetime.split(' ');
+  var hour = home_search_frmtime;//home_search_frmtime_obj[1];
+  var hoursplit = hour.split(':');
+  //alert(home_search_frmdate);
+  var home_search_totime  = parseInt(hoursplit[0])+parseInt(1)+':'+hoursplit[1];
+
+  var to_date = home_search_frmdate+' '+home_search_totime;
+  $('#to_date').val(to_date);
+  //alert(to_date);
+})
+
+$('#from').change(function(){
+	var dateStr = $('#from').val();
+	//var days = 29;
+	var result = new Date(new Date(dateStr).setDate(new Date(dateStr).getDate()));
+	var r = result.getMonth()+'.' + (result.getDate()+1) + '.'+result.getFullYear();
+	$('#to').val(r);
+})
+
+
+$('#monthly_from').change(function(){
+	var dateStr = $('#monthly_from').val();
+	//var days = 29;
+	var result = new Date(new Date(dateStr).setDate(new Date(dateStr).getDate()));
+	var r = (result.getMonth()+2)+'.' + result.getDate() + '.'+result.getFullYear();
+	$('#monthly_to').val(r);
 })
 
 
