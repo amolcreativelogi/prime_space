@@ -72,4 +72,10 @@ class PagesController extends Controller
     {
         return view('front.pages.singleBlog');      
     }
+
+    public function ondemand_parking()
+    {
+        return view('front.pages.ondemand_parking');      
+    }
+
 }

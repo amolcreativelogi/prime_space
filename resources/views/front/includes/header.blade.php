@@ -35,13 +35,13 @@
  <div class="container">
     <div class="row">
       <div class="col-lg-3 col-md-4 col-sm-12 logodiv">
-        <a href="{{ URL::asset('/') }}" class="logo"><img src="{{ URL::asset('public') }}/assets/front-design/images/psw-logo.png" alt=""></a>
+        <a href="{{ URL::asset('/') }}" class="logo"><img src="{{ URL::asset('public') }}/assets/front-design/images/psw-logo.png" alt=""></a> 
       </div>
       <div class="col-lg-9 col-md-8 col-sm-12 menudiv">
         <a href="#" data-toggle="modal" class="searchModal popuplink" data-target="#searchModal" onclick="getTopSerchModuleList()"><i class="fa fa-search" aria-hidden="true" ></i> Search</a>
          <nav class="navbar navbar-default pullright">
             <ul class="nav navbar-nav">
-              <li class="demandpark"><a href="<?php echo URL::to('/searchproperty?module_id=2&fromdate=04.19.2019&todate=04.19.2019&fromtime=00:00:01&totime=23:59:00&latitude=&longitude=&location=&car_type_id=&location_type_id=&land_type_id=&activeTab=daily&duration_type_id=2'); ?>">Try on-demand parking</a></li>
+              <li class="demandpark"><a href="<?php echo URL::to('ondemand_parking'); ?>">Try on-demand parking</a></li>
               
               <!-- <li class="dropdown"><a href="#" dropdown-toggle" data-toggle="dropdown">Get started <span class="caret"></span></a>
                 <ul class="dropdown-menu">
