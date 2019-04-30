@@ -302,6 +302,7 @@ Route::get('/renter-faq','Front\PagesController@renter_faq');
 Route::get('/notification','Front\PagesController@notification');
 Route::get('/messages','Front\PagesController@messages');
 Route::get('/refundPolicy','Front\PagesController@refundPolicy');
+Route::get('/ondemand_parking','Front\PagesController@ondemand_parking');
 
 Route::get('/accountSetting','Front\PagesController@accountSetting');
 Route::get('/blogListing','Front\PagesController@blogListing');

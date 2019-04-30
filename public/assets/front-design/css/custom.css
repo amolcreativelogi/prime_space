@@ -1106,6 +1106,16 @@ color: #262626;margin: 0px 0 20px 0;text-align: center;text-transform: capitaliz
 .paymentbox #submit-button:hover, .paymentbox #submit-button:focus { background: #3351BB;}
 .paymentbox .braintree-sheet__content--form .braintree-form__field-group .braintree-form__field .braintree-form__hosted-field { height: 40px; }
 
+/*On Demand Parking*/
+.ondemand-filter { padding: 0 0 10px;}
+.ondemand-filter .ondemand-link { text-transform: capitalize; color: #333;}
+.ondemand-filter .ondemand-link.active {color: #5500fe; text-decoration: underline;}
+.ondemand-filter .ondemand-next { float: right; background: #3351BB; color: #fff; text-transform: capitalize; font-size: 15px;
+  padding: 5px 20px; border-radius: 3px;}
+.ondemand-filter .ondemand-next:hover, .ondemand-filter .ondemand-next:focus { background: #000; text-decoration: none; }
+.ondemand-map { border:1px solid #ccc; padding: 3px; } 
+
+
 
 @media screen and (-webkit-min-device-pixel-ratio:0) { 
 .myadded-property .prop-view {position: absolute;left: 0;right: 0;bottom: -5px;}
