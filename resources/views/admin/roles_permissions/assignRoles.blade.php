@@ -23,7 +23,7 @@
             </div>
            @endif
          <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-username"> Admin Types </label>
+            <label class="col-sm-2 control-label" for="input-username"><h4> Admin Type </h4> </label>
             <div class="col-sm-10">
 
               <?php if(isset($editRoles->id) && !empty($editRoles->id)){
@@ -64,20 +64,20 @@
                     ?>
                   <?php //print_r($admin_types_list);?>
                   <li class="admin-last-subtotal">
-                    <span class="admin-subtotal">Roles:</span>
+                    <span class="admin-subtotal panel-title"><h3>Roles: </h3></span>
                     <span class="admin-student">
                       
-                       <ul class="treeview">
+                       <ul class="treeview panel">
 
                         <?php foreach($arrRoles as $main_module => $subroles){?>
                           
-                          <li class="last">
+                          <li class="panel-title ">
                              <input class="<?=$main_module;?>" id="<?=$main_module;?>" type="checkbox" name="<?=$main_module?>">
                              <label for="short" class="custom-unchecked"><b><?=$main_module?></b></label>
                              @foreach($subroles as $sub_module =>$childroles)
 
-                               <ul>
-                                   <li>
+                               <ul class="list-group">
+                                   <li class="list-group-item">
                                        <input  type="checkbox" name="<?=$sub_module?>">
                                        <label for="tall-1" class="custom-unchecked"><?=$sub_module?></label>
                                         @foreach($childroles as $child_module =>$values)
@@ -106,8 +106,13 @@
                
               </div>
             </div>
-            <div class="row"><input type="submit" class="pull-right btn btn-success" name="submit" value="Submit"></div>
+            <div class="row"></div>
+             <div class="row">
+              <span> Note: It is must to check <b>List</b> role checkbox if you want to assign <b>Edit</b> or <b>Delete</b> role to any user.</span>
+              <span><input type="submit" class=" btn btn-success" name="submit" value="Submit"></span>
+            </div>
             </form>
+
 
           </div><!-- order-left -->
       
@@ -178,6 +183,21 @@
             .find("input[type='checkbox']")
             .prop('checked', this.checked);
     });
+});
+
+  jQuery(function() {
+  function gottaCheckEmAll() {
+    console.log(this);
+    var checkboxUnchecked = $(this).closest('ul').find('li :not(input:checked)').length;
+    var mainCheckbox = $(this).closest('.panel-default').find('.panel-title input[type=checkbox]');
+    mainCheckbox[0].checked = !checkboxUnchecked;
+  }
+
+  gottaCheckEmAll.call($('.list-group-item input[type=checkbox]').on('click', gottaCheckEmAll)[0]);
+ /* $('input[value="Accessories"]').on('click', function() {
+    var checked = this.checked; console.log(checked);
+    $(this).closest('.panel').find('.list-group-item input').each(function(i, el) { el.checked = checked});
+  })*/
 });
   
 

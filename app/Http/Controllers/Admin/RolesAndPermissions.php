@@ -167,7 +167,21 @@ class RolesAndPermissions extends Controller
 
     		if($use_in == 'footer'){
 	    		$unauthorizedRoles = DB::table('tbl_child_roles')->select('child_role_id','action_name','route_url')->whereRaw('child_role_id NOT IN('.$getAdminRoles->role_id.')')->where(['is_deleted'=>0,'status'=>1])->whereRaw('action_name IN("list","add","update_sequence")')->get();
-	    	 	$arrUnauthorizedRoles = json_encode($unauthorizedRoles);
+
+	    		//not assigned main role names
+	    		$notAssignedMenus = 
+	    		DB::table('tbl_main_roles')->select('main_module_key')->whereRaw('main_role_id  NOT IN(
+	    				SELECT main_role_id FROM tbl_sub_roles WHERE sub_role_id IN
+	    				(
+	        				select sub_role_id from tbl_child_roles where child_role_id in('.$getAdminRoles->role_id.') and is_deleted=0 and status =1
+	    				)
+					)')->where(['is_deleted'=>0,'status'=>1])->get();
+
+
+	    		$arrUnauthorizedRoles=array('notAssignedMenus'=>$notAssignedMenus,
+	    	    'notAssignedActions'=>$unauthorizedRoles);
+	    		$arrUnauthorizedRoles = json_encode($arrUnauthorizedRoles);
+	    	 	
 	    	}else{
 
 
