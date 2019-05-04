@@ -12,9 +12,21 @@ use Illuminate\Database\Eloquent\Model;
 use App\Http\Requests\FaqCategoryRequest;
 use App\Http\Requests\FaqCategorySequenceUpdate;
 use DB;
+use App\Http\Controllers\Admin\RolesAndPermissions;
 
 class FaqsCategoryController extends Controller {
 
+   
+
+    //roles
+    private $objRolesPermissions;
+    public function __construct(RolesAndPermissions $objRolesPermissions)
+    {
+        $this->objRolesPermissions = $objRolesPermissions;
+       
+
+       
+    }
     //List cms pages
     public function index()
       { 
@@ -173,7 +185,35 @@ class FaqsCategoryController extends Controller {
             $row[] = $faqsCategory->category_name;
             $row[] = $faqsCategory->sequence;
             $row[] = ($faqsCategory->status == 1) ? 'Active' : 'Inactive';
-             $row[] ='<a href="'.url('admin/faqs/categories/add/'.$faqsCategory->category_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteFaqCategory('.$faqsCategory->category_id.','."'tbl_mstr_faq_categories'".','."'category_id'".');"><i class="fa fa-trash-o"></i></button>';
+
+            /**check assigned roles and permission for  loggedin user and restrict edit delete access**/
+             $unauthorizedRoles =$this->objRolesPermissions->getUnauthorizedRoles($_SESSION['admin_login_id'],'controller','faq_category');
+            
+            //create edit delete buttons if roles are assigned else not
+            $editButton="";
+            $deleteButton="";
+            if(!empty($unauthorizedRoles) && in_array('edit',$unauthorizedRoles)){
+            $editButton ='<a href="'.url('admin/faqs/categories/add/'.$faqsCategory->category_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  ';
+            }
+              if(!empty($unauthorizedRoles) && in_array('delete',$unauthorizedRoles)){ 
+             $deleteButton ='<button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteFaqCategory('.$faqsCategory->category_id.','."'tbl_mstr_faq_categories'".','."'category_id'".');"><i class="fa fa-trash-o"></i></button>';
+             }
+
+             if( !empty($editButton) || !empty($deleteButton)){
+
+                $button = $editButton.$deleteButton;
+             }else{
+                  $button = '-';
+             }
+
+             $row[] = $button;
+
+             /**end roles check**/
+
+
+             /*$row[] ='<a href="'.url('admin/faqs/categories/add/'.$faqsCategory->category_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteFaqCategory('.$faqsCategory->category_id.','."'tbl_mstr_faq_categories'".','."'category_id'".');"><i class="fa fa-trash-o"></i></button>';*/
+
+
             $data[] = $row;
           }
         $output = array(

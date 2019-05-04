@@ -9,10 +9,22 @@ use Illuminate\Database\Eloquent\Model;
 use App\Mail\SendMailable;
 
 use DB;
+use App\Http\Controllers\Admin\RolesAndPermissions;
+
 
 class UsersController extends Controller
 {
 
+	
+	//roles
+    private $objRolesPermissions;
+    public function __construct(RolesAndPermissions $objRolesPermissions)
+    {
+        $this->objRolesPermissions = $objRolesPermissions;
+       
+
+       
+    }
 	public function Hosts()
     {
     	return view('admin.users.list_hosts');
@@ -65,7 +77,33 @@ class UsersController extends Controller
 	           $row[] = $carT->lastname;
 	           $row[] = $carT->email_id;
 	           $row[] = $this->getUseType($carT->user_type_id);
-	           $row[] ='<a href="'.url('admin/viewUsersProfile/'.$carT->user_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="View Profile"><i class="fa fa-eye"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$carT->user_id.','."'prk_user_registrations'".','."'user_id'".');"><i class="fa fa-trash-o"></i></button>';
+
+	           /**check assigned roles and permission for  loggedin user and restrict edit delete access**/
+             $unauthorizedRoles =$this->objRolesPermissions->getUnauthorizedRoles($_SESSION['admin_login_id'],'controller','host_list');
+            
+            //create edit delete buttons if roles are assigned else not
+            $viewButton="";
+            $deleteButton="";
+
+            if(!empty($unauthorizedRoles) && in_array('view',$unauthorizedRoles)){
+            $viewButton ='<a href="'.url('admin/viewUsersProfile/'.$carT->user_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="View Profile"><i class="fa fa-eye"></i></a>  ';
+            }
+              if(!empty($unauthorizedRoles) && in_array('delete',$unauthorizedRoles)){ 
+             $deleteButton ='<button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$carT->user_id.','."'prk_user_registrations'".','."'user_id'".');"><i class="fa fa-trash-o"></i></button>';
+             }
+
+             if( !empty($viewButton) || !empty($deleteButton)){
+
+                $button = $viewButton.$deleteButton;
+             }else{
+                  $button = '-';
+             }
+
+             $row[] = $button;
+
+             /**end roles check**/
+
+	          /* $row[] ='<a href="'.url('admin/viewUsersProfile/'.$carT->user_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="View Profile"><i class="fa fa-eye"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$carT->user_id.','."'prk_user_registrations'".','."'user_id'".');"><i class="fa fa-trash-o"></i></button>';*/
 	          $data[] = $row;
 	        }
 	      $output = array(

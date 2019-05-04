@@ -44,10 +44,21 @@
                         <td><?= $faq->question?></td>
                         <td><?= ($faq ->status == '0')?"Inactive":"Active"; ?></td>
                         <td>
+
+
+                      @if($getRoles['edit'] == 1 && $getRoles['delete']==0)
                         <a href="<?php echo url('admin/faq/edit/'.$faq->faq_id.'')?>" data-toggle="tooltip" title="" data-original-title="Edit" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+                      @elseif($getRoles['delete'] == 1 && $getRoles['edit']==0)
+                        <a href="<?php echo url('admin/faq/delete/'.$faq->faq_id.'/'.$faq->category_id)?>" data-toggle="tooltip" title="" data-original-title="Delete" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this question?')"><i class="fa fa-trash-o"></i></a>
+                      @elseif($getRoles['edit'] == 0 && $getRoles['delete'] == 0)
+                        <?= '-';?>
+                      @else
+                       <a href="<?php echo url('admin/faq/edit/'.$faq->faq_id.'')?>" data-toggle="tooltip" title="" data-original-title="Edit" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
 
                         <a href="<?php echo url('admin/faq/delete/'.$faq->faq_id.'/'.$faq->category_id)?>" data-toggle="tooltip" title="" data-original-title="Delete" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this question?')"><i class="fa fa-trash-o"></i></a>
-                        
+                      @endif 
+
+
                         </td>
                       </tr>
                     <?php $i++; }?>

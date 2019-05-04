@@ -5,12 +5,24 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Controllers\Admin\RolesAndPermissions;
+
 
 
 use DB;
 
 class BookingController extends Controller
 {
+    
+	  //roles
+    private $objRolesPermissions;
+    public function __construct(RolesAndPermissions $objRolesPermissions)
+    {
+        $this->objRolesPermissions = $objRolesPermissions;
+       
+
+       
+    }
     public function bookingList()
     {	
     	return view('admin.booking.booking_list');

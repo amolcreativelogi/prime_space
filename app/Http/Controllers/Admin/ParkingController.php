@@ -5,12 +5,24 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Controllers\Admin\RolesAndPermissions;
+
 
 
 use DB;
 
 class ParkingController extends Controller
 {
+    
+	//roles
+    private $objRolesPermissions;
+    public function __construct(RolesAndPermissions $objRolesPermissions)
+    {
+        $this->objRolesPermissions = $objRolesPermissions;
+       
+
+       
+    }
     public function parkingList()
     {	
     	return view('admin.parking.parking_list');
@@ -62,7 +74,32 @@ class ParkingController extends Controller
 	          $row[] = $pList->firstname.' '.$pList->lastname;
 	          $row[] = $pList->created_at;
 	          $row[] = ($pList->status == 1) ? 'Active' : 'Inactive';
-	          $row[] ='<a href="'.url('admin/ParkingDetails/'.$pList->property_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-eye"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$pList->property_id.','."'prk_add_property'".','."'property_id'".');"><i class="fa fa-trash-o"></i></button>';
+
+	            /**check assigned roles and permission for  loggedin user and restrict edit delete access**/
+	           $unauthorizedRoles =$this->objRolesPermissions->getUnauthorizedRoles($_SESSION['admin_login_id'],'controller','parking_list');
+
+	          //create edit delete buttons if roles are assigned else not
+         	  
+	          $deleteButton="";
+	         
+	            if(!empty($unauthorizedRoles) && in_array('delete',$unauthorizedRoles)){ 
+	           		$deleteButton ='<button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$pList->property_id.','."'prk_add_property'".','."'property_id'".');"><i class="fa fa-trash-o"></i></button>';
+	           }
+	           if(!empty($unauthorizedRoles) && in_array('view',$unauthorizedRoles)){ 
+	           		$viewButton ='<a href="'.url('admin/ParkingDetails/'.$pList->property_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-eye"></i></a> ';
+	            }
+
+	           if( !empty($viewButton) || !empty($deleteButton)){
+
+	           		$button = $viewButton.$deleteButton;
+	           }else{
+	           	    $button = '-';
+	           }
+
+	           $row[] = $button;
+
+	           /**end roles check**/
+	         /* $row[] ='<a href="'.url('admin/ParkingDetails/'.$pList->property_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-eye"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$pList->property_id.','."'prk_add_property'".','."'property_id'".');"><i class="fa fa-trash-o"></i></button>';*/
 	          $data[] = $row;
 	        }
 	      $output = array(

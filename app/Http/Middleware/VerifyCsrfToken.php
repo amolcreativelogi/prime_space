@@ -43,6 +43,8 @@ class VerifyCsrfToken extends Middleware
          'admin/faq/getFaqs',
          'admin/faqs/getFaqCategories',
          'admin/faq/list/',
+         'admin/roles/getUnauthorizedRoles/',
+         'admin/roles/getAdminRoles',
          'frontend/getPropertyMasters',
          'frontend/bookProperty',
          'frontend/saveProperty',

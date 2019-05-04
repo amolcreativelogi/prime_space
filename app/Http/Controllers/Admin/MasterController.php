@@ -20,12 +20,24 @@ use App\Http\Requests\CancellationTypeRequest;
 use App\Http\Requests\CancellationPoliciesRequest;
 use App\Http\Requests\LandTypeRequest;
 
+use App\Http\Controllers\Admin\RolesAndPermissions;
+
 
 
 use DB;
 
+
 class MasterController extends Controller
 {
+    //roles
+    private $objRolesPermissions;
+    public function __construct(RolesAndPermissions $objRolesPermissions)
+    {
+        $this->objRolesPermissions = $objRolesPermissions;
+       
+
+       
+    }
     public function carTypeExecute()
     {
     	return view('admin.master.car_type_list');
@@ -122,7 +134,33 @@ class MasterController extends Controller
 	          //$row[] = $sr++;
 	          $row[] = $carT->car_type;
 	          $row[] = ($carT->status == 1) ? 'Active' : 'Inactive';
-	           $row[] ='<a href="'.url('admin/addCarType/'.$carT->car_type_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$carT->car_type_id.','."'prk_car_type'".','."'car_type_id'".');"><i class="fa fa-trash-o"></i></button>';
+
+	          /**check assigned roles and permission for  loggedin user and restrict edit delete access**/
+	           $unauthorizedRoles =$this->objRolesPermissions->getUnauthorizedRoles($_SESSION['admin_login_id'],'controller','car_type');
+         		
+	          //create edit delete buttons if roles are assigned else not
+         	  $editButton="";
+	          $deleteButton="";
+	          if(isset($unauthorizedRoles) && in_array('edit',$unauthorizedRoles)){
+	          $editButton ='<a href="'.url('admin/addCarType/'.$carT->car_type_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  ';
+	          }
+	            if(isset($unauthorizedRoles) && in_array('delete',$unauthorizedRoles)){ 
+	           $deleteButton ='<button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$carT->car_type_id.','."'prk_car_type'".','."'car_type_id'".');"><i class="fa fa-trash-o"></i></button>';
+	           }
+
+	           if( !empty($editButton) || !empty($deleteButton)){
+
+	           		$button = $editButton.$deleteButton;
+	           }else{
+	           	    $button = '-';
+	           }
+
+	           $row[] = $button;
+
+	           /**end roles check**/
+
+
+	          /*$row[] ='<a href="'.url('admin/addCarType/'.$carT->car_type_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$carT->car_type_id.','."'prk_car_type'".','."'car_type_id'".');"><i class="fa fa-trash-o"></i></button>';*/
 	          $data[] = $row;
 	        }
 	      $output = array(
@@ -310,7 +348,32 @@ class MasterController extends Controller
 	          //$row[] = $sr++;
 	          $row[] = $amenityCategories->category_name;
 	          $row[] = ($amenityCategories->status == 1) ? 'Active' : 'Inactive';
-	           $row[] ='<a href="'.url('admin/addAmenityCategories/'.$amenityCategories->amenity_cat_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$amenityCategories->amenity_cat_id.','."'prk_amenity_categories'".','."'amenity_cat_id'".');"><i class="fa fa-trash-o"></i></button>';
+
+	          /**check assigned roles and permission for  loggedin user and restrict edit delete access**/
+	           $unauthorizedRoles =$this->objRolesPermissions->getUnauthorizedRoles($_SESSION['admin_login_id'],'controller','amenity');
+         		
+	          //create edit delete buttons if roles are assigned else not
+         	  $editButton="";
+	          $deleteButton="";
+	          if(!empty($unauthorizedRoles) && in_array('edit',$unauthorizedRoles)){
+	          $editButton ='<a href="'.url('admin/addAmenityCategories/'.$amenityCategories->amenity_cat_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  ';
+	          }
+	            if(!empty($unauthorizedRoles) && in_array('delete',$unauthorizedRoles)){ 
+	           $deleteButton ='<button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$amenityCategories->amenity_cat_id.','."'prk_amenity_categories'".','."'amenity_cat_id'".');"><i class="fa fa-trash-o"></i></button>';
+	           }
+
+	           if( !empty($editButton) || !empty($deleteButton)){
+
+	           		$button = $editButton.$deleteButton;
+	           }else{
+	           	    $button = '-';
+	           }
+
+	           $row[] = $button;
+
+	           /**end roles check**/
+
+	          /* $row[] ='<a href="'.url('admin/addAmenityCategories/'.$amenityCategories->amenity_cat_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$amenityCategories->amenity_cat_id.','."'prk_amenity_categories'".','."'amenity_cat_id'".');"><i class="fa fa-trash-o"></i></button>';*/
 	          $data[] = $row;
 	        }
 	      $output = array(
@@ -602,7 +665,31 @@ class MasterController extends Controller
 	          $row[] = $amenities->amenity_name;
 	          $row[] = $image;
 	          $row[] = ($amenities->status == 1) ? 'Active' : 'Inactive';
-	           $row[] ='<a href="'.url('admin/addAmenity/'.$amenities->amenity_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete" onclick="DeleteRecordWithChild('.$amenities->amenity_id.','."'tbl_mstr_amenities'".','."'amenity_id'".','."'1'".','."'tbl_mstr_amenities_with_category'".');"><i class="fa fa-trash-o"></i></button>';
+
+	           /**check assigned roles and permission for  loggedin user and restrict edit delete access**/
+	           $unauthorizedRoles =$this->objRolesPermissions->getUnauthorizedRoles($_SESSION['admin_login_id'],'controller','amenity');
+         		
+	          //create edit delete buttons if roles are assigned else not
+         	  $editButton="";
+	          $deleteButton="";
+	          if(!empty($unauthorizedRoles) && in_array('edit',$unauthorizedRoles)){
+	          $editButton ='<a href="'.url('admin/addAmenity/'.$amenities->amenity_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  ';
+	          }
+	            if(!empty($unauthorizedRoles) && in_array('delete',$unauthorizedRoles)){ 
+	           $deleteButton ='<button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete" onclick="DeleteRecordWithChild('.$amenities->amenity_id.','."'tbl_mstr_amenities'".','."'amenity_id'".','."'1'".','."'tbl_mstr_amenities_with_category'".');"><i class="fa fa-trash-o"></i></button>';
+	           }
+
+	           if( !empty($editButton) || !empty($deleteButton)){
+
+	           		$button = $editButton.$deleteButton;
+	           }else{
+	           	    $button = '-';
+	           }
+
+	           $row[] = $button;
+	         /**End roles check**/
+
+	          /* $row[] ='<a href="'.url('admin/addAmenity/'.$amenities->amenity_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete" onclick="DeleteRecordWithChild('.$amenities->amenity_id.','."'tbl_mstr_amenities'".','."'amenity_id'".','."'1'".','."'tbl_mstr_amenities_with_category'".');"><i class="fa fa-trash-o"></i></button>';*/
 	          $data[] = $row;
 	        }
 	      $output = array(
@@ -763,7 +850,33 @@ class MasterController extends Controller
 	          /*$row[] = $locationType->module_manage_name;*/
 	          $row[] = $locationType->location_type;
 	          $row[] = ($locationType->status == 1) ? 'Active' : 'Inactive';
-	           $row[] ='<a href="'.url('admin/addLocationType/'.$locationType->location_type_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$locationType->location_type_id.','."'tbl_mstr_location_type'".','."'location_type_id'".');"><i class="fa fa-trash-o"></i></button>';
+
+
+	          /**check assigned roles and permission for  loggedin user and restrict edit delete access**/
+	           $unauthorizedRoles =$this->objRolesPermissions->getUnauthorizedRoles($_SESSION['admin_login_id'],'controller','location_type');
+
+	          //create edit delete buttons if roles are assigned else not
+         	  $editButton="";
+	          $deleteButton="";
+	          if(!empty($unauthorizedRoles) && in_array('edit',$unauthorizedRoles)){
+	          $editButton ='<a href="'.url('admin/addLocationType/'.$locationType->location_type_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  ';
+	          }
+	            if(!empty($unauthorizedRoles) && in_array('delete',$unauthorizedRoles)){ 
+	           $deleteButton ='<button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$locationType->location_type_id.','."'tbl_mstr_location_type'".','."'location_type_id'".');"><i class="fa fa-trash-o"></i></button>';
+	           }
+
+	           if( !empty($editButton) || !empty($deleteButton)){
+
+	           		$button = $editButton.$deleteButton;
+	           }else{
+	           	    $button = '-';
+	           }
+
+	           $row[] = $button;
+
+	           /**end roles check**/
+
+	           /*$row[] ='<a href="'.url('admin/addLocationType/'.$locationType->location_type_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$locationType->location_type_id.','."'tbl_mstr_location_type'".','."'location_type_id'".');"><i class="fa fa-trash-o"></i></button>';*/
 	          $data[] = $row;
 	        }
 	      $output = array(
@@ -917,7 +1030,33 @@ class MasterController extends Controller
 	          //$row[] = $sr++;
 	          $row[] = $parkingType->parking_type;
 	          $row[] = ($parkingType->status == 1) ? 'Active' : 'Inactive';
-	           $row[] ='<a href="'.url('admin/addParkingType/'.$parkingType->parking_type_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$parkingType->parking_type_id.','."'prk_parking_type'".','."'parking_type_id'".');"><i class="fa fa-trash-o"></i></button>';
+
+	           /**check assigned roles and permission for  loggedin user and restrict edit delete access**/
+	           $unauthorizedRoles =$this->objRolesPermissions->getUnauthorizedRoles($_SESSION['admin_login_id'],'controller','parking_type');
+
+	          //create edit delete buttons if roles are assigned else not
+         	  $editButton="";
+	          $deleteButton="";
+	          if(!empty($unauthorizedRoles) && in_array('edit',$unauthorizedRoles)){
+	          $editButton ='<a href="'.url('admin/addParkingType/'.$parkingType->parking_type_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  ';
+	          }
+	            if(!empty($unauthorizedRoles) && in_array('delete',$unauthorizedRoles)){ 
+	           $deleteButton ='<button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$parkingType->parking_type_id.','."'prk_parking_type'".','."'parking_type_id'".');"><i class="fa fa-trash-o"></i></button>';
+	           }
+
+	           if( !empty($editButton) || !empty($deleteButton)){
+
+	           		$button = $editButton.$deleteButton;
+	           }else{
+	           	    $button = '-';
+	           }
+
+	           $row[] = $button;
+
+	           /**end roles check**/
+
+
+	         /*  $row[] ='<a href="'.url('admin/addParkingType/'.$parkingType->parking_type_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$parkingType->parking_type_id.','."'prk_parking_type'".','."'parking_type_id'".');"><i class="fa fa-trash-o"></i></button>';*/
 	          $data[] = $row;
 	        }
 	      $output = array(
@@ -1190,7 +1329,34 @@ class MasterController extends Controller
 	          $row[] = $bookingDurType->modules;
 	          $row[] = $bookingDurType->duration_type;
 	          $row[] = ($bookingDurType->status == 1) ? 'Active' : 'Inactive';
-	           $row[] ='<a href="'.url('admin/addBookingDurationType/'.$bookingDurType->duration_type_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecordWithChild('.$bookingDurType->duration_type_id.','."'tbl_mstr_booking_duration_type'".','."'duration_type_id'".','."'1'".','."'tbl_mstr_booking_duration_type_with_module'".');"><i class="fa fa-trash-o"></i></button>';
+
+	          /**check assigned roles and permission for  loggedin user and restrict edit delete access**/
+	           $unauthorizedRoles =$this->objRolesPermissions->getUnauthorizedRoles($_SESSION['admin_login_id'],'controller','booking_duration_type');
+
+	          //create edit delete buttons if roles are assigned else not
+         	  $editButton="";
+	          $deleteButton="";
+	          if(!empty($unauthorizedRoles) && in_array('edit',$unauthorizedRoles)){
+	          $editButton ='<a href="'.url('admin/addBookingDurationType/'.$bookingDurType->duration_type_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  ';
+	          }
+	            if(!empty($unauthorizedRoles) && in_array('delete',$unauthorizedRoles)){ 
+	           $deleteButton ='<button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecordWithChild('.$bookingDurType->duration_type_id.','."'tbl_mstr_booking_duration_type'".','."'duration_type_id'".','."'1'".','."'tbl_mstr_booking_duration_type_with_module'".');"><i class="fa fa-trash-o"></i></button>';
+	           }
+
+	           if( !empty($editButton) || !empty($deleteButton)){
+
+	           		$button = $editButton.$deleteButton;
+	           }else{
+	           	    $button = '-';
+	           }
+
+	           $row[] = $button;
+
+	           /**end roles check**/
+
+
+
+	          /* $row[] ='<a href="'.url('admin/addBookingDurationType/'.$bookingDurType->duration_type_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecordWithChild('.$bookingDurType->duration_type_id.','."'tbl_mstr_booking_duration_type'".','."'duration_type_id'".','."'1'".','."'tbl_mstr_booking_duration_type_with_module'".');"><i class="fa fa-trash-o"></i></button>';*/
 	          $data[] = $row;
 	        }
 	         $output = array(
@@ -1527,7 +1693,33 @@ class MasterController extends Controller
 	          $row[] = $unitType->module_manage_name;
 	          $row[] = $unitType->unit_type;
 	          $row[] = ($unitType->status == 1) ? 'Active' : 'Inactive';
-	           $row[] ='<a href="'.url('admin/addUnitType/'.$unitType->unit_type_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$unitType->unit_type_id.','."'tbl_mstr_unit_type'".','."'unit_type_id'".');"><i class="fa fa-trash-o"></i></button>';
+
+
+	           /**check assigned roles and permission for  loggedin user and restrict edit delete access**/
+	           $unauthorizedRoles =$this->objRolesPermissions->getUnauthorizedRoles($_SESSION['admin_login_id'],'controller','unit_type');
+
+	          //create edit delete buttons if roles are assigned else not
+         	  $editButton="";
+	          $deleteButton="";
+	          if(!empty($unauthorizedRoles) && in_array('edit',$unauthorizedRoles)){
+	          $editButton ='<a href="'.url('admin/addUnitType/'.$unitType->unit_type_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  ';
+	          }
+	            if(!empty($unauthorizedRoles) && in_array('delete',$unauthorizedRoles)){ 
+	           $deleteButton ='<button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$unitType->unit_type_id.','."'tbl_mstr_unit_type'".','."'unit_type_id'".');"><i class="fa fa-trash-o"></i></button>';
+	           }
+
+	           if( !empty($editButton) || !empty($deleteButton)){
+
+	           		$button = $editButton.$deleteButton;
+	           }else{
+	           	    $button = '-';
+	           }
+
+	           $row[] = $button;
+
+	           /**end roles check**/
+
+	           /*$row[] ='<a href="'.url('admin/addUnitType/'.$unitType->unit_type_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$unitType->unit_type_id.','."'tbl_mstr_unit_type'".','."'unit_type_id'".');"><i class="fa fa-trash-o"></i></button>';*/
 	          $data[] = $row;
 	        }
 	      $output = array(
@@ -1692,7 +1884,32 @@ class MasterController extends Controller
 	          //$row[] = $cancellationType->module_manage_name;
 	          $row[] = $cancellationType->cancellation_type;
 	          $row[] = ($cancellationType->status == 1) ? 'Active' : 'Inactive';
-	           $row[] ='<a href="'.url('admin/addCancellationType/'.$cancellationType->cancellation_type_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$cancellationType->cancellation_type_id.','."'tbl_mstr_cancellation_type'".','."'cancellation_type_id'".');"><i class="fa fa-trash-o"></i></button>';
+
+	           /**check assigned roles and permission for  loggedin user and restrict edit delete access**/
+	           $unauthorizedRoles =$this->objRolesPermissions->getUnauthorizedRoles($_SESSION['admin_login_id'],'controller','cancellation_type');
+
+	          //create edit delete buttons if roles are assigned else not
+         	  $editButton="";
+	          $deleteButton="";
+	          if(!empty($unauthorizedRoles) && in_array('edit',$unauthorizedRoles)){
+	          $editButton ='<a href="'.url('admin/addCancellationType/'.$cancellationType->cancellation_type_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  ';
+	          }
+	            if(!empty($unauthorizedRoles) && in_array('delete',$unauthorizedRoles)){ 
+	           $deleteButton ='<button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$cancellationType->cancellation_type_id.','."'tbl_mstr_cancellation_type'".','."'cancellation_type_id'".');"><i class="fa fa-trash-o"></i></button>';
+	           }
+
+	           if( !empty($editButton) || !empty($deleteButton)){
+
+	           		$button = $editButton.$deleteButton;
+	           }else{
+	           	    $button = '-';
+	           }
+
+	           $row[] = $button;
+
+	           /**end roles check**/
+
+	           /*$row[] ='<a href="'.url('admin/addCancellationType/'.$cancellationType->cancellation_type_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$cancellationType->cancellation_type_id.','."'tbl_mstr_cancellation_type'".','."'cancellation_type_id'".');"><i class="fa fa-trash-o"></i></button>';*/
 	          $data[] = $row;
 	        }
 	      $output = array(
@@ -1745,7 +1962,32 @@ class MasterController extends Controller
 	          //$row[] = $sr++;
 	          $row[] = $cancellationType->cancellation_type;
 	          $row[] = ($cancellationType->status == 1) ? 'Active' : 'Inactive';
-	           $row[] ='<a href="'.url('admin/addCancellationType/'.$cancellationType->cancellation_type_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$cancellationType->cancellation_type_id.','."'tbl_mstr_cancellation_type'".','."'cancellation_type_id'".');"><i class="fa fa-trash-o"></i></button>';
+
+	           /**check assigned roles and permission for  loggedin user and restrict edit delete access**/
+	           $unauthorizedRoles =$this->objRolesPermissions->getUnauthorizedRoles($_SESSION['admin_login_id'],'controller','cancellation_type');
+
+	          //create edit delete buttons if roles are assigned else not
+         	  $editButton="";
+	          $deleteButton="";
+	          if(!empty($unauthorizedRoles) && in_array('edit',$unauthorizedRoles)){
+	          $editButton ='<a href="'.url('admin/addCancellationType/'.$cancellationType->cancellation_type_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  ';
+	          }
+	            if(!empty($unauthorizedRoles) && in_array('delete',$unauthorizedRoles)){ 
+	           $deleteButton ='<button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$cancellationType->cancellation_type_id.','."'tbl_mstr_cancellation_type'".','."'cancellation_type_id'".');"><i class="fa fa-trash-o"></i></button>';
+	           }
+
+	           if( !empty($editButton) || !empty($deleteButton)){
+
+	           		$button = $editButton.$deleteButton;
+	           }else{
+	           	    $button = '-';
+	           }
+
+	           $row[] = $button;
+
+	           /**end roles check**/
+
+	           /*$row[] ='<a href="'.url('admin/addCancellationType/'.$cancellationType->cancellation_type_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$cancellationType->cancellation_type_id.','."'tbl_mstr_cancellation_type'".','."'cancellation_type_id'".');"><i class="fa fa-trash-o"></i></button>';*/
 	          $data[] = $row;
 	        }
 	      $output = array(
@@ -1922,7 +2164,32 @@ class MasterController extends Controller
 	          $row[] = $cancellationPolicies->cancellation_policy_text;
 	          $row[] = (empty($cancellationPolicies->cancellation_percentage))?'0':$cancellationPolicies->cancellation_percentage.'%';
 	          $row[] = ($cancellationPolicies->status == 1) ? 'Active' : 'Inactive';
-	           $row[] ='<a href="'.url('admin/addCancellationPolicies/'.$cancellationPolicies->cancellation_policy_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$cancellationPolicies->cancellation_policy_id.','."'tbl_mstr_cancellation_policies'".','."'cancellation_policy_id'".');"><i class="fa fa-trash-o"></i></button>';
+
+	           /**check assigned roles and permission for  loggedin user and restrict edit delete access**/
+	           $unauthorizedRoles =$this->objRolesPermissions->getUnauthorizedRoles($_SESSION['admin_login_id'],'controller','cancellation_policy');
+
+	          //create edit delete buttons if roles are assigned else not
+         	  $editButton="";
+	          $deleteButton="";
+	          if(!empty($unauthorizedRoles) && in_array('edit',$unauthorizedRoles)){
+	          $editButton ='<a href="'.url('admin/addCancellationPolicies/'.$cancellationPolicies->cancellation_policy_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  ';
+	          }
+	            if(!empty($unauthorizedRoles) && in_array('delete',$unauthorizedRoles)){ 
+	           $deleteButton ='<button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$cancellationPolicies->cancellation_policy_id.','."'tbl_mstr_cancellation_policies'".','."'cancellation_policy_id'".');"><i class="fa fa-trash-o"></i></button>';
+	           }
+
+	           if( !empty($editButton) || !empty($deleteButton)){
+
+	           		$button = $editButton.$deleteButton;
+	           }else{
+	           	    $button = '-';
+	           }
+
+	           $row[] = $button;
+
+	           /**end roles check**/
+
+	          /* $row[] ='<a href="'.url('admin/addCancellationPolicies/'.$cancellationPolicies->cancellation_policy_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$cancellationPolicies->cancellation_policy_id.','."'tbl_mstr_cancellation_policies'".','."'cancellation_policy_id'".');"><i class="fa fa-trash-o"></i></button>';*/
 	          $data[] = $row;
 	        }
 	      $output = array(

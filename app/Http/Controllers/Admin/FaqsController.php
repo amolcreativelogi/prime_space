@@ -11,9 +11,20 @@ use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Requests\FaqRequest;
 use DB;
+use App\Http\Controllers\Admin\RolesAndPermissions;
 
 class FaqsController extends Controller {
 
+    
+    //roles
+    private $objRolesPermissions;
+    public function __construct(RolesAndPermissions $objRolesPermissions)
+    {
+        $this->objRolesPermissions = $objRolesPermissions;
+       
+
+       
+    }
     //List cms pages
     public function index()
       { 
@@ -134,7 +145,46 @@ class FaqsController extends Controller {
             $row[] = $faqs->category_name;
             $row[] = $faqs->faqCount;
             $row[] = ($faqs->status == 1) ? 'Active' : 'Inactive';
-             $row[] ='<a href="'.url('admin/faq/list/'.$faqs->category_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="View All"><i class="fa fa-eye"></i></a>';
+
+             /**check assigned roles and permission for  loggedin user and restrict edit delete access**/
+             $unauthorizedRoles =$this->objRolesPermissions->getUnauthorizedRoles($_SESSION['admin_login_id'],'controller','faq');
+
+            
+            
+            //create edit delete buttons if roles are assigned else not
+            $viewButton="";
+            $updateSequenceButton="";
+            $deleteButton="";
+
+            $viewButton = '<a href="'.url('admin/faq/list/'.$faqs->category_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="View All"><i class="fa fa-eye"></i></a> ';
+
+              if(!empty($unauthorizedRoles) && in_array('update_sequence',$unauthorizedRoles)){
+            $updateSequenceButton ='<a href="'.url('admin/faq/updateFaqSequence/'.$faqs->category_id.'').'" data-toggle="tooltip" title="" class="btn btn-success" data-original-title="Update Question Sequence">Update Sequence</a>  ';
+            }
+
+           
+              if(!empty($unauthorizedRoles) && in_array('delete',$unauthorizedRoles)){ 
+             $deleteButton ='<button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete All"  onclick="DeleteFaqByCategory('.$faqs->category_id.','."'tbl_faqs'".','."'category_id'".');"><i class="fa fa-trash-o"></i></button>';
+             }
+
+          
+
+             $button =  $viewButton;
+             if( !empty($updateSequenceButton) || !empty($deleteButton)){
+
+                  $button .= $updateSequenceButton.$deleteButton;
+             }else{
+                  $button = '-';
+             }
+
+             $row[] = $button;
+
+             /**end roles check**/
+
+
+           /* $row[] ='<a href="'.url('admin/faq/list/'.$faqs->category_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="View All"><i class="fa fa-eye"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete All"  onclick="DeleteFaqByCategory('.$faqs->category_id.','."'tbl_faqs'".','."'category_id'".');"><i class="fa fa-trash-o"></i></button> <a href="'.url('admin/faq/updateFaqSequence/'.$faqs->category_id.'').'" data-toggle="tooltip" title="" class="btn btn-success" data-original-title="Update Question Sequence">Update Sequence</a>';*/
+
+           /*  $row[] ='<a href="'.url('admin/faq/list/'.$faqs->category_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="View All"><i class="fa fa-eye"></i></a>';*/
             $data[] = $row;
           }
         $output = array(
@@ -157,9 +207,18 @@ class FaqsController extends Controller {
       'tbl_mstr_faq_categories.category_name')
     ->where(['tbl_faqs.category_id'=>$category_id,'tbl_faqs.is_deleted'=>0,'tbl_mstr_faq_categories.is_deleted'=>0])->orderBy('tbl_faqs.faq_id','desc')->get();
 
+     /**check assigned roles and permission for  loggedin user and restrict edit delete access**/
+      $unauthorizedRoles =$this->objRolesPermissions->getUnauthorizedRoles($_SESSION['admin_login_id'],'controller','faq');
+            
+        //create edit delete buttons if roles are assigned else not
+       
+        $getRoles['edit']=(!empty($unauthorizedRoles) && in_array('edit',$unauthorizedRoles))?1:0;
+        $getRoles['delete']=(!empty($unauthorizedRoles) && in_array('delete',$unauthorizedRoles))?1:0;
+
+
      //print_r($getAllFaq);
      $getCategoryName = !empty($getAllFaq)?$getAllFaq[0]->category_name:"";
-      return view('admin.faq.allFaqList')->with(['getAllFaq'=>$getAllFaq,'getCategoryName'=>$getCategoryName]);
+      return view('admin.faq.allFaqList')->with(['getAllFaq'=>$getAllFaq,'getCategoryName'=>$getCategoryName,'getRoles'=>$getRoles]);
     }
 
     //load edit cms page form

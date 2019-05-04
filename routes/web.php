@@ -394,6 +394,15 @@ Route::get('/admin/faq/updateFaqSequence', 'Admin\FaqsController@updateFaqSequen
 Route::post('/admin/faq/saveFaqSequece', 'Admin\FaqsController@saveFaqSequece');
 //Route::post('/admin/faq/list', 'Admin\FaqsController@list');
 
+//Routes for roles and permissions
+Route::get('/admin/roles/assign_roles/{id?}', 'Admin\RolesAndPermissions@assign_roles');
+Route::post('/admin/roles/saveAssignedRoles', 'Admin\RolesAndPermissions@saveAssignedRoles');
+Route::get('/admin/roles/getUnauthorizedRoles/{id?}/{use_in?}/{sub_moduele_id?}', 'Admin\RolesAndPermissions@getUnauthorizedRoles');
+//Route to get booking duration type list
+Route::get('/admin/roles','Admin\RolesAndPermissions@index');
+//Route to get booking duration type list
+Route::post('/admin/roles/getAdminRoles','Admin\RolesAndPermissions@getAdminRoles');
+
 
 
 

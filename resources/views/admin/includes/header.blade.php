@@ -136,8 +136,9 @@ function DeleteRecordWithChild(id,parentTable,tbid,isDeleteChild,childTable)
     <li><a href="{{ URL::asset('admin/amenitiesExecute') }}/">Amenities</a></li>
     
     <li><a href="{{ URL::asset('admin/bookingDurationTypeExecute') }}/">Booking Duration Type</a></li>
-    <li><a href="{{ URL::asset('admin/documentTypeExecute') }}/">Document Type</a></li>
+    <!-- <li><a href="{{ URL::asset('admin/documentTypeExecute') }}/">Document Type</a></li> -->
     <li><a href="{{ URL::asset('admin/unitTypeExecute') }}/">Unit Type</a></li>
+    <li><a href="{{ URL::asset('admin/locationTypeExecute') }}/">Location Type</a></li>
     <li><a href="{{ URL::asset('admin/cancellationTypeExecute') }}/">Cancellation Type</a></li>
     <li><a href="{{ URL::asset('admin/cancellationPoliciesExecute') }}/">Cancellation Policies </a></li>
   </ul>
@@ -148,7 +149,7 @@ function DeleteRecordWithChild(id,parentTable,tbid,isDeleteChild,childTable)
    <li><a href="{{ URL::asset('admin/carTypeExecute') }}/">Car Type</a></li>
    <li><a href="{{ URL::asset('admin/parkingTypeExecute') }}/">Parking Type</a></li>
    <li><a href="{{ URL::asset('admin/parkingList') }}/">Parking List</a></li>
-   <li><a href="{{ URL::asset('admin/locationTypeExecute') }}/">Location Type</a></li>
+  
   </ul>
 </li>
 
@@ -200,5 +201,14 @@ function DeleteRecordWithChild(id,parentTable,tbid,isDeleteChild,childTable)
     <li><a href="#">Withdraw Requests</a></li>                    
   </ul>
 </li>
+
+
+@if($_SESSION['admin_login_id'] == 1)
+<li id="RolesAndPermissions"><a class="parent" ><i class="fa fa-shopping-cart fa-fw"></i> <span>Roles And Permissions</span></a>
+   <ul class="collapse">
+      <li><a href="{{ URL::asset('admin/roles')}}/">Manage Roles</a></li>
+   </ul>
+</li>
+@endif
 </ul>
 </nav>
