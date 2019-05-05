@@ -130,29 +130,31 @@ function DeleteRecordWithChild(id,parentTable,tbid,isDeleteChild,childTable)
 
 <li id="dashboard" class="active"><a href="{{ URL::asset('admin/dashboard') }}"><i class="fa fa-dashboard fa-fw"></i> <span>Dashboard</span></a></li>
 
-<li id="sale"><a class="parent"><i class="fa fa-shopping-cart fa-fw"></i> <span>Master</span></a>
+<li id="master"><a class="parent"><i class="fa fa-shopping-cart fa-fw"></i> <span>Master</span></a>
   <ul class="collapse">
     <!-- <li><a href="{{ URL::asset('admin/amenityCategoriesExecute') }}/">Amenity Categories</a></li> -->
     <li><a href="{{ URL::asset('admin/amenitiesExecute') }}/">Amenities</a></li>
     <li><a href="{{ URL::asset('admin/locationTypeExecute') }}/">Location Type</a></li>
     <li><a href="{{ URL::asset('admin/bookingDurationTypeExecute') }}/">Booking Duration Type</a></li>
-    <li><a href="{{ URL::asset('admin/documentTypeExecute') }}/">Document Type</a></li>
+    <!-- <li><a href="{{ URL::asset('admin/documentTypeExecute') }}/">Document Type</a></li> -->
     <li><a href="{{ URL::asset('admin/unitTypeExecute') }}/">Unit Type</a></li>
+    <li><a href="{{ URL::asset('admin/locationTypeExecute') }}/">Location Type</a></li>
     <li><a href="{{ URL::asset('admin/cancellationTypeExecute') }}/">Cancellation Type</a></li>
     <li><a href="{{ URL::asset('admin/cancellationPoliciesExecute') }}/">Cancellation Policies </a></li>
   </ul>
 </li>
 
-<li><a class="parent"><i class="fa fa-shopping-cart fa-fw"></i> <span>Parking</span></a>
+<li id="parking"><a class="parent"><i class="fa fa-shopping-cart fa-fw"></i> <span>Parking</span></a>
   <ul class="collapse">
    <li><a href="{{ URL::asset('admin/carTypeExecute') }}/">Car Type</a></li>
    <li><a href="{{ URL::asset('admin/parkingTypeExecute') }}/">Parking Type</a></li>
 
    <li><a href="{{ URL::asset('admin/parkingList') }}/">Parking List</a></li>
+  
   </ul>
 </li>
 
-<li><a class="parent"><i class="fa fa-shopping-cart fa-fw"></i> <span>Land</span></a>
+<li id="land"><a class="parent"><i class="fa fa-shopping-cart fa-fw"></i> <span>Land</span></a>
   <ul class="collapse">
      <li><a href="{{ URL::asset('admin/landTypeExecute') }}/">Land Type</a></li>
      <li><a href="{{ URL::asset('admin/landList') }}/">Land List</a></li>
@@ -160,7 +162,7 @@ function DeleteRecordWithChild(id,parentTable,tbid,isDeleteChild,childTable)
   </ul>
 </li>
 
-<li><a class="parent"><i class="fa fa-shopping-cart fa-fw"></i> <span>Users</span></a>
+<li id="user"><a class="parent"><i class="fa fa-shopping-cart fa-fw"></i> <span>Users</span></a>
   <ul class="collapse">
     <li><a href="{{ URL::asset('admin/Host_Users') }}/">All Users & Host</a></li>
     <li><a href="{{ URL::asset('admin/Users') }}/">All Customers</a></li>
@@ -169,7 +171,7 @@ function DeleteRecordWithChild(id,parentTable,tbid,isDeleteChild,childTable)
 </li>
 
 
-<li><a class="parent"><i class="fa fa-shopping-cart fa-fw"></i> <span>Booking</span></a>
+<li id="booking" ><a class="parent"><i class="fa fa-shopping-cart fa-fw"></i> <span>Booking</span></a>
   <ul class="collapse">
     <li><a href="{{ URL::asset('admin/bookingList') }}/">All Booking</a></li>
     <li><a href="{{ URL::asset('admin/allParkingBooking') }}/">All Parking Booking</a></li>
@@ -177,17 +179,17 @@ function DeleteRecordWithChild(id,parentTable,tbid,isDeleteChild,childTable)
   </ul>
 </li>
 
-<li><a class="parent" ><i class="fa fa-shopping-cart fa-fw"></i> <span>CMS Pages</span></a>
+<li id="cms" ><a class="parent" ><i class="fa fa-shopping-cart fa-fw"></i> <span>CMS Pages</span></a>
    <ul class="collapse">
       <li><a href="{{ URL::asset('admin/cmspages')}}/">Manage CMS Pages</a></li>
    </ul>
 </li>
-<li><a class="parent" ><i class="fa fa-shopping-cart fa-fw"></i> <span>Blogs</span></a>
+<li id="blog"><a class="parent" ><i class="fa fa-shopping-cart fa-fw"></i> <span>Blogs</span></a>
    <ul class="collapse">
       <li><a href="{{ URL::asset('admin/blogs')}}/">Manage Blogs</a></li>
    </ul>
 </li>
-<li><a class="parent" ><i class="fa fa-shopping-cart fa-fw"></i> <span>FAQ</span></a>
+<li id="faq"><a class="parent" ><i class="fa fa-shopping-cart fa-fw"></i> <span>FAQ</span></a>
    <ul class="collapse">
       <li><a href="{{ URL::asset('admin/faqs/categories')}}/">Manage FAQ Categories</a></li>
       <li><a href="{{ URL::asset('admin/faq/')}}/">Manage FAQ's</a></li>
@@ -200,5 +202,14 @@ function DeleteRecordWithChild(id,parentTable,tbid,isDeleteChild,childTable)
     <li><a href="#">Withdraw Requests</a></li>                    
   </ul>
 </li>
+
+@if($_SESSION['admin_login_id'] == 1)
+<li id="roles_permissions"><a class="parent" ><i class="fa fa-shopping-cart fa-fw"></i> <span>Roles And Permissions</span></a>
+   <ul class="collapse">
+      <li><a href="{{ URL::asset('admin/roles')}}/">Manage Roles</a></li>
+   </ul>
+</li>
+@endif
+
 </ul>
 </nav>

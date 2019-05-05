@@ -240,8 +240,8 @@
           <h4>Company</h4>
           <ul>
             <li><a href="<?php echo URL::to('pages/about-us'); ?>">About Us</a></li>
-            <li><a href="<?php echo URL::to('pages/mission'); ?>">Mission</a></li>
-            <li><a href="<?php echo URL::to('pages/vision'); ?>">Vision</a></li>
+            <li><a href="#">Mission</a></li>
+            <li><a href="#">Vision</a></li>
             <li><a href="<?php echo URL::to('blogs'); ?>">Blog</a></li>
             <li><a href="#">Press</a></li>
             <li><a href="<?php echo URL::to('faq'); ?>">FAQ's</a></li>

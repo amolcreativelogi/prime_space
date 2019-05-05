@@ -10,11 +10,21 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Requests\FaqRequest;
-use App\Http\Requests\FaqCategorySequenceUpdate;
 use DB;
+use App\Http\Controllers\Admin\RolesAndPermissions;
 
 class FaqsController extends Controller {
 
+    
+    //roles
+    private $objRolesPermissions;
+    public function __construct(RolesAndPermissions $objRolesPermissions)
+    {
+        $this->objRolesPermissions = $objRolesPermissions;
+       
+
+       
+    }
     //List cms pages
     public function index()
       { 
@@ -26,7 +36,7 @@ class FaqsController extends Controller {
     public function add($faq_id = NULL)
       { 
         
-        $getCategories = DB::table('tbl_mstr_faq_categories')->where(['is_deleted'=>0,'status'=>1,])->orderBy('sequence','asc')->get();
+        $getCategories = DB::table('tbl_mstr_faq_categories')->where(['is_deleted'=>0,'status'=>1,])->get();
         $editFaqs = DB::table('tbl_faqs')->where('faq_id', '=', $faq_id)->first();
         return view('admin.faq.addFaq')->with(['editFaqs'=>$editFaqs,'getCategories'=>$getCategories]); 
         
@@ -44,7 +54,18 @@ class FaqsController extends Controller {
            // SELECT IFNULL(MAX(subId), 0) INTO @seq FROM test WHERE id = _id;
             if($duplicateEntry == 0) {
 
-              
+              //add sequence number
+             /* $sequence= 0;
+              if($request->input('status') != 0){
+             
+              $seq=DB::table('tbl_faqs')
+              ->select(
+                DB::raw('(CASE WHEN MAX(sequence) IS NULL THEN 0 ELSE MAX(sequence) END) AS sequence')
+                )->where('is_deleted', '=', 0)->where('status', '=', 1)->first();
+
+                $sequence =$seq->sequence+1;
+              }*/
+             
                 $data = array(
                         'question'=>$request->input('question'),
                         'answer'=>$request->input('answer'),
@@ -53,21 +74,10 @@ class FaqsController extends Controller {
                         'created_by'=>'1',
                         'modified_by'=>'1'
                        );
-                $faqId  = DB::table('tbl_faqs')->insertGetId($data);
-                if($faqId)
-                {
-                  //add sequence number
-                  $sequence= 0;
-                  if($request->input('status') != 0){
-                 
-                  $seq=DB::table('tbl_faq_sequence')
-                  ->select(
-                    DB::raw('(CASE WHEN MAX(sequence) IS NULL THEN 0 ELSE MAX(sequence) END) AS sequence')
-                    )->where(['is_deleted'=> 0,'status'=>1,'category_id'=>$request->input('category_id')])->first();
+                $result  = DB::table('tbl_faqs')->insert($data);
 
-                    $sequence =$seq->sequence+1;
-                    $result  = DB::table('tbl_faq_sequence')->insert(['category_id'=>$request->input('category_id'),'faq_id'=>$faqId,'sequence'=>$sequence,'created_by'=>1,'modified_by'=>1]);
-                  }
+                if($result)
+                {
                   return redirect($url)->withSuccess('Record has been saved successfully');
                 }
             }  else {
@@ -135,7 +145,46 @@ class FaqsController extends Controller {
             $row[] = $faqs->category_name;
             $row[] = $faqs->faqCount;
             $row[] = ($faqs->status == 1) ? 'Active' : 'Inactive';
-             $row[] ='<a href="'.url('admin/faq/list/'.$faqs->category_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="View All"><i class="fa fa-eye"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete All"  onclick="DeleteFaqByCategory('.$faqs->category_id.','."'tbl_faqs'".','."'category_id'".');"><i class="fa fa-trash-o"></i></button> <a href="'.url('admin/faq/updateFaqSequence/'.$faqs->category_id.'').'" data-toggle="tooltip" title="" class="btn btn-success" data-original-title="Update Question Sequence">Update Sequence</a>';
+
+             /**check assigned roles and permission for  loggedin user and restrict edit delete access**/
+             $unauthorizedRoles =$this->objRolesPermissions->getUnauthorizedRoles($_SESSION['admin_login_id'],'controller','faq');
+
+            
+            
+            //create edit delete buttons if roles are assigned else not
+            $viewButton="";
+            $updateSequenceButton="";
+            $deleteButton="";
+
+            $viewButton = '<a href="'.url('admin/faq/list/'.$faqs->category_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="View All"><i class="fa fa-eye"></i></a> ';
+
+              if(!empty($unauthorizedRoles) && in_array('update_sequence',$unauthorizedRoles)){
+            $updateSequenceButton ='<a href="'.url('admin/faq/updateFaqSequence/'.$faqs->category_id.'').'" data-toggle="tooltip" title="" class="btn btn-success" data-original-title="Update Question Sequence">Update Sequence</a>  ';
+            }
+
+           
+              if(!empty($unauthorizedRoles) && in_array('delete',$unauthorizedRoles)){ 
+             $deleteButton ='<button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete All"  onclick="DeleteFaqByCategory('.$faqs->category_id.','."'tbl_faqs'".','."'category_id'".');"><i class="fa fa-trash-o"></i></button>';
+             }
+
+          
+
+             $button =  $viewButton;
+             if( !empty($updateSequenceButton) || !empty($deleteButton)){
+
+                  $button .= $updateSequenceButton.$deleteButton;
+             }else{
+                  $button = '-';
+             }
+
+             $row[] = $button;
+
+             /**end roles check**/
+
+
+           /* $row[] ='<a href="'.url('admin/faq/list/'.$faqs->category_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="View All"><i class="fa fa-eye"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete All"  onclick="DeleteFaqByCategory('.$faqs->category_id.','."'tbl_faqs'".','."'category_id'".');"><i class="fa fa-trash-o"></i></button> <a href="'.url('admin/faq/updateFaqSequence/'.$faqs->category_id.'').'" data-toggle="tooltip" title="" class="btn btn-success" data-original-title="Update Question Sequence">Update Sequence</a>';*/
+
+           /*  $row[] ='<a href="'.url('admin/faq/list/'.$faqs->category_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="View All"><i class="fa fa-eye"></i></a>';*/
             $data[] = $row;
           }
         $output = array(
@@ -158,17 +207,26 @@ class FaqsController extends Controller {
       'tbl_mstr_faq_categories.category_name')
     ->where(['tbl_faqs.category_id'=>$category_id,'tbl_faqs.is_deleted'=>0,'tbl_mstr_faq_categories.is_deleted'=>0])->orderBy('tbl_faqs.faq_id','desc')->get();
 
+     /**check assigned roles and permission for  loggedin user and restrict edit delete access**/
+      $unauthorizedRoles =$this->objRolesPermissions->getUnauthorizedRoles($_SESSION['admin_login_id'],'controller','faq');
+            
+        //create edit delete buttons if roles are assigned else not
+       
+        $getRoles['edit']=(!empty($unauthorizedRoles) && in_array('edit',$unauthorizedRoles))?1:0;
+        $getRoles['delete']=(!empty($unauthorizedRoles) && in_array('delete',$unauthorizedRoles))?1:0;
+
+
      //print_r($getAllFaq);
      $getCategoryName = !empty($getAllFaq)?$getAllFaq[0]->category_name:"";
-      return view('admin.faq.allFaqList')->with(['getAllFaq'=>$getAllFaq,'getCategoryName'=>$getCategoryName]);
+      return view('admin.faq.allFaqList')->with(['getAllFaq'=>$getAllFaq,'getCategoryName'=>$getCategoryName,'getRoles'=>$getRoles]);
     }
 
     //load edit cms page form
     public function edit($faq_id = NULL)
     { 
         
-        $getCategories = DB::table('tbl_mstr_faq_categories')->where(['is_deleted'=>0,'status'=>1,])->orderBy('sequence','asc')->get();
-        $editFaqs = DB::table('tbl_faqs')->where('faq_id', '=', $faq_id)->where(['is_deleted'=>0])->first();
+        $getCategories = DB::table('tbl_mstr_faq_categories')->where(['is_deleted'=>0,'status'=>1,])->get();
+        $editFaqs = DB::table('tbl_faqs')->where('faq_id', '=', $faq_id)->first();
         return view('admin.faq.editFaq')->with(['editFaqs'=>$editFaqs,'getCategories'=>$getCategories]); 
         
     }
@@ -177,6 +235,7 @@ class FaqsController extends Controller {
     //edit faq
     public function editFaq(FaqRequest $request)
     { 
+     
      
           if($request->input('faq_id')) {
             //edit new record
@@ -192,58 +251,12 @@ class FaqsController extends Controller {
                         'created_by'=>'1',
                         'modified_by'=>'1'
                        );
-                
-           
-                    //add sequence number
-                   $seqArr=array();
-                   $getRecordTobeEdited  = DB::table('tbl_faqs')->select('status')->where(['faq_id'=>$request->input('faq_id'),'category_id'=>$request->input('category_id')])->where('is_deleted', 0)->first();
-
-                 //  print_r($getRecordTobeEdited);die;
-
-                  //if changing status of category
-                  if( $getRecordTobeEdited->status != $request->input('status') ){
-                  
-                    if($request->input('status') == 0){
-                     
-                       /* UPDATE `tbl_mstr_faq_categories` 
-                        SET sequence = sequence - 1
-                        WHERE sequence >  1
-                        AND is_deleted = '0'*/
-
-                       $sequenceToBeUpdated  = DB::table('tbl_faq_sequence')->select('sequence')->where(['faq_id'=>$request->input('faq_id'),'category_id'=>$request->input('category_id')])->where('is_deleted', 0)->first();
-
-                        if(!empty($sequenceToBeUpdated)){
-
-                          //update sequence of left active records
-                          $updateRecord  = DB::table('tbl_faq_sequence')->where(['status'=>1,'is_deleted' =>0,'category_id'=>$request->input('category_id')])->where('sequence','>',$sequenceToBeUpdated->sequence)->update(['sequence'=>DB::raw('sequence - 1')]);
-
-                           //delete record
-                           $delete  = DB::table('tbl_faq_sequence')->where('faq_id',$request->input('faq_id'))->delete();
-
-                          
-                        }
-                   
-                   
-                    }else{
-
-                      $seq=DB::table('tbl_faq_sequence')
-                      ->select(
-                        DB::raw('(CASE WHEN MAX(sequence) IS NULL THEN 0 ELSE MAX(sequence) END) AS sequence')
-                        )->where(['is_deleted'=> 0,'status'=>1,'category_id'=>$request->input('category_id')])->first();
-
-                        $sequence =$seq->sequence+1;
-                        $result  = DB::table('tbl_faq_sequence')->insert(['category_id'=>$request->input('category_id'),'faq_id'=>$request->input('faq_id'),'sequence'=>$sequence,'created_by'=>1,'modified_by'=>1]);
-                    }
-                }
-
                 $result  = DB::table('tbl_faqs')->where('faq_id', $request->input('faq_id'))->update($data);
-                if($result){
+                if($result)
+                {
                   return redirect()->back()->withSuccess('Record has been saved successfully');
-                
-                }else{
-                  return redirect()->back()->withSuccess('You have not changed any details');
                 }
-            }else {
+            }  else {
  
               return redirect()->back()->withWarning('Question already exists');
             }
@@ -256,13 +269,6 @@ class FaqsController extends Controller {
   {
     //delete record
     $data = array('is_deleted'=>1);
-    $deletedRecordSequence  = DB::table('tbl_faq_sequence')->select('sequence','status')->where(['faq_id'=>$faq_id,'category_id'=>$category_id,])->where('is_deleted', 0)->first();
-
-    if(!empty($deletedRecordSequence) && ($deletedRecordSequence->status != 0) ){
-
-      //update sequence of left active records
-      $updateRecord  = DB::table('tbl_faq_sequence')->where(['status'=>1,'is_deleted' =>0])->where('sequence','>',$deletedRecordSequence->sequence)->update(['sequence'=>DB::raw('sequence - 1')]);
-    }
     $deleteRecord  = DB::table('tbl_faqs')->where('faq_id', $faq_id)->update($data);
       if($deleteRecord)
       {
@@ -292,13 +298,10 @@ class FaqsController extends Controller {
       //update sequence of left active records
       $updateRecord  = DB::table($_POST['table'])->where(['status'=>1,'is_deleted' =>0])->where('sequence','>',$deletedRecordSequence->sequence)->update(['sequence'=>DB::raw('sequence - 1')]);
     }
-    //delete category
+    //delete record
     $deleteRecord  = DB::table($_POST['table'])->where($_POST['dbid'], $_POST['id'])->update($data);
-
       if($deleteRecord)
       {
-       //delete faqs of category
-       $deleteFaqs  = DB::table('tbl_faqs')->where('category_id', $_POST['id'])->update($data);
           echo '{"code":"200"}';
       }
       else
@@ -310,67 +313,41 @@ class FaqsController extends Controller {
  //get FAQ categories
   public function updateFaqSequence($category_id = NULL)
   {
-    $getFaqWithSequence= DB::table('tbl_faqs')->leftJoin('tbl_faq_sequence', 'tbl_faqs.faq_id', '=', 'tbl_faq_sequence.faq_id')->select(
-      'tbl_faqs.faq_id',
-      'tbl_faqs.category_id',
-      'tbl_faqs.question',
-      'tbl_faqs.status',
-      'tbl_faq_sequence.sequence')
-    ->where(['tbl_faq_sequence.category_id'=>$category_id,'tbl_faq_sequence.is_deleted'=>0,'tbl_faq_sequence.status'=>1,'tbl_faqs.is_deleted'=>0,'tbl_faqs.status'=>1])->orderBy('tbl_faq_sequence.sequence','asc')->get();
-    //print_r($getFaqWithSequence);
+    //get categories
+    $getFaqCategories = DB::table('tbl_faqs')->where(['category_id'=>$category_id,'status'=>1,'is_deleted' =>0])->orderBy('sequence', 'asc')->get();
+
     $sequenceArr=array();
     $i=1;
-    if(!empty($getFaqWithSequence)){
-      for($i=1;$i<=count($getFaqWithSequence);$i++){
+    if(!empty($getFaqCategories)){
+      for($i=1;$i<=count($getFaqCategories);$i++){
         $sequenceArr[]=$i;
       }
     }
-    return view('admin.faq.editFaqSequence')->with(['getFaqWithSequence'=>$getFaqWithSequence,'sequenceArr'=>$sequenceArr]);
+    return view('admin.faq.editFaqSequence')->with(['getFaqCategories'=>$getFaqCategories,'sequenceArr'=>$sequenceArr]);
   }
 
 
 //Update category sequence
    public function saveFaqSequece(FaqCategorySequenceUpdate $request)
      { 
-       
-       //if sequence is defined
        if(!empty($request->input('sequence'))){
 
-           $sequenceFaqArr = $request->input('sequence');
-           $categoryId = $request->input('category_id');
+           $sequenceCatArr = $request->input('sequence');
 
-           if(   count(array_unique($sequenceFaqArr)) < count($sequenceFaqArr) )
+           if(   count(array_unique($sequenceCatArr)) < count($sequenceCatArr) )
            {
                  //  "Array have some duplicates";
-                return redirect()->back()->withWarning('Question should not have duplicate sequence');
+                return redirect()->back()->withWarning('Category should not have duplicate sequence');
            }else{ //   "Array have unique elements";
-                
-              //delete old sequence
-              $updateRecord  = DB::table('tbl_faq_sequence')->where(['status'=>1,'is_deleted' =>0])->where(['category_id'=>$categoryId])->delete();//(['is_deleted'=>1]);
-              
-               //Insert sequence of faq 
-               foreach ($sequenceFaqArr as $faqId => $sequenceVal) {
-                //sequence array with faq
-                  $data[]=array(
-                    'faq_id'=>$faqId,
-                    'category_id'=>$categoryId,
-                    'sequence'=>$sequenceVal,
-                    'status'=>1,
-                    'is_deleted'=>0,
-                    'created_by'=>1,
-                    'modified_by'=>1
+           
+              //Update sequence of category by category id
+               foreach ($sequenceCatArr as $categoryId => $sequenceVal) {
 
-                  );
+                 $updateRecord  = DB::table('tbl_faqs')->where(['status'=>1,'is_deleted' =>0])->where('category_id',$categoryId)->update(['sequence'=>$sequenceVal]);
                 
                }
 
-               //insert new sequence
-                $insertNewSequence  = DB::table('tbl_faq_sequence')->insert($data);
-                if($insertNewSequence){
-                  return redirect()->back()->withSuccess('Questions sequence has been updated successfully');
-                }else{
-                  return redirect()->back()->withSuccess('No changes has been made');
-                }
+              return redirect()->back()->withSuccess('Category sequence has been updated successfully');
 
            }   
 
