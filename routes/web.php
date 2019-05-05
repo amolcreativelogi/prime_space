@@ -383,9 +383,6 @@ Route::post('/admin/faqs/DeleteFaqCategory','Admin\FaqsCategoryController@Delete
 Route::get('/admin/faqs/updateCategorySequence', 'Admin\FaqsCategoryController@updateCategorySequence');
 Route::post('/admin/faqs/saveFaqsCategorySequece', 'Admin\FaqsCategoryController@saveFaqsCategorySequece');
 
-
-
-//Route for FAQ's
 Route::get('/admin/faq', 'Admin\FaqsController@index');
 Route::get('/admin/faq/add/{id?}', 'Admin\FaqsController@add');
 Route::post('/admin/faq/saveFaq', 'Admin\FaqsController@saveFaq');
@@ -405,3 +402,20 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/testEmailLaravel','Front\UserController@testEmailLaravel');
 Route::get('/testEmailPhp','Front\UserController@testEmailPhp');
+Route::get('/admin/faq/updateFaqSequence', 'Admin\FaqsController@updateFaqSequence');
+Route::post('/admin/faq/saveFaqSequece', 'Admin\FaqsController@saveFaqSequece');
+//Route::post('/admin/faq/list', 'Admin\FaqsController@list');
+
+//Routes for roles and permissions
+Route::get('/admin/roles/assign_roles/{id?}', 'Admin\RolesAndPermissions@assign_roles');
+Route::post('/admin/roles/saveAssignedRoles', 'Admin\RolesAndPermissions@saveAssignedRoles');
+Route::get('/admin/roles/getUnauthorizedRoles/{id?}/{use_in?}/{sub_moduele_id?}', 'Admin\RolesAndPermissions@getUnauthorizedRoles');
+//Route to get booking duration type list
+Route::get('/admin/roles','Admin\RolesAndPermissions@index');
+//Route to get booking duration type list
+Route::post('/admin/roles/getAdminRoles','Admin\RolesAndPermissions@getAdminRoles');
+
+
+
+
+

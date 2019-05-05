@@ -1,7 +1,7 @@
 @extends('front/layouts.default')
 @section('content')
 <div class="site-content">
- 
+
 <section class="blog-listing">
     <div class="container">
       <h2>Blog Listing</h2>
@@ -11,11 +11,9 @@
             @foreach($getBlogs as $blogs)
             
            <?php 
-           // $image = '<a target="_blank" href="'.url('public/assets/front-design/images/homebanner1.jpg').'"><img src="'.url('public/assets/front-design/images/homebanner1.jpg').'" width="50"></a>';
-
-           $image = '<a target="_blank" href="'.url('blogs/'.$blogs->id.'').'"><img src="'.url('public/assets/front-design/images/homebanner1.jpg').'" width="50"></a>';
+           $image = '<a target="_blank" href="'.url('public/assets/front-design/images/homebanner1.jpg').'"><img src="'.url('public/assets/front-design/images/homebanner1.jpg').'" width="50"></a>';
            if (isset($blogs->image) && file_exists(public_path() . '/images/blogs/'.$blogs->image. '')) {
-               $image = '<a target="_blank" href="'.url('blogs/'.$blogs->id.'').'"><img src="'.url('/public/images/blogs/'.$blogs->image.'').'" width="50"></a>';
+               $image = '<a target="_blank" href="'.url('/public/images/blogs/'.$blogs->image.'').'"><img src="'.url('/public/images/blogs/'.$blogs->image.'').'" width="50"></a>';
             } ?>
           <div class="col-lg-6 col-md-6 col-sm-12 blogDiv">
             <div class="blogbox">
