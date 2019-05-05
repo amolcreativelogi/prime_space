@@ -69,17 +69,20 @@
                       
                        <ul class="treeview panel">
 
-                        <?php foreach($arrRoles as $main_module => $subroles){?>
+                        <?php foreach($arrRoles as $main_module => $subroles){
+                            $main_mod_data = explode('_',$main_module);
+                          ?>
                           
                           <li class="panel-title ">
-                             <input class="<?=$main_module;?>" id="<?=$main_module;?>" type="checkbox" name="<?=$main_module?>">
-                             <label for="short" class="custom-unchecked"><b><?=$main_module?></b></label>
-                             @foreach($subroles as $sub_module =>$childroles)
+                             <input class="<?=$main_mod_data[1];?>" id="<?=$main_mod_data[0];?>" type="checkbox" name="main_role_id[]" value="<?=$main_mod_data[0];?>">
+                             <label for="short" class="custom-unchecked"><b><?=$main_mod_data[1]?></b></label>
+                             <?php foreach($subroles as $sub_module =>$childroles){ 
+                              $sub_mod_data = explode('_',$sub_module);?>
 
                                <ul class="list-group">
                                    <li class="list-group-item">
-                                       <input  type="checkbox" name="<?=$sub_module?>">
-                                       <label for="tall-1" class="custom-unchecked"><?=$sub_module?></label>
+                                       <input  type="checkbox" name="sub_role_id[]" value="<?=$sub_mod_data[0]?>">
+                                       <label for="tall-1" class="custom-unchecked"><?=$sub_mod_data[1]?></label>
                                         @foreach($childroles as $child_module =>$values)
                                         
                                           <ul>
@@ -92,7 +95,7 @@
                                         @endforeach
                                    </li>
                                </ul>
-                             @endforeach
+                             <?php }?>
                           </li>
                         <?php }?>
 
@@ -141,42 +144,7 @@
 </div>
 <script type="text/javascript">
 
- 
-
-  /*function checkMainParent(class_name){
-    //alert(class_name);
-    if(class_name != 'undefined' && class_name != ''){
-    var parentId= $('.'+class_name).attr("id");
-    var atLeastOneIsChecked = $('input[id="'+parentId+'"]:checked').length;
-   
-      if(atLeastOneIsChecked == 1){
-         //check
-         $('.'+class_name).attr("checked", "true");
-      }else{
-        //uncheck
-        $('.'+class_name).each(function() { $(this).prop('checked', false) });
-      }
-    }
-  }
-
-   function checkSubParent(subModuleId){
-    alert(subModuleId);
-    if(subModuleId != 'undefined' && subModuleId != ''){
-    var class_name= $('#'+subModuleId).attr("class");
-    alert(class_name);
-    var atLeastOneIsChecked = $('input[id="'+subModuleId+'"]:checked').length;
-    alert(atLeastOneIsChecked);
-      if(atLeastOneIsChecked == 1){
-         //check
-         $('.'+class_name).attr("checked", "true");
-         //$('.'+class_name).each(function() { $(this).prop('checked', true) });
-      }else{
-        //uncheck
-        $('.'+class_name).each(function() { $(this).prop('checked', false) });
-      }
-    }
-  }*/
-
+ //check and uncheck checkboxes
   $(function () {
     $("input[type='checkbox']").change(function () {
         $(this).siblings('ul')
@@ -184,22 +152,6 @@
             .prop('checked', this.checked);
     });
 });
-
-  jQuery(function() {
-  function gottaCheckEmAll() {
-    console.log(this);
-    var checkboxUnchecked = $(this).closest('ul').find('li :not(input:checked)').length;
-    var mainCheckbox = $(this).closest('.panel-default').find('.panel-title input[type=checkbox]');
-    mainCheckbox[0].checked = !checkboxUnchecked;
-  }
-
-  gottaCheckEmAll.call($('.list-group-item input[type=checkbox]').on('click', gottaCheckEmAll)[0]);
- /* $('input[value="Accessories"]').on('click', function() {
-    var checked = this.checked; console.log(checked);
-    $(this).closest('.panel').find('.list-group-item input').each(function(i, el) { el.checked = checked});
-  })*/
-});
-  
 
 </script>
 @stop

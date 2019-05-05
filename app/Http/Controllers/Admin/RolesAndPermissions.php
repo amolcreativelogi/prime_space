@@ -19,7 +19,7 @@ class RolesAndPermissions extends Controller
     	$admin_types_list= DB::table('tbl_admin_types')->select('admin_type_id','admin_type')->where(['is_deleted'=>0,'status'=>1])->where('admin_type_id','!=','1')->get();
     	//get all roles
     	$roles = DB::table('tbl_main_roles as mroles')->
-	    select('mroles.action_name as mainaction','sroles.action_name as subaction','croles.action_name as childaction','mroles.main_module_name','sroles.sub_module_name','croles.child_module_name','croles.child_role_id','croles.route_url')->
+	    select('mroles.main_role_id','sroles.sub_role_id','mroles.action_name as mainaction','sroles.action_name as subaction','croles.action_name as childaction','mroles.main_module_name','sroles.sub_module_name','croles.child_module_name','croles.child_role_id','croles.route_url')->
 	    join('tbl_sub_roles AS sroles', 'sroles.main_role_id', '=', 'mroles.main_role_id')->
 	    join('tbl_child_roles AS croles', 'croles.sub_role_id', '=', 'sroles.sub_role_id')->
 	    get();
@@ -38,14 +38,13 @@ class RolesAndPermissions extends Controller
 
 	    foreach ($roles as $key => $value) {
 
-	    	$arrRoles[$value->main_module_name][$value->sub_module_name][]=
+	    	$arrRoles[$value->main_role_id.'_'.$value->main_module_name][$value->sub_role_id.'_'.$value->sub_module_name][]=
 	    	array('role_id'=>$value->child_role_id,'action'=>$value->childaction,'route_url'=>$value->route_url,'child_module_name'=>$value->child_module_name
 
 	    	);
 	    	# code...
 	    }
-	   //  print_r($arrRoles);
-
+	    
     	return view('admin.roles_permissions.assignRoles')->with(['admin_types_list'=>$admin_types_list,'arrRoles'=>$arrRoles,'editRoles'=>$editRoles]);
     }
 
@@ -73,6 +72,9 @@ class RolesAndPermissions extends Controller
 	    		if(!empty($request->input('role_id'))){
 
 	    			$data['role_id']=implode(',', $request->input('role_id'));
+	    			//$data['main_role_id']=implode(',', $request->input('main_role_id'));
+	    			//$data['sub_role_id']=implode(',', $request->input('sub_role_id'));
+	    			
 	    		}
 
 	    		if(!empty($data)){

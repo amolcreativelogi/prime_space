@@ -188,7 +188,7 @@ function DeleteRecordWithChild(id,parentTable,tbid,isDeleteChild,childTable)
       <li><a href="{{ URL::asset('admin/blogs')}}/">Manage Blogs</a></li>
    </ul>
 </li>
-<li faq="faq"><a class="parent" ><i class="fa fa-shopping-cart fa-fw"></i> <span>FAQ</span></a>
+<li id="faq"><a class="parent" ><i class="fa fa-shopping-cart fa-fw"></i> <span>FAQ</span></a>
    <ul class="collapse">
       <li><a href="{{ URL::asset('admin/faqs/categories')}}/">Manage FAQ Categories</a></li>
       <li><a href="{{ URL::asset('admin/faq/')}}/">Manage FAQ's</a></li>
