@@ -50,6 +50,8 @@
             </div>
             <div class="row">
               <div class="col-lg-8 col-md-8 col-sm-12 pc-left">
+
+
                <!--  <h3>Great industrial lot</h3> -->
                <h3><?php echo !isset($getPropertyDetails->name)?'':$getPropertyDetails->name;?></h3>
                <!--  <h4>60 Beard St, Brooklyn, NY</h4> -->
@@ -292,16 +294,26 @@
                        ?>
                       <tr>
                         <td><?php echo $dta->days; ?></td>
-                        <td><?php echo $dta->start_time; ?></td>
-                        <td><?php echo $dta->end_time; ?></td>
-                        <td><?php echo ($dta->status == 0) ? 'Closed' : ''; ?></td>
+                        <?php echo ($dta->start_time != '00:00:01') ? '<td>'.$dta->start_time.'</td>' : ''; ?>
+                        <?php echo ($dta->end_time != '23:59:00') ? '<td>'.$dta->end_time.'</td>' : ''; ?>
+                         <td style="display: none;"></td>
+                        <td> - <?php echo ($dta->status == 0) ? 'Closed' : 'Open'; ?></td>
+
                       </tr>
                     <?php } ?>
                     </tbody>
                   </table>
                 </div>
                 <hr>
-                <a href="" class="cont-host">contact host</a><br/>
+                <?php 
+               // echo  $_SESSION['user']['user_type_permission'];
+                if(isset($_SESSION['user'])) {
+                if($_SESSION['user']['user_type_permission'] == 'customer') { ?>
+                <a href="<?php echo URL::to('messages?property_id='.$getPropertyDetails->property_id.'') ?>" class="cont-host"> contact host</a>
+                <?php }  } else { ?>
+                <a href="#>" data-toggle="modal"  class=" loginModal cont-host"> contact host</a>
+                <?php } ?>
+                <br/>
                 <!-- <a href='<?php //echo URL('/') ?>/bookNow?moduleid=<?php //echo Request::get("module_id")."&propertyid=".$searchProp->property_id."&car_type_id=".$searchProp->car_type_id."&duration_type_id=".$searchProp->duration_type_id."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="cont-host">Book now</a> -->
                  <hr>
               </div><!-- pc-right -->

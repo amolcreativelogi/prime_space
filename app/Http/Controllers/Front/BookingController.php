@@ -288,6 +288,7 @@ class BookingController extends Controller
 
       $durationtype = request()->durationtype;
       $car_type_req = request()->car_type_id;
+      $location_type_id = request()->location_type_id;
 
       //end of request parameters
 
@@ -317,8 +318,12 @@ class BookingController extends Controller
       //get property
       $data['getPropertyType'] =  DB::table('prk_add_property_floors')->select('parking_type','floor_name','total_parking_spots')->leftJoin('prk_parking_type', 'prk_add_property_floors.parking_type_id', '=', 'prk_parking_type.parking_type_id')->where('prk_add_property_floors.property_id', '=', $property_id)->first();
 
+       $data['getLocationType'] =  DB::table('tbl_mstr_location_type')->select('location_type')->where('location_type_id', '=', $location_type_id)->first();
+
+
       //get car details
       $data['getCarProperty'] =  DB::table('prk_add_property_rent')->select('duration_type','car_type','rent_amount', 'prk_car_type.car_type_id')->leftJoin('tbl_mstr_booking_duration_type', 'prk_add_property_rent.duration_type_id', '=', 'tbl_mstr_booking_duration_type.duration_type_id')->leftJoin('prk_car_type', 'prk_add_property_rent.car_type_id', '=', 'prk_car_type.car_type_id')->where('prk_add_property_rent.property_id', '=', $property_id)->where('prk_car_type.car_type_id', '=', $car_type_req)->where('duration_type', '=', strtolower($durationtype))->first();
+
 
       if(isset($_SESSION['user']['is_user_login'])) {
       $userId = ($_SESSION['user']['user_id']);

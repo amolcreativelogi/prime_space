@@ -7,20 +7,17 @@ include_once('php/chat_realtime.php');
 $chat = new Chat_realtime($name, $host, $username, $password, $imageDir);
 		
 $data = array();
-
-
-
+$base_url = "http://" . $_SERVER['SERVER_NAME'].'/public/images/user-profile/';
 
 if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST"){
 	if(!empty($_POST['data'])){
 		
 		if($_POST['data'] == 'cek'){
-
-			if(isset($_SESSION['user']['firstname']) && isset($_SESSION['user']['profile_pic'])){
+			if(isset($_SESSION['user']['user_id'])){
 
 				$data['status'] = 'success';
-				$data['user'] 	= $_SESSION['user']['firstname'];
-				$data['avatar'] =  $_SESSION['user']['profile_pic'];
+				$data['user'] 	= $_SESSION['user']['user_id'];
+				$data['avatar'] =  $base_url.$_SESSION['user']['profile_pic'];
 			}else{
 				$data['status'] = 'error';
 			}
@@ -31,10 +28,15 @@ if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST"){
 			}
 		}else if($_POST['data'] == 'message'){
 			if(!empty($_POST['ke']) && !empty($_POST['tipe'])){
-				$data = $chat->get_message($_POST['tipe'], $_POST['ke'], $_SESSION['user']['user_id']);
+				//$data = $chat->get_message($_POST['tipe'], $_POST['ke'], $_SESSION['user']['user_id']);
+				$data = $chat->get_message('users', $_POST['ke'], $_SESSION['user']['user_id']);
 			}			
 		}else if($_POST['data'] == 'user'){
-			$data = $chat->get_user($_SESSION['user']['firstname']);
+			if($_SESSION['user']['user_type_permission'] == 'host') {
+			$data = $chat->get_user_for_host($_SESSION['user']['user_id']);
+			} else {
+			$data = $chat->get_user($_SESSION['user']['user_id'],$_POST['property_id']);	
+			} 
 		}else if($_POST['data'] == 'send'){
 			if(isset($_SESSION['user']['user_id']) && !empty($_POST['ke']) && !empty($_POST['date']) && !empty($_POST['avatar']) && !empty($_POST['tipe']) && isset($_POST['message']) && isset($_POST['images'])){
 				$images = json_decode($_POST['images']);
@@ -70,6 +72,9 @@ if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST"){
 }else{
 	$data["aa"] = "bb";
 }
+
+
+
 		
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');

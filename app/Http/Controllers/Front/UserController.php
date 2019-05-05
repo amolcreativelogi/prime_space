@@ -23,7 +23,8 @@ class UserController extends Controller
     
     public function testEmailLaravel()
     {
-         echo Mail::to('amolkharate.wwg@gmail.com')->send(new EmailConfirmation);
+    	 $data = array('name'=>'amol kharate','body'=>'Test Email');
+         echo Mail::to('amolkharate.wwg@gmail.com')->send(new EmailConfirmation,$data);
          exit;
     }
 
@@ -65,6 +66,7 @@ class UserController extends Controller
 	    					'email_id'=>$request->input('email_id'),
 	    					'password'=>md5($request->input('password')),
 	    					'user_type_id'=>$request->input('user_type_id'),
+	    					'profile_pic' => 'user-default-image.png',
 	    					'dob'=>$dob,
 	    					'default_user_type'=>$request->input('user_type_id'),
 	    					'status'=>($request->input('user_type_id') == 2) ? 1 : 1,
@@ -75,10 +77,18 @@ class UserController extends Controller
 			    $result  = DB::table('prk_user_registrations')->insert($data);
 				if($result){
 
-					Mail::to($request->input('email_id'))->send(new EmailConfirmation);
+
+		// 			$data = array('name'=>'amol kharate','body'=>'Test Email');
+		// echo  \Mail::send('emails.mail', $data, function ($m){
+  //           $m->from('info@prymestory.com', 'Pryme Story');
+  //           $m->to('amolkharate.wwg@gmail.com', 'Amol')->subject('you have successfully registered with prymestory.com');
+  //       });
+
+					Mail::to($request->input('
+						'))->send(new EmailConfirmation);
 					$data = array('status' => true,
 								  'response' => array('msg' =>'Registered Successfully.'),'url' => '');
-
+ 
 					// if($request->input('user_type_id') == 2)
 					// {
 					// 		$data = array('status' => true,

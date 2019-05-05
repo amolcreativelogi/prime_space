@@ -278,9 +278,9 @@
     </div>
     <div class="foot-btm">
       <ul>
-        <li><a href="<?php echo URL::to('refundPolicy'); ?>">Cancellation and Refund Policy</a></li>
-        <li><a href="">Terms</a></li>
-        <li><a href="">Privacy Statement</a></li>
+        <li><a href="<?php echo URL::to('pages/cancellation-and-refund-policy'); ?>">Cancellation and Refund Policy</a></li>
+        <li><a href="<?php echo URL::to('pages/terms'); ?>">Terms</a></li>
+        <li><a href="<?php echo URL::to('pages/privacy-statement'); ?>">Privacy Statement</a></li>
       </ul>
       <div class="copyright">© 2019 Pryme Space, Inc.</div>
       <ul class="foot-social">

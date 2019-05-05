@@ -104,7 +104,7 @@ class SearchPropertyController extends Controller
           $carTypeWhere="";
           $carTypeSelect="";
           //if(!empty($car_type_id)){
-            $carTypeSelect=",propRent.rent_amount, propRent.car_type_id,propRent.duration_type_id";
+            $carTypeSelect=",propRent.rent_amount, propRent.car_type_id,propRent.duration_type_id,location_type_id";
             $carTypeJoin =" LEFT JOIN  ".$tbl_prefix."add_property_rent  as propRent
           ON propRent.property_id = addProperty.property_id ";
 
@@ -237,6 +237,7 @@ class SearchPropertyController extends Controller
         ->where('tbl_mstr_amenities_with_category.status', '=', 1)
         ->get();
 
+     
         return view('front.pages.all_property')->with(
           ['getModuleCategories'=>$getModuleCategories,'searchArr'=>$searchArr,'searchResult'=>$searchResult,'no_of_prop'=>$no_of_prop,'getCarType'=>$getCarType,'getlandType'=>$getlandType,'getLocationType'=>$getLocationType,"getAmenities"=>$getAmenities]
         );

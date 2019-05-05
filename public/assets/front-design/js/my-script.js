@@ -109,7 +109,7 @@ function lkForms(ID){
 				$('#'+ID+ ' .msg-gloabal').html(data.response.msg);
 				//loaderOut({status:0,msg:data.response.msg,url:data.url});
 			}else{
-				if(ID == 'form-signup')
+				if(ID == 'form-signup') 
 				{	
 					$('.loginModal').trigger('click');
 					$('#form-login .msg-gloabalsuccess').addClass('alert alert-success');
@@ -124,7 +124,8 @@ function lkForms(ID){
 				$('#'+ID)[0].reset();
 				if(data.url != '')
 				{
-					window.location = data.url;
+					location.reload();
+					//window.location = data.url;
 				}
 			}
 			

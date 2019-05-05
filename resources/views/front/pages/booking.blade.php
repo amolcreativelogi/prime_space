@@ -41,7 +41,7 @@
 <!-- <option>Convertibl </option>-->
 <!--</select>-->
 <label>Car Type : <strong><?php echo $getCarProperty->car_type;?></strong></label><br>
-<label>Location Type : <strong>Covered</strong></label>
+<?php echo (isset($getLocationType)) ? '<label>Location Type : <strong>'.$getLocationType->location_type.'</strong></label>' : '';?>
 <!--<select class="filter-select">-->
 <!-- <option>Location Type</option>-->
 <!-- <option>Covered </option>-->
@@ -52,13 +52,13 @@
 <div class="col-sm-6">
 <div class="form-group date-group">
 <label>From</label>
-<div class="date"><?php echo $fromdate; ?></div>
+<div class="date"><?php echo $fromdate; ?> <?php echo ($_GET['durationtype'] == 'hourly') ? $_GET['fromtime'] : '' ?> </div>
 </div>
 </div>
 <div class="col-sm-6">
 <div class="form-group date-group">
 <label>To</label>
-<div class="date"><?php echo $todate;?></div>
+<div class="date"><?php echo $todate;?> <?php echo ($_GET['durationtype'] == 'hourly') ? $_GET['totime'] : '' ?></div>
 </div>
 </div>
 </div>
@@ -179,10 +179,15 @@
 <div class="total-order">ORDER TOTAL <span>$<?php echo $finalprice;?></span></div>
 <div class="book-box">
 <div class="book-add"><?php echo !isset($getPropertyDetails->location)?'':$getPropertyDetails->location;?></div>
+
+<?php if(isset($getPropImages->name)) { ?>
 <div class="book-img"><img src="<?php echo url('/public/images/properties/'.$getPropImages->name)?>" alt=""></div>
+<?php } ?>
 <div class="book-amenties">
 <ul>
-<?php foreach($getPropAmenities as $amenities) {
+<?php 
+if(isset($getPropAmenities)) {
+foreach($getPropAmenities as $amenities) {
 if (isset($amenities->amenity_image) && file_exists(public_path() . '/images/amenity/' . $amenities->amenity_image. '')) {
 $image = '<img src="'.url('/public/images/amenity/'.$amenities->amenity_image.'').'" width="100">';
 } else {
@@ -190,7 +195,7 @@ $image = 'No Image';
 }
 ?>
 <li><?php echo $image; ?><span><?php echo $amenities->amenity_name; ?> </span></li>
-<?php } ?>
+<?php } } ?>
 </ul>
 </div>
 </div>

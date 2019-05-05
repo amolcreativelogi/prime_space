@@ -7,7 +7,7 @@
 <section class="single-blog">
     <div class="container">
       <h2><?php echo empty($getBlogPageData->title)?'':$getBlogPageData->title; ?></h2>
-      <div class="blogdate"><?php echo empty($getBlogPageData->created)?'':date('M, d, Y',strtotime($getBlogPageData->created)) ?> </div>
+      <div class="blogdate"><?php echo empty($getBlogPageData->created)?'':date('d, M, Y',strtotime($getBlogPageData->created)) ?> </div>
 
       <?php  $image = '<a target="_blank" href="'.url('public/assets/front-design/images/homebanner1.jpg').'"><img src="'.url('public/assets/front-design/images/homebanner1.jpg').'" width="50"></a>';
       

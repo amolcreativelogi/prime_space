@@ -14,17 +14,13 @@
 		<div class="container" id="chat-realtime">
 		
 			<div class="card-container" id="login">
-				<img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
-				<p id="profile-name" class="profile-name-card"></p>
-				<form class="form-signin" action="#">
-					<input type="text" id="username" class="form-control" placeholder="Username" autofocus>
-					<input type="text" id="avatar" class="form-control" placeholder="Avatar" value="https://avatars3.githubusercontent.com/u/4948333">
-					<button id="btnLogin" class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
-				</form><!-- /form -->
-				<div id="ref"></div>
+				
 			</div><!-- /card-container -->
+
+			
 		
 			<div class="row app-one">
+				<input type="hidden" value="<?php echo $_GET['property_id']; ?>" id="property_id"> 
 					<div class="col-sm-4 side">
 						<div class="side-one">
 							<div class="row heading">
@@ -33,9 +29,9 @@
 										<img class="me" src="image/user.jpg">
 									</div>
 								</div>
-								<div class="col-sm-2 col-xs-2  heading-logout  pull-right">
+								<!-- <div class="col-sm-2 col-xs-2  heading-logout  pull-right">
 									<i class="fa fa-sign-out fa-2x  pull-right" aria-hidden="true"></i>
-								</div>
+								</div> -->
 								<div class="col-sm-2 col-xs-2 heading-compose  pull-right">
 									<i class="fa fa-comments fa-2x  pull-right" aria-hidden="true"></i>
 								</div>
@@ -90,8 +86,9 @@
 								</div>
 							</div>
 							<div class="col-sm-6 col-xs-4 heading-name">
-								<p id="heading-name-meta">John Doe</p>
-								<span id="heading-online">Online</span>
+								<p id="heading-name-meta-title"></p>
+								<p id="heading-name-meta" style="display: none;">John Doe</p>
+								<!-- <span id="heading-online">Online</span> -->
 							</div>
 						</div>
 						<div class="row message" id="conversation">
@@ -123,7 +120,7 @@
 								</label>	
 							</div>
 							<div class="col-sm-10 col-xs-10 reply-main">
-								<textarea class="form-control" data-emojiable="true" rows="1" id="comment"></textarea>
+								<textarea class="form-control" data-emojiable="true" rows="15" style="height: 1200px;" id="comment"></textarea>
 							</div>
 							<div class="col-sm-1 col-xs-1 reply-send" id="send">
 								<i class="fa fa-send fa-2x pull-right" aria-hidden="true"></i>
@@ -150,3 +147,10 @@
 		<script type="text/javascript" src="js/chat_realtime.js"></script>
 	</body>
 </html>
+
+<script>
+<?php if($_GET['property_id'] != '') { ?>
+$('.heading-compose').trigger('click');
+ setTimeout(function(){ $('.side-two .sideBar-body').click()}, 100);
+<?php } ?>
+</script>

@@ -18,7 +18,7 @@
 </style>
 <section class="chatroom dl-content">
 <div class="resp-container">
-    <iframe class="resp-iframe" src="{{ URL::asset('public') }}/chat/" gesture="media"  allow="encrypted-media" allowfullscreen></iframe>
+    <iframe class="resp-iframe" src="{{ URL::asset('public') }}/chat?property_id=<?php echo (isset($_GET['property_id'])) ? $_GET['property_id'] : ''; ?>" gesture="media"  allow="encrypted-media" allowfullscreen></iframe>
 </div>
 </section>
 

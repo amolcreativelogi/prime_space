@@ -24,12 +24,13 @@ function ajax(method, send, callback) {
     }
 }
 
+var property_id = $('#property_id').val();
+
 // login
 var userlogin;
 
 ajax("POST", "data=cek", function(res) {
     var a = JSON.parse(res);
-
     if (a.status == 'success') {
         var x = new Date(),
             b = x.getDate(),
@@ -52,7 +53,7 @@ ajax("POST", "data=cek", function(res) {
         userRef.push(h);
         userlogin = a.user;
         document.getElementById("heading-name-meta").innerHTML = "Public";
-        document.getElementById("heading-online").innerHTML = "rooms";
+        //document.getElementById("heading-online").innerHTML = "rooms";
         chat_realtime(userRef, messageRef, apis, a.user, a.avatar, imageDir)
     } else {
         document.getElementsByClassName('app-one')[0].style.display = "none";
@@ -61,9 +62,9 @@ ajax("POST", "data=cek", function(res) {
 });
 
 // user login
-document.getElementsByClassName("form-signin")[0].onsubmit = function() {
-    loginFunction()
-};
+// document.getElementsByClassName("form-signin")[0].onsubmit = function() {
+//     loginFunction()
+// };
 
 function loginFunction() {
     document.getElementById("ref").innerHTML = "<center>Wait...</center>";
@@ -99,21 +100,25 @@ function loginFunction() {
 }
 
 // user logout
-document.getElementsByClassName("heading-logout")[0].addEventListener("click", function() {
-    ajax("POST", "data=logout", function(res) {
-        var a = JSON.parse(res);
-        if (a.status == 'success') {
-            var b = {
-                name: userlogin,
-                tipe: 'logout'
-            };
-            userRef.push(b);
-            setTimeout(function() {
-                window.location.href = "http://kabbdg.website/";
-            }, 1500);
-        }
-    });
-});
+// document.getElementsByClassName("heading-logout")[0].addEventListener("click", function() {
+//     ajax("POST", "data=logout", function(res) {
+//         var a = JSON.parse(res);
+//         if (a.status == 'success') {
+//             var b = {
+//                 name: userlogin,
+//                 tipe: 'logout'
+//             };
+//             userRef.push(b);
+//             setTimeout(function() {
+//                 window.location.href = "http://kabbdg.website/";
+//             }, 1500);
+//         }
+//     });
+// });
+
+
+
+
 
 document.getElementsByClassName("heading-compose")[0].addEventListener("click", function() {
     document.getElementsByClassName('side-two')[0].style.left = "0";
@@ -286,7 +291,7 @@ var chat_realtime = function(j, k, l, m, n, imageDir) {
         $.ajax({
             url: l,
             type: "post",
-            data: 'data=user',
+            data: 'data=user&property_id=' + property_id + '',
             crossDomain: true,
             dataType: 'json',
             success: function(a) {
@@ -312,10 +317,11 @@ var chat_realtime = function(j, k, l, m, n, imageDir) {
         })
     }
 
-    function headingHTML(avatar, name, status) {
+    function headingHTML(avatar, name, status, hn) {
         document.getElementsByClassName('you')[0].src = avatar;
         document.getElementById('heading-name-meta').innerHTML = name;
-        document.getElementById('heading-online').innerHTML = status;
+         document.getElementById('heading-name-meta-title').innerHTML = hn;
+       // document.getElementById('heading-online').innerHTML = 'online';
     }
 
     function messageHTML(a, bottom) {
@@ -387,9 +393,9 @@ var chat_realtime = function(j, k, l, m, n, imageDir) {
     }
 
     function sideOneHTML(a) {
-      
+        console.log(a);
         var b = "";
-        b += '<div class="row sideBar-body" data-tipe="users" data-login="' + a.date + '" data-avatar="' + a.avatar + '" data-status="online" id="' + a.name + '">';
+        b += '<div class="row sideBar-body test1"  data-title='+a.firstname+' data-tipe="users" data-login="' + a.date + '" data-avatar="' + a.avatar + '" data-status="online" id="' + a.name + '">';
         b += '	<div class="col-sm-3 col-xs-3 sideBar-avatar">';
         b += '  	<div class="avatar-icon">';
         b += '			<span class="contact-status ' + (a.status == 'online' ? 'on' : 'off') + '"></span>';
@@ -399,10 +405,10 @@ var chat_realtime = function(j, k, l, m, n, imageDir) {
         b += '	<div class="col-sm-9 col-xs-9 sideBar-main">';
         b += '  	<div class="row">';
         b += '			<div class="col-sm-8 col-xs-8 sideBar-name">';
-        b += '	  			<span class="name-meta">' + a.name + '</span>';
+        b += '	  			<span class="name-meta">' + a.firstname + '</span>';
         b += '			</div>';
         b += '			<div class="col-sm-4 col-xs-4 pull-right sideBar-time">';
-        b += '	 			<span class="time-meta pull-right">' + timeToWords(a.date) + '</span>';
+       // b += '	 			<span class="time-meta pull-right">' + timeToWords('2019-08-30 10:00:10') + '</span>';
         b += '			</div>';
         b += '			<div class="col-sm-12 sideBar-message">';
         if (a.selektor != undefined) {
@@ -416,13 +422,13 @@ var chat_realtime = function(j, k, l, m, n, imageDir) {
         b += '  	</div>';
         b += '	</div>';
         b += '</div>';
+
         $('.side-one .sideBar').prepend(b);
     }
 
     function sideTwoHTML(a) {
-        
         var b = "";
-        b += '<div class="row sideBar-body" data-tipe="users" data-login="' + a.login + '" data-avatar="' + a.avatar + '" data-status="' + (a.status == 'online' ? 'online' : 'offline') + '" id="' + a.name + '">';
+        b += '<div class="row sideBar-body test"   data-title='+a.firstname+' data-tipe="users" data-login="' + a.login + '" data-avatar="' + a.avatar + '" data-status="' + (a.status == 'online' ? 'online' : 'offline') + '" id="' + a.name + '">';
         b += '<div class="col-sm-3 col-xs-3 sideBar-avatar">';
         b += '  <div class="avatar-icon">';
         b += '	<span class="contact-status ' + (a.status == 'online' ? 'on' : 'off') + '"></span>';
@@ -432,10 +438,10 @@ var chat_realtime = function(j, k, l, m, n, imageDir) {
         b += '<div class="col-sm-9 col-xs-9 sideBar-main">';
         b += '  <div class="row">';
         b += '	<div class="col-sm-8 col-xs-8 sideBar-name">';
-        b += '	  <span class="name-meta">' + a.name + '</span>';
+        b += '	  <span class="name-meta">' + a.firstname + '</span>';
         b += '	</div>';
         b += '	<div class="col-sm-4 col-xs-4 pull-right sideBar-time">';
-        b += '	  <span class="time-meta pull-right">' + timeToWords('2019-08-30 10:00:10') + '</span>';
+        //b += '	  <span class="time-meta pull-right">' + timeToWords('2019-08-30 10:00:10') + '</span>';
         b += '	</div>';
         b += '  </div>';
         b += '</div>';
@@ -704,21 +710,24 @@ var chat_realtime = function(j, k, l, m, n, imageDir) {
 
             });
         } else {
-            alert('Please fill atlease message!')
+            alert('Not able to send blank message')
         }
     });
 
     $('body').on('click', '.side-one .sideBar-body', function() {
+
         var a = $(this).attr('id'),
             tipe = $(this).data('tipe'),
             av = $(this).data('avatar'),
-            st = $(this).data('status');
+            st = $(this).data('status'),
+            hn = $(this).attr('data-title');
+
         $('.side-one .sideBar-body').removeClass("active");
         $(this).addClass("active");
         $('.side-one #' + a + ' .inbox-count').remove();
         uKe = a;
         uTipe = tipe;
-        headingHTML(av, a, st);
+        headingHTML(av, a, st, hn);
         chatMysql(tipe, a, function(a) {
             messages = a;
             no = 0;
@@ -763,16 +772,20 @@ var chat_realtime = function(j, k, l, m, n, imageDir) {
         return false
     });
 
+
+    setTimeout(function(){ $('.side-two .sideBar-body').click()}, 100);
+
     $('body').on('click', '.side-two .sideBar-body', function() {
         messages = [];
         var a = $(this).attr('id'),
             tipe = $(this).data('tipe'),
             av = $(this).data('avatar'),
             st = $(this).data('status'),
-            lg = $(this).data('login');
+            lg = $(this).data('login'),
+            hn = $(this).attr('data-title');
         uKe = a;
         uTipe = tipe;
-        headingHTML(av, a, st);
+        headingHTML(av, a, st, hn);
         if ($('.side-one #' + a).length) {
             chatMysql(tipe, a, function(a) {
                 messages = a;
@@ -800,9 +813,11 @@ var chat_realtime = function(j, k, l, m, n, imageDir) {
                 status: st,
                 name: a,
                 date: lg,
-                avatar: av
+                avatar: av,
+                firstname: hn
             };
             chatUser.push(newUser);
+            console.log(newUser);
             sideOneHTML(newUser);
         }
         $('.side-one .sideBar-body').removeClass("active");
@@ -822,8 +837,8 @@ var chat_realtime = function(j, k, l, m, n, imageDir) {
         return false
     });
 
-    $('body').on('click', '.message-username', function() {
 
+    $('body').on('click', '.message-username', function() {
         messages = [];
         var a = $(this).html(),
             tipe = $("body .side-two #" + a).data('tipe'),
@@ -973,7 +988,7 @@ var chat_realtime = function(j, k, l, m, n, imageDir) {
             } else {
                 $("body .side-one .sideBar-body").hide();
                 $("body .side-one .sideBar-body").each(function(i, a) {
-                    var key = $("body .side-one .sideBar-body").eq(i).attr('id');
+                    var key = $("body .side-one .sideBar-body").eq(i).attr('data-title');
                     var reg = new RegExp(document.getElementById("searchText").value, 'ig');
                     var res = key.match(reg);
                     if (res) {
@@ -992,7 +1007,7 @@ var chat_realtime = function(j, k, l, m, n, imageDir) {
             } else {
                 $("body .side-two .sideBar-body").hide();
                 $("body .side-two .sideBar-body").each(function(i, a) {
-                    var key = $("body .side-two .sideBar-body").eq(i).attr('id');
+                    var key = $("body .side-two .sideBar-body").eq(i).attr('data-title');
                     var reg = new RegExp(document.getElementById("composeText").value, 'ig');
                     var res = key.match(reg);
                     if (res) {
@@ -1040,3 +1055,4 @@ var chat_realtime = function(j, k, l, m, n, imageDir) {
     document.getElementById('fileinput').addEventListener('change', readMultipleImg, false);
 
 }
+
