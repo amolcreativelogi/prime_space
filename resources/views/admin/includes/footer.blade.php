@@ -22,10 +22,14 @@
 		        }
 		     
 	       });
-	      //hide not assigned left main menu
+	      if(json.notAssignedMenus != ''){
+	      	//hide not assigned left main menu
 	       $.each(json.notAssignedMenus, function(index,value) {
 		      $('li[id="'+value['main_module_key']+'"]').remove();
 	       });
+	       //$('li[id="dashboard"]').remove();
+	      }
+	      
     	}
     }); 
 

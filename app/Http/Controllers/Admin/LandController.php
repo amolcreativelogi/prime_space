@@ -78,14 +78,18 @@ class LandController extends Controller
 
 	          /**check assigned roles and permission for  loggedin user and restrict edit delete access**/
 	           $unauthorizedRoles =$this->objRolesPermissions->getUnauthorizedRoles($_SESSION['admin_login_id'],'controller','land_list');
+
+
+
          		
 	          //create edit delete buttons if roles are assigned else not
+	        if(!empty($unauthorizedRoles)){
          	  $viewButton="";
 	          $deleteButton="";
 	         // if(isset($unauthorizedRoles) && in_array('edit',$unauthorizedRoles)){
 	          $viewButton ='<a href="'.url('admin/addCarType/'.$pList->property_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-eye"></i></a>  ';
 	         // }
-	            if(!empty($unauthorizedRoles) && in_array('delete',$unauthorizedRoles)){ 
+	            if(in_array('delete',$unauthorizedRoles)){ 
 	           $deleteButton ='<button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$pList->property_id.','."'prk_add_property'".','."'property_id'".');"><i class="fa fa-trash-o"></i></button>';
 	           }
 
@@ -97,6 +101,11 @@ class LandController extends Controller
 	           }
 
 	           $row[] = $button;
+
+	          }else{
+
+	          	$row[] ='<a href="'.url('admin/addCarType/'.$pList->property_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-eye"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$pList->property_id.','."'prk_add_property'".','."'property_id'".');"><i class="fa fa-trash-o"></i></button>';
+	          }
 
 	           /**end roles check**/
 
@@ -218,23 +227,28 @@ class LandController extends Controller
 	           $unauthorizedRoles =$this->objRolesPermissions->getUnauthorizedRoles($_SESSION['admin_login_id'],'controller','land_type');
          		
 	          //create edit delete buttons if roles are assigned else not
-         	  $editButton="";
-	          $deleteButton="";
-	          if(!empty($unauthorizedRoles) && in_array('edit',$unauthorizedRoles)){
-	          $editButton ='<a href="'.url('admin/addLandType/'.$landTypes->land_type_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  ';
-	          }
-	            if(!empty($unauthorizedRoles) && in_array('delete',$unauthorizedRoles)){ 
-	           $deleteButton ='<button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$landTypes->land_type_id.','."'lnd_land_type'".','."'land_type_id'".');"><i class="fa fa-trash-o"></i></button>';
-	           }
+	          if(!empty($unauthorizedRoles)){
+	         	  $editButton="";
+		          $deleteButton="";
+		          if(in_array('edit',$unauthorizedRoles)){
+		          $editButton ='<a href="'.url('admin/addLandType/'.$landTypes->land_type_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  ';
+		          }
+		            if(in_array('delete',$unauthorizedRoles)){ 
+		           $deleteButton ='<button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$landTypes->land_type_id.','."'lnd_land_type'".','."'land_type_id'".');"><i class="fa fa-trash-o"></i></button>';
+		           }
 
-	           if( !empty($editButton) || !empty($deleteButton)){
+		           if( !empty($editButton) || !empty($deleteButton)){
 
-	           		$button = $editButton.$deleteButton;
-	           }else{
-	           	    $button = '-';
-	           }
+		           		$button = $editButton.$deleteButton;
+		           }else{
+		           	    $button = '-';
+		           }
 
-	           $row[] = $button;
+		           $row[] = $button;
+		         }else{
+
+		         	$row[] ='<a href="'.url('admin/addLandType/'.$landTypes->land_type_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$landTypes->land_type_id.','."'lnd_land_type'".','."'land_type_id'".');"><i class="fa fa-trash-o"></i></button>';
+		         }
 
 	           /**end roles check**/
 

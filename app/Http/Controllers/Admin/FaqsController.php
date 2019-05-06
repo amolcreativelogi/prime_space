@@ -152,32 +152,38 @@ class FaqsController extends Controller {
             
             
             //create edit delete buttons if roles are assigned else not
-            $viewButton="";
-            $updateSequenceButton="";
-            $deleteButton="";
 
-            $viewButton = '<a href="'.url('admin/faq/list/'.$faqs->category_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="View All"><i class="fa fa-eye"></i></a> ';
+            if(!empty($unauthorizedRoles)){
+              $viewButton="";
+              $updateSequenceButton="";
+              $deleteButton="";
 
-              if(!empty($unauthorizedRoles) && in_array('update_sequence',$unauthorizedRoles)){
-            $updateSequenceButton ='<a href="'.url('admin/faq/updateFaqSequence/'.$faqs->category_id.'').'" data-toggle="tooltip" title="" class="btn btn-success" data-original-title="Update Question Sequence">Update Sequence</a>  ';
+              $viewButton = '<a href="'.url('admin/faq/list/'.$faqs->category_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="View All"><i class="fa fa-eye"></i></a> ';
+
+                if(in_array('update_sequence',$unauthorizedRoles)){
+              $updateSequenceButton ='<a href="'.url('admin/faq/updateFaqSequence/'.$faqs->category_id.'').'" data-toggle="tooltip" title="" class="btn btn-success" data-original-title="Update Question Sequence">Update Sequence</a>  ';
+              }
+
+             
+                if(in_array('delete',$unauthorizedRoles)){ 
+               $deleteButton ='<button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete All"  onclick="DeleteFaqByCategory('.$faqs->category_id.','."'tbl_faqs'".','."'category_id'".');"><i class="fa fa-trash-o"></i></button>';
+               }
+
+            
+
+               $button =  $viewButton;
+               if( !empty($updateSequenceButton) || !empty($deleteButton)){
+
+                    $button .= $updateSequenceButton.$deleteButton;
+               }else{
+                    $button = '-';
+               }
+
+               $row[] = $button;
+
+            }else{
+              $row[] ='<a href="'.url('admin/faq/list/'.$faqs->category_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="View All"><i class="fa fa-eye"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete All"  onclick="DeleteFaqByCategory('.$faqs->category_id.','."'tbl_faqs'".','."'category_id'".');"><i class="fa fa-trash-o"></i></button> <a href="'.url('admin/faq/updateFaqSequence/'.$faqs->category_id.'').'" data-toggle="tooltip" title="" class="btn btn-success" data-original-title="Update Question Sequence">Update Sequence</a>';
             }
-
-           
-              if(!empty($unauthorizedRoles) && in_array('delete',$unauthorizedRoles)){ 
-             $deleteButton ='<button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete All"  onclick="DeleteFaqByCategory('.$faqs->category_id.','."'tbl_faqs'".','."'category_id'".');"><i class="fa fa-trash-o"></i></button>';
-             }
-
-          
-
-             $button =  $viewButton;
-             if( !empty($updateSequenceButton) || !empty($deleteButton)){
-
-                  $button .= $updateSequenceButton.$deleteButton;
-             }else{
-                  $button = '-';
-             }
-
-             $row[] = $button;
 
              /**end roles check**/
 

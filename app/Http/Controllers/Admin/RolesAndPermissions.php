@@ -154,58 +154,98 @@ class RolesAndPermissions extends Controller
     //get unauthorized roles to admin 
 
     public function getUnauthorizedRoles($admin_login_id=NULL,$use_in=NULL,$sub_module_name=NULL){
-    	//$admin_login_id = 2;
 
-    	$getAdminRoles = DB::table('tbl_assigned_roles')
-    	->select('tbl_assigned_roles.role_id')
-    	->join('tbl_admin_types', 'tbl_admin_types.admin_type_id', '=', 'tbl_assigned_roles.admin_type_id')
-    	->join('tbl_admin_login', 'tbl_admin_login.admin_type_id', '=', 'tbl_admin_types.admin_type_id')
-    	 ->where('tbl_admin_types.admin_type_id','!=','1')
-    	->where(['tbl_assigned_roles.is_deleted'=>0,'tbl_assigned_roles.status'=>1])
+    	//get admin details
+    	!empty($admin_login_id)?$admin_login_id:$_SESSION['admin_login_id'];
+
+    	$getAdminDetails = DB::table('tbl_admin_login')
+    	->select('tbl_admin_login.admin_login_id','tbl_admin_types.admin_type','tbl_admin_types.admin_type_id')
+    	->leftjoin('tbl_admin_types', 'tbl_admin_types.admin_type_id', '=', 'tbl_admin_login.admin_type_id')
+    	->where(['tbl_admin_types.status'=>1,'tbl_admin_types.is_deleted'=>0])
+    	->where(['tbl_admin_login.status'=>1,'tbl_admin_login.is_deleted'=>0])
     	->where(['tbl_admin_login.admin_login_id'=>$admin_login_id])->first();
-
+      //print_r($getAdminDetails);die;
     	//get unauthorized routes
+
     	$arrUnauthorizedRoles=array();
-    	if(isset($getAdminRoles->role_id) && !empty($getAdminRoles->role_id)){
+    	if(!empty($getAdminDetails) && ($getAdminDetails->admin_type_id == 1)){ //main admin
+    		//show all menus
+    		$unauthorizedRoles=array();
+    		$arrUnauthorizedRoles = ($use_in=='footer')?json_encode($unauthorizedRoles):$unauthorizedRoles;
+    	}else if(!empty($getAdminDetails) && ($getAdminDetails->admin_type_id != 1)){//not main admin
 
-    		if($use_in == 'footer'){
-	    		$unauthorizedRoles = DB::table('tbl_child_roles')->select('child_role_id','action_name','route_url')->whereRaw('child_role_id NOT IN('.$getAdminRoles->role_id.')')->where(['is_deleted'=>0,'status'=>1])->whereRaw('action_name IN("list","add","update_sequence")')->get();
+    		$admin_type_id = $getAdminDetails->admin_type_id;
+    		//get roles
+    		$getAdminRoles = DB::table('tbl_assigned_roles')
+	    	->select('tbl_assigned_roles.role_id')
+	    	->where(['tbl_assigned_roles.is_deleted'=>0,'tbl_assigned_roles.status'=>1])
+	    	->where(['tbl_assigned_roles.admin_type_id'=>$admin_type_id])->first();
 
-	    		//not assigned main role names
-	    		$notAssignedMenus = 
-	    		DB::table('tbl_main_roles')->select('main_module_key')->whereRaw('main_role_id  NOT IN(
+		    	if($use_in == 'footer'){//ajax call 
+
+		    		if(isset($getAdminRoles->role_id) && !empty($getAdminRoles->role_id)){
+		    		  $unauthorizedRoles = DB::table('tbl_child_roles')->select('child_role_id','action_name','route_url')->whereRaw('child_role_id NOT IN('.$getAdminRoles->role_id.')')->where(['is_deleted'=>0,'status'=>1])->whereRaw('action_name IN("list","add","update_sequence")')->get();
+
+		    		//not assigned main role names
+		    		$notAssignedMenus = 
+		    		DB::table('tbl_main_roles')->select('main_module_key')->whereRaw('main_role_id  NOT IN(
+		    				SELECT main_role_id FROM tbl_sub_roles WHERE sub_role_id IN
+		    				(
+		        				select sub_role_id from tbl_child_roles where child_role_id in('.$getAdminRoles->role_id.') and is_deleted=0 and status =1
+		    				)
+						)')->where(['is_deleted'=>0,'status'=>1])->get();
+
+
+		    		
+
+		    		}else{
+		    			  $unauthorizedRoles=array();
+		    			  $notAssignedMenus = 
+		    		DB::table('tbl_main_roles')->select('main_module_key')->whereRaw('main_role_id  IN(
+		    				SELECT main_role_id FROM tbl_sub_roles WHERE sub_role_id IN
+		    				(
+		        				select sub_role_id from tbl_child_roles where is_deleted=0 and status =1
+		    				)
+						)')->where(['is_deleted'=>0,'status'=>1])->get();
+		    		}
+
+		    		$arrUnauthorizedRoles=array('notAssignedMenus'=>$notAssignedMenus,
+		    	    'notAssignedActions'=>$unauthorizedRoles);
+		    		$arrUnauthorizedRoles = json_encode($arrUnauthorizedRoles);
+
+		    	}else{ //controller call to hide datatable buttons edit/delete
+
+			    	if(isset($getAdminRoles->role_id) && !empty($getAdminRoles->role_id)){
+			    		$unauthorizedRoles = DB::table('tbl_child_roles as croles')->
+			    		select(DB::raw("(GROUP_CONCAT(croles.action_name)) as `action_name`"),)
+			    		
+			    		->join('tbl_sub_roles AS sroles', 'croles.sub_role_id', '=', 'sroles.sub_role_id')
+			    		->join('tbl_main_roles AS mroles', 'sroles.main_role_id', '=', 'mroles.main_role_id')
+			    		->where(['croles.is_deleted'=>0,'croles.status'=>1])->whereRaw('croles.child_role_id IN('.$getAdminRoles->role_id.') and croles.action_name IN("view","edit","delete","update_sequence")')->where('sroles.sub_module_key',$sub_module_name)->first();
+			    		if(!empty($unauthorizedRoles)){
+			    			$arrUnauthorizedRoles=explode(',',$unauthorizedRoles->action_name);
+
+			    		}
+			    	}
+			    }
+	    	}else{
+	    		 $unauthorizedRoles=array();
+	    			  $notAssignedMenus = 
+	    		DB::table('tbl_main_roles')->select('main_module_key')->whereRaw('main_role_id  IN(
 	    				SELECT main_role_id FROM tbl_sub_roles WHERE sub_role_id IN
 	    				(
-	        				select sub_role_id from tbl_child_roles where child_role_id in('.$getAdminRoles->role_id.') and is_deleted=0 and status =1
+	        				select sub_role_id from tbl_child_roles where is_deleted=0 and status =1
 	    				)
 					)')->where(['is_deleted'=>0,'status'=>1])->get();
-
+	    		
 
 	    		$arrUnauthorizedRoles=array('notAssignedMenus'=>$notAssignedMenus,
 	    	    'notAssignedActions'=>$unauthorizedRoles);
-	    		$arrUnauthorizedRoles = json_encode($arrUnauthorizedRoles);
-	    	 	
-	    	}else{
 
-
-	    		$unauthorizedRoles = DB::table('tbl_child_roles as croles')->
-	    		select(DB::raw("(GROUP_CONCAT(croles.action_name)) as `action_name`"))
-	    		
-	    		->join('tbl_sub_roles AS sroles', 'croles.sub_role_id', '=', 'sroles.sub_role_id')
-	    		->join('tbl_main_roles AS mroles', 'sroles.main_role_id', '=', 'mroles.main_role_id')
-	    		->where(['croles.is_deleted'=>0,'croles.status'=>1])->whereRaw('croles.child_role_id IN('.$getAdminRoles->role_id.') and croles.action_name IN("view","edit","delete","update_sequence")')->where('sroles.sub_module_key',$sub_module_name)->first();
-	    		if(!empty($unauthorizedRoles)){
-	    			$arrUnauthorizedRoles=explode(',',$unauthorizedRoles->action_name);
-
-	    		}
-	    	    
-
+	    		$arrUnauthorizedRoles = ($use_in=='footer')?json_encode($arrUnauthorizedRoles):$unauthorizedRoles;
 	    	}
-
-
-	     }
-         //print_r($unauthorizedRoles);die;	
-         return $arrUnauthorizedRoles;
+    	///print_r($arrUnauthorizedRoles);die;
+        return $arrUnauthorizedRoles;
         
     }
 
@@ -310,7 +350,38 @@ class RolesAndPermissions extends Controller
 
                  $roleTree .='</ul>';
 	    		 $row[]=$roleTree;
-	    		 $row[] ='<a href="'.url('admin/roles/assign_roles/'.$adminRoles->id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$adminRoles->id.','."'tbl_assigned_roles'".','."'id'".');"><i class="fa fa-trash-o"></i></button>';
+
+	    		  /**check assigned roles and permission for  loggedin user and restrict edit delete access**/
+	           $unauthorizedRoles =$this->getUnauthorizedRoles($_SESSION['admin_login_id'],'controller','roles');
+         		
+	          //create edit delete buttons if roles are assigned else not
+         	 
+	          if(!empty($unauthorizedRoles)){
+	          	 $editButton="";
+	             $deleteButton="";
+		          if(in_array('edit',$unauthorizedRoles)){
+		          $editButton ='<a href="'.url('admin/roles/assign_roles/'.$adminRoles->id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  ';
+		          }
+		           if(in_array('delete',$unauthorizedRoles)){ 
+		           $deleteButton ='<button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$adminRoles->id.','."'tbl_assigned_roles'".','."'id'".');"><i class="fa fa-trash-o"></i></button>';
+		           }
+
+		           if( !empty($editButton) || !empty($deleteButton)){
+
+		           		$button = $editButton.$deleteButton;
+		           }else{
+		           	    $button = '-';
+		           }
+		           $row[] = $button;
+		       
+		     }else{
+		     	$row[] ='<a href="'.url('admin/roles/assign_roles/'.$adminRoles->id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$adminRoles->id.','."'tbl_assigned_roles'".','."'id'".');"><i class="fa fa-trash-o"></i></button>';
+		     }
+
+	          
+
+	           /**end roles check**/
+	    		/* $row[] ='<a href="'.url('admin/roles/assign_roles/'.$adminRoles->id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$adminRoles->id.','."'tbl_assigned_roles'".','."'id'".');"><i class="fa fa-trash-o"></i></button>';*/
 
 	          $data[] = $row;
 	        }
