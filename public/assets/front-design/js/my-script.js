@@ -176,7 +176,7 @@ $(function(){
 					required :"Password field is required",
 				 },
 				 privacy_policy_check:{
-					required :"Terms of service select is required",
+					required :"Please check terms of service and privacy policy",
 				 }
 			},
 		submitHandler: function(form) {
@@ -507,7 +507,7 @@ jQuery('#transtodate').datetimepicker({
 $(".modal").on("hidden.bs.modal", function(){
 
 	 $('#form-signup, #form-login, #form-password')
-    .find("input[type=text],textarea,select")
+    .find("input[type=text],input[type=password],textarea,select")
        .val('')
        .end()
     .find("input[type=checkbox], input[type=radio]")

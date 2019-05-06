@@ -21,7 +21,7 @@
     <tbody>
       <?php foreach($getParkingList as $plist) {  ?>
       <tr>
-        <td><?php echo $plist->name; ?></td>
+        <td> <a href="<?php echo URL::to('/user/parkingdetails/'.$plist->property_id.''); ?>" class="viewprop"><?php echo $plist->name; ?></a></td>
         <td><?php echo $plist->location; ?></td>
         <td><?php echo ($plist->status == 1) ? 'Active' : 'Inactive'; ?></td>
         <td class="action">

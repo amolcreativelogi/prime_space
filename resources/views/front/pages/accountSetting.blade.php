@@ -16,9 +16,11 @@
 					  <li class="nav-item">
 					    <a class="nav-link" data-toggle="pill" href="#astab-02">switch user</a>
 					  </li>
+					  <?php if($_SESSION['user']['user_type_permission'] == 'host') {  ?>
 					  <li class="nav-item">
 					    <a class="nav-link <?php if($_SESSION['user']['is_payment_setup'] == 0) echo 'active' ?>" data-toggle="pill" href="#astab-03">payment setup</a>
 					  </li>
+					 <?php } ?>
 					</ul>
 				</div>
 				<div class="col-lg-5 col-md-5 col-sm-12">
@@ -69,6 +71,9 @@
 					  	<img src="{{ URL::asset('public') }}/assets/front-design/images/user.svg" title="" alt="">
 						</a>
 					  </div>
+
+
+
 					  <div class="tab-pane container fade <?php if($_SESSION['user']['is_payment_setup'] == 0) echo 'active' ?>" id="astab-03">
 					  	<h3>payment setup</h3>
 					  	<form class="site-form">
@@ -85,8 +90,11 @@
                             		 <a class="bluebtn" target="_blank" href="https://connect.stripe.com/express/oauth/authorize?response_type=code&amp;client_id=ca_Es9WFPz9BU0y2g8KNZktUldht7TW6BRh" class="connect-button"><span>Connect with Stripe</span></a>
                             	</div>
                             </div>
-
                         </div>
+
+                     
+
+
 					  	</form>
 					  	<!-- <form class="site-form">
 					  		<div class="row">

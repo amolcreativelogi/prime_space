@@ -191,6 +191,20 @@ class MasterController extends Controller
 	    }
 	}
 
+	function DeleteRecord_hostuser()
+	{
+		echo 'ss';
+	  	$deleteRecord  = DB::table($_POST['table'])->where($_POST['dbid'], $_POST['id'])->delete();
+	    if($deleteRecord)
+	    {
+	        echo '{"code":"200"}';
+	    }
+	    else
+	    {
+	        echo '{"code":"100"}';
+	    }
+	}
+
 
 	 function DeleteRecordWithChild()
 	{

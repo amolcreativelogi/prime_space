@@ -91,7 +91,7 @@ class UsersController extends Controller
             $viewButton ='<a href="'.url('admin/viewUsersProfile/'.$carT->user_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="View Profile"><i class="fa fa-eye"></i></a>  ';
             }
               if(!empty($unauthorizedRoles) && in_array('delete',$unauthorizedRoles)){ 
-             $deleteButton ='<button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$carT->user_id.','."'prk_user_registrations'".','."'user_id'".');"><i class="fa fa-trash-o"></i></button>';
+             $deleteButton ='<button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord_hostuser('.$carT->user_id.','."'prk_user_registrations'".','."'user_id'".');"><i class="fa fa-trash-o"></i></button>';
              }
 
              if( !empty($viewButton) || !empty($deleteButton)){
@@ -138,7 +138,7 @@ class UsersController extends Controller
 
 		$query = DB::table('prk_user_registrations')->select('firstname','lastname','email_id','user_id','user_type_id','is_deleted');
 		if($_POST['search']['value'] && $_POST['search']['value'] != 'clear') {
-	    $query->where('firstname', 'like', '%' .  $_POST['search']['value'] . '%');
+		$query->where('firstname', 'like', '%' .  $_POST['search']['value'] . '%');
 		$query->orWhere('lastname', 'like', '%' .  $_POST['search']['value'] . '%');
 		$query->orWhere('email_id', 'like', '%' .  $_POST['search']['value'] . '%');
 		}
@@ -169,7 +169,7 @@ class UsersController extends Controller
 	           $row[] = $carT->lastname;
 	           $row[] = $carT->email_id;
 	           $row[] = $this->getUseType($carT->user_type_id);
-	           $row[] ='<a href="'.url('admin/viewUsersProfile/'.$carT->user_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="View Profile"><i class="fa fa-eye"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$carT->user_id.','."'prk_user_registrations'".','."'user_id'".');"><i class="fa fa-trash-o"></i></button>';
+	           $row[] ='<a href="'.url('admin/viewUsersProfile/'.$carT->user_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="View Profile"><i class="fa fa-eye"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord_hostuser('.$carT->user_id.','."'prk_user_registrations'".','."'user_id'".');"><i class="fa fa-trash-o"></i></button>';
 	          $data[] = $row;
 	        }
 	      $output = array(
@@ -257,7 +257,7 @@ class UsersController extends Controller
 	           $row[] = $carT->lastname;
 	           $row[] = $carT->email_id;
 	           $row[] = $this->getUseType($carT->user_type_id);
-	           $row[] ='<a href="'.url('admin/viewUsersProfile/'.$carT->user_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="View Profile"><i class="fa fa-eye"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$carT->user_id.','."'prk_user_registrations'".','."'user_id'".');"><i class="fa fa-trash-o"></i></button>';
+	           $row[] ='<a href="'.url('admin/viewUsersProfile/'.$carT->user_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="View Profile"><i class="fa fa-eye"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord_hostuser('.$carT->user_id.','."'prk_user_registrations'".','."'user_id'".');"><i class="fa fa-trash-o"></i></button>';
 	          $data[] = $row;
 	        }
 	      $output = array(

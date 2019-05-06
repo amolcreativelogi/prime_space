@@ -189,7 +189,7 @@ class RolesAndPermissions extends Controller
 
 
 	    		$unauthorizedRoles = DB::table('tbl_child_roles as croles')->
-	    		select(DB::raw("(GROUP_CONCAT(croles.action_name)) as `action_name`"),)
+	    		select(DB::raw("(GROUP_CONCAT(croles.action_name)) as `action_name`"))
 	    		
 	    		->join('tbl_sub_roles AS sroles', 'croles.sub_role_id', '=', 'sroles.sub_role_id')
 	    		->join('tbl_main_roles AS mroles', 'sroles.main_role_id', '=', 'mroles.main_role_id')

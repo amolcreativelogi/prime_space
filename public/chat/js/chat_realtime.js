@@ -570,10 +570,10 @@ var chat_realtime = function(j, k, l, m, n, imageDir) {
                 '<': '',
                 '>': ''
             },
-            1000: {
-                singular: 'just now',
-                plural: '# seconds'
-            },
+            // 1000: {
+            //     singular: 'just now',
+            //     plural: '# seconds'
+            // },
             60000: {
                 singular: '1 minute',
                 plural: '# minutes'
@@ -592,7 +592,7 @@ var chat_realtime = function(j, k, l, m, n, imageDir) {
             }
         };
 
-        var timespans = [1000, 60000, 3600000, 86400000, 31540000000];
+        var timespans = [60000, 3600000, 86400000, 31540000000];
         var parsedTime = Date.parse(time.replace(/\-00:?00$/, ''));
 
         if (parsedTime && Date.now) {
@@ -653,7 +653,7 @@ var chat_realtime = function(j, k, l, m, n, imageDir) {
             g = a.getSeconds(),
             date = d + '-' + (c < 10 ? '0' + c : c) + '-' + (b < 10 ? '0' + b : b) + ' ' + (e < 10 ? '0' + e : e) + ':' + (f < 10 ? '0' + f : f) + ':' + (g < 10 ? '0' + g : g);
         var il = tampungImg.length;
-        if (document.getElementById('comment').value != '') {
+        if (document.getElementById('comment').value != '' || $('#reviewImg img').length != 0) {
             ajax("POST", "data=send&name=" + m + "&ke=" + uKe + "&avatar=" + n + "&message=" + document.getElementById('comment').value + "&images=" + JSON.stringify(tampungImg) + "&tipe=" + uTipe + "&date=" + date, function(res) {
 
                 var a = JSON.parse(res);

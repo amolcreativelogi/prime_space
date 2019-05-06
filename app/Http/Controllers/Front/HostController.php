@@ -48,7 +48,7 @@ class HostController extends Controller
         	['getParkingList'=>$getParkingList]
         );
 	}
-
+ 
 	public function ParkingDetails($parkingId)
     {	
     	$propertyDetails = DB::table('prk_add_property')->select('prk_add_property.created_at','firstname','lastname','property_id','name','location','zip_code','description','longitude','latitude','ev_charging','wheelchair_accessible','prk_add_property.status')->leftJoin('prk_user_registrations', 'prk_user_registrations.user_id', '=', 'prk_add_property.user_id')->where('prk_add_property.property_id', '=', $parkingId)->where('prk_add_property.is_deleted', '=', 0)->first();
@@ -69,11 +69,26 @@ class HostController extends Controller
 
     	$getPropertyImagesFloorMap =  DB::table('prk_add_property_files')->select('name','document_type_id','default_file')->where('prk_add_property_files.property_id', '=', $parkingId)->where('prk_add_property_files.document_type_id', '=', 2)->get();
 
-    
 
-    	
+    	$getcancellationpolicies = DB::table('tbl_mstr_cancellation_policies as tcp')
+        ->select(
+            'tcp.cancellation_policy_id',
+            'cancellation_policy_text',
+            'cancellation_type',
+            'tca.cancellation_type_id',
+            DB::raw("(GROUP_CONCAT(cancellation_policy_text SEPARATOR ',')) as `cancellation_policy_text`"),
+            DB::raw("(GROUP_CONCAT(cancellation_percentage SEPARATOR ',')) as `cancellation_percentage`")
+            )
+         ->leftJoin('tbl_mstr_cancellation_type as tca', 'tca.cancellation_type_id', '=', 'tcp.cancellation_type_id')
+         ->leftJoin('prk_add_property_cancellation_policies as tapcp', 'tapcp.cancellation_policy_type_id', '=', 'tca.cancellation_type_id')
+        ->where('tapcp.property_id', '=', $parkingId)
+        ->where('tca.status', '=', 1)
+        ->where('tca.is_deleted', '=', 0)
+        ->groupBy('tca.cancellation_type_id')
+        ->first();
+        
 
-    	return view('front.host.parking_details')->with('propertyDetails', $propertyDetails)->with('getAmenities', $getAmenities)->with('getPropertyrent', $getPropertyrent)->with('getPropertyType', $getPropertyType)->with('getPropertyImagesandDoc', $getPropertyImagesandDoc)->with('getPropertyImagesFloorMap', $getPropertyImagesFloorMap)->with('getPropertyDoc', $getPropertyDoc);
+    	return view('front.host.parking_details')->with('propertyDetails', $propertyDetails)->with('getAmenities', $getAmenities)->with('getPropertyrent', $getPropertyrent)->with('getPropertyType', $getPropertyType)->with('getPropertyImagesandDoc', $getPropertyImagesandDoc)->with('getPropertyImagesFloorMap', $getPropertyImagesFloorMap)->with('getPropertyDoc', $getPropertyDoc)->with('getcancellationpolicies', $getcancellationpolicies);
     }
 
 

@@ -53,7 +53,7 @@ Route::post('/admin/getCarType','Admin\MasterController@getCarType');
 /*DELETE RECORDS*/
 
 Route::post('/admin/DeteteRecord','Admin\MasterController@DeteteRecord');
-
+Route::post('/admin/DeleteRecord_hostuser','Admin\MasterController@DeleteRecord_hostuser');
 Route::post('/admin/DeleteRecordWithChild','Admin\MasterController@DeleteRecordWithChild');
 
 

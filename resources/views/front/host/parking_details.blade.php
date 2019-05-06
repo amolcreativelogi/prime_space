@@ -247,6 +247,40 @@
                   </table>
                 </div>
 
+
+                 <?php if(isset($getcancellationpolicies)) { ?>
+                 <div class="col-lg-12 list-unstyled">
+                  <h4>Cancellation Policy</h4>
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Policy Type</th>
+                       <!--  <th>Default Active</th> -->
+                        <th>Cancellation Policy</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        <td><?php echo $getcancellationpolicies->cancellation_type; ?></td>
+                        <td>
+                          <?php
+                          $typeexplode = explode(',',$getcancellationpolicies->cancellation_policy_text);
+                          $typeexplodeperct = explode(',',$getcancellationpolicies->cancellation_percentage);
+
+                          foreach($typeexplode as $k => $c)
+                          {
+                           $cancelPercentage = (isset($typeexplodeperct[$k])) ? ' - '.$typeexplodeperct[$k].'%' : '';
+                           echo $c.''. $cancelPercentage.'<br>'; 
+                          ?>
+                          <?php } ?>
+                        </td>
+                        </tr>
+                    </tbody>
+                  </table>
+                <a href="<?php echo URL::to('pages/cancellation-and-refund-policy'); ?>">Cancellation Policy</a>
+                </div>
+                <?php } ?>
+
     
 
 
