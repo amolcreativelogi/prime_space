@@ -96,6 +96,13 @@
                     <input type="text" class="form-control" name="zipcode"  value="<?php echo $userdetails->zipcode; ?>">
                   </div>
                 </div>
+
+                 <div class="col-sm-6">
+                  <div class="form-group field-updateprofileform-address required">
+                    <label class="control-label">Date of Birth</label>
+                    <input type="text" readonly class="form-control" name="dob"  value="<?php echo date('d-m-Y',strtotime($userdetails->dob)); ?>">
+                  </div>
+                </div>
                 <div class="col-sm-3"></div>
                 <div class="col-sm-6">
                   <div class="form-group">

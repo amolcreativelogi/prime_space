@@ -84,8 +84,7 @@ class UserController extends Controller
   //           $m->to('amolkharate.wwg@gmail.com', 'Amol')->subject('you have successfully registered with prymestory.com');
   //       });
 
-					Mail::to($request->input('
-						'))->send(new EmailConfirmation);
+					Mail::to($request->input('email_id'))->send(new EmailConfirmation);
 					$data = array('status' => true,
 								  'response' => array('msg' =>'Registered Successfully.'),'url' => '');
  
@@ -131,6 +130,7 @@ class UserController extends Controller
 
 	public function userLogin(Request $request)
 	{
+		//echo md5($request->input('password'));
 
 		$getuserLogin = DB::table('prk_user_registrations')->select('user_id','user_type_id','default_user_type','status','firstname','is_deleted','profile_pic', 'is_payment_setup', 'email_id')->where('is_deleted', '=', 0)->where('email_id', '=', $request->input('email_id'))->where('password', '=', md5($request->input('password')))->first();
 		$array = array();
@@ -223,12 +223,13 @@ class UserController extends Controller
 		$oldPass = md5($request->input('current_pass'));
 		$result  = DB::table('prk_user_registrations')->where('user_id', $user_id)->where('password', $oldPass)->first();
 		if ($result == NULL){
-			return back()->with('error',"Current Password Does'nt Match");
+			return back()->with('error',"All fields should be mandatory.");
 		}
 
 		$request->validate([ 'password' => ['required', 'string', 'min:6', 'confirmed']]);
 
-		$data = array('password'=>md5($request->input('confirm_password')));
+		
+		$data = array('password'=>md5($request->input('password_confirmation')));
 
 		$update  = DB::table('prk_user_registrations')->where('user_id', $user_id)->update($data);
 

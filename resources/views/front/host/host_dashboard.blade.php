@@ -2507,10 +2507,10 @@
                         </thead>
                         <tbody>
                           <?php foreach($getParkingList as $parkList) {
-
+ 
                            ?>
                             <tr>
-                                <td><a href="#"><?php echo $parkList->name; ?></a></td>
+                                <td> <a href="<?php echo URL::to('/user/parkingdetails/'.$parkList->property_id.''); ?>" class="viewprop"><?php echo $parkList->name; ?></a></td>
                                 <td><?php echo $parkList->location; ?></td>
                                 <td>Parking</td>
                                 <!-- <td class="active"><?php echo $parkList->name; ?></td> -->

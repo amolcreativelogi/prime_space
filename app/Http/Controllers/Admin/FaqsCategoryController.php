@@ -190,23 +190,28 @@ class FaqsCategoryController extends Controller {
              $unauthorizedRoles =$this->objRolesPermissions->getUnauthorizedRoles($_SESSION['admin_login_id'],'controller','faq_category');
             
             //create edit delete buttons if roles are assigned else not
-            $editButton="";
-            $deleteButton="";
-            if(!empty($unauthorizedRoles) && in_array('edit',$unauthorizedRoles)){
-            $editButton ='<a href="'.url('admin/faqs/categories/add/'.$faqsCategory->category_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  ';
+
+            if(!empty($unauthorizedRoles)){
+              $editButton="";
+              $deleteButton="";
+              if(in_array('edit',$unauthorizedRoles)){
+              $editButton ='<a href="'.url('admin/faqs/categories/add/'.$faqsCategory->category_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  ';
+              }
+                if(in_array('delete',$unauthorizedRoles)){ 
+               $deleteButton ='<button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteFaqCategory('.$faqsCategory->category_id.','."'tbl_mstr_faq_categories'".','."'category_id'".');"><i class="fa fa-trash-o"></i></button>';
+               }
+
+               if( !empty($editButton) || !empty($deleteButton)){
+
+                  $button = $editButton.$deleteButton;
+               }else{
+                    $button = '-';
+               }
+
+               $row[] = $button;
+            }else{
+              $row[] ='<a href="'.url('admin/faqs/categories/add/'.$faqsCategory->category_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteFaqCategory('.$faqsCategory->category_id.','."'tbl_mstr_faq_categories'".','."'category_id'".');"><i class="fa fa-trash-o"></i></button>';
             }
-              if(!empty($unauthorizedRoles) && in_array('delete',$unauthorizedRoles)){ 
-             $deleteButton ='<button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteFaqCategory('.$faqsCategory->category_id.','."'tbl_mstr_faq_categories'".','."'category_id'".');"><i class="fa fa-trash-o"></i></button>';
-             }
-
-             if( !empty($editButton) || !empty($deleteButton)){
-
-                $button = $editButton.$deleteButton;
-             }else{
-                  $button = '-';
-             }
-
-             $row[] = $button;
 
              /**end roles check**/
 

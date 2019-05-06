@@ -576,15 +576,22 @@
               if(getcancellationpolicies.length !== 0){
                 masters['cancellationpolicies'] ='';
                 $.each(getcancellationpolicies, function(i, v) {
+                    var policyText = v.cancellation_policy_text.split(',');
+                    var i;
+                    //console.log(policyText[0]);
                     masters['cancellationpolicies'] += 
-                            '<div class="row"><div class="col-sm-3"><div class="ad-col"><input type="radio" name="cancellation_policy_id" id="'+ v.cancellation_policy_id +'" value="'+ v.cancellation_policy_id +'"/><label for="'+ v.cancellation_policy_id +'">'+ v.cancellation_type +'</label></div></div><div class="col-sm-9"><p>'+ v.cancellation_policy_text +'</p></div></div>';
+                            '<div class="row"><div class="col-sm-3"><div class="ad-col"><input type="radio" name="cancellation_policy_type_id" id="cancel_'+ v.cancellation_type_id +'" value="'+ v.cancellation_type_id +'"/><label for="cancel_'+ v.cancellation_type_id +'">'+ v.cancellation_type +'</label></div></div><div class="col-sm-9">';
+                           for (i = 0; i < policyText.length; i++) { 
+                           masters['cancellationpolicies'] +=     '<p>'+ policyText[i] +'</p>';
+                           }
+
+                           masters['cancellationpolicies'] +=   '</div></div>';
                    
                 });
                // masters['cancellationpolicies'] += '';
                 $('#get_cancellation_policy').html(masters['cancellationpolicies']);
                 //alert(masters['location_type_input']);
               }
-
 
               //if booking duration type array is not blank for selected module
               if(getLocationTypes.length !== 0){
@@ -765,7 +772,7 @@ $(".next").click(function(){
             required: true,
             minlength: 1
          },
-        "cancellation_policy_id": {
+        "cancellation_policy_type_id": {
             required: true,
             minlength: 1
          },
@@ -830,7 +837,7 @@ $(".next").click(function(){
          "data[location_type]": {
           required: "Location type is required",
         },
-        "cancellation_policy_id": {
+        "cancellation_policy_type_id": {
           required: "Cancellation Policy is required",
         },
         "units": {

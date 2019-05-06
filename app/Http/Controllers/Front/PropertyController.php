@@ -237,15 +237,20 @@ class PropertyController extends Controller
             'tcp.cancellation_policy_id',
             'cancellation_policy_text',
             'cancellation_percentage',
-            'cancellation_type'
+            'cancellation_type',
+            'tca.cancellation_type_id',
+            DB::raw("(GROUP_CONCAT(cancellation_policy_text SEPARATOR ',')) as `cancellation_policy_text`")
             )
          ->leftJoin('tbl_mstr_cancellation_type as tca', 'tca.cancellation_type_id', '=', 'tcp.cancellation_type_id')
         ->where('tcp.module_manage_id', '=', $module_manage_id)
         ->where('tca.status', '=', 1)
         ->where('tca.is_deleted', '=', 0)
+        ->groupBy('tca.cancellation_type_id')
         ->get();
 
+        // foreach($cancellation_policy_id )
 
+      
 
 
          $getPropertyMasters =array('getLocationTypes'=>$getLocationTypes,
@@ -817,14 +822,14 @@ class PropertyController extends Controller
                 }
 
                 $insertcancellation = array(
-                                             'cancellation_policy_id'=>$request['cancellation_policy_id'],
+                                             'cancellation_policy_type_id'=>$request['cancellation_policy_type_id'],
                                              'property_id'=>$propertyId,
                                              'status'=>1,
                                              'created_by'=>'1',
                                              'modified_by'=>'1',
                                              'is_deleted'=>'0');
                 
-                if(!empty($request['cancellation_policy_id'])) {                          
+                if(!empty($request['cancellation_policy_type_id'])) {                          
                 $insertcancellationpolicies  = DB::table($tbl_prefix.'add_property_cancellation_policies')->insert($insertcancellation);
                 }
                // $nextyear = date('Y-m-d', strtotime('+365 days'));

@@ -601,4 +601,5 @@ function DeleteRecord(id,table,tbid)
       return false;
       }
 }
+
 </script>

@@ -49,6 +49,7 @@ class VerifyCsrfToken extends Middleware
          'frontend/bookProperty',
          'frontend/saveProperty',
          'user/DeteteRecord',
+         'admin/DeleteRecord_hostuser',
          'frontend/getModuleList',
          'frontend/getAmenities',
          'user/RemoveParkigImage',

@@ -66,6 +66,30 @@ function DeleteRecord(id,table,tbid)
         }
 }
 
+
+function DeleteRecord_hostuser(id,table,tbid)
+{   
+      if(confirm('Are you sure you want to delete this record?')){
+      var url = '<?php echo URL::to('admin/DeleteRecord_hostuser'); ?>';
+      //alert(isDeleteChild);
+      $.ajax({
+      method: 'POST',
+      url: url,
+      data: {'id':id,'table':table,'dbid':tbid,'_token':"{{ csrf_token() }}"}
+      })
+      .done(function( msg ) {
+      alert('Record Deleted Successfully.');
+      var oTable = $('#example').dataTable();
+      oTable.fnDraw();
+      // var oTable = $('#example').dataTable();
+      // oTable.fnDraw();
+      });
+      }else{
+      return false;
+      }
+}
+
+
 function DeleteRecordWithChild(id,parentTable,tbid,isDeleteChild,childTable)
 {
         if(confirm('Are you sure you want to delete this record?')){
@@ -134,7 +158,7 @@ function DeleteRecordWithChild(id,parentTable,tbid,isDeleteChild,childTable)
   <ul class="collapse">
     <!-- <li><a href="{{ URL::asset('admin/amenityCategoriesExecute') }}/">Amenity Categories</a></li> -->
     <li><a href="{{ URL::asset('admin/amenitiesExecute') }}/">Amenities</a></li>
-    <li><a href="{{ URL::asset('admin/locationTypeExecute') }}/">Location Type</a></li>
+    
     <li><a href="{{ URL::asset('admin/bookingDurationTypeExecute') }}/">Booking Duration Type</a></li>
     <!-- <li><a href="{{ URL::asset('admin/documentTypeExecute') }}/">Document Type</a></li> -->
     <li><a href="{{ URL::asset('admin/unitTypeExecute') }}/">Unit Type</a></li>
@@ -148,7 +172,6 @@ function DeleteRecordWithChild(id,parentTable,tbid,isDeleteChild,childTable)
   <ul class="collapse">
    <li><a href="{{ URL::asset('admin/carTypeExecute') }}/">Car Type</a></li>
    <li><a href="{{ URL::asset('admin/parkingTypeExecute') }}/">Parking Type</a></li>
-
    <li><a href="{{ URL::asset('admin/parkingList') }}/">Parking List</a></li>
   
   </ul>
@@ -203,13 +226,13 @@ function DeleteRecordWithChild(id,parentTable,tbid,isDeleteChild,childTable)
   </ul>
 </li>
 
-@if($_SESSION['admin_login_id'] == 1)
+
 <li id="roles_permissions"><a class="parent" ><i class="fa fa-shopping-cart fa-fw"></i> <span>Roles And Permissions</span></a>
    <ul class="collapse">
       <li><a href="{{ URL::asset('admin/roles')}}/">Manage Roles</a></li>
    </ul>
 </li>
-@endif
+
 
 </ul>
 </nav>

@@ -130,12 +130,13 @@ class CmsPagesController extends Controller {
              $unauthorizedRoles =$this->objRolesPermissions->getUnauthorizedRoles($_SESSION['admin_login_id'],'controller','cms_page');
             
             //create edit delete buttons if roles are assigned else not
+          if(!empty(!empty($unauthorizedRoles))){
             $editButton="";
             $deleteButton="";
-            if(!empty($unauthorizedRoles) && in_array('edit',$unauthorizedRoles)){
+            if(in_array('edit',$unauthorizedRoles)){
             $editButton ='<a href="'.url('admin/cmspages/add/'.$cmsPages->id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  ';
             }
-              if(!empty($unauthorizedRoles) && in_array('delete',$unauthorizedRoles)){ 
+              if(in_array('delete',$unauthorizedRoles)){ 
              $deleteButton ='<button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$cmsPages->id.','."'tbl_cms_pages'".','."'id'".');"><i class="fa fa-trash-o"></i></button>';
              }
 
@@ -147,6 +148,10 @@ class CmsPagesController extends Controller {
              }
 
              $row[] = $button;
+
+             }else{
+              $row[] ='<a href="'.url('admin/cmspages/add/'.$cmsPages->id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$cmsPages->id.','."'tbl_cms_pages'".','."'id'".');"><i class="fa fa-trash-o"></i></button>';
+             }
 
              /**end roles check**/
 
