@@ -46,6 +46,7 @@ class RolesAndPermissions extends Controller
 	    }
 	    
     	return view('admin.roles_permissions.assignRoles')->with(['admin_types_list'=>$admin_types_list,'arrRoles'=>$arrRoles,'editRoles'=>$editRoles]);
+    	exit;
     }
 
    // save assigned roles to admin user

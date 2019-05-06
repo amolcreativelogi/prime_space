@@ -174,7 +174,7 @@ class SearchPropertyController extends Controller
           WHERE addProperty.module_manage_id =".$module_id.$landTypeWhere."
           AND addProperty.status = 1 AND addProperty.is_deleted = 0 AND propRent.status=1 AND propRent.is_deleted=0 AND propRent.duration_type_id=".$duration_type_id." AND addProperty.property_id NOT IN(".$getValidPropIds.")".$amenities
 );
-
+          
           $resultClosest = '';
           $resultCheapest = '';
           if(!empty($result)){
@@ -183,8 +183,6 @@ class SearchPropertyController extends Controller
                 $resultClosest =  $resultClosestSrt->sortBy('distance');
                 $resultCheapest = $resultClosest->sortBy('rent_amount');
           }
-          
-
          }else{
            
          }

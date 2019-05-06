@@ -1,7 +1,7 @@
 
 @include('emails.email_header')
 
-We have received a password change request for your account with Pryme Space. If you have not requested this, please contact the Pryme Space support team.
+We have received a password change request for your account with Pryme Story. If you have not requested this, please contact the Pryme Story support team.
 
 Resetting your new password should be easy. Visit the below link to reset/change your password. 
 

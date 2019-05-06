@@ -84,8 +84,7 @@ class UserController extends Controller
   //           $m->to('amolkharate.wwg@gmail.com', 'Amol')->subject('you have successfully registered with prymestory.com');
   //       });
 
-					Mail::to($request->input('
-						'))->send(new EmailConfirmation);
+					Mail::to($request->input('email_id'))->send(new EmailConfirmation);
 					$data = array('status' => true,
 								  'response' => array('msg' =>'Registered Successfully.'),'url' => '');
  
