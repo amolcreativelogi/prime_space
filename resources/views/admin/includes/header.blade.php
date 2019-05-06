@@ -89,6 +89,7 @@ function DeleteRecord_hostuser(id,table,tbid)
       }
 }
 
+
 function DeleteRecordWithChild(id,parentTable,tbid,isDeleteChild,childTable)
 {
         if(confirm('Are you sure you want to delete this record?')){
@@ -157,7 +158,7 @@ function DeleteRecordWithChild(id,parentTable,tbid,isDeleteChild,childTable)
   <ul class="collapse">
     <!-- <li><a href="{{ URL::asset('admin/amenityCategoriesExecute') }}/">Amenity Categories</a></li> -->
     <li><a href="{{ URL::asset('admin/amenitiesExecute') }}/">Amenities</a></li>
-    <li><a href="{{ URL::asset('admin/locationTypeExecute') }}/">Location Type</a></li>
+    
     <li><a href="{{ URL::asset('admin/bookingDurationTypeExecute') }}/">Booking Duration Type</a></li>
     <!-- <li><a href="{{ URL::asset('admin/documentTypeExecute') }}/">Document Type</a></li> -->
     <li><a href="{{ URL::asset('admin/unitTypeExecute') }}/">Unit Type</a></li>
@@ -171,7 +172,6 @@ function DeleteRecordWithChild(id,parentTable,tbid,isDeleteChild,childTable)
   <ul class="collapse">
    <li><a href="{{ URL::asset('admin/carTypeExecute') }}/">Car Type</a></li>
    <li><a href="{{ URL::asset('admin/parkingTypeExecute') }}/">Parking Type</a></li>
-
    <li><a href="{{ URL::asset('admin/parkingList') }}/">Parking List</a></li>
   
   </ul>
