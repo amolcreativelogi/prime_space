@@ -202,13 +202,13 @@ function DeleteRecordWithChild(id,parentTable,tbid,isDeleteChild,childTable)
   </ul>
 </li>
 
-@if($_SESSION['admin_login_id'] == 1)
+
 <li id="roles_permissions"><a class="parent" ><i class="fa fa-shopping-cart fa-fw"></i> <span>Roles And Permissions</span></a>
    <ul class="collapse">
       <li><a href="{{ URL::asset('admin/roles')}}/">Manage Roles</a></li>
    </ul>
 </li>
-@endif
+
 
 </ul>
 </nav>

@@ -79,24 +79,30 @@ class ParkingController extends Controller
 	           $unauthorizedRoles =$this->objRolesPermissions->getUnauthorizedRoles($_SESSION['admin_login_id'],'controller','parking_list');
 
 	          //create edit delete buttons if roles are assigned else not
-         	  
-	          $deleteButton="";
+
+	          if(!empty($unauthorizedRoles)){
+	          	$deleteButton="";
 	         
-	            if(!empty($unauthorizedRoles) && in_array('delete',$unauthorizedRoles)){ 
+	            if(in_array('delete',$unauthorizedRoles)){ 
 	           		$deleteButton ='<button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$pList->property_id.','."'prk_add_property'".','."'property_id'".');"><i class="fa fa-trash-o"></i></button>';
-	           }
-	           if(!empty($unauthorizedRoles) && in_array('view',$unauthorizedRoles)){ 
-	           		$viewButton ='<a href="'.url('admin/ParkingDetails/'.$pList->property_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-eye"></i></a> ';
-	            }
+		           }
+		           if(in_array('view',$unauthorizedRoles)){ 
+		           		$viewButton ='<a href="'.url('admin/ParkingDetails/'.$pList->property_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-eye"></i></a> ';
+		            }
 
-	           if( !empty($viewButton) || !empty($deleteButton)){
+		           if( !empty($viewButton) || !empty($deleteButton)){
 
-	           		$button = $viewButton.$deleteButton;
-	           }else{
-	           	    $button = '-';
-	           }
+		           		$button = $viewButton.$deleteButton;
+		           }else{
+		           	    $button = '-';
+		           }
 
-	           $row[] = $button;
+		           $row[] = $button;
+	          }else{
+	          	 $row[] ='<a href="'.url('admin/ParkingDetails/'.$pList->property_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-eye"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$pList->property_id.','."'prk_add_property'".','."'property_id'".');"><i class="fa fa-trash-o"></i></button>';
+	          }
+         	  
+	          
 
 	           /**end roles check**/
 	         /* $row[] ='<a href="'.url('admin/ParkingDetails/'.$pList->property_id.'').'" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-eye"></i></a>  <button type="button" data-toggle="tooltip" title="" class="btn btn-danger"  data-original-title="Delete"  onclick="DeleteRecord('.$pList->property_id.','."'prk_add_property'".','."'property_id'".');"><i class="fa fa-trash-o"></i></button>';*/
