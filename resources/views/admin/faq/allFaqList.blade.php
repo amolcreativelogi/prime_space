@@ -125,3 +125,5 @@ function DeleteFaqCategory(id,table,tbid)
 </script> 
 @stop
 
+
+

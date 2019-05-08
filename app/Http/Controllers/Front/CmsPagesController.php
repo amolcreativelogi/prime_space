@@ -15,7 +15,7 @@ class CmsPagesController extends Controller {
   //load add/edit cms page form
   public function loadCmsPage($cms_page_urlkey = NULL)
   { 
-    $getCMSPageData = DB::table('tbl_cms_pages')->where('url_keyword', '=', $cms_page_urlkey)->where('is_deleted', '=', 0)->first();
+    $getCMSPageData = DB::table('tbl_cms_pages')->where('url_keyword', '=', $cms_page_urlkey)->first();
     return view('front.cms_pages.view')->with('getCMSPageData', $getCMSPageData); 
     
   }
