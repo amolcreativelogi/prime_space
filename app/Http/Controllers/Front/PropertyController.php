@@ -798,7 +798,7 @@ class PropertyController extends Controller
                       }
                       $insertPropertyMap  = DB::table($tbl_prefix.'add_property_files')->insert($insertPropertyMap);
                    }
-
+                   
                  if($request['module_manage_id'] == 2)
                  {
                     foreach($request['dayname'] as $key => $dayname)
@@ -818,9 +818,10 @@ class PropertyController extends Controller
                                         'is_deleted'=>'0',
                                         );
                     }
-                    $propertyId  = DB::table($tbl_prefix.'property_days_time_availability')->insert($propAvailDetails);
+                    $property_days_time  = DB::table($tbl_prefix.'property_days_time_availability')->insert($propAvailDetails);
                 }
 
+              
                 $insertcancellation = array(
                                              'cancellation_policy_type_id'=>$request['cancellation_policy_type_id'],
                                              'property_id'=>$propertyId,

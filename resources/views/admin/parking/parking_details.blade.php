@@ -207,6 +207,63 @@
                   </table>
                 </div>
 
+
+          <?php if(isset($getcancellationpolicies)) { ?>
+          <div class="col-lg-12 list-unstyled">
+          <h4>Cancellation Policy</h4>
+          <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th>Policy Type</th>
+           <!--  <th>Default Active</th> -->
+            <th>Cancellation Policy</th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr>
+            <td><?php echo $getcancellationpolicies->cancellation_type; ?></td>
+            <td>
+              <?php
+              $typeexplode = explode(',',$getcancellationpolicies->cancellation_policy_text);
+              $typeexplodeperct = explode(',',$getcancellationpolicies->cancellation_percentage);
+
+              foreach($typeexplode as $k => $c)
+              {
+               $cancelPercentage = (isset($typeexplodeperct[$k])) ? ' - '.$typeexplodeperct[$k].'%' : '';
+               echo $c.''. $cancelPercentage.'<br>'; 
+              ?>
+              <?php } ?>
+            </td>
+            </tr>
+          </tbody>
+          </table>
+          <a target="_blank" href="<?php echo URL::to('pages/cancellation-and-refund-policy'); ?>">Cancellation Policy</a>
+          </div>
+          <?php } ?>
+
+                    <?php if(isset($days_time_availability)) { ?>
+                     <div class="col-lg-12 list-unstyled">
+                  <h4>Booking Availability</h4>
+                    <table class="table table-bordered">
+                    <tbody>
+                      <?php foreach($days_time_availability as $dta) {
+                       ?>
+                      <tr>
+                        <td><?php echo $dta->days; ?></td>
+                        <?php echo ($dta->start_time != '00:00:01') ? '<td>'.$dta->start_time.'</td>' : ''; ?>
+                        <?php echo ($dta->end_time != '23:59:00') ? '<td>'.$dta->end_time.'</td>' : ''; ?>
+                         <td style="display: none;"></td>
+                        <td><?php echo ($dta->status == 0) ? 'Closed' : 'Open'; ?></td>
+
+                      </tr>
+                    <?php } ?>
+                    </tbody>
+                  </table>
+                </div>
+              <?php } ?>
+
+
+
                 <li class="">
                   <span class=""> <div >
                   <label class="btn btn-default btn-on btn-xs active buttonswitch">

@@ -304,6 +304,43 @@
                     </tbody>
                   </table>
                 </div>
+
+
+                
+          <?php if(isset($getcancellationpolicies)) { ?>
+          <div class="col-lg-12 list-unstyled">
+          <h4>Cancellation Policy</h4>
+          <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th>Policy Type</th>
+           <!--  <th>Default Active</th> -->
+            <th>Cancellation Policy</th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr>
+            <td><?php echo $getcancellationpolicies->cancellation_type; ?></td>
+            <td>
+              <?php
+              $typeexplode = explode(',',$getcancellationpolicies->cancellation_policy_text);
+              $typeexplodeperct = explode(',',$getcancellationpolicies->cancellation_percentage);
+
+              foreach($typeexplode as $k => $c)
+              {
+               $cancelPercentage = (isset($typeexplodeperct[$k])) ? ' - '.$typeexplodeperct[$k].'%' : '';
+               echo $c.''. $cancelPercentage.'<br>'; 
+              ?>
+              <?php } ?>
+            </td>
+            </tr>
+          </tbody>
+          </table>
+          <a href="<?php echo URL::to('pages/cancellation-and-refund-policy'); ?>">Cancellation Policy</a>
+          </div>
+          <?php } ?>
+
+
                 <hr>
                 <?php 
                // echo  $_SESSION['user']['user_type_permission'];
@@ -314,7 +351,7 @@
                 <a href="#>" data-toggle="modal"  class=" loginModal cont-host"> contact host</a>
                 <?php } ?>
                 <br/>
-                <!-- <a href='<?php //echo URL('/') ?>/bookNow?moduleid=<?php //echo Request::get("module_id")."&propertyid=".$searchProp->property_id."&car_type_id=".$searchProp->car_type_id."&duration_type_id=".$searchProp->duration_type_id."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="cont-host">Book now</a> -->
+                <a href='<?php echo URL('/') ?>/bookNow?moduleid=<?php echo Request::get("moduleid")."&propertyid=".Request::get("propertyid")."&duration_type_id=".Request::get("duration_type_id")."&location_type_id=".Request::get("location_type_id")."&car_type_id=".Request::get("car_type_id")."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("durationtype")?>' class="cont-host">Book now</a> 
                  <hr>
               </div><!-- pc-right -->
             </div>
