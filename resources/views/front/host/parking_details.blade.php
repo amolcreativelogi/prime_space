@@ -281,6 +281,27 @@
                 </div>
                 <?php } ?>
 
+
+                <?php if(isset($days_time_availability)) { ?>
+                     <div class="col-lg-12 list-unstyled">
+                  <h4>Booking Availability</h4>
+                    <table class="table table-bordered">
+                    <tbody>
+                      <?php foreach($days_time_availability as $dta) {
+                       ?>
+                      <tr>
+                        <td><?php echo $dta->days; ?></td>
+                        <?php echo ($dta->start_time != '00:00:01') ? '<td>'.$dta->start_time.'</td>' : ''; ?>
+                        <?php echo ($dta->end_time != '23:59:00') ? '<td>'.$dta->end_time.'</td>' : ''; ?>
+                         <td style="display: none;"></td>
+                        <td><?php echo ($dta->status == 0) ? 'Closed' : 'Open'; ?></td>
+                      </tr>
+                    <?php } ?>
+                    </tbody>
+                  </table>
+                </div>
+              <?php } ?>
+
     
 
 

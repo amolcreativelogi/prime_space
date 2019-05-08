@@ -101,12 +101,12 @@ function lkForms(ID){
 		contentType: false,
 		beforeSend: function(data){
 			//loaderIn();
-		},
+		}, 
 		success: function (data) {
 			if(data.status == false){
 				$('#'+ID+ ' .msg-gloabal').removeClass('alert alert-success');
 				$('#'+ID+ ' .msg-gloabal').addClass('alert alert-danger');
-				$('#'+ID+ ' .msg-gloabal').html(data.response.msg);
+				$('#'+ID+ ' .msg-gloabal').html('<a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>'+ data.response.msg);
 				//loaderOut({status:0,msg:data.response.msg,url:data.url});
 			}else{
 				if(ID == 'form-signup') 
@@ -120,7 +120,7 @@ function lkForms(ID){
 				}
 				$('#'+ID+ ' .msg-gloabal').removeClass('alert alert-danger');
 				$('#'+ID+ ' .msg-gloabal').addClass('alert alert-success');
-				$('#'+ID+ ' .msg-gloabal').html(data.response.msg);
+				$('#'+ID+ ' .msg-gloabal').html('<a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>'+ data.response.msg);
 				$('#'+ID)[0].reset();
 				if(data.url != '')
 				{

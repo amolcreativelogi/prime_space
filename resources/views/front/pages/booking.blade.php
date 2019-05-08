@@ -206,6 +206,7 @@ $image = 'No Image';
 </div> -->
 </div>
 </div>
+
 </section>
 
 <!-- thanksModal start -->

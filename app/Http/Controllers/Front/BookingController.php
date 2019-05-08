@@ -78,7 +78,22 @@ class BookingController extends Controller
 
            // // }
 
-
+           $getcancellationpolicies = DB::table('tbl_mstr_cancellation_policies as tcp')
+        ->select(
+            'tcp.cancellation_policy_id',
+            'cancellation_policy_text',
+            'cancellation_type',
+            'tca.cancellation_type_id',
+            DB::raw("(GROUP_CONCAT(cancellation_policy_text SEPARATOR ',')) as `cancellation_policy_text`"),
+            DB::raw("(GROUP_CONCAT(cancellation_percentage SEPARATOR ',')) as `cancellation_percentage`")
+            )
+         ->leftJoin('tbl_mstr_cancellation_type as tca', 'tca.cancellation_type_id', '=', 'tcp.cancellation_type_id')
+         ->leftJoin('prk_add_property_cancellation_policies as tapcp', 'tapcp.cancellation_policy_type_id', '=', 'tca.cancellation_type_id')
+        ->where('tapcp.property_id', '=', $property_id)
+        ->where('tca.status', '=', 1)
+        ->where('tca.is_deleted', '=', 0)
+        ->groupBy('tca.cancellation_type_id')
+        ->first();
 
 
           $bookingDataRatings = DB::table('tbl_property_bookings')->where('tbl_property_bookings.property_id', $property_id)
@@ -94,7 +109,7 @@ class BookingController extends Controller
 
           // return view('front.property.property_details')->with(['calRating' => $calRating, 'bookingDataRatings' => $bookingDataRatings, 'getPropertyDetails'=>$getPropertyDetails,'getPropAmenities'=>$getPropAmenities,'getPropertyType'=>$getPropertyType,'getPropImages'=>$getPropImages,'getPropertyImagesFloorMap'=>$getPropertyImagesFloorMap,'getPropertyrent'=>$getPropertyrent,'getLandrent'=>$getLandrent,'module_id'=>$module_id,'land_type_id'=>$land_type_id,'unit_type_id'=>$unit_type_id]);
 
-          return view('front.property.property_details')->with(['calRating' => $calRating, 'bookingDataRatings' => $bookingDataRatings, 'days_time_availability' => $days_time_availability, 'getPropertyDetails'=>$getPropertyDetails,'getPropAmenities'=>$getPropAmenities,'getPropertyType'=>$getPropertyType,'getPropImages'=>$getPropImages,'getPropertyImagesFloorMap'=>$getPropertyImagesFloorMap,'getPropertyrent'=>$getPropertyrent,'getLandrent'=>$getLandrent,'module_id'=>$module_id,'land_type_id'=>$land_type_id,'unit_type_id'=>$unit_type_id,'NOoffloor'=>$NOoffloor,'parkingType'=>$parkingType]);
+          return view('front.property.property_details')->with(['calRating' => $calRating, 'bookingDataRatings' => $bookingDataRatings, 'days_time_availability' => $days_time_availability, 'getPropertyDetails'=>$getPropertyDetails,'getPropAmenities'=>$getPropAmenities,'getPropertyType'=>$getPropertyType,'getPropImages'=>$getPropImages,'getPropertyImagesFloorMap'=>$getPropertyImagesFloorMap,'getPropertyrent'=>$getPropertyrent,'getLandrent'=>$getLandrent,'module_id'=>$module_id,'land_type_id'=>$land_type_id,'unit_type_id'=>$unit_type_id,'NOoffloor'=>$NOoffloor,'parkingType'=>$parkingType,'getcancellationpolicies'=>$getcancellationpolicies]);
     }
 
     public function bookProperty()

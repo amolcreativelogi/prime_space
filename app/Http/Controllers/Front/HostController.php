@@ -86,9 +86,12 @@ class HostController extends Controller
         ->where('tca.is_deleted', '=', 0)
         ->groupBy('tca.cancellation_type_id')
         ->first();
+
+         $days_time_availability =  DB::table('prk_property_days_time_availability')->select('*')->where('property_id', '=', $parkingId)->get();
+
         
 
-    	return view('front.host.parking_details')->with('propertyDetails', $propertyDetails)->with('getAmenities', $getAmenities)->with('getPropertyrent', $getPropertyrent)->with('getPropertyType', $getPropertyType)->with('getPropertyImagesandDoc', $getPropertyImagesandDoc)->with('getPropertyImagesFloorMap', $getPropertyImagesFloorMap)->with('getPropertyDoc', $getPropertyDoc)->with('getcancellationpolicies', $getcancellationpolicies);
+    	return view('front.host.parking_details')->with('propertyDetails', $propertyDetails)->with('getAmenities', $getAmenities)->with('getPropertyrent', $getPropertyrent)->with('getPropertyType', $getPropertyType)->with('getPropertyImagesandDoc', $getPropertyImagesandDoc)->with('getPropertyImagesFloorMap', $getPropertyImagesFloorMap)->with('getPropertyDoc', $getPropertyDoc)->with('days_time_availability', $days_time_availability)->with('getcancellationpolicies', $getcancellationpolicies);
     }
 
 
