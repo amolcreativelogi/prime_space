@@ -379,7 +379,10 @@
                                   
                                <input type="hidden" id="to_destination_<?php echo $searchProp->property_id; ?>" value="<?php echo $searchProp->location; ?>" placeholder="Search Destination">
                                 <a href="javascript:void();" class="get-direction" onclick="getAddress( <?php echo $searchProp->property_id; ?>)"  ><img src="{{ URL::asset('public') }}/assets/front-design/images/get-directions-button.svg" alt=""></a>
-                                <a href='<?php echo URL('/') ?>/propertydetails?moduleid=<?php echo Request::get("module_id")."&propertyid=".$searchProp->property_id."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="prop-details">details</a>
+
+                                <a href='<?php echo URL('/') ?>/propertydetails?moduleid=<?php echo Request::get("module_id")."&propertyid=".$searchProp->property_id."&duration_type_id=".$searchProp->duration_type_id."&location_type_id=".$searchProp->location_type_id."&car_type_id=".$searchProp->car_type_id."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="prop-details">details</a>
+
+                                
                                     <a href='<?php echo URL('/') ?>/bookNow?moduleid=<?php echo Request::get("module_id")."&propertyid=".$searchProp->property_id."&duration_type_id=".$searchProp->duration_type_id."&location_type_id=".$searchProp->location_type_id."&car_type_id=".$searchProp->car_type_id."&fromdate=".Request::get("fromdate")."&todate=".Request::get("todate")."&fromtime=".Request::get("fromtime")."&totime=".Request::get("totime")."&durationtype=".Request::get("activeTab")?>' class="booknow">Book now</a>
           
                                 </div>
