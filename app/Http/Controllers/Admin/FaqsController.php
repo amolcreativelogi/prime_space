@@ -262,9 +262,9 @@ class FaqsController extends Controller {
            
                     //add sequence number
                    $seqArr=array();
-                   $getRecordTobeEdited  = DB::table('tbl_faqs')->select('status')->where(['faq_id'=>$request->input('faq_id'),'category_id'=>$request->input('category_id')])->where('is_deleted', 0)->first();
+                   $getRecordTobeEdited  = DB::table('tbl_faqs')->select('status')->where(['faq_id'=>$request->input('faq_id')])->where('is_deleted', 0)->first();
 
-                 //  print_r($getRecordTobeEdited);die;
+                   //print_r($getRecordTobeEdited);die;
 
                   //if changing status of category
                   if( $getRecordTobeEdited->status != $request->input('status') ){
