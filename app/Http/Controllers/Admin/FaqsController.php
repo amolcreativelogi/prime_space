@@ -92,7 +92,7 @@ class FaqsController extends Controller {
     //get cms page list
     public function getFaqs()
     { 
-    $sort = array('faqs','status');
+    $sort = array('tbl_mstr_faq_categories.category_name','status');
     $myll = $_POST['start'];
     $offset = $_POST['length'];
     if(isset($_POST['order'][0])){
@@ -122,7 +122,7 @@ class FaqsController extends Controller {
     ->groupBy('tbl_mstr_faq_categories.category_id');
     
 
-    if($_POST['search']['value']) {
+    if($_POST['search']['value'] && $_POST['search']['value'] != 'clear') {
       $query->where('category_name', 'like', '%' .  $_POST['search']['value'] . '%');
     }
 

@@ -28,7 +28,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-username"> Title </label>
             <div class="col-sm-10">
-              <input type="text" name="title" value="<?php echo ($editBlogs && $editBlogs->title) ? $editBlogs->title : ''; ?>" placeholder="Blog Title" id="title" class="form-control">
+              <input type="text" name="title" value="{{ ($editBlogs && $editBlogs->title) ? $editBlogs->title :old('title') }}" placeholder="Blog Title" id="title" class="form-control">
 
               <input type="hidden" name="blog_id" value="<?php echo  ($editBlogs && $editBlogs->id) ? $editBlogs->id : ''; ?>" id="blog_id" class="form-control">
 
@@ -62,7 +62,7 @@
             <label class="col-sm-2 control-label" for="input-username"> Short Description </label>
             <div class="col-sm-10">
              
-              <textarea name="short_description" maxlength='125' class="form-control" id="short_description" name="description" placeholder="Short Description"><?php echo ($editBlogs && $editBlogs->short_description) ? $editBlogs->short_description : ''; ?></textarea>
+              <textarea name="short_description" maxlength='125' class="form-control" id="short_description" name="description" placeholder="Short Description"><?php echo ($editBlogs && $editBlogs->short_description) ? $editBlogs->short_description :old('short_description'); ?></textarea>
                 <p>Maximum 125 character</p>
 
                  <?php if($errors->first('short_description')) { ?>
@@ -75,7 +75,7 @@
             <label class="col-sm-2 control-label" for="input-username"> Description </label>
             <div class="col-sm-10">
              
-              <textarea name="description" placeholder=""class="form-control" id="description" name="description"><?php echo ($editBlogs && $editBlogs->description) ? $editBlogs->description : ''; ?></textarea>
+              <textarea name="description" placeholder=""class="form-control" id="description" name="description"><?php echo ($editBlogs && $editBlogs->description) ? $editBlogs->description : old('description'); ?></textarea>
 
                  <?php if($errors->first('description')) { ?>
                  <div class="text-danger"><?php echo $errors->first('description'); ?></div>
@@ -88,8 +88,8 @@
             <label class="col-sm-2 control-label" for="input-username"> Status</label>
             <div class="col-sm-10">
                <select name="status" id="status" class="form-control">
-                <option value="1" <?php echo  ($editBlogs && $editBlogs->status == 1) ? 'selected' : ''; ?>>Active</option>
-                <option value="0" <?php echo  ($editBlogs && $editBlogs->status == 0) ? 'selected' : ''; ?>>Inactive</option>
+                <option value="1" <?php echo  ($editBlogs && $editBlogs->status == 1) ? 'selected' : old('status'); ?>>Active</option>
+                <option value="0" <?php echo  ($editBlogs && $editBlogs->status == 0) ? 'selected' : old('status'); ?>>Inactive</option>
                </select>
              </div>
            </div>
