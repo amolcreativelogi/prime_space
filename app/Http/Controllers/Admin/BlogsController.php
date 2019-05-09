@@ -66,10 +66,14 @@ class BlogsController extends Controller {
           $rules['image']='required';
         
       }
+
        $validator = Validator::make($request->all(), $rules);
         
        if($validator->fails()) {
-           return redirect()->back()->withErrors($validator->errors());
+           return redirect()->back()
+                    ->withInput(Input::all())
+                    ->withErrors($validator->errors());
+          // return redirect()->back()->withInput($request->input())->withErrors($validator->errors());
        }else{
 
           //store blog image
@@ -79,7 +83,7 @@ class BlogsController extends Controller {
             $ext = $image->getClientOriginalExtension();
             //if not image
             if(!in_array($ext, ['jpg','png','png'])){
-              return redirect()->back()->withWarning('Uploaded file should be image');
+              return redirect()->back()->withInput(Input::all())->withWarning('Uploaded file should be image');
             }
              $imagename = strtolower(trim($request->input('title'))).'.'.$image->getClientOriginalExtension();
               $destinationPath = public_path('/images/blogs');
@@ -131,7 +135,9 @@ class BlogsController extends Controller {
                   {
                     return redirect()->back()->withSuccess('Record has been updated successfully');
                   } else {
-                    return redirect('admin/blogs/add');
+                   //rint_r($request->file('image'));die;
+                    $msg = !empty($request->file('image'))?"Record has been updated successfully":"No changes have been made";
+                    return redirect()->back()->withSuccess($msg);
                   }
                 }  else {
      
@@ -145,7 +151,7 @@ class BlogsController extends Controller {
     //get cms page list
     public function getBlogs()
     { 
-    $sort = array('blogs','status');
+    $sort = array('title','status');
     $myll = $_POST['start'];
     $offset = $_POST['length'];
     if(isset($_POST['order'][0])){
@@ -157,7 +163,7 @@ class BlogsController extends Controller {
     $getBlogsTotalRecord = DB::table('tbl_blogs')->select('title','status','id')->where('is_deleted', '=', 0)->get()->count();
 
     $query = DB::table('tbl_blogs')->select('title','status','id')->where('is_deleted', '=', 0);
-    if($_POST['search']['value']) {
+    if($_POST['search']['value'] && $_POST['search']['value'] != 'clear') {
       $query->where('title', 'like', '%' .  $_POST['search']['value'] . '%');
     }
 

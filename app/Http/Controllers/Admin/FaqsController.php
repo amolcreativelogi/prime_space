@@ -92,7 +92,7 @@ class FaqsController extends Controller {
     //get cms page list
     public function getFaqs()
     { 
-    $sort = array('faqs','status');
+    $sort = array('tbl_mstr_faq_categories.category_name','status');
     $myll = $_POST['start'];
     $offset = $_POST['length'];
     if(isset($_POST['order'][0])){
@@ -122,7 +122,7 @@ class FaqsController extends Controller {
     ->groupBy('tbl_mstr_faq_categories.category_id');
     
 
-    if($_POST['search']['value']) {
+    if($_POST['search']['value'] && $_POST['search']['value'] != 'clear') {
       $query->where('category_name', 'like', '%' .  $_POST['search']['value'] . '%');
     }
 
@@ -262,9 +262,9 @@ class FaqsController extends Controller {
            
                     //add sequence number
                    $seqArr=array();
-                   $getRecordTobeEdited  = DB::table('tbl_faqs')->select('status')->where(['faq_id'=>$request->input('faq_id'),'category_id'=>$request->input('category_id')])->where('is_deleted', 0)->first();
+                   $getRecordTobeEdited  = DB::table('tbl_faqs')->select('status')->where(['faq_id'=>$request->input('faq_id')])->where('is_deleted', 0)->first();
 
-                 //  print_r($getRecordTobeEdited);die;
+                   //print_r($getRecordTobeEdited);die;
 
                   //if changing status of category
                   if( $getRecordTobeEdited->status != $request->input('status') ){

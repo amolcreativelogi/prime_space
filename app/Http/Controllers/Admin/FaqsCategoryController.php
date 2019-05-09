@@ -148,7 +148,7 @@ class FaqsCategoryController extends Controller {
     //get cms page list
     public function getFaqCategories()
     { 
-    $sort = array('faqs','status');
+    $sort = array('category_name','status');
     $myll = $_POST['start'];
     $offset = $_POST['length'];
     if(isset($_POST['order'][0])){
@@ -160,8 +160,9 @@ class FaqsCategoryController extends Controller {
     $getFaqsCategoryTotalRecord = DB::table('tbl_mstr_faq_categories')->select('category_name','status','sequence','category_id')->where('is_deleted', '=', 0)->get()->count();
 
     $query = DB::table('tbl_mstr_faq_categories')->select('category_name','sequence','status','category_id')->where('is_deleted', '=', 0);
-    if($_POST['search']['value']) {
+   if($_POST['search']['value'] && $_POST['search']['value'] != 'clear') {
       $query->where('category_name', 'like', '%' .  $_POST['search']['value'] . '%');
+      $query->orWhere('status', 'like', '%' .  $_POST['search']['value'] . '%');
     }
 
     if($offset!= -1) {
