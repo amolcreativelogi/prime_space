@@ -29,15 +29,25 @@
           </div><!-- blogDiv -->
           
             @endforeach
+         
           @endif
           <div class="col-sm-12 custom-pagination">
-             <ul class="pagination">
+            @if(!empty($getBlogs) && ($blogCount >= 12))
+                {{ $getBlogs->links() }}
+            @else
+              <ul class="pagination">
+                <li class="page-item disabled prev"><a class="page-link" href="#">&laquo;</a></li>
+                <li class="page-item"><a class="page-link active" href="{{url('blogs?page=1')}}">1</a></li>
+                <li class="page-item next"><a class="page-link " href="#">&raquo;</a></li>
+              </ul>
+            @endif
+             <!-- <ul class="pagination">
               <li class="page-item disabled prev"><a class="page-link" href="#">&laquo;</a></li>
               <li class="page-item"><a class="page-link active" href="#">1</a></li>
               <li class="page-item"><a class="page-link" href="#">2</a></li>
               <li class="page-item"><a class="page-link" href="#">3</a></li>
               <li class="page-item next"><a class="page-link " href="#">&raquo;</a></li>
-            </ul> 
+            </ul>  -->
           </div>
         </div>
       </div>
