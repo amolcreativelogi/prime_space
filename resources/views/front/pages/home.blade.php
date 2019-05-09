@@ -121,7 +121,7 @@
       <div class="row">
         <div class="col-lg-5 col-md-5 col-sm-12">
           <div class="howworks-box">
-            <h2>How it work</h2>
+            <h2>How it works</h2>
             <ul>
               <li>
                 <span>1</span>
