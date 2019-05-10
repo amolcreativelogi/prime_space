@@ -191,12 +191,14 @@ class BlogsController extends Controller {
       }
   }
 
+
   //load add/edit cms page form
-  public function listBlogs()
+  public function listBlogs(Request $request)
   { 
-    $getBlogs = DB::table('tbl_blogs')->where('status', '=', 1)->where('is_deleted', '=', 0)->orderBy('id', 'desc')->get();//Tbl_blogs::all();
-    return view('front.blog.list')->with('getBlogs', $getBlogs); 
-    
+   //get blogs  //pagination record
+    $getBlogs = DB::table('tbl_blogs')->where('status', '=', 1)->where('is_deleted', '=', 0)->orderBy('id', 'desc')->paginate(12);
+    $blogCount =  DB::table('tbl_blogs')->where('status', '=', 1)->where('is_deleted', '=', 0)->orderBy('id', 'desc')->get()->count();
+    return view('front.blog.list')->with(['getBlogs'=>$getBlogs,'blogCount'=>$blogCount]); 
   }
 
   //load add/edit cms page form
