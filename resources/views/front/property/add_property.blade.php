@@ -660,7 +660,12 @@ $(document).ready(function () {
 $(document).ready(function () {
     var counter = 1;
     $("#second-addrow").on("click", function () {
+        if(counter == <?php echo count($getCarType); ?>)
+        {
 
+          alert('Only <?php echo count($getCarType); ?> car type in list'); 
+          return false;
+        }
         var duration_price_input = $('.duration_price_input').html();
         var newRow = $("<tr>");
         var cols = "";

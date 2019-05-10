@@ -14,7 +14,25 @@ class PagesController extends Controller
 {
     public function host_faq()
     {
-    	return view('front.pages.host_faq');		
+         $getCategory = DB::table('tbl_mstr_faq_categories')->where('category_id', '=', 27)->where('is_deleted', '=', 0)->first();
+
+        $getFAQ = DB::table('tbl_faqs')
+        ->select(
+            'tbl_faqs.faq_id as faqid',
+            'question',
+            'answer',
+            'sequence',
+            'tbl_faqs.status',
+            'tbl_faqs.is_deleted'
+            )
+         ->leftJoin('tbl_faq_sequence', 'tbl_faqs.faq_id', '=', 'tbl_faq_sequence.faq_id')
+         ->where('tbl_faqs.category_id', '=', 27)
+         ->where('tbl_faqs.status', '=', 1)
+         ->where('tbl_faqs.is_deleted', '=', 0)
+         ->orderBy('sequence', 'ASC')
+         ->get();
+
+        return view('front.pages.host_faq')->with(['getCategory'=>$getCategory->category_name,'getFAQ'=>$getFAQ]);
 	}
 
 	public function faq()
@@ -41,10 +59,28 @@ class PagesController extends Controller
     {
     	return view('front.pages.refund_policy');		
 	}
-
+ 
 	public function renter_faq()
-    {
-    	return view('front.pages.renter_faq');		
+    {  
+        $getCategory = DB::table('tbl_mstr_faq_categories')->where('category_id', '=', 29)->where('is_deleted', '=', 0)->first();
+
+        $getFAQ = DB::table('tbl_faqs')
+        ->select(
+            'tbl_faqs.faq_id as faqid',
+            'question',
+            'answer',
+            'sequence',
+            'tbl_faqs.status',
+            'tbl_faqs.is_deleted'
+            )
+         ->leftJoin('tbl_faq_sequence', 'tbl_faqs.faq_id', '=', 'tbl_faq_sequence.faq_id')
+         ->where('tbl_faqs.category_id', '=', 29)
+         ->where('tbl_faqs.status', '=', 1)
+         ->where('tbl_faqs.is_deleted', '=', 0)
+         ->orderBy('sequence', 'ASC')
+         ->get();
+
+    	return view('front.pages.renter_faq')->with(['getCategory'=>$getCategory->category_name,'getFAQ'=>$getFAQ]);		
 	}
     public function notification()
     {
