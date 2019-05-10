@@ -1,3 +1,6 @@
+<?php
+use \App\Http\Controllers\Admin\RolesAndPermissions;
+?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en"><head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -115,6 +118,43 @@ function DeleteRecordWithChild(id,parentTable,tbid,isDeleteChild,childTable)
 
 <link type="text/css" href="{{ URL::asset('public') }}/assets/Admin/css/stylesheet.css" rel="stylesheet" media="screen">
 <script src="{{ URL::asset('public') }}/assets/Admin/js/common.js" type="text/javascript"></script>
+<script type="text/javascript">
+    // A $( document ).ready() block.
+//$( document ).ready(function() {
+$(window).load(function() {
+//$( document ).ajaxComplete(function() {
+   var baseurl = '<?php echo url('/'); ?>'; 
+   var postUrl  = '<?php echo url('/admin/roles/getUnauthorizedRoles/'.$_SESSION['admin_login_id'].'/footer'); ?>';
+   $.get(postUrl, function(data) {
+      
+       if(data != ''){
+        var json = $.parseJSON(data);
+
+        //hide not assigned action inside left main menu
+        $.each(json.notAssignedActions, function(index,value) {
+            //hide list/add/update sequence button
+            if(value['action_name']=='add' || value['action_name']=='list' || value['action_name']=='update_sequence'){
+              var elements = $('a[href="'+baseurl+value['route_url']+'"]').remove();
+            }
+         
+         });
+       /* if(json.notAssignedMenus != ''){
+          //hide not assigned left main menu
+         $.each(json.notAssignedMenus, function(index,value) {
+          $('li[id="'+value['main_module_key']+'"]').remove();
+         });
+         //$('li[id="dashboard"]').remove();
+        }*/
+        
+      }
+    }); 
+
+
+
+
+});
+</script>
+
 </head>
 <body>
 <div id="container">
@@ -152,87 +192,21 @@ function DeleteRecordWithChild(id,parentTable,tbid,isDeleteChild,childTable)
 </div>
 <ul id="menu">
 
-<li id="dashboard" class="active"><a href="{{ URL::asset('admin/dashboard') }}"><i class="fa fa-dashboard fa-fw"></i> <span>Dashboard</span></a></li>
-
-<li id="master"><a class="parent"><i class="fa fa-shopping-cart fa-fw"></i> <span>Master</span></a>
-  <ul class="collapse">
-    <!-- <li><a href="{{ URL::asset('admin/amenityCategoriesExecute') }}/">Amenity Categories</a></li> -->
-    <li><a href="{{ URL::asset('admin/amenitiesExecute') }}/">Amenities</a></li>
-    
-    <li><a href="{{ URL::asset('admin/bookingDurationTypeExecute') }}/">Booking Duration Type</a></li>
-    <!-- <li><a href="{{ URL::asset('admin/documentTypeExecute') }}/">Document Type</a></li> -->
-    <li><a href="{{ URL::asset('admin/unitTypeExecute') }}/">Unit Type</a></li>
-    <li><a href="{{ URL::asset('admin/locationTypeExecute') }}/">Location Type</a></li>
-    <li><a href="{{ URL::asset('admin/cancellationTypeExecute') }}/">Cancellation Type</a></li>
-    <li><a href="{{ URL::asset('admin/cancellationPoliciesExecute') }}/">Cancellation Policies </a></li>
-  </ul>
-</li>
-
-<li id="parking"><a class="parent"><i class="fa fa-shopping-cart fa-fw"></i> <span>Parking</span></a>
-  <ul class="collapse">
-   <li><a href="{{ URL::asset('admin/carTypeExecute') }}/">Car Type</a></li>
-   <li><a href="{{ URL::asset('admin/parkingTypeExecute') }}/">Parking Type</a></li>
-   <li><a href="{{ URL::asset('admin/parkingList') }}/">Parking List</a></li>
-  
-  </ul>
-</li>
-
-<li id="land"><a class="parent"><i class="fa fa-shopping-cart fa-fw"></i> <span>Land</span></a>
-  <ul class="collapse">
-     <li><a href="{{ URL::asset('admin/landTypeExecute') }}/">Land Type</a></li>
-     <li><a href="{{ URL::asset('admin/landList') }}/">Land List</a></li>
-    <!-- <li><a href="{{ URL::asset('admin/amenityCategoriesExecute') }}/">Amenity Categories</a></li> -->
-  </ul>
-</li>
-
-<li id="user"><a class="parent"><i class="fa fa-shopping-cart fa-fw"></i> <span>Users</span></a>
-  <ul class="collapse">
-    <li><a href="{{ URL::asset('admin/Host_Users') }}/">All Users & Host</a></li>
-    <li><a href="{{ URL::asset('admin/Users') }}/">All Customers</a></li>
-    <li><a href="{{ URL::asset('admin/Hosts') }}/">All Host</a></li>
-  </ul>
-</li>
-
-
-<li id="booking" ><a class="parent"><i class="fa fa-shopping-cart fa-fw"></i> <span>Booking</span></a>
-  <ul class="collapse">
-    <li><a href="{{ URL::asset('admin/bookingList') }}/">All Booking</a></li>
-    <li><a href="{{ URL::asset('admin/allParkingBooking') }}/">All Parking Booking</a></li>
-    <li><a href="{{ URL::asset('admin/allLandBooking') }}/">All Land Booking</a></li>
-  </ul>
-</li>
-
-<li id="cms" ><a class="parent" ><i class="fa fa-shopping-cart fa-fw"></i> <span>CMS Pages</span></a>
-   <ul class="collapse">
-      <li><a href="{{ URL::asset('admin/cmspages')}}/">Manage CMS Pages</a></li>
-   </ul>
-</li>
-<li id="blog"><a class="parent" ><i class="fa fa-shopping-cart fa-fw"></i> <span>Blogs</span></a>
-   <ul class="collapse">
-      <li><a href="{{ URL::asset('admin/blogs')}}/">Manage Blogs</a></li>
-   </ul>
-</li>
-<li id="faq"><a class="parent" ><i class="fa fa-shopping-cart fa-fw"></i> <span>FAQ</span></a>
-   <ul class="collapse">
-      <li><a href="{{ URL::asset('admin/faqs/categories')}}/">Manage FAQ Categories</a></li>
-      <li><a href="{{ URL::asset('admin/faq/')}}/">Manage FAQ's</a></li>
-   </ul>
-</li>
-
-<li id="wallet" style="display: none;"><a class="parent"><i class="fa fa-money fa-fw"></i> <span>Wallet</span></a>
-  <ul class="collapse">
-    <li><a href="#">Sales List</a></li>
-    <li><a href="#">Withdraw Requests</a></li>                    
-  </ul>
-</li>
-
-
-<li id="roles_permissions"><a class="parent" ><i class="fa fa-shopping-cart fa-fw"></i> <span>Roles And Permissions</span></a>
-   <ul class="collapse">
-      <li><a href="{{ URL::asset('admin/roles')}}/">Manage Roles</a></li>
-   </ul>
-</li>
-
-
+ <li id="dashboard" class="active"><a href="{{ URL::asset('admin/dashboard') }}"><i class="fa fa-dashboard fa-fw"></i> <span>Dashboard</span></a></li>        
+<?php
+//check assigned roles and permission for  loggedin user and create links
+$authorizedRoles =RolesAndPermissions::getAuthorizedRoles($_SESSION['admin_login_id']);
+if(!empty($authorizedRoles)){
+foreach ($authorizedRoles as $main => $mainRoles) { ?>
+  <li id="{{$main}}"><a class="parent"><i class="fa fa-shopping-cart fa-fw"></i> <span>{{$main}}</span></a>
+      <ul class="collapse">
+      @foreach($mainRoles as $sub=>$subRoles)
+        <li><a href="{{ URL::asset($subRoles['route_url']) }}/">
+          {{$subRoles['sub_module_name']}}</a>
+        </li> 
+      @endforeach
+      </ul>
+  </li>
+<?php }} ?>
 </ul>
 </nav>
