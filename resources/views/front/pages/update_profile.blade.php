@@ -13,7 +13,7 @@
         <div class="col-lg-2 col-md-2 col-sm-12"></div>
         <div class="col-lg-8 col-md-8 col-sm-12">
           <div class="site-form-box">
-            <form  action="{{ URL::to('updatesaveprofile') }}" method="post" enctype="multipart/form-data">
+            <form  action="{{ URL::to('updatesaveprofile') }}" id="updateprofile" method="post" enctype="multipart/form-data">
               @if (\Session::has('success'))
                     <div class="alert alert-success alert-dismissible">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -35,8 +35,6 @@
                     <!-- <label class="control-label">Profile Image</label> -->
                     <?php 
                     
-
-
                     if($userdetails->profile_pic) { 
                       $profiepic = URL::to('public/images/user-profile/'.$userdetails->profile_pic.'');
                       ?> 
@@ -75,12 +73,15 @@
                     <input type="text"  class="form-control"  disabled="" value="<?php echo $userdetails->email_id; ?>">
                   </div>
                 </div>
+                
+
                 <div class="col-sm-6">
                   <div class="form-group field-updateprofileform-mobile">
                     <label class="control-label" >Mobile</label>
-                    <input type="text" class="form-control"  name="contact_no"  value="<?php echo $userdetails->contact_no; ?>">
+                    <input type="text" class="form-control"  name="contact_no" id="contact_no"  value="<?php echo $userdetails->contact_no; ?>">
                   </div>
                 </div>
+
                 <div class="col-sm-6">
                   <div class="form-group field-updateprofileform-address required">
                     <label class="control-label">Address</label>
@@ -106,7 +107,7 @@
                 <div class="col-sm-3"></div>
                 <div class="col-sm-6">
                   <div class="form-group">
-                    <button type="submit" class="bluebtn" name="update-profile-button">Update Profile</button>
+                    <button type="submit" class="bluebtn"  name="update-profile-button">Update Profile</button>
                   </div>
                 </div>
                 <div class="col-sm-3"></div>
@@ -117,7 +118,6 @@
         <div class="col-lg-2 col-md-2 col-sm-12"></div>
       </div>
       </div>
-
   </div>
 </section>
 </div><!-- site-content -->
@@ -138,6 +138,40 @@ function readURL(input) {
 $("#blah").change(function() {
   readURL(this);
 });
-</script>
 
+
+$(function(){
+  //Registration Form
+   $('#updateprofile').validate({
+    rules: {
+        firstname: {
+           required: true
+        },
+        lastname: {
+           required: true
+        },
+        contact_no: {
+          digits: true,
+          minlength: 8,
+          maxlength: 10
+        }
+      },
+    messages: {
+         firstname:{
+          required :"First Name field is required",
+         }, 
+         lastname:{
+          required :"Last Name field is required",
+         }, 
+         contact_no:{
+          minlength: "phone no should be between 8 to 10 character",
+          maxlength: "phone no should be between 8 to 10 character",
+         }
+      },
+    submitHandler: function(form) {
+          $('#updateprofile').submit();
+      }
+   });
+});
+</script>
 @stop

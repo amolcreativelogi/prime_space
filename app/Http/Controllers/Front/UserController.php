@@ -18,7 +18,7 @@ class UserController extends Controller
 {
    public function accountSetting()
    {
-       return view('front.pages.accountSetting');
+       return view('front.pages.accountSetting'); 
    }
     
     public function testEmailLaravel()
@@ -149,12 +149,17 @@ class UserController extends Controller
     		$_SESSION['user']['user_type_id'] = $getuserLogin->user_type_id;
     		$_SESSION['user']['default_user_type'] = $getuserLogin->default_user_type;
     		$_SESSION['user']['profile_pic'] = $getuserLogin->profile_pic;
-        $_SESSION['user']['is_payment_setup'] =  $getuserLogin->is_payment_setup;
+        	$_SESSION['user']['is_payment_setup'] =  $getuserLogin->is_payment_setup;
     		$_SESSION['user']['email_id'] =  $getuserLogin->email_id;
     		if($getuserLogin->default_user_type == 2)
     		{
     			$_SESSION['user']['user_type_permission'] = 'host';
-    			$url = URL::to('/user/host');
+    			if($getuserLogin->is_payment_setup == 0)
+    			{
+    				$url = URL::to('/user/accountSetting');
+    			} else {
+    				$url = URL::to('/user/host');
+    			}
     		} else {
     			$_SESSION['user']['user_type_permission'] = 'customer';
     			$url = URL::to('/user/customer');
@@ -222,24 +227,33 @@ class UserController extends Controller
 		 $user_id = $_SESSION['user']['user_id'];
 		$oldPass = md5($request->input('current_pass'));
 		$result  = DB::table('prk_user_registrations')->where('user_id', $user_id)->where('password', $oldPass)->first();
-		if ($result == NULL){
-			return back()->with('error',"All fields should be mandatory.");
+		if (!$result){
+			//return back()->with('error',"All fields should be mandatory.");
+			$data = array('status' => false,
+						  'response' =>  array('msg' =>'Current password does not match.'),'url' => '');
+			echo json_encode($data);
+			exit;
 		}
 
-		$request->validate([ 'password' => ['required', 'string', 'min:6', 'confirmed']]);
+		//$request->validate([ 'password' => ['required', 'string', 'min:6', 'confirmed']]);
 
-		
 		$data = array('password'=>md5($request->input('password_confirmation')));
-
 		$update  = DB::table('prk_user_registrations')->where('user_id', $user_id)->update($data);
 
 		if($update){
 			Mail::to($result->email_id)->send(new ChangePassword);
-			return back()->with('success', 'Your password has been changed successfully.');
+			$data = array('status' => true,
+						  'response' => array('msg' =>'Your password has been changed successfully.'),'url' => '');
+			
+			//return back()->with('success', 'Your password has been changed successfully.');
 		} else {
 			Mail::to($result->email_id)->send(new ChangePassword);
-			return back()->with('success', 'Your password has been changed successfully.');
+			$data = array('status' => true,
+						  'response' =>  array('msg' =>'Your password has been changed successfully.'),'url' => '');
+			//
+			//return back()->with('success', 'Your password has been changed successfully.');
 		}
+		echo json_encode($data);
 	}
 
 	public function getForgotpass(){

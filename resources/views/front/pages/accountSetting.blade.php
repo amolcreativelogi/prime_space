@@ -25,7 +25,9 @@
 				</div>
 				<div class="col-lg-5 col-md-5 col-sm-12">
 					<div class="tab-content">
-					  <div class="tab-pane container <?php if($_SESSION['user']['is_payment_setup'] == 1) echo 'active' ?>" id="astab-01">
+					<!--   <div class="tab-pane container <?php if($_SESSION['user']['is_payment_setup'] == 1) echo 'active' ?>" id="astab-01"> -->
+
+						<div class="tab-pane container <?php if($_SESSION['user']['user_type_permission'] == 'customer'  || $_SESSION['user']['is_payment_setup'] == 1) echo 'active' ?>" id="astab-01">
 
 						@if (\Session::has('success'))
 						<div class="alert alert-success alert-dismissible">
@@ -47,16 +49,18 @@
 							</ul>
 						</div>
                         @endif
-					  	<form action="{{URL::to('user/submitnewpassword')}}" method="post" class="site-form">
+					  	<form url="{{URL::to('user/submitnewpassword')}}" id="forgotpassword"  method="post" class="site-form">
 							{{csrf_field()}}
+							<div class="msg-gloabalsuccess"></div>
+                            <div class="msg-gloabal"></div>
 							<div class="form-group">
-					  			<input type="password" name="current_pass" class="form-control" placeholder="Old Password">
+					  			<input type="password" name="current_pass" id="current_pass" class="form-control" placeholder="Old Password">
 					  		</div>
 					  		<div class="form-group">
-					  			<input type="password" name="password" class="form-control" placeholder="New Password">
-					  		</div>
+					  			<input type="password" name="password" id="password" class="form-control" placeholder="New Password">
+					  		</div> 
 					  		<div class="form-group">
-					  			<input type="password" name="password_confirmation" class="form-control" placeholder="Confirm New Password">
+					  			<input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Confirm New Password">
 					  		</div>
 					  		<div class="form-group">
 					  		<button type="submit" class="bluebtn" name="login-button">submit</button>
@@ -72,9 +76,8 @@
 						</a>
 					  </div>
 
-
-
-					  <div class="tab-pane container fade <?php if($_SESSION['user']['is_payment_setup'] == 0) echo 'active' ?>" id="astab-03">
+					  <div class="tab-pane container fade <?php if($_SESSION['user']['is_payment_setup'] == 0 && $_SESSION['user']['user_type_permission'] == 'host') echo 'active' ?>" id="astab-03">
+					 <!--  <div class="tab-pane container fade <?php if($_SESSION['user']['is_payment_setup'] == 0) echo 'active' ?>" id="astab-03"> -->
 					  	<h3>payment setup</h3>
 					  	<form class="site-form">
 					  		<div class="row">

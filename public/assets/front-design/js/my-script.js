@@ -121,11 +121,12 @@ function lkForms(ID){
 				$('#'+ID+ ' .msg-gloabal').removeClass('alert alert-danger');
 				$('#'+ID+ ' .msg-gloabal').addClass('alert alert-success');
 				$('#'+ID+ ' .msg-gloabal').html('<a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>'+ data.response.msg);
+
 				$('#'+ID)[0].reset();
 				if(data.url != '')
 				{
-					location.reload();
-					//window.location = data.url;
+					//location.reload();
+					window.location = data.url;
 				}
 			}
 			
@@ -253,7 +254,7 @@ $(function(){
 				}
 			},
 		messages: {
-				  firstname:{
+				 firstname:{
 					required :"First Name field is required",
 				 }, 
 				 lastname:{
@@ -323,6 +324,42 @@ $(function(){
 			},
 		submitHandler: function(form) {
 			lkForms('form-password');
+			//form.submit();
+		  }
+	 });
+});
+
+
+//----------------- Validation of forgot password form ----------------//
+$(function(){
+	//Registration Form
+	 $('#forgotpassword').validate({
+		rules: {
+				current_pass: {
+				   required: true
+				},
+				password: {
+				   required: true
+				},
+				password_confirmation: {
+				   required: true,
+				   equalTo: "#password"
+				}
+			},
+		messages: {
+				 current_pass:{
+					required :"Current password is required",
+				 },
+				 password:{
+					required :"Password is required",
+				 },
+				 password_confirmation:{
+					required :"Confirm Password is required",
+					equalTo :"Password and confirmation password do not match",
+				 }
+			},
+		submitHandler: function(form) {
+			lkForms('forgotpassword');
 			//form.submit();
 		  }
 	 });
@@ -513,6 +550,14 @@ $(".modal").on("hidden.bs.modal", function(){
     .find("input[type=checkbox], input[type=radio]")
        .prop("checked", "")
        .end();
+       $('.error').html('');
+		
+		var validator = $("#form-signup").validate();
+		validator.resetForm();
+		var validator_login = $("#form-login").validate();
+		validator_login.resetForm();
+		var validator_reset_pass = $("#form-password").validate();
+		validator_reset_pass.resetForm();
      //$('form:first *:input[type!=hidden]:first').focus();
 	//alert();
 	//$('#form-signup, #form-login, #form-password')[0].reset();
