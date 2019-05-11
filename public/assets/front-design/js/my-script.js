@@ -365,6 +365,37 @@ $(function(){
 	 });
 });
 
+
+$(function(){
+	//Registration Form
+	 $('#updatepassword').validate({
+		rules: {
+				
+				password: {
+				   required: true
+				},
+				password_confirmation: {
+				   required: true,
+				   equalTo: "#password"
+				}
+			},
+		messages: {
+				 password:{
+					required :"Password is required",
+				 },
+				 password_confirmation:{
+					required :"Confirm password is required",
+					equalTo :"Password and confirmation password do not match",
+				 }
+			},
+		submitHandler: function(form) {
+			lkForms('updatepassword');
+			//form.submit();
+		  }
+	 });
+});
+
+
 jQuery.datetimepicker.setLocale('en');
 
 jQuery('#from').datetimepicker({

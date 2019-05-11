@@ -31,27 +31,27 @@
                                              </ul>
                                         </div>
                                 @endif
-      <div class="col-md-5">
-      <div class="site-signup site-form">
-                   <form  action="{{URL::to('submitForgotpass')}}" method="post">
-                   {!! csrf_field() !!}
-                            <div class="msg-gloabalsuccess"></div>
+                      <div class="col-md-5">
+                      <div class="site-signup site-form">
+                      <form  url="{{URL::to('submitForgotpass')}}" method="post" id="updatepassword">
+                      {!! csrf_field() !!}
+                     <div class="msg-gloabalsuccess"></div>
                             <div class="msg-gloabal"></div>
-                             <input type="hidden" name="access_token" value="<?php echo $_GET['passwordtoken']?>">
+                      <input type="hidden" name="access_token" value="<?php echo $_GET['passwordtoken']?>">
 
-                            <div class="form-group field-loginform-password required has-error">
-                                <input type="password" class="form-control" name="password" placeholder="Password">
-                            </div>
-                            <div class="form-group field-loginform-password required has-error">
-                                <input type="password"  class="form-control" name="password_confirmation" placeholder="Confirm Password">
-                            </div>
+                      <div class="form-group field-loginform-password required has-error">
+                      <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+                      </div>
+                      <div class="form-group field-loginform-password required has-error">
+                      <input type="password"  class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Confirm Password">
+                      </div>
 
-                             
-                            <div class="form-group text-center">
-                                <button type="submit" class="bluebtn" name="reset-password">Reset</button>
-                            </div>
 
-                        </form>              
+                      <div class="form-group text-center">
+                      <button type="submit" class="bluebtn" name="reset-password">Reset</button>
+                      </div>
+
+                      </form>              
       </div>
       </div>
 

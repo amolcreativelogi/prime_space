@@ -257,17 +257,23 @@ class UserController extends Controller
 	}
 
 	public function getForgotpass(){
-		return view('front.pages.getforgotpass');
+		return view('front.pages.getforgotpass'); 
 	}
-
+ 
 	public function submitForgotpass(Request $request){
-		$request->validate([ 'password' => ['required', 'string', 'min:6', 'confirmed']]);
+
+		//$request->validate([ 'password' => ['required', 'string', 'min:6', 'confirmed']]);
 		$success_password  = DB::table('prk_user_registrations')->where('access_token', $request->input('access_token'))->update(['password'=>md5($request->input('password'))]);
 		if ($success_password){
-			return back()->with('success', 'Your Password Has Been Changed Successfully.');
+			$data = array('status' => true,
+						  'response' => array('msg' =>'Your password has been changed successfully.'),'url' => '');
+			//return back()->with('success', 'Your Password Has Been Changed Successfully.');
 		} else {
-			return back()->with('success', 'Your password has been changed successfully.');
+			$data = array('status' => false,
+						  'response' =>  array('msg' =>'Your password has not been changed successfully.'),'url' => '');
+			//return back()->with('success', 'Your password has been changed successfully.');
 		}
+		echo json_encode($data);
 	}
 
 	public function userlogout()
