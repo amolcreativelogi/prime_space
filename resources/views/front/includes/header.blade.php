@@ -16,7 +16,7 @@
 
 <script type="text/javascript" src="{{ URL::asset('public') }}/assets/front-design/js/jquery-1.11.3.min.js"></script>
 
-<script src="{{ URL::asset('public') }}/assets/front-design/js/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.0/dist/jquery.validate.js"></script>
 
 
 </head>

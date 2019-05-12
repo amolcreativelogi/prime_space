@@ -635,14 +635,14 @@ $(document).ready(function () {
         //alert('hia');
         var newRow = $("<tr>");
         var cols = "";
-        cols += '<td class="col-sm-3"><input type="text" class="form-control" placeholder="Enter floor name" name="data[parking][floor_name][]"/></td>';
-        cols += '<td class="col-sm-3"><select name="data[parking][parking_type_id][]"><option value="">Parking Type</option>';
+        cols += '<td class="col-sm-3"><input type="text" class="form-control" placeholder="Enter floor name" name="data[parking][floor_name]['+counter+']" required/></td>';
+        cols += '<td class="col-sm-3"><select name="data[parking][parking_type_id]['+counter+']" required><option value="">Parking Type</option>';
 
         <?php foreach($getParkingType as $parkingType) { ?>
         cols += '<option value="<?= $parkingType->parking_type_id?>"><?= $parkingType->parking_type ?></option>';
         <?php } ?>
 
-        cols += '</select></td><td class="col-sm-3"><input type="text" class="form-control" placeholder="Total Parking spots " name="data[parking][total_parking_spots][]"/></td>';
+        cols += '</select></td><td class="col-sm-3"><input type="text" class="form-control" placeholder="Total Parking spots " name="data[parking][total_parking_spots]['+counter+']" required/></td>';
         cols += '<td class="col-sm-2"><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
         newRow.append(cols);
         $("table.order-list1").append(newRow);
@@ -670,7 +670,7 @@ $(document).ready(function () {
         var newRow = $("<tr>");
         var cols = "";
 
-        cols += '<td class="car_type_id col-sm-3"><select name="data[parking][car_type_id][]"><option value="">Car Type</option>';
+        cols += '<td class="car_type_id col-sm-3"><select name="data[parking][car_type_id]['+counter+']" required><option value="">Car Type</option>';
 
         <?php foreach($getCarType as $carType) { ?>
         cols += '<option value="<?= $carType->car_type_id?>"><?= $carType->car_type ?></option>';
@@ -974,6 +974,7 @@ $('#msform').on('submit', function(e){
     });
 });
 </script>
+
 
 <!--  $("#rent_with_booking_duration_type").html('');
 
