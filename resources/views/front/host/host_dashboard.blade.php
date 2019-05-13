@@ -2515,7 +2515,7 @@
                                 <td>Parking</td>
                                 <!-- <td class="active"><?php echo $parkList->name; ?></td> -->
                                 <td><?php echo ($parkList->status == 1) ? 'Active' : 'Inactive'; ?></td>
-                                <td><?php echo date('d-m-Y H:i:s',strtotime($parkList->created_at)); ?></td>
+                                <td><?php echo date('d-m-Y',strtotime($parkList->created_at)); ?></td>
                             </tr>
 
                           <?php } ?>

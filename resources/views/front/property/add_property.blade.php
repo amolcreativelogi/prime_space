@@ -825,7 +825,7 @@ $(".next").click(function(){
           required: "Total parking spot is required",
         },
         "data[parking][car_type_id][]": {
-          required: "Car type id is required",
+          required: "Car type is required",
         },
         "data[parking][rent_amount][1][]": {
           required: "Hourly Price is required",

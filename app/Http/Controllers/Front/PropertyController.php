@@ -286,7 +286,7 @@ class PropertyController extends Controller
                                     'zip_code'=>$request['data']['zip_code'],
                                     'description'=>$request['data']['property_description'],
                                     //'location_type_id'=>$request['data']['location_type'],
-                                    'status'=>'0',
+                                    'status'=>'1',
                                     'created_by'=>'1',
                                     'modified_by'=>'1',
                                     'is_deleted'=>'0',
