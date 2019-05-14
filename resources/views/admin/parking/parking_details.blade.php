@@ -198,7 +198,16 @@
                     <tbody>
                       <?php foreach($getPropertyImagesFloorMap as $pmap) { ?>
                       <tr>
-                        <td><img src="<?php echo URL::to('/public/images/property-floor-map/'.$pmap->name.''); ?>" width="100"></td>
+                      <?php $ext = pathinfo($pmap->name, PATHINFO_EXTENSION);
+
+                      if($ext == 'pdf'){ ?>
+                          <td><a href="<?php echo URL::to('/public/images/property-floor-map/'.$pmap->name.''); ?>" target="_blank">Propert floor map</a></td>
+                      <?php } else { ?>
+                          <td><img src="<?php echo URL::to('/public/images/property-floor-map/'.$pmap->name.''); ?>" width="100"></td>
+                      <?php } ?>
+
+
+
                         <!-- <td><?php echo $pmap->document_type_id; ?></td> -->
                         <td><?php echo ($pmap->default_file == 1) ? 'Active': 'Inactive'; ?></td>
                       </tr>
